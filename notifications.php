@@ -4,7 +4,7 @@
     <body class="relative">
         <!-- Sidebar Section -->
         <?php include_once 'shared/sidebar.php' ?>
-        <!-- Main Section -->
+        <!-- mobile-sidebar Section -->
         <?php include_once 'shared/mobile-sidebar.php' ?>
         <section class="w-full items-center flex sm:hidden px-[15px] py-[10px] border-b-[1px] border-b-gray-300 justify-between">
             <div class="flex gap-[10px] items-center">
