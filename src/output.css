@@ -248,8 +248,14 @@
   .mr-\[-20px\] {
     margin-right: -20px;
   }
+  .mr-\[2px\] {
+    margin-right: 2px;
+  }
   .mr-\[20px\] {
     margin-right: 20px;
+  }
+  .mr-\[25px\] {
+    margin-right: 25px;
   }
   .mr-\[30px\] {
     margin-right: 30px;
@@ -1419,6 +1425,11 @@
   .sm\:gap-\[20px\] {
     @media (width >= 40rem) {
       gap: 20px;
+    }
+  }
+  .sm\:gap-\[100px\] {
+    @media (width >= 40rem) {
+      gap: 100px;
     }
   }
   .sm\:overflow-hidden {
