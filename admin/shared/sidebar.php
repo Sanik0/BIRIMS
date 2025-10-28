@@ -5,7 +5,7 @@
 
   <section
       id="sidebar"
-      class="bg-[#ffffff] fixed top-0 left-0 w-full h-[100vh] transition-all duration-300 border-r p-[20px] border-[#E4E4E7] max-w-[250px] flex flex-col gap-[20px]">
+      class="bg-[#ffffff] fixed top-0 left-0 w-full h-[100vh] transition-all duration-300 border-r p-[20px] border-[#E4E4E7] max-w-[250px] hidden sm:flex flex-col gap-[20px]">
       <div id="sidebar-toggle" class=" absolute top-0 hover:cursor-pointer right-0 mr-[-20px] mt-[50px] h-[40px] w-[40px] bg-white rounded-[50%] border-solid border-[1px] border-[#D4D4D8] flex items-center justify-center">
           <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M21.25 22.5L13.75 15L21.25 7.5M8.75 7.5V22.5" stroke="#71717A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />

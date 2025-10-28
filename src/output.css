@@ -589,11 +589,17 @@
   .justify-start {
     justify-content: flex-start;
   }
+  .gap-\[0\] {
+    gap: 0;
+  }
   .gap-\[0px\] {
     gap: 0px;
   }
   .gap-\[01px\] {
     gap: 01px;
+  }
+  .gap-\[1px0\] {
+    gap: 1px0;
   }
   .gap-\[5px\] {
     gap: 5px;
@@ -1370,9 +1376,24 @@
       height: 50px;
     }
   }
+  .sm\:h-\[60px\] {
+    @media (width >= 40rem) {
+      height: 60px;
+    }
+  }
   .sm\:h-\[100px\] {
     @media (width >= 40rem) {
       height: 100px;
+    }
+  }
+  .sm\:h-\[368px\] {
+    @media (width >= 40rem) {
+      height: 368px;
+    }
+  }
+  .sm\:h-full {
+    @media (width >= 40rem) {
+      height: 100%;
     }
   }
   .sm\:w-\[25px\] {
@@ -1383,6 +1404,11 @@
   .sm\:w-\[50px\] {
     @media (width >= 40rem) {
       width: 50px;
+    }
+  }
+  .sm\:w-\[60px\] {
+    @media (width >= 40rem) {
+      width: 60px;
     }
   }
   .sm\:w-\[100px\] {
@@ -1425,9 +1451,19 @@
       gap: 9px;
     }
   }
+  .sm\:gap-\[10px\] {
+    @media (width >= 40rem) {
+      gap: 10px;
+    }
+  }
   .sm\:gap-\[20px\] {
     @media (width >= 40rem) {
       gap: 20px;
+    }
+  }
+  .sm\:gap-\[90px\] {
+    @media (width >= 40rem) {
+      gap: 90px;
     }
   }
   .sm\:gap-\[100px\] {
