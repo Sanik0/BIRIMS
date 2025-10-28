@@ -518,6 +518,9 @@
   .min-w-\[16px\] {
     min-width: 16px;
   }
+  .min-w-\[50px\] {
+    min-width: 50px;
+  }
   .min-w-\[90px\] {
     min-width: 90px;
   }
