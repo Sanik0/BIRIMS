@@ -505,7 +505,7 @@
                 </table>
 
                 <!-- Mobile User Cards -->
-                <div class="flex w-full flex-col">
+                <div class="w-full flex sm:hidden flex-col">
                     <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
                         <h6 class="text-[14px] text-gray-600 font-semibold">Full Name:</h6>
                         <p class="text-[16px] font-medium">Juan Dela Cruz</p>
