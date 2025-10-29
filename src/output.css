@@ -1440,6 +1440,11 @@
       display: none;
     }
   }
+  .sm\:table {
+    @media (width >= 40rem) {
+      display: table;
+    }
+  }
   .sm\:h-\[50px\] {
     @media (width >= 40rem) {
       height: 50px;

@@ -252,7 +252,7 @@
                 </div>
             </div>
 
-            <section class="w-full px-[15px] sm:gap-[0] flex flex-col gap-[15px]">
+            <section class="w-full px-[15px] flex flex-col gap-[15px]">
                 <div class="w-full flex-col sm:flex-row items-start gap-[10px] sm:gap-[0] sm:items-center justify-between flex">
                     <div id="addBtn" class="rounded-[4px] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer hover:text-gray-50 bg-orange-500 px-[20px] py-[10px] text-[16px] font-medium text-white flex items-center gap-[12px]">
                         <svg class="h-[25px] w-[25px] fill-white" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
@@ -279,7 +279,7 @@
                     </form>
                 </div>
 
-                <table class="w-full hidden sm:block border-collapse text-left border-[1px] border-gray-300 rounded-[4px]">
+                <table class="w-full hidden sm:table border-collapse text-left border-[1px] border-gray-300 rounded-[4px]">
                     <thead>
                         <tr class="border-b-[1px] border-gray-300 bg-[#FFF7ED]">
                             <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Name</th>
