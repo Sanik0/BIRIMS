@@ -712,6 +712,9 @@
   .overflow-y-auto {
     overflow-y: auto;
   }
+  .rounded {
+    border-radius: 0.25rem;
+  }
   .rounded-\[4px\] {
     border-radius: 4px;
   }
@@ -1078,6 +1081,9 @@
   }
   .font-serif {
     font-family: var(--font-serif);
+  }
+  .text-\[1px\] {
+    font-size: 1px;
   }
   .text-\[12px\] {
     font-size: 12px;
@@ -1477,6 +1483,11 @@
   .sm\:w-\[100px\] {
     @media (width >= 40rem) {
       width: 100px;
+    }
+  }
+  .sm\:w-\[308px\] {
+    @media (width >= 40rem) {
+      width: 308px;
     }
   }
   .sm\:w-fit {
