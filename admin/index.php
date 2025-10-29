@@ -199,14 +199,14 @@
                     </div>
                 </div>
 
-                <div class="w-full flex flex-col sm:flex-row gap-[37px] sm:gap-[0] justify-between items-center mb-[30px]">
-                    <div class="rounded-[4px] px-[43px] py-[15px] relative flex flex-col gap-[10px] items-center justify-center bg-[#89C6FF]">
+                <div class="w-full flex flex-col gap-[10px] sm:flex-row sm:gap-[0] justify-between items-center mb-[30px]">
+                    <div class="rounded-[4px] w-full sm:w-fit px-[43px] py-[15px] relative flex flex-col gap-[10px] items-center justify-center bg-[#89C6FF]">
                         <div class="flex text-center flex-col gap-[5px]">
                             <h4 class="text-[18px] font-regular text-white">New Visitors</h4>
                             <p class="text-[16px] text-[#005FB9] font-regular">Out of total number</p>
                         </div>
-                        <div class="flex items-center justify-center relative">
-                            <svg class="w-[150px] h-[150px] transform -rotate-90">
+                        <div class="flex items-center py-[10px] justify-center relative">
+                            <svg class="w-[150px] hidden sm:block h-[150px] transform -rotate-90">
                                 <circle
                                     class="text-[#C0E0FF]"
                                     stroke-width="10"
@@ -229,14 +229,17 @@
                             </svg>
                             <span class="absolute text-[30px] font-regular text-white">80%</span>
                         </div>
+                        <div class="w-full block sm:hidden rounded-[20px] overflow-hidden bg-[#C0E0FF] h-[10px] mt-[10px]">
+                            <div class="w-[80%] h-full bg-white rounded-[20px]"></div>
+                        </div>
                     </div>
-                    <div class="rounded-[4px] px-[43px] py-[15px] relative flex flex-col gap-[10px] items-center justify-center bg-[#FF89D7]">
+                    <div class="rounded-[4px] w-full sm:w-fit px-[43px] py-[15px] relative flex flex-col gap-[10px] items-center justify-center bg-[#FF89D7]">
                         <div class="flex text-center flex-col gap-[5px]">
                             <h4 class="text-[18px] font-regular text-white">Orders</h4>
                             <p class="text-[16px] text-[#9D0068] font-regular">delivered</p>
                         </div>
-                        <div class="flex items-center justify-center relative">
-                            <svg class="w-[150px] h-[150px] transform -rotate-90">
+                        <div class="flex items-center py-[10px] justify-center relative">
+                            <svg class="w-[150px] hidden sm:block h-[150px] transform -rotate-90">
                                 <circle
                                     class="text-[#FFCDEE]"
                                     stroke-width="10"
@@ -259,14 +262,17 @@
                             </svg>
                             <span class="absolute text-[30px] font-regular text-white">80%</span>
                         </div>
+                        <div class="w-full block sm:hidden rounded-[20px] overflow-hidden bg-[#FFCDEE] h-[10px] mt-[10px]">
+                            <div class="w-[80%] h-full bg-white rounded-[20px]"></div>
+                        </div>
                     </div>
-                    <div class="rounded-[4px] px-[43px] py-[15px] relative flex flex-col gap-[10px] items-center justify-center bg-[#8AFFC7]">
+                    <div class="rounded-[4px] w-full sm:w-fit px-[43px] py-[15px] relative flex flex-col gap-[10px] items-center justify-center bg-[#8AFFC7]">
                         <div class="flex text-center flex-col gap-[5px]">
                             <h4 class="text-[18px] font-regular text-white">Verified</h4>
                             <p class="text-[16px] text-[#00763D] font-regular">Out of total users</p>
                         </div>
-                        <div class="flex items-center justify-center relative">
-                            <svg class="w-[150px] h-[150px] transform -rotate-90">
+                        <div class="flex items-center py-[10px] justify-center relative">
+                            <svg class="w-[150px] hidden sm:block h-[150px] transform -rotate-90">
                                 <circle
                                     class="text-[#CEFFE7]"
                                     stroke-width="10"
@@ -289,14 +295,17 @@
                             </svg>
                             <span class="absolute text-[30px] font-regular text-white">80%</span>
                         </div>
+                        <div class="w-full block sm:hidden rounded-[20px] overflow-hidden bg-[#CEFFE7] h-[10px] mt-[10px]">
+                            <div class="w-[80%] h-full bg-white rounded-[20px]"></div>
+                        </div>
                     </div>
-                    <div class="rounded-[4px] px-[43px] py-[15px] relative flex flex-col gap-[10px] items-center justify-center bg-[#CF93FF]">
+                    <div class="rounded-[4px] w-full sm:w-fit px-[43px] py-[15px] relative flex flex-col gap-[10px] items-center justify-center bg-[#CF93FF]">
                         <div class="flex text-center flex-col gap-[5px]">
                             <h4 class="text-[18px] font-regular text-white">Pending</h4>
                             <p class="text-[16px] text-[#510092] font-regular">Out of total Appointments</p>
                         </div>
-                        <div class="flex items-center justify-center relative">
-                            <svg class="w-[150px] h-[150px] transform -rotate-90">
+                        <div class="flex items-center py-[10px] justify-center relative">
+                            <svg class="w-[150px] hidden sm:block h-[150px] transform -rotate-90">
                                 <circle
                                     class="text-[#EFDCFF]"
                                     stroke-width="10"
@@ -318,6 +327,9 @@
                                     cy="75" />
                             </svg>
                             <span class="absolute text-[30px] font-regular text-white">80%</span>
+                        </div>
+                        <div class="w-full block sm:hidden rounded-[20px] overflow-hidden bg-[#EFDCFF] h-[10px] mt-[10px]">
+                            <div class="w-[80%] h-full bg-white rounded-[20px]"></div>
                         </div>
                     </div>
                 </div>
