@@ -297,17 +297,15 @@
                     </tbody>
                 </table>
 
-                <!-- Mobile  Cards -->
+                <!-- Mobile announcement Cards -->
                 <div class="w-full gap-[20px] mb-[30px] flex sm:hidden flex-col">
                     <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
-                        <h6 class="text-[14px] text-gray-600 font-semibold">Document Type:</h6>
-                        <p class="text-[16px] font-medium">Barangay Certificate of Residency</p>
-                        <h6 class="text-[14px] text-gray-600 font-semibold">Requested By</h6>
-                        <p class="text-[16px] font-medium underline">Juan Dela Cruz</p>
-                        <h6 class="text-[14px] text-gray-600 font-semibold">Date Requested:</h6>
-                        <p class="text-[16px] font-medium">20-12-2025</p>
-                        <h6 class="text-[14px] text-gray-600 font-semibold">Status:</h6>
-                        <p class="text-[16px] font-medium">Delivered</p>
+                        <h6 class="text-[14px] text-gray-600 font-semibold">Title:</h6>
+                        <p class="text-[16px] font-medium">Community Tax Certificate (Cedula) Renewal Deadline</p>
+                        <h6 class="text-[14px] text-gray-600 font-semibold">Body:</h6>
+                        <p class="text-[16px] font-medium">Please be advised that the deadline for securing your annual Community Tax Certificate (Cedula) for the current year is on November 30.</p>
+                        <h6 class="text-[14px] text-gray-600 font-semibold">Type:</h6>
+                        <p class="text-[16px] font-medium">Notice</p>
                         <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
                         <div class="w-full flex items-center gap-[10px]">
                             <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
