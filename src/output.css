@@ -1587,6 +1587,16 @@
       border-left-width: 1px;
     }
   }
+  .sm\:p-\[30px\] {
+    @media (width >= 40rem) {
+      padding: 30px;
+    }
+  }
+  .sm\:p-\[50px\] {
+    @media (width >= 40rem) {
+      padding: 50px;
+    }
+  }
   .sm\:px-\[0\] {
     @media (width >= 40rem) {
       padding-inline: 0;
