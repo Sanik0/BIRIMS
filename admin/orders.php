@@ -177,7 +177,7 @@
 
             <section class="w-full flex px-[15px] flex-col gap-[15px]">
                 <div class="w-full flex-col sm:flex-row items-start gap-[10px] sm:gap-[0] sm:items-center justify-between flex">
-                    <div id="addBtn" class="rounded-[4px] group hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer hover:text-gray-50 bg-orange-500 px-[20px] py-[10px] text-[16px] font-medium text-white flex items-center gap-[12px]">
+                    <div data-modal="addModal" class="addBtn rounded-[4px] group hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer hover:text-gray-50 bg-orange-500 px-[20px] py-[10px] text-[16px] font-medium text-white flex items-center gap-[12px]">
                         <svg class="h-[25px] group-hover:fill-gray-50 transition-all duration-300 w-[25px] fill-white" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                             <path d="M70-427q-17 0-28.5-11.5T30-467q0-17 11.5-28.5T70-507h140q17 0 28.5 11.5T250-467q0 17-11.5 28.5T210-427H70Zm210 267q-50 0-85-35t-35-85h-50q-20 0-32-15t-7-34l9-38h125q42 0 71-29t29-71q0-13-3-24t-8-22h38q42 0 71-29t29-71q0-42-29-71t-71-29H180l6-24q6-28 27.5-45.5T264-800h406q20 0 32 15t7 34l-26 111h77q19 0 36 8.5t28 23.5l75 99q11 14 14 30.5t0 33.5l-27 133q-3 14-14 23t-25 9h-47q0 50-35 85t-85 35q-50 0-85-35t-35-85H400q0 50-35 85t-85 35ZM150-573q-17 0-28.5-11.5T110-613q0-17 11.5-28.5T150-653h180q17 0 28.5 11.5T370-613q0 17-11.5 28.5T330-573H150Zm130 333q17 0 28.5-11.5T320-280q0-17-11.5-28.5T280-320q-17 0-28.5 11.5T240-280q0 17 11.5 28.5T280-240Zm400 0q17 0 28.5-11.5T720-280q0-17-11.5-28.5T680-320q-17 0-28.5 11.5T640-280q0 17 11.5 28.5T680-240Zm-43-200h193l4-21-74-99h-95l-28 120Z" />
                         </svg>
@@ -219,13 +219,13 @@
                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">20-12-2025</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Delivered</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                <div id="editBtn" class="hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                                <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                     <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                         <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                                     </svg>
                                     Edit
                                 </div>
-                                <div id="deleteBtn" class="hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                                <div data-modal="deleteModal" class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                     <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                     </svg>
@@ -443,82 +443,34 @@
                             </div>
                         </div>
                     </div>
-                    <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
-                        <h6 class="text-[14px] text-gray-600 font-semibold">Document Type:</h6>
-                        <p class="text-[16px] font-medium">Barangay Certificate of Residency</p>
-                        <h6 class="text-[14px] text-gray-600 font-semibold">Requested By</h6>
-                        <p class="text-[16px] font-medium underline">Juan Dela Cruz</p>
-                        <h6 class="text-[14px] text-gray-600 font-semibold">Date Requested:</h6>
-                        <p class="text-[16px] font-medium">20-12-2025</p>
-                        <h6 class="text-[14px] text-gray-600 font-semibold">Status:</h6>
-                        <p class="text-[16px] font-medium">Delivered</p>
-                        <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
-                        <div class="w-full flex items-center gap-[10px]">
-                            <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                    <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                </svg>
-                                Edit
-                            </div>
-                            <div data-modal="deleteModal" class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                    <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                </svg>
-                                Delete
-                            </div>
-                        </div>
-                    </div>
-                  
+
                 </div>
             </section>
 
         </main>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const addBtn = document.getElementById('addBtn');
-                const addModal = document.getElementById('addModal');
-                const cancelAddBtn = document.getElementById('cancelAddBtn');
 
-                // delete modal
-                const deleteBtn = document.getElementById('deleteBtn');
-                const deleteModal = document.getElementById('deleteModal');
-                const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
-
-                // delete modal
-                const editBtn = document.getElementById('editBtn');
-                const editModal = document.getElementById('editModal');
-                const canceleditBtn = document.getElementById('cancelEditBtn');
-
-                addBtn.addEventListener('click', function() {
-                    addModal.classList.remove('hidden');
-                    addModal.classList.add('flex');
+                // 🔹 Open modal
+                document.querySelectorAll('.addBtn, .editBtn, .deleteBtn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const modalId = this.getAttribute('data-modal');
+                        const modal = document.getElementById(modalId);
+                        if (!modal) return;
+                        modal.classList.remove('hidden');
+                        modal.classList.add('flex');
+                    });
                 });
-                cancelAddBtn.addEventListener('click', function() {
-                    addModal.classList.remove('flex');
-                    addModal.classList.add('hidden');
-                })
 
-                // delete modal
-                deleteBtn.addEventListener('click', function() {
-                    deleteModal.classList.remove('hidden');
-                    deleteModal.classList.add('flex');
+                // 🔹 Close modal (for all)
+                document.querySelectorAll('.cancelBtn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const modal = this.closest('.modal');
+                        if (!modal) return;
+                        modal.classList.remove('flex');
+                        modal.classList.add('hidden');
+                    });
                 });
-                cancelDeleteBtn.addEventListener('click', function() {
-                    deleteModal.classList.remove('flex');
-                    deleteModal.classList.add('hidden');
-                })
-
-
-                // edit modal
-                editBtn.addEventListener('click', function() {
-                    editModal.classList.remove('hidden');
-                    editModal.classList.add('flex');
-                });
-                cancelEditBtn.addEventListener('click', function() {
-                    editModal.classList.remove('flex');
-                    editModal.classList.add('hidden');
-                })
-
 
             });
         </script>
