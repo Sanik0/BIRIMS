@@ -297,7 +297,7 @@
                     </tbody>
                 </table>
 
-                <!-- Mobile announce Cards -->
+                <!-- Mobile  Cards -->
                 <div class="w-full gap-[20px] mb-[30px] flex sm:hidden flex-col">
                     <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
                         <h6 class="text-[14px] text-gray-600 font-semibold">Document Type:</h6>
