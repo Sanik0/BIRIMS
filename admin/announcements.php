@@ -1,7 +1,7 @@
     <!-- Sidebar Section -->
     <?php include_once 'shared/header.php' ?>
     <!-- modal add announcement Section -->
-    <div id="addModal" class="w-full modal fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
+    <div id="addModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] items-center bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
         <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Create Announcement</h3>
             <div class="flex flex-col gap-[10px]">
@@ -27,7 +27,7 @@
         </form>
     </div>
     <!-- modal delete announcement Section -->
-    <div id="deleteModal" class="w-full modal fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
+    <div id="deleteModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
         <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Delete Announcement</h3>
             <div class="flex items-center justify-center w-full">
@@ -40,7 +40,7 @@
         </form>
     </div>
     <!-- modal edit announcement Section -->
-    <div id="editModal" class="w-full modal fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
+    <div id="editModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] items-center sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
         <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Create Announcement</h3>
             <div class="flex flex-col gap-[10px]">
@@ -124,7 +124,7 @@
 
             <section class="w-full px-[15px] sm:p-[0] flex flex-col gap-[15px]">
                 <div class="w-full flex-col sm:flex-row items-start gap-[10px] sm:gap-[0] sm:items-center justify-between flex">
-                    <div id="addBtn" class="rounded-[4px] group hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer hover:text-gray-50 bg-orange-500 px-[20px] py-[10px] text-[16px] font-medium text-white flex items-center gap-[12px]">
+                    <div data-modal="addModal" class="addBtn rounded-[4px] group hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer hover:text-gray-50 bg-orange-500 px-[20px] py-[10px] text-[16px] font-medium text-white flex items-center gap-[12px]">
                         <svg class="h-[25px] group-hover:fill-gray-50 transition-all duration-300 w-[25px] fill-white" xmlns="http://www.w3.org/2000/svg" height="24px"
                             viewBox="0 -960 960 960" width="24px" fill="#EFEFEF">
                             <path
