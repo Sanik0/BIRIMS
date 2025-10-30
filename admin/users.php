@@ -252,7 +252,7 @@
                 </div>
             </div>
 
-            <section class="w-full px-[15px] flex flex-col gap-[15px]">
+            <section class="w-full px-[15px] sm:p-[0] flex flex-col gap-[15px]">
                 <div class="w-full flex-col sm:flex-row items-start gap-[10px] sm:gap-[0] sm:items-center justify-between flex">
                     <div data-modal="addModal" class=" addBtn rounded-[4px] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer hover:text-gray-50 bg-orange-500 px-[20px] py-[10px] text-[16px] font-medium text-white flex items-center gap-[12px]">
                         <svg class="h-[25px] w-[25px] fill-white" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">

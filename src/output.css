@@ -1590,6 +1590,11 @@
       border-left-width: 1px;
     }
   }
+  .sm\:p-\[0\] {
+    @media (width >= 40rem) {
+      padding: 0;
+    }
+  }
   .sm\:p-\[30px\] {
     @media (width >= 40rem) {
       padding: 30px;
