@@ -91,7 +91,7 @@
         </form>
     </div>
     <!-- modal delete user Section -->
-    <div id="deleteModal" class="w-full fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
+    <div id="deleteModal" class="w-full fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
         <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Delete User</h3>
             <div class="flex items-center justify-center w-full">
@@ -104,10 +104,10 @@
         </form>
     </div>
     <!-- modal edit user Section -->
-    <div id="editModal" class="w-full fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
-        <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+    <div id="editModal" class="w-full fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] flex justify-center">
+        <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Edit User</h3>
-            <div class="flex items-center gap-[30px] w-full">
+            <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                 <div class="flex flex-col w-full">
                     <Label class="font-medium text-[18px]">First Name:</Label>
                     <input type="text" placeholder="Ex. Juan" value="Juan" class="py-[10px] border-b-[1px]  border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
@@ -123,7 +123,7 @@
                     <input type="text" placeholder="(Optional)" value="Santiago" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                 </div>
             </div>
-            <div class="flex items-center gap-[30px] w-full">
+            <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                 <div class="flex flex-col w-full">
                     <Label class="font-medium text-[18px]">Birthdate:</Label>
                     <input type="date" value="2005-10-09" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
@@ -142,7 +142,7 @@
                     <input type="Email" value="Quezon City" placeholder="Ex. Quezon City" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                 </div>
             </div>
-            <div class="flex items-center gap-[30px] w-full">
+            <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                 <div class="flex flex-col w-full">
                     <Label class="font-medium text-[18px]">Citizenship</Label>
                     <input type="text" value="Filipino" placeholder="Ex. Filipino" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
@@ -161,7 +161,7 @@
                     <input type="Email" value="Professor" placeholder="Ex. Teacher" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                 </div>
             </div>
-            <div class="flex items-center gap-[30px] w-full">
+            <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                 <div class="flex flex-col w-full">
                     <Label class="font-medium text-[18px]">House #:</Label>
                     <input type="text" value="13" placeholder="Ex. 123" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
@@ -180,7 +180,7 @@
                     <input value="juandelacruz@gmail.com" type="Email" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                 </div>
             </div>
-            <div class="flex items-center gap-[30px] w-full">
+            <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                 <div class="flex flex-col w-full">
                     <Label class="font-medium text-[18px]">Update Passord:</Label>
                     <input type="password" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
