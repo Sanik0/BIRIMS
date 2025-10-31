@@ -1,7 +1,7 @@
     <!-- Sidebar Section -->
     <?php include_once 'shared/header.php' ?>
     <!-- modal add announcement Section -->
-    <div id="addModal" class="w-full fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden items-center justify-center">
+    <div id="addModal" class="w-full modal fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden items-center justify-center">
         <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Verification Request</h3>
             <div class="flex flex-col gap-[5px] w-full">
@@ -13,12 +13,12 @@
                 <img class="h-full w-full object-center justify-center" src="../assets/Screenshot 2025-10-01 204358.png" alt="">
             </div>
             <div class="flex flex-col w-full gap-[20px]">
-                <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Go Back</button>
+                <button class="w-full cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Go Back</button>
             </div>
         </form>
     </div>
     <!-- modal delete announcement Section -->
-    <div id="deleteModal" class="w-full fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
+    <div id="deleteModal" class="w-full modal fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
         <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Reject Verification</h3>
             <div class="flex items-center justify-center w-full">
@@ -30,19 +30,19 @@
             </div>
             <div class="flex flex-col w-full gap-[20px]">
                 <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Reject</button>
-                <div id="cancelDeleteBtn" class="flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
+                <div id="" class="flex cancelBtn items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
             </div>
         </form>
     </div>
     <!-- modal edit announcement Section -->
-    <div id="editModal" class="w-full fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden items-center justify-center">
+    <div id="editModal" class="w-full modal fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden items-center justify-center">
         <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">User Verified</h3>
             <div class="flex items-center justify-center w-full">
                 <p class="font-regular w-full text-[20px] text-gray-500">User <span class="text-[#EF4444]"> Juan Dela Cruz</span> Has been verified.</p>
             </div>
             <div class="flex flex-col w-full gap-[20px]">
-                <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Go Back</button>
+                <button class="w-full cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Go Back</button>
             </div>
         </form>
     </div>
@@ -135,18 +135,18 @@
                     </thead>
                     <tbody>
                         <tr class="border-b-[1px] border-gray-300 bg-white">
-                            <td id="addBtn" class="hover:underline cursor-pointer px-[20px] py-[10px] font-regular text-[16px] text-black">Juan Dela Cruz</td>
+                            <td data-modal-="addModal" class="addBtn hover:underline cursor-pointer px-[20px] py-[10px] font-regular text-[16px] text-black">Juan Dela Cruz</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">juandelacruz@gmail.com</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Valid ID</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">03-05-2025</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                <div id="editBtn" class="hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                                <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                     <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                         <path d="m424-408-86-86q-11-11-28-11t-28 11q-11 11-11 28t11 28l114 114q12 12 28 12t28-12l226-226q11-11 11-28t-11-28q-11-11-28-11t-28 11L424-408Zm56 328q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
                                     </svg>
                                     Verify
                                 </div>
-                                <div id="deleteBtn" class="hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                                <div data-modal="deleteModal" class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                     <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                         <path d="m480-424 116 116q11 11 28 11t28-11q11-11 11-28t-11-28L536-480l116-116q11-11 11-28t-11-28q-11-11-28-11t-28 11L480-536 364-652q-11-11-28-11t-28 11q-11 11-11 28t11 28l116 116-116 116q-11 11-11 28t11 28q11 11 28 11t28-11l116-116Zm0 344q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
                                     </svg>
@@ -161,7 +161,7 @@
                 <div class="w-full gap-[20px] mb-[30px] flex sm:hidden flex-col">
                     <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
                         <h6 class="text-[14px] text-gray-600 font-semibold">Full Name:</h6>
-                        <p class="text-[16px] font-medium">Juan Dela Cruz</p>
+                        <p data-modal="addModal" class="addBtn text-[16px] font-medium">Juan Dela Cruz</p>
                         <h6 class="text-[14px] text-gray-600 font-semibold">Email:</h6>
                         <p class="text-[16px] font-medium">juandelacruz@gmail.com</p>
                         <h6 class="text-[14px] text-gray-600 font-semibold">Dcoument:</h6>
@@ -191,45 +191,26 @@
         </main>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                const addBtn = document.getElementById('addBtn');
-                const addModal = document.getElementById('addModal');
-
-                // delete modal
-                const deleteBtn = document.getElementById('deleteBtn');
-                const deleteModal = document.getElementById('deleteModal');
-                const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
-
-                // delete modal
-                const editBtn = document.getElementById('editBtn');
-                const editModal = document.getElementById('editModal');
-                const canceleditBtn = document.getElementById('cancelEditBtn');
-
-                addBtn.addEventListener('click', function() {
-                    addModal.classList.remove('hidden');
-                    addModal.classList.add('flex');
+                // 🔹 Open modal
+                document.querySelectorAll('.addBtn, .editBtn, .deleteBtn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const modalId = this.getAttribute('data-modal');
+                        const modal = document.getElementById(modalId);
+                        if (!modal) return;
+                        modal.classList.remove('hidden');
+                        modal.classList.add('flex');
+                    });
                 });
 
-                // delete modal
-                deleteBtn.addEventListener('click', function() {
-                    deleteModal.classList.remove('hidden');
-                    deleteModal.classList.add('flex');
+                // 🔹 Close modal (for all)
+                document.querySelectorAll('.cancelBtn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const modal = this.closest('.modal');
+                        if (!modal) return;
+                        modal.classList.remove('flex');
+                        modal.classList.add('hidden');
+                    });
                 });
-                cancelDeleteBtn.addEventListener('click', function() {
-                    deleteModal.classList.remove('flex');
-                    deleteModal.classList.add('hidden');
-                })
-
-
-                // edit modal
-                editBtn.addEventListener('click', function() {
-                    editModal.classList.remove('hidden');
-                    editModal.classList.add('flex');
-                });
-                cancelEditBtn.addEventListener('click', function() {
-                    editModal.classList.remove('flex');
-                    editModal.classList.add('hidden');
-                })
-
 
             });
         </script>
