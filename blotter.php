@@ -52,7 +52,7 @@
                 </div>
             </div>
 
-            <section class="w-full items-center px-[15px] sm:px-[0] justify-center flex">
+            <section class="w-full items-center sm:px-[0] justify-center flex">
                 <div class="rounded-[4px] w-full max-w-[990px] border-gray-300 border-[1px] px-[35px] py-[20px] mb-[30px]">
                     <div class="border-b-[1px] pb-[10px] flex flex-col gap-[30px] relative">
                         <div class="rounded-[50%] hidden sm:block h-[100px] w-[100px] overflow-hidden absolute left-0">
