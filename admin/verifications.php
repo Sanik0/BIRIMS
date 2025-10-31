@@ -1,7 +1,7 @@
     <!-- Sidebar Section -->
     <?php include_once 'shared/header.php' ?>
     <!-- modal add announcement Section -->
-    <div id="addModal" class="w-full modal fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden items-center justify-center">
+    <div id="addModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden items-center justify-center">
         <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Verification Request</h3>
             <div class="flex flex-col gap-[5px] w-full">
@@ -9,7 +9,7 @@
                 <p class="font-regular text-[20px] text-gray-500">Juan Dela Cruz</p>
                 <p class="font-regular text-[20px] text-gray-500">juandelacruz@gmail.com</p>
             </div>
-            <div class="w-full rounded-[4px] overflow-hidden h-[287px]">
+            <div class="w-full rounded-[4px] overflow-hidden h-fit sm:h-[287px]">
                 <img class="h-full w-full object-center justify-center" src="../assets/Screenshot 2025-10-01 204358.png" alt="">
             </div>
             <div class="flex flex-col w-full gap-[20px]">
@@ -18,7 +18,7 @@
         </form>
     </div>
     <!-- modal delete announcement Section -->
-    <div id="deleteModal" class="w-full modal fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
+    <div id="deleteModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
         <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Reject Verification</h3>
             <div class="flex items-center justify-center w-full">
@@ -35,7 +35,7 @@
         </form>
     </div>
     <!-- modal edit announcement Section -->
-    <div id="editModal" class="w-full modal fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden items-center justify-center">
+    <div id="editModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden items-center justify-center">
         <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">User Verified</h3>
             <div class="flex items-center justify-center w-full">

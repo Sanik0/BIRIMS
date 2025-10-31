@@ -1469,6 +1469,11 @@
       height: 100px;
     }
   }
+  .sm\:h-\[287px\] {
+    @media (width >= 40rem) {
+      height: 287px;
+    }
+  }
   .sm\:h-\[368px\] {
     @media (width >= 40rem) {
       height: 368px;
