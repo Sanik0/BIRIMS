@@ -1,7 +1,7 @@
     <!-- Sidebar Section -->
     <?php include_once 'shared/header.php' ?>
     <!-- modal add announcement Section -->
-    <div id="addModal" class="w-full fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
+    <div id="addModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
         <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Create Appointment</h3>
             <div class="flex flex-col w-full">
@@ -10,7 +10,7 @@
                     <option value="">Choose Service</option>
                 </Select>
             </div>
-            <div class="flex items-center gap-[30px] w-full">
+            <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                 <div class="flex flex-col w-full">
                     <Label class="font-medium text-[18px]">Date:</Label>
                     <input type="date" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
@@ -26,7 +26,7 @@
                 <Label class="font-medium text-[18px]">Symptoms:</Label>
                 <textarea type="text" placeholder="Describe your symptoms (Optional)" value="₱0.00" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]"></textarea>
             </div>
-            <div class="flex items-center gap-[30px] w-full">
+            <div class="flex items-center flex-col sm:flex-row gap-[30px] w-full">
                 <div class="flex flex-col w-full">
                     <Label class="font-medium text-[18px]">First Name:</Label>
                     <input type="text" placeholder="Ex. Juan" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
@@ -53,7 +53,7 @@
         </form>
     </div>
     <!-- modal delete announcement Section -->
-    <div id="deleteModal" class="w-full fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
+    <div id="deleteModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
         <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Delete Appointment</h3>
             <div class="flex items-center justify-center w-full">
@@ -66,7 +66,7 @@
         </form>
     </div>
     <!-- modal edit announcement Section -->
-    <div id="editModal" class="w-full fixed inset-0 overflow-y-auto p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
+    <div id="editModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] flex justify-center">
         <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Edit Appointment</h3>
             <div class="flex flex-col w-full">
@@ -76,7 +76,7 @@
                     <option value="">Blood pressure monitoring</option>
                 </Select>
             </div>
-            <div class="flex items-center gap-[30px] w-full">
+            <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                 <div class="flex flex-col w-full">
                     <Label class="font-medium text-[18px]">Date:</Label>
                     <input type="date" placeholder="" value="2025-05-03" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
@@ -93,7 +93,7 @@
                 <Label class="font-medium text-[18px]">Symptoms:</Label>
                 <textarea type="text" placeholder="Describe your symptoms (Optional)" value="₱0.00" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]"></textarea>
             </div>
-            <div class="flex items-center gap-[30px] w-full">
+            <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                 <div class="flex flex-col w-full">
                     <Label class="font-medium text-[18px]">First Name:</Label>
                     <input type="text" placeholder="Ex. Juan" value="Juan" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
