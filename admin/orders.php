@@ -183,7 +183,7 @@
                         </svg>
                         Order new document
                     </div>
-                    <form class="flex items-center gap-[20px]">
+                    <form class="flex w-full sm:w-fit items-center gap-[20px]">
                         <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] border-gray-400 text-[18px] font-normal text-gray-400 gap-[8px]">
                             <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                 <path d="M520-600v-80h120v-160h80v160h120v80H520Zm120 480v-400h80v400h-80Zm-400 0v-160H120v-80h320v80H320v160h-80Zm0-320v-400h80v400h-80Z" />
@@ -193,7 +193,7 @@
                             </select>
                         </div>
 
-                        <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px]  w-full sm:w-[308px] border-gray-400 text-[18px] font-normal text-gray-600 gap-[8px]">
+                        <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] w-full sm:w-[308px] border-gray-400 text-[18px] font-normal text-gray-600 gap-[8px]">
                             <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                 <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
                             </svg>
@@ -215,7 +215,7 @@
                     <tbody>
                         <tr class="border-b-[1px] border-gray-300 bg-white">
                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Barangay Certificate of Residency</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">Juan Dela Cruz</td>
+                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Juan Dela Cruz</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">20-12-2025</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Delivered</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
@@ -235,7 +235,7 @@
                         </tr>
                         <tr class="border-b-[1px] border-gray-300 bg-white">
                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Barangay Certificate of Residency</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">Juan Dela Cruz</td>
+                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Juan Dela Cruz</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">20-12-2025</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Delivered</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
@@ -422,7 +422,7 @@
                         <h6 class="text-[14px] text-gray-600 font-semibold">Document Type:</h6>
                         <p class="text-[16px] font-medium">Barangay Certificate of Residency</p>
                         <h6 class="text-[14px] text-gray-600 font-semibold">Requested By</h6>
-                        <p class="text-[16px] font-medium underline">Juan Dela Cruz</p>
+                        <p class="text-[16px] font-medium">Juan Dela Cruz</p>
                         <h6 class="text-[14px] text-gray-600 font-semibold">Date Requested:</h6>
                         <p class="text-[16px] font-medium">20-12-2025</p>
                         <h6 class="text-[14px] text-gray-600 font-semibold">Status:</h6>

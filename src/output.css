@@ -992,6 +992,9 @@
   .p-\[50px\] {
     padding: 50px;
   }
+  .px-\[0\] {
+    padding-inline: 0;
+  }
   .px-\[0px\] {
     padding-inline: 0px;
   }
@@ -1506,6 +1509,11 @@
       width: fit-content;
     }
   }
+  .sm\:w-full {
+    @media (width >= 40rem) {
+      width: 100%;
+    }
+  }
   .sm\:max-w-\[0\] {
     @media (width >= 40rem) {
       max-width: 0;
@@ -1611,6 +1619,11 @@
   .sm\:px-\[0\] {
     @media (width >= 40rem) {
       padding-inline: 0;
+    }
+  }
+  .sm\:px-\[8px\] {
+    @media (width >= 40rem) {
+      padding-inline: 8px;
     }
   }
   .sm\:px-\[15px\] {
