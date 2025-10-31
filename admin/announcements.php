@@ -101,7 +101,7 @@
                         <img class="h-full w-full object-center object-cover" src="assets/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg" alt="">
                     </div>
                     <div class="flex flex-col">
-                        <h1 class="font-serif font-medium sm:text-[35px] text-[25px]">Barangay Announcements</h1>
+                        <h1 class="font-serif font-medium sm:text-[35px] text-[25px]">Manage Announcements</h1>
                         <p class="sm:text-[16px] text-[14px] font-medium text-[#A1A1AA]">Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit, sed do eiusmod tempor incididunt ut
                              labore et dolore </p>
