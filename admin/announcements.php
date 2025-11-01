@@ -2,7 +2,7 @@
     <?php include_once 'shared/header.php' ?>
     <!-- modal add announcement Section -->
     <div id="addModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] items-center bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
-        <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+        <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Create Announcement</h3>
             <div class="flex flex-col gap-[10px]">
                 <div class="flex flex-col">
@@ -28,7 +28,7 @@
     </div>
     <!-- modal delete announcement Section -->
     <div id="deleteModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
-        <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+        <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Delete Announcement</h3>
             <div class="flex items-center justify-center w-full">
                 <p class="font-regular text-[20px] text-gray-500">Are you sure you want to delete <span class="text-[#EF4444]"> Community Tax Certificate (Cedula) Renewal Deadline</span>? This action cannot be undone and the user’s order will be cancelled.</p>
@@ -41,7 +41,7 @@
     </div>
     <!-- modal edit announcement Section -->
     <div id="editModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] items-center sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
-        <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+        <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px]flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Create Announcement</h3>
             <div class="flex flex-col gap-[10px]">
                 <div class="flex flex-col">

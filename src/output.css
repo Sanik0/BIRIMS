@@ -971,6 +971,9 @@
   .p-\[1\] {
     padding: 1;
   }
+  .p-\[1px\] {
+    padding: 1px;
+  }
   .p-\[5px\] {
     padding: 5px;
   }
@@ -991,6 +994,9 @@
   }
   .p-\[50px\] {
     padding: 50px;
+  }
+  .p-\[px\] {
+    padding: px;
   }
   .px-\[0\] {
     padding-inline: 0;

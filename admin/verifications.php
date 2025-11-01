@@ -2,7 +2,7 @@
     <?php include_once 'shared/header.php' ?>
     <!-- modal add announcement Section -->
     <div id="addModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden items-center justify-center">
-        <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+        <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Verification Request</h3>
             <div class="flex flex-col gap-[5px] w-full">
                 <p class="font-regular text-[20px] text-gray-500">Valid ID</p>
@@ -19,7 +19,7 @@
     </div>
     <!-- modal delete announcement Section -->
     <div id="deleteModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
-        <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+        <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">Reject Verification</h3>
             <div class="flex items-center justify-center w-full">
                 <p class="font-regular text-[20px] text-gray-500">You are about to reject <span class="text-[#EF4444]"> Juan Dela Cruz's</span> Verification request, write down your reason why.</p>
@@ -36,7 +36,7 @@
     </div>
     <!-- modal edit announcement Section -->
     <div id="editModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden items-center justify-center">
-        <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+        <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
             <h3 class="font-bold text-[40px]">User Verified</h3>
             <div class="flex items-center justify-center w-full">
                 <p class="font-regular w-full text-[20px] text-gray-500">User <span class="text-[#EF4444]"> Juan Dela Cruz</span> Has been verified.</p>
