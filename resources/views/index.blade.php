@@ -16,6 +16,8 @@
 </head>
 
 <body>
+    <!-- sidebar section -->
+     @include('shared.sidebar')
     <main class="w-full h-[100vh] sm:pl-[290px] sm:pr-[20px] flex flex-col gap-[30px] transition-all duration-300">
         <div class="flex w-full items-start justify-between py-[25px] border-b-[1px] border-[#D4D4D8] px-[15px] sm:px-[0]">
             <div class="flex items-center gap-[10px] max-w-[579px]">
