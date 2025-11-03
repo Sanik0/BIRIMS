@@ -5,6 +5,8 @@
     <!-- sidebar section -->
     @include('shared.sidebar')
     <!-- mobile header section -->
+    <!-- mobile sidebar section -->
+    @include('shared.mobile-sidebar')
     <section class="w-full items-center flex sm:hidden px-[15px] py-[10px] border-b-[1px] border-b-gray-300 justify-between">
         <div class="flex gap-[10px] items-center">
             <svg id="openMenuBtn" class="h-[50px] w-[50px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#EFEFEF">
@@ -26,8 +28,6 @@
             </a>
         </div>
     </section>
-    <!-- mobile sidebar section -->
-    @include('shared.mobile-sidebar')
     <main class="w-full h-[100vh] sm:pl-[290px] sm:pr-[20px] flex flex-col gap-[30px] transition-all duration-300">
         <div class="flex w-full items-start justify-between py-[25px] border-b-[1px] border-[#D4D4D8] px-[15px] sm:px-[0]">
             <div class="flex items-center gap-[10px] max-w-[579px]">
