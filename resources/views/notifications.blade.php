@@ -65,7 +65,7 @@
                         </div>
                         <div class="margin-left-auto flex">
                             <div class="toggle-btn cursor-pointer flex items-center justify-center border-solid border-[1px] border-[#E4E4E7] h-[40px] w-[40px] rounded-[50%]">
-                                <svg class="fill-[#A1A1AA]" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#EFEFEF">
+                                <svg class="fill-[#A1A1AA]" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                                     <path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z" />
                                 </svg>
                             </div>
@@ -78,7 +78,7 @@
                                     <div class="text-[#71717A] font-semibold text-[18px]">Mark as Read</div>
                                 </div>
                                 <div class="flex items-center gap-[8px]">
-                                    <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="24px">
+                                    <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                                         <path d="M480-424 284-228q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536-480l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480-424Z" />
                                     </svg>
                                     <div class="text-[#71717A] font-semibold text-[18px]">Delete Notification</div>
@@ -104,13 +104,13 @@
                             <!-- Action -->
                             <div class="action-box absolute bottom-0 right-0 mb-[-40px] sm:mb-[-70px] z-[99] mr-[20px] sm:mr-[30px] hidden flex-col gap-[10px] rounded-[4px] border-[1px] bg-white border-[#D4D4D8] p-[15px]">
                                 <div class="flex items-center gap-[8px]">
-                                    <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                    <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg"  viewBox="0 -960 960 960">
                                         <path d="m382-354 339-339q12-12 28-12t28 12q12 12 12 28.5T777-636L410-268q-12 12-28 12t-28-12L182-440q-12-12-11.5-28.5T183-497q12-12 28.5-12t28.5 12l142 143Z" />
                                     </svg>
                                     <div class="text-[#71717A] font-semibold text-[18px]">Mark as Read</div>
                                 </div>
                                 <div class="flex items-center gap-[8px]">
-                                    <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" width="24px">
+                                    <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
                                         <path d="M480-424 284-228q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536-480l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480-424Z" />
                                     </svg>
                                     <div class="text-[#71717A] font-semibold text-[18px]">Delete Notification</div>

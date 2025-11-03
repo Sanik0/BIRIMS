@@ -16,3 +16,6 @@ Route::get('/settings', function () {
 Route::get('/notifications', function () {
     return view('notifications');
 });
+Route::get('/orders', function () {
+    return view('orders');
+});
