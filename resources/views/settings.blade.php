@@ -1,13 +1,92 @@
        <!-- header section -->
        @include('shared.header')
        <!-- modal Section -->
-       <div id="modal" class="w-full h-[100%] px-[15px] sm:px-[0] fixed bg-black/50 backdrop-blur-[5px] z-[999] hidden items-center justify-center">
-           <form class="rounded-[4px] bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
-               <h3 class="font-bold text-[40px]">Edit Email</h3>
-               <textarea class="font-normal text-[20px] text-[#52525B] border-b-[#E4E4E7] border-b-[1px] resize-none focus:outline-none px-[20px] py-[15px]" placeholder="Enter your email..." name="" id=""></textarea>
-               <div class="w-full flex gap-[50px]">
-                   <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</button>
+       <div id="modal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
+           <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+               <h3 class="font-bold text-[40px]">Update Informations</h3>
+               <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
+                   <div class="flex flex-col w-full">
+                       <Label class="font-medium text-[18px]">First Name:</Label>
+                       <input type="text" placeholder="Ex. Juan" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                   </div>
+                   <div class="flex flex-col w-full">
+                       <Label class="font-medium text-[18px]">Last Name:</Label>
+                       <input type="text" placeholder="Ex. Dela Cruz" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                   </div>
+               </div>
+               <div class="flex flex-col gap-[10px]">
+                   <div class="flex flex-col">
+                       <Label class="font-medium text-[18px]">Middle Name:</Label>
+                       <input type="text" placeholder="(Optional)" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                   </div>
+               </div>
+               <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
+                   <div class="flex flex-col w-full">
+                       <Label class="font-medium text-[18px]">Birthdate:</Label>
+                       <input type="date" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                   </div>
+                   <div class="flex flex-col w-full">
+                       <Label class="font-medium text-[18px]">Gender:</Label>
+                       <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                           <option value="">Choose Gender</option>
+                       </Select>
+                   </div>
+               </div>
+               <div class="flex flex-col gap-[10px]">
+                   <div class="flex flex-col">
+                       <Label class="font-medium text-[18px]">Place of Birth:</Label>
+                       <input type="Email" placeholder="Ex. Quezon City" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                   </div>
+               </div>
+               <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
+                   <div class="flex flex-col w-full">
+                       <Label class="font-medium text-[18px]">Citizenship</Label>
+                       <input type="text" placeholder="Ex. Filipino" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                   </div>
+                   <div class="flex flex-col w-full">
+                       <Label class="font-medium text-[18px]">Civil Status:</Label>
+                       <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                           <option value="">Choose Gender</option>
+                       </Select>
+                   </div>
+               </div>
+               <div class="flex flex-col gap-[10px]">
+                   <div class="flex flex-col">
+                       <Label class="font-medium text-[18px]">Occupation:</Label>
+                       <input type="Email" placeholder="Ex. Teacher" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                   </div>
+               </div>
+               <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
+                   <div class="flex flex-col w-full">
+                       <Label class="font-medium text-[18px]">House #:</Label>
+                       <input type="text" placeholder="Ex. 123" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                   </div>
+                   <div class="flex flex-col w-full">
+                       <Label class="font-medium text-[18px]">Street:</Label>
+                       <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                           <option value="">Choose Street</option>
+                       </Select>
+                   </div>
+               </div>
+               <div class="flex flex-col gap-[10px]">
+                   <div class="flex flex-col">
+                       <Label class="font-medium text-[18px]">Email:</Label>
+                       <input type="Email" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                   </div>
+               </div>
+               <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
+                   <div class="flex flex-col w-full">
+                       <Label class="font-medium text-[18px]">Create Passord:</Label>
+                       <input type="password" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                   </div>
+                   <div class="flex flex-col w-full">
+                       <Label class="font-medium text-[18px]">Confirm Password:</Label>
+                       <input type="text" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                   </div>
+               </div>
+               <div class="flex flex-col w-full gap-[20px]">
                    <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Save</button>
+                   <div id="" class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
                </div>
            </form>
        </div>
@@ -26,7 +105,7 @@
                </div>
                <div class="flex items-center gap-[20px]">
                    <div class="h-[40px] w-[40px] rounded-[50%] border-solid border-[2px] border-[#EA580C] overflow-hidden">
-                       <img class="w-full h-full object-center object-cover" src="assets/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg" alt="">
+                       <img class="w-full h-full object-center object-cover" src="{{ asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg') }}" alt="">
                    </div>
                    <a href="#" class="group rounded-[4px] py-[7px] px-[8px] hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center gap-[12px]">
                        <svg class="h-[25px] w-[25px]  group-hover:fill-gray-50 transition-all duration-300 fill-[#ffffff]" xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -50,7 +129,7 @@
                    </div>
                    <div class="sm:flex hidden gap-[20px]">
                        <div class="h-[50px] w-[50px] rounded-[50%] border-solid border-[2px] border-[#EA580C] overflow-hidden">
-                           <img class="w-full h-full object-center object-cover" src="assets/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg" alt="">
+                           <img class="w-full h-full object-center object-cover" src="{{asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
                        </div>
                        <a href="#" class="group rounded-[4px] hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] px-[20px] flex items-center gap-[12px]">
                            <svg class="h-[25px] w-[25px]  group-hover:fill-gray-50 transition-all duration-300 fill-[#ffffff]" xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -73,7 +152,7 @@
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="rounded-[50%] h-[98px] w-[98px] overflow-hidden">
-                                           <img class="h-full w-full object-cover object-center" src="../assets/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg" alt="">
+                                           <img class="h-full w-full object-cover object-center" src="{{ asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
                                        </div>
                                    </div>
                                    <div class="font-bold text-[#EA580C] text-[20px]">Edit</div>
