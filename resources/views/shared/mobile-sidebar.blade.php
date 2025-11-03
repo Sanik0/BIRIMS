@@ -1,7 +1,6 @@
-
-  <?php
-    $current_page = basename($_SERVER['PHP_SELF']);
-    ?>
+<?php
+$current_page = basename($_SERVER['PHP_SELF']);
+?>
 <section
     id="mobileSidebar"
     class="bg-[#ffffff] fixed top-0 left-0 w-full h-[100vh] transition-transform transform z-[999] -translate-x-full duration-300 border-r p-[20px] border-[#E4E4E7] max-w-[250px] flex sm:hidden flex-col gap-[20px]">
@@ -18,13 +17,15 @@
 
     <nav class="w-full">
         <div class="w-full flex flex-col">
-            <a href="index.php" class="group flex gap-[10px] items-center py-[10px]">
-                <svg class="h-[30px] w-[30px] <?= ($current_page == 'index.php') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'; ?> transition-all duration-300 " xmlns="http://www.w3.org/2000/svg" height="24px"
+            <a href="{{ url('/home')}}" class="group flex gap-[10px] items-center py-[10px]">
+                <svg class="h-[30px] w-[30px] 
+                    {{ request()->is('home') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'}} transition-all duration-300 " xmlns="http://www.w3.org/2000/svg" height="24px"
                     viewBox="0 -960 960 960" width="24px" fill="#EFEFEF">
                     <path
                         d="M160-200v-360q0-19 8.5-36t23.5-28l240-180q21-16 48-16t48 16l240 180q15 11 23.5 28t8.5 36v360q0 33-23.5 56.5T720-120H600q-17 0-28.5-11.5T560-160v-200q0-17-11.5-28.5T520-400h-80q-17 0-28.5 11.5T400-360v200q0 17-11.5 28.5T360-120H240q-33 0-56.5-23.5T160-200Z" />
                 </svg>
-                <div class="font-semibold text-[20px] <?= ($current_page == 'index.php') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'; ?> transition-all duration-300">Home</div>
+                <div class="font-semibold text-[20px]
+                    {{request()->is('home') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}} transition-all duration-300">Home</div>
             </a>
             <a href="notifications.php" class="group flex gap-[10px] items-center py-[10px]">
                 <svg class="h-[30px] w-[30px] <?= ($current_page == 'notifications.php') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'; ?>  transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -42,13 +43,17 @@
                 </svg>
                 <div class="font-semibold text-[20px] <?= ($current_page == 'orders.php') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'; ?> transition-all duration-300">My Orders</div>
             </a>
-            <a href="settings.php" class="group flex gap-[10px] items-center py-[10px]">
-                <svg class="h-[30px] w-[30px] <?= ($current_page == 'settings.php') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'; ?> transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px"
+            <a href="{{ url('settings')}}" class="group flex gap-[10px] items-center py-[10px]">
+                <svg class="h-[30px] w-[30px] 
+                {{request()->is('settings') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]' }}
+                 transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px"
                     viewBox="0 -960 960 960" width="24px" fill="#EFEFEF">
                     <path
                         d="M433-80q-27 0-46.5-18T363-142l-9-66q-13-5-24.5-12T307-235l-62 26q-25 11-50 2t-39-32l-47-82q-14-23-8-49t27-43l53-40q-1-7-1-13.5v-27q0-6.5 1-13.5l-53-40q-21-17-27-43t8-49l47-82q14-23 39-32t50 2l62 26q11-8 23-15t24-12l9-66q4-26 23.5-44t46.5-18h94q27 0 46.5 18t23.5 44l9 66q13 5 24.5 12t22.5 15l62-26q25-11 50-2t39 32l47 82q14 23 8 49t-27 43l-53 40q1 7 1 13.5v27q0 6.5-2 13.5l53 40q21 17 27 43t-8 49l-48 82q-14 23-39 32t-50-2l-60-26q-11 8-23 15t-24 12l-9 66q-4 26-23.5 44T527-80h-94Zm49-260q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Z" />
                 </svg>
-                <div class="font-semibold text-[20px]  <?= ($current_page == 'settings.php') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'; ?> transition-all duration-300">Settings</div>
+                <div class="font-semibold text-[20px]
+                {{request()->is('settings') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}} 
+                transition-all duration-300">Settings</div>
             </a>
             <div class="text-[16px] font-bold text-[#71717A]">Barangay</div>
             <a href="documents.php" class="group flex gap-[10px] items-center py-[10px]">
