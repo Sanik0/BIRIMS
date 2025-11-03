@@ -32,7 +32,7 @@
         <div class="flex w-full items-start justify-between py-[25px] border-b-[1px] border-[#D4D4D8] px-[15px] sm:px-[0]">
             <div class="flex items-center gap-[10px] max-w-[579px]">
                 <div class="h-[90px] min-w-[90px] sm:flex hidden max-w-[90px] rounded-[50%] overflow-hidden">
-                    <img class="h-full w-full object-center object-cover" src="assets/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg" alt="">
+                    <img class="h-full w-full object-center object-cover" src="{{ asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg') }}" alt="">
                 </div>
                 <div class="flex flex-col">
                     <h1 class="font-serif font-medium sm:text-[35px] text-[25px]">Welcome, John Doe!</h1>
@@ -43,7 +43,7 @@
             </div>
             <div class="sm:flex hidden gap-[20px]">
                 <div class="h-[50px] w-[50px] rounded-[50%] border-solid border-[2px] border-[#EA580C] overflow-hidden">
-                    <img class="w-full h-full object-center object-cover" src="assets/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg" alt="">
+                    <img class="w-full h-full object-center object-cover" src="{{asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
                 </div>
                 <a href="#" class="group rounded-[4px] hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] px-[20px] flex items-center gap-[12px]">
                     <svg class="h-[25px] w-[25px]  group-hover:fill-gray-50 transition-all duration-300 fill-[#ffffff]" xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -65,7 +65,7 @@
                         <div
                             class="rounded-[4px] flex flex-col min-w-[144px] gap-[10px] border-solid w-full max-w-[175px] h-[186px] border-[1px] border-[#E4E4E7] p-[10px]">
                             <div class="h-full overflow-hidden w-full">
-                                <img class="h-full w-full object-cover object-center" src="assets/business-cert.png"
+                                <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
                                     alt="">
                             </div>
                             <a href="document.php"
@@ -75,7 +75,7 @@
                         <div
                             class="rounded-[4px] flex flex-col min-w-[144px] gap-[10px] border-solid w-full max-w-[175px] h-[186px] border-[1px] border-[#E4E4E7] p-[10px]">
                             <div class="h-full overflow-hidden w-full">
-                                <img class="h-full w-full object-cover object-center" src="assets/business-cert.png"
+                                <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
                                     alt="">
                             </div>
                             <a href="#"
@@ -85,7 +85,7 @@
                         <div
                             class="rounded-[4px] flex flex-col min-w-[144px] gap-[10px] border-solid w-full max-w-[175px] h-[186px] border-[1px] border-[#E4E4E7] p-[10px]">
                             <div class="h-full overflow-hidden w-full">
-                                <img class="h-full w-full object-cover object-center" src="assets/business-cert.png"
+                                <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
                                     alt="">
                             </div>
                             <a href="#"
@@ -95,7 +95,7 @@
                         <div
                             class="rounded-[4px] flex flex-col min-w-[144px] gap-[10px] border-solid w-full max-w-[175px] h-[186px] border-[1px] border-[#E4E4E7] p-[10px]">
                             <div class="h-full overflow-hidden w-full">
-                                <img class="h-full w-full object-cover object-center" src="assets/business-cert.png"
+                                <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
                                     alt="">
                             </div>
                             <a href="#"
@@ -110,7 +110,7 @@
                     <a href="#"
                         class=" group w-full flex flex-col sm:flex-row gap-[15px] rounded-[4px] border-solid border-[1px] border-[#D4D4D8] p-[15px]">
                         <div class="w-full max-w-full sm:max-w-[178px] h-[178px] rounded-[4px] overflow-hidden">
-                            <img class="object-cover object-center h-full w-full" src="assets/images (47).jpg" alt="">
+                            <img class="object-cover object-center h-full w-full" src="{{asset('images/images (47).jpg')}}" alt="">
                         </div>
                         <div class="flex flex-col gap-[10px] w-full">
                             <h2 class="font-medium text-[25px] text-[#52525B] group-hover:underline">Lorem ipsum dolor sit amet, consectetur
