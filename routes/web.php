@@ -13,3 +13,6 @@ Route::get('/home', function () {
 Route::get('/settings', function () {
     return view('settings');
 });
+Route::get('/notifications', function () {
+    return view('notifications');
+});
