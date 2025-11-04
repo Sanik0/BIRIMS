@@ -25,3 +25,6 @@ Route::get('/documents', function () {
 Route::get('/blotter', function () {
     return view('blotter');
 });
+Route::get('/appointment', function () {
+    return view('appointment');
+});
