@@ -19,3 +19,6 @@ Route::get('/notifications', function () {
 Route::get('/orders', function () {
     return view('orders');
 });
+Route::get('/documents', function () {
+    return view('documents');
+});

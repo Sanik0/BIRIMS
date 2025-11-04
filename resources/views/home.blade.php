@@ -4,7 +4,6 @@
 <body>
     <!-- sidebar section -->
     @include('shared.sidebar')
-    <!-- mobile header section -->
     <!-- mobile sidebar section -->
     @include('shared.mobile-sidebar')
     <section class="w-full items-center flex sm:hidden px-[15px] py-[10px] border-b-[1px] border-b-gray-300 justify-between">
