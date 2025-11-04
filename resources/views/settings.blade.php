@@ -244,7 +244,7 @@
                                        <div class="font-semibold text-[16px]">Verify Account</div>
                                        <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Not Verified</p>
                                    </div>
-                                   <a href="verify.php" class="font-bold text-[#EA580C] text-[20px]">Verify</a>
+                                   <a href="{{url('/verify')}}" class="font-bold text-[#EA580C] text-[20px]">Verify</a>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">

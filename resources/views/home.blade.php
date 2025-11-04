@@ -492,7 +492,7 @@
                         <p class="font-medium text-[16px] text-[#A1A1AA]">Verify your account to request docs</p>
                     </div>
                 </a>
-                <a href="settings.php" class="flex items-center gap-[20px] sm:gap-[9px] px-[10px] hover:bg-gray-100 transition-all duration-300">
+                <a href="{{url('/settings')}}" class="flex items-center gap-[20px] sm:gap-[9px] px-[10px] hover:bg-gray-100 transition-all duration-300">
                     <svg class="sm:w-[100px] h-[75px] w-[75px] sm:h-[100px]" height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                         viewBox="0 0 512 512" xml:space="preserve">
                         <path style="fill:#167EE6;" d="M256,512c-0.913,0-1.837-0.076-2.75-0.228C129.087,491.076,38.957,384.684,38.957,258.805V83.478
@@ -519,7 +519,7 @@
                         <p class="font-medium text-[16px] text-[#A1A1AA]">Finish setting up your account</p>
                     </div>
                 </a>
-                <a href="settings.php" class="flex items-center gap-[20px] sm:gap-[9px] px-[10px] hover:bg-gray-100 transition-all duration-300">
+                <a href="{{url('/settings')}}" class="flex items-center gap-[20px] sm:gap-[9px] px-[10px] hover:bg-gray-100 transition-all duration-300">
                     <svg class="sm:w-[100px] h-[75px] w-[75px] sm:h-[100px]" width="800px" height="800px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 
                         <g id="Layer_2" />
