@@ -22,3 +22,6 @@ Route::get('/orders', function () {
 Route::get('/documents', function () {
     return view('documents');
 });
+Route::get('/blotter', function () {
+    return view('blotter');
+});
