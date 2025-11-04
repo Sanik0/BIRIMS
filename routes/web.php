@@ -31,3 +31,6 @@ Route::get('/appointment', function () {
 Route::get('/announcements', function () {
     return view('announcements');
 });
+Route::get('/verify', function () {
+    return view('verify');
+});
