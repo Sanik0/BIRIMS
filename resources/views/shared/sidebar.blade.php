@@ -90,7 +90,7 @@
                   <div class="font-semibold text-[20px] 
                     {{request()->is('appointment') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}} transition-all duration-300">Medical</div>
               </a>
-              <a href="{{url('/announcements')}}" class="group flex gap-[10px] items-center py-[10px]">
+              <a href="{{url('announcements')}}" class="group flex gap-[10px] items-center py-[10px]">
                   <svg class="h-[30px] w-[30px] 
                     {{request()->is('announcement') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'}}  transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px"
                       viewBox="0 -960 960 960" width="24px" fill="#EFEFEF">
