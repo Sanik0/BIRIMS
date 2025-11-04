@@ -67,7 +67,7 @@
                                 <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
                                     alt="">
                             </div>
-                            <a href="document.php"
+                            <a href="{{url('/document')}}"
                                 class="rounded-[5px] w-full p-[5px] hover:text-green-50  hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center justify-center text-[16px] text-[#ffffff] font-semibold">
                                 Residency</a>
                         </div>
