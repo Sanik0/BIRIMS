@@ -26,7 +26,7 @@
                 </div>
                 <div class="flex items-center gap-[20px]">
                     <div class="h-[40px] w-[40px] rounded-[50%] border-solid border-[2px] border-[#EA580C] overflow-hidden">
-                        <img class="w-full h-full object-center object-cover" src="assets/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg" alt="">
+                        <img class="w-full h-full object-center object-cover" src="{{asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
                     </div>
                     <a href="#" class="group rounded-[4px] py-[7px] px-[8px] hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center gap-[12px]">
                         <svg class="h-[25px] w-[25px]  group-hover:fill-gray-50 transition-all duration-300 fill-[#ffffff]" xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -50,7 +50,7 @@
                     </div>
                     <div class="sm:flex hidden gap-[20px]">
                         <div class="h-[50px] w-[50px] rounded-[50%] border-solid border-[2px] border-[#EA580C] overflow-hidden">
-                            <img class="w-full h-full object-center object-cover" src="assets/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg" alt="">
+                            <img class="w-full h-full object-center object-cover" src="{{asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
                         </div>
                         <a href="#" class="group rounded-[4px] hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] px-[20px] flex items-center gap-[12px]">
                             <svg class="h-[25px] w-[25px]  group-hover:fill-gray-50 transition-all duration-300 fill-[#ffffff]" xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -70,29 +70,18 @@
                             <div
                                 class="rounded-[4px] flex flex-col gap-[20px] border-solid w-full max-w-[266px] h-[324px] border-[1px] border-[#E4E4E7] p-[15px]">
                                 <div class="h-full overflow-hidden w-full">
-                                    <img class="h-full w-full object-cover object-center" src="assets/business-cert.png"
+                                    <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
                                         alt="">
                                 </div>
                                 <h3 class="font-semibold text-[18px]">Barangay Certificate of Residency</h3>
-                                <a href="document.php"
+                                <a href="{{url('/document')}}"
                                     class="rounded-[4px] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 w-full p-[8px] text-center border-[1px] border-[#FDBA74] text-[#FDBA74] text-[16px] font-medium">
                                     Get Certificate</a>
                             </div>
                             <div
                                 class="rounded-[4px] flex flex-col gap-[20px] border-solid w-full max-w-[266px] h-[324px] border-[1px] border-[#E4E4E7] p-[15px]">
                                 <div class="h-full overflow-hidden w-full">
-                                    <img class="h-full w-full object-cover object-center" src="assets/business-cert.png"
-                                        alt="">
-                                </div>
-                                <h3 class="font-semibold text-[18px]">Barangay Certificate of Residency</h3>
-                                <a href="#"
-                                    class="rounded-[4px] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 w-full p-[8px] text-center border-[1px] border-[#FDBA74] text-[#FDBA74] text-[16px] font-medium">
-                                    Get Certificate</a>
-                            </div>
-                            <div
-                                class="rounded-[4px] flex flex-col gap-[20px] border-solid w-full max-w-[266px] h-[324px] border-[1px] border-[#E4E4E7] p-[15px]">
-                                <div class="h-full overflow-hidden w-full">
-                                    <img class="h-full w-full object-cover object-center" src="assets/business-cert.png"
+                                    <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
                                         alt="">
                                 </div>
                                 <h3 class="font-semibold text-[18px]">Barangay Certificate of Residency</h3>
@@ -103,7 +92,7 @@
                             <div
                                 class="rounded-[4px] flex flex-col gap-[20px] border-solid w-full max-w-[266px] h-[324px] border-[1px] border-[#E4E4E7] p-[15px]">
                                 <div class="h-full overflow-hidden w-full">
-                                    <img class="h-full w-full object-cover object-center" src="assets/business-cert.png"
+                                    <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
                                         alt="">
                                 </div>
                                 <h3 class="font-semibold text-[18px]">Barangay Certificate of Residency</h3>
@@ -114,7 +103,7 @@
                             <div
                                 class="rounded-[4px] flex flex-col gap-[20px] border-solid w-full max-w-[266px] h-[324px] border-[1px] border-[#E4E4E7] p-[15px]">
                                 <div class="h-full overflow-hidden w-full">
-                                    <img class="h-full w-full object-cover object-center" src="assets/business-cert.png"
+                                    <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
                                         alt="">
                                 </div>
                                 <h3 class="font-semibold text-[18px]">Barangay Certificate of Residency</h3>
@@ -125,7 +114,7 @@
                             <div
                                 class="rounded-[4px] flex flex-col gap-[20px] border-solid w-full max-w-[266px] h-[324px] border-[1px] border-[#E4E4E7] p-[15px]">
                                 <div class="h-full overflow-hidden w-full">
-                                    <img class="h-full w-full object-cover object-center" src="assets/business-cert.png"
+                                    <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
                                         alt="">
                                 </div>
                                 <h3 class="font-semibold text-[18px]">Barangay Certificate of Residency</h3>
@@ -136,7 +125,7 @@
                             <div
                                 class="rounded-[4px] flex flex-col gap-[20px] border-solid w-full max-w-[266px] h-[324px] border-[1px] border-[#E4E4E7] p-[15px]">
                                 <div class="h-full overflow-hidden w-full">
-                                    <img class="h-full w-full object-cover object-center" src="assets/business-cert.png"
+                                    <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
                                         alt="">
                                 </div>
                                 <h3 class="font-semibold text-[18px]">Barangay Certificate of Residency</h3>
@@ -147,7 +136,18 @@
                             <div
                                 class="rounded-[4px] flex flex-col gap-[20px] border-solid w-full max-w-[266px] h-[324px] border-[1px] border-[#E4E4E7] p-[15px]">
                                 <div class="h-full overflow-hidden w-full">
-                                    <img class="h-full w-full object-cover object-center" src="assets/business-cert.png"
+                                    <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
+                                        alt="">
+                                </div>
+                                <h3 class="font-semibold text-[18px]">Barangay Certificate of Residency</h3>
+                                <a href="#"
+                                    class="rounded-[4px] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 w-full p-[8px] text-center border-[1px] border-[#FDBA74] text-[#FDBA74] text-[16px] font-medium">
+                                    Get Certificate</a>
+                            </div>
+                            <div
+                                class="rounded-[4px] flex flex-col gap-[20px] border-solid w-full max-w-[266px] h-[324px] border-[1px] border-[#E4E4E7] p-[15px]">
+                                <div class="h-full overflow-hidden w-full">
+                                    <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
                                         alt="">
                                 </div>
                                 <h3 class="font-semibold text-[18px]">Barangay Certificate of Residency</h3>
