@@ -28,3 +28,6 @@ Route::get('/blotter', function () {
 Route::get('/appointment', function () {
     return view('appointment');
 });
+Route::get('/announcements', function () {
+    return view('announcements');
+});
