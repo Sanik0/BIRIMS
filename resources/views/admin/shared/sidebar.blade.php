@@ -25,7 +25,7 @@
           </svg>
           <div class="font-semibold text-[20px] {{request()->is('admin/home') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}} transition-all duration-300">Dashboard</div>
         </a>
-        <a href="settings.php" class="group flex gap-[10px] items-center py-[10px]">
+        <a href="{{url('admin/setings')}}" class="group flex gap-[10px] items-center py-[10px]">
           <svg class="h-[30px] w-[30px] 
             {{request()->is('admin/settings') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'}} 
             transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -36,7 +36,7 @@
           <div class="font-semibold text-[20px]  {{request()->is('admin/settings') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}}  transition-all duration-300">Settings</div>
         </a>
         <div class="text-[16px] font-bold text-[#71717A]">Manage</div>
-        <a href="users.php" class="group flex gap-[10px] items-center py-[10px]">
+        <a href="{{url('admin/users')}}" class="group flex gap-[10px] items-center py-[10px]">
           <svg class="h-[30px] w-[30px] 
             {{request()->is('admin/users') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'}} 
             transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
@@ -44,7 +44,7 @@
           </svg>
           <div class="font-semibold text-[20px]  {{request()->is('admin/users') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}}  transition-all duration-300">Users</div>
         </a>
-        <a href="orders.php" class="  group flex gap-[10px] items-center py-[10px]">
+        <a href="{{url('admin/orders')}}" class="  group flex gap-[10px] items-center py-[10px]">
           <svg class="h-[30px] w-[30px] 
             {{request()->is('admin/orders') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'}} 
            transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -54,15 +54,17 @@
           </svg>
           <div class="font-semibold text-[20px]  {{request()->is('admin/orders') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}} transition-all duration-300">Orders</div>
         </a>
-        <a href="announcements.php" class="group flex gap-[10px] items-center py-[10px]">
-          <svg class="h-[30px] w-[30px] <?= ($current_page == 'announcements.php') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'; ?>  transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px"
+        <a href="{{url('admin/announcements')}}" class="group flex gap-[10px] items-center py-[10px]">
+          <svg class="h-[30px] w-[30px] 
+            {{request()->is('admin/announcements') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'}} 
+             transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px"
             viewBox="0 -960 960 960" width="24px" fill="#EFEFEF">
             <path
               d="M760-440h-80q-17 0-28.5-11.5T640-480q0-17 11.5-28.5T680-520h80q17 0 28.5 11.5T800-480q0 17-11.5 28.5T760-440ZM584-288q10-14 26-16t30 8l64 48q14 10 16 26t-8 30q-10 14-26 16t-30-8l-64-48q-14-10-16-26t8-30Zm120-424-64 48q-14 10-30 8t-26-16q-10-14-8-30t16-26l64-48q14-10 30-8t26 16q10 14 8 30t-16 26ZM280-360H160q-17 0-28.5-11.5T120-400v-160q0-17 11.5-28.5T160-600h120l132-132q19-19 43.5-8.5T480-703v446q0 27-24.5 37.5T412-228L280-360Z" />
           </svg>
           <div class="font-semibold text-[20px]  {{request()->is('admin/announcements') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}}  transition-all duration-300">Announcement</div>
         </a>
-        <a href="appointments.php" class="group flex gap-[10px] items-center py-[10px]">
+        <a href="{{url('admin/appointment')}}" class="group flex gap-[10px] items-center py-[10px]">
           <svg class="h-[30px] w-[30px] 
           {{request()->is('admin/appointments') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'}} 
            transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -72,7 +74,7 @@
           </svg>
           <div class="font-semibold text-[20px]  {{request()->is('admin/appointments') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}}  transition-all duration-300">Appointments</div>
         </a>
-        <a href="verifications.php" class="group flex gap-[10px] items-center py-[10px]">
+        <a href="{{url('admin/verification')}}" class="group flex gap-[10px] items-center py-[10px]">
           <svg class="h-[30px] w-[30px] 
               {{request()->is('admin/verifications') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'}} transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
             <path d="M400-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160q-33 0-56.5-23.5T80-240v-32q0-33 17-62t47-44q51-26 115-44t141-18h26.5q12.5 0 25.5 2 20 2 26 21t-8 33l-17 17q-31 31-35 73t19 77q12 19 3.5 38T412-160H160Zm462-96 174-174q11-11 28-11t28 11q11 11 11 28t-11 28L650-172q-12 12-28 12t-28-12l-82-82q-11-11-11-28t11-28q11-11 28-11t28 11l54 54Z" />
