@@ -37,3 +37,6 @@ Route::get('/verify', function () {
 Route::get('/document', function () {
     return view('document');
 });
+Route::get('/admin/home', function () {
+    return view('admin.home');
+});
