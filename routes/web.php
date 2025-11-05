@@ -40,3 +40,6 @@ Route::get('/document', function () {
 Route::get('/admin/home', function () {
     return view('admin.home');
 });
+Route::get('/admin/settings', function () {
+    return view('admin.settings');
+});
