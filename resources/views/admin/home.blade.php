@@ -1,10 +1,10 @@
  <!-- header section -->
- @include('shared.header')
+ @include('admin.shared.header')
 
  <body class="relative">
-     @include('shared.sidebar')
+     @include('admin.shared.sidebar')
          <!-- mobile sidebar section -->
-         @include('shared.mobile-sidebar')
+         @include('admin.shared.mobile-sidebar')
          <!-- Main Section -->
          <section class="w-full items-center flex sm:hidden px-[15px] py-[10px] border-b-[1px] border-b-gray-300 justify-between">
              <div class="flex gap-[10px] items-center">
