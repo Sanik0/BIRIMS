@@ -2,7 +2,7 @@
  @include('shared.header')
 
  <body class="relative">
-     <@include('shared.sidebar')
+     @include('shared.sidebar')
          <!-- mobile sidebar section -->
          @include('shared.mobile-sidebar')
          <!-- Main Section -->
@@ -15,7 +15,7 @@
              </div>
              <div class="flex items-center gap-[20px]">
                  <div class="h-[40px] w-[40px] rounded-[50%] border-solid border-[2px] border-[#EA580C] overflow-hidden">
-                     <img class="w-full h-full object-center object-cover" src="../assets/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg" alt="">
+                     <img class="w-full h-full object-center object-cover" src="{{asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
                  </div>
                  <a href="#" class="group rounded-[4px] py-[7px] px-[8px] hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center gap-[12px]">
                      <svg class="h-[25px] w-[25px]  group-hover:fill-gray-50 transition-all duration-300 fill-[#ffffff]" xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -31,7 +31,7 @@
              <div class="flex w-full items-start justify-between py-[25px] border-b-[1px] border-[#D4D4D8] px-[15px] sm:px-[0]">
                  <div class="flex items-center gap-[10px] max-w-[579px]">
                      <div class="h-[90px] min-w-[90px] sm:flex hidden max-w-[90px] rounded-[50%] overflow-hidden">
-                         <img class="h-full w-full object-center object-cover" src="assets/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg" alt="">
+                         <img class="h-full w-full object-center object-cover" src="{{asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
                      </div>
                      <div class="flex flex-col">
                          <h1 class="font-serif font-medium sm:text-[35px] text-[25px]">Welcome, Admin</h1>
