@@ -46,3 +46,6 @@ Route::get('/admin/settings', function () {
 Route::get('/admin/users', function () {
     return view('admin.users');
 });
+Route::get('/admin/orders', function () {
+    return view('admin.orders');
+});
