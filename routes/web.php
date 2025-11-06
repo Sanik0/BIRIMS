@@ -52,3 +52,6 @@ Route::get('/admin/orders', function () {
 Route::get('/admin/announcements', function () {
     return view('admin.announcements');
 });
+Route::get('/admin/appointment', function () {
+    return view('admin.appointment');
+});

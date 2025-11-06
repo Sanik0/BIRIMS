@@ -66,13 +66,13 @@
         </a>
         <a href="{{url('admin/appointment')}}" class="group flex gap-[10px] items-center py-[10px]">
           <svg class="h-[30px] w-[30px] 
-          {{request()->is('admin/appointments') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'}} 
+          {{request()->is('admin/appointment') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'}} 
            transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px"
             viewBox="0 -960 960 960" width="24px" fill="#EFEFEF">
             <path
               d="M280-320v40q0 17 11.5 28.5T320-240q17 0 28.5-11.5T360-280v-40h40q17 0 28.5-11.5T440-360q0-17-11.5-28.5T400-400h-40v-40q0-17-11.5-28.5T320-480q-17 0-28.5 11.5T280-440v40h-40q-17 0-28.5 11.5T200-360q0 17 11.5 28.5T240-320h40Zm270-60h180q13 0 21.5-8.5T760-410q0-13-8.5-21.5T730-440H550q-13 0-21.5 8.5T520-410q0 13 8.5 21.5T550-380Zm0 120h100q13 0 21.5-8.5T680-290q0-13-8.5-21.5T650-320H550q-13 0-21.5 8.5T520-290q0 13 8.5 21.5T550-260ZM160-80q-33 0-56.5-23.5T80-160v-440q0-33 23.5-56.5T160-680h200v-120q0-33 23.5-56.5T440-880h80q33 0 56.5 23.5T600-800v120h200q33 0 56.5 23.5T880-600v440q0 33-23.5 56.5T800-80H160Zm280-520h80v-200h-80v200Z" />
           </svg>
-          <div class="font-semibold text-[20px]  {{request()->is('admin/appointments') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}}  transition-all duration-300">Appointments</div>
+          <div class="font-semibold text-[20px]  {{request()->is('admin/appointment') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}}  transition-all duration-300">Appointments</div>
         </a>
         <a href="{{url('admin/verification')}}" class="group flex gap-[10px] items-center py-[10px]">
           <svg class="h-[30px] w-[30px] 
