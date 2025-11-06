@@ -1,5 +1,5 @@
         <!-- Sidebar Section -->
-       @include(admin.shared.header)
+       @include('admin.shared.header')
         <!-- modal Section -->
         <div id="modal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
             <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
@@ -106,7 +106,7 @@
                 </div>
                 <div class="flex items-center gap-[20px]">
                     <div class="h-[40px] w-[40px] rounded-[50%] border-solid border-[2px] border-[#EA580C] overflow-hidden">
-                        <img class="w-full h-full object-center object-cover" src="../assets/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg" alt="">
+                        <img class="w-full h-full object-center object-cover" src="{{asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
                     </div>
                     <a href="#" class="group rounded-[4px] py-[7px] px-[8px] hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center gap-[12px]">
                         <svg class="h-[25px] w-[25px]  group-hover:fill-gray-50 transition-all duration-300 fill-[#ffffff]" xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -122,7 +122,7 @@
                 <div class="flex w-full items-start justify-between py-[25px] border-b-[1px] border-[#D4D4D8] px-[15px] sm:px-[0]">
                     <div class="flex items-center gap-[10px] max-w-[579px]">
                         <div class="h-[90px] min-w-[90px] sm:flex hidden max-w-[90px] rounded-[50%] overflow-hidden">
-                            <img class="h-full w-full object-center object-cover" src="assets/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg" alt="">
+                            <img class="h-full w-full object-center object-cover" src="{{asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
                         </div>
                         <div class="flex flex-col">
                             <h1 class="font-serif font-medium sm:text-[35px] text-[25px]">Settings</h1>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="sm:flex hidden gap-[20px]">
                         <div class="h-[50px] w-[50px] rounded-[50%] border-solid border-[2px] border-[#EA580C] overflow-hidden">
-                            <img class="w-full h-full object-center object-cover" src="assets/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg" alt="">
+                            <img class="w-full h-full object-center object-cover" src="{{asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
                         </div>
                         <a href="#" class="group rounded-[4px] hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] px-[20px] flex items-center gap-[12px]">
                             <svg class="h-[25px] w-[25px]  group-hover:fill-gray-50 transition-all duration-300 fill-[#ffffff]" xmlns="http://www.w3.org/2000/svg" height="24px"
@@ -159,7 +159,7 @@
                                 <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                     <div class="flex flex-col">
                                         <div class="rounded-[50%] h-[98px] w-[98px] overflow-hidden">
-                                            <img class="h-full w-full object-cover object-center" src="../assets/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg" alt="">
+                                            <img class="h-full w-full object-cover object-center" src="{{asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
                                         </div>
                                     </div>
                                 </div>

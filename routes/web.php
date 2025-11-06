@@ -43,3 +43,6 @@ Route::get('/admin/home', function () {
 Route::get('/admin/settings', function () {
     return view('admin.settings');
 });
+Route::get('/admin/users', function () {
+    return view('admin.users');
+});
