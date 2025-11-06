@@ -55,3 +55,6 @@ Route::get('/admin/announcements', function () {
 Route::get('/admin/appointment', function () {
     return view('admin.appointment');
 });
+Route::get('/admin/verifications', function () {
+    return view('admin.verifications');
+});
