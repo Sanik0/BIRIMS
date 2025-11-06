@@ -147,15 +147,17 @@
                    <div class="w-full max-w-[815px] flex flex-col gap-[50px] relative">
                        <!-- personal informations -->
                        <div class="flex flex-col gap-[15px] w-full">
-                           <h2 class="font-bold text-[25px]">Personal Information</h2>
+                           <div class="flex items-center justify-between">
+                               <h2 class="font-bold text-[25px]">Personal Information</h2>
+                               <div id="modalBtn" class="hover:cursor-pointer hover:text-orange-700 transition-text duration-300 font-bold text-[#EA580C] text-[25px]">Edit</div>
+                           </div>
                            <div class="w-full rounded-[4px] border-solid border-[1px] py-[20px] border-[#D4D4D8]">
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="rounded-[50%] h-[98px] w-[98px] overflow-hidden">
-                                           <img class="h-full w-full object-cover object-center" src="{{ asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
+                                           <img class="h-full w-full object-cover object-center" src="{{asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
                                        </div>
                                    </div>
-                                   <div class="font-bold text-[#EA580C] text-[20px]">Edit</div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
@@ -168,7 +170,6 @@
                                        <div class="font-semibold text-[16px]">Email</div>
                                        <p class="font-regular text-[16px] py-[10px] text-[#52525B]">johndoe@gmail.com</p>
                                    </div>
-                                   <div id="modalBtn" class="hover:cursor-pointer hover:text-orange-700 transition-text duration-300 font-bold text-[#EA580C] text-[20px]">Edit</div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
@@ -182,56 +183,48 @@
                                            Philippines
                                        </p>
                                    </div>
-                                   <div class="font-bold text-[#EA580C] text-[20px]">Edit</div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Gender</div>
                                        <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Male</p>
                                    </div>
-                                   <div class="font-bold text-[#EA580C] text-[20px]">Edit</div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Place of birth:</div>
                                        <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Quezon City</p>
                                    </div>
-                                   <div class="font-bold text-[#EA580C] text-[20px]">Edit</div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Citizenship:</div>
                                        <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Filipino</p>
                                    </div>
-                                   <div class="font-bold text-[#EA580C] text-[20px]">Edit</div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Civil Status:</div>
                                        <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Single</p>
                                    </div>
-                                   <div class="font-bold text-[#EA580C] text-[20px]">Edit</div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Occupation:</div>
                                        <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Professor</p>
                                    </div>
-                                   <div class="font-bold text-[#EA580C] text-[20px]">Edit</div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Civil Status:</div>
                                        <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Single</p>
                                    </div>
-                                   <div class="font-bold text-[#EA580C] text-[20px]">Edit</div>
                                </div>
                                <div class="px-[20px] py-[15px] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Birth Date</div>
                                        <p class="font-regular text-[16px] py-[10px] text-[#52525B]">05 May 2011</p>
                                    </div>
-                                   <div class="font-bold text-[#EA580C] text-[20px]">Edit</div>
                                </div>
                            </div>
                        </div>
