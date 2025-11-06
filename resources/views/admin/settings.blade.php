@@ -238,13 +238,6 @@
                             <div class="w-full rounded-[4px] border-solid border-[1px] py-[20px] border-[#D4D4D8]">
                                 <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                     <div class="flex flex-col">
-                                        <div class="font-semibold text-[16px]">Verify Account</div>
-                                        <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Not Verified</p>
-                                    </div>
-                                    <a href="verify.php" class="font-bold text-[#EA580C] text-[20px]">Verify</a>
-                                </div>
-                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
-                                    <div class="flex flex-col">
                                         <div class="font-semibold text-[16px]">Change Password</div>
                                     </div>
                                     <div class="font-bold text-[#EA580C] text-[20px]">Edit</div>
