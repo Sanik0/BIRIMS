@@ -81,6 +81,15 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </svg>
                 <div class="font-semibold text-[20px]  {{request()->is('admin/verifications') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}}  transition-all duration-300">Verification</div>
             </a>
+            <a href="{{url('admin/blotters')}}" class="group flex gap-[10px] items-center py-[10px]">
+                 <svg class="h-[30px] w-[30px] 
+                    {{request()->is('admin/blotters') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'}} transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px"
+                      viewBox="0 -960 960 960" width="24px" fill="#EFEFEF">
+                      <path
+                          d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm120-160h200q17 0 28.5-11.5T560-320q0-17-11.5-28.5T520-360H320q-17 0-28.5 11.5T280-320q0 17 11.5 28.5T320-280Zm0-160h320q17 0 28.5-11.5T680-480q0-17-11.5-28.5T640-520H320q-17 0-28.5 11.5T280-480q0 17 11.5 28.5T320-440Zm0-160h320q17 0 28.5-11.5T680-640q0-17-11.5-28.5T640-680H320q-17 0-28.5 11.5T280-640q0 17 11.5 28.5T320-600Z" />
+                  </svg>
+                <div class="font-semibold text-[20px]  {{request()->is('admin/blotters') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}}  transition-all duration-300">Blotter Reports</div>
+            </a>
         </div>
     </nav>
 </section>
