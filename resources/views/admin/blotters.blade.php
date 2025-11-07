@@ -20,16 +20,12 @@
    <!-- modal delete announcement Section -->
    <div id="deleteModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
        <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
-           <h3 class="font-bold text-[40px]">Reject Verification</h3>
+           <h3 class="font-bold text-[40px]">Delete Blotter Report</h3>
            <div class="flex items-center justify-center w-full">
-               <p class="font-regular text-[20px] text-gray-500">You are about to reject <span class="text-[#EF4444]"> Juan Dela Cruz's</span> Verification request, write down your reason why.</p>
-           </div>
-           <div class="flex flex-col w-full">
-               <Label class="font-medium text-[18px]">Reason:</Label>
-               <textarea type="text" placeholder="Write down your reason for rejection" value="₱0.00" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]"></textarea>
+               <p class="font-regular text-[20px] text-gray-500">Are you sure you want to delete <span class="text-[#EF4444]"> Juan Dela Cruz's</span> Blotter Report? this action cannot be undone.</p>
            </div>
            <div class="flex flex-col w-full gap-[20px]">
-               <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Reject</button>
+               <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Yes, Delete</button>
                <div id="" class="flex cancelBtn items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
            </div>
        </form>
@@ -37,7 +33,7 @@
    <!-- modal edit announcement Section -->
    <div id="editModal" class="modal w-full fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
        <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
-           <h3 class="font-bold text-[40px]">Edit User</h3>
+           <h3 class="font-bold text-[40px]">Edit Blotter Report</h3>
            <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                <div class="flex flex-col w-full">
                    <Label class="font-medium text-[18px]">First Name:</Label>
@@ -225,13 +221,13 @@
                <!-- Mobile appointments Cards -->
                <div class="w-full gap-[20px] mb-[30px] flex sm:hidden flex-col">
                    <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
-                       <h6 class="text-[14px] text-gray-600 font-semibold">Full Name:</h6>
+                       <h6 class="text-[14px] text-gray-600 font-semibold">Complainant:</h6>
                        <p data-modal="addModal" class="addBtn text-[16px] font-medium">Juan Dela Cruz</p>
-                       <h6 class="text-[14px] text-gray-600 font-semibold">Email:</h6>
-                       <p class="text-[16px] font-medium">juandelacruz@gmail.com</p>
-                       <h6 class="text-[14px] text-gray-600 font-semibold">Dcoument:</h6>
-                       <p class="text-[16px] font-medium">Valid ID</p>
-                       <h6 class="text-[14px] text-gray-600 font-semibold">Date Submitted:</h6>
+                       <h6 class="text-[14px] text-gray-600 font-semibold">Respondent:</h6>
+                       <p class="text-[16px] font-medium">Pedro Santos</p>
+                       <h6 class="text-[14px] text-gray-600 font-semibold">Complaint:</h6>
+                       <p class="text-[16px] font-medium">Physical assault during argument</p>
+                       <h6 class="text-[14px] text-gray-600 font-semibold">Date of Incident:</h6>
                        <p class="text-[16px] font-medium">03-05-2025</p>
                        <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
                        <div class="w-full flex items-center gap-[10px]">
