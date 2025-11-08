@@ -113,12 +113,12 @@
         <!--  delete account modal -->
         <div id="deleteAccModal" class="modal w-full fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
             <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
-                <h3 class="font-bold text-[40px]">Delete User</h3>
+                <h3 class="font-bold text-[40px]">Delete Account</h3>
                 <div class="flex items-center justify-center w-full">
                     <p class="font-regular text-[20px] text-gray-500">Are you sure you want to delete <span class="text-[#EF4444]">Your Account</span>? This action cannot be undone and all your information will be lost.</p>
                 </div>
                 <div class="flex flex-col w-full gap-[20px]">
-                    <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Yes, Delete User</button>
+                    <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Yes, Delete Account</button>
                     <div id="cancelDeleteBtn" class="cancelBtn  flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
                 </div>
             </form>
@@ -298,7 +298,9 @@
                     const openPwdBtn = document.getElementById('pwdBtn');
                     const pwdCancelBtn = document.getElementById('pwdCancelBtn')
                     // delete account modal
-                    
+                    const deleteAccModal = document.getElementById('deleteAccModal');
+                    const deleteAccBtn = document.getElementById('deleteAccBtn');
+                    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn')
 
                     openModalBtn.addEventListener('click', function() {
                         modal.style.display = 'flex';
@@ -316,6 +318,16 @@
 
                     pwdCancelBtn.addEventListener('click', function() {
                         pwdModal.style.display = 'none';
+                    })
+
+                    // delete account function
+
+                    deleteAccBtn.addEventListener('click', function() {
+                        deleteAccModal.style.display = 'flex';
+                    })
+
+                    cancelDeleteBtn.addEventListener('click', function() {
+                        deleteAccModal.style.display = 'none';
                     })
 
 
