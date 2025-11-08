@@ -86,12 +86,12 @@
                 </div>
                 <div class="flex flex-col w-full gap-[20px]">
                     <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Save</button>
-                    <div id="" class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
+                    <div id="cancelBtn" class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
                 </div>
             </form>
         </div>
-        <!-- modal Section -->
-        <div id="pwdModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
+        <!-- password modal Section -->
+        <div id="pwdModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden items-center justify-center">
             <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
                 <h3 class="font-bold text-[40px]">Update Password</h3>
                 <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
@@ -260,7 +260,7 @@
                                     <div class="flex flex-col">
                                         <div class="font-semibold text-[16px]">Change Password</div>
                                     </div>
-                                    <div id="pwdBtn" class="font-bold text-[#EA580C] text-[20px]">Edit</div>
+                                    <div id="pwdBtn" class="hover:cursor-pointer hover:text-orange-700 transition-text duration-300 font-bold text-[#EA580C] text-[20px]">Edit</div>
                                 </div>
                                 <div class=" px-[20px] py-[15px] w-fill flex items-center justify-between">
                                     <div class="flex flex-col">
@@ -279,6 +279,7 @@
                 document.addEventListener('DOMContentLoaded', function() {
                     const modal = document.getElementById('modal');
                     const openModalBtn = document.getElementById('modalBtn');
+                    const cancelBtn = document.getElementById('cancelBtn');
                     // change password modal
                     const pwdModal = document.getElementById('pwdModal');
                     const openPwdBtn = document.getElementById('pwdBtn');
@@ -287,6 +288,12 @@
                     openModalBtn.addEventListener('click', function() {
                         modal.style.display = 'flex';
                     })
+
+                    cancelBtn.addEventListener('click', function() {
+                        modal.style.display = 'none';
+                    }) 
+
+                    // change password function
 
                     openPwdBtn.addEventListener('click', function() {
                         pwdModal.style.display = 'flex';
