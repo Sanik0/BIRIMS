@@ -91,79 +91,9 @@
             </form>
         </div>
         <!-- modal Section -->
-        <div id="modal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
+        <div id="pwdModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
             <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
-                <h3 class="font-bold text-[40px]">Update Informations</h3>
-                <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
-                    <div class="flex flex-col w-full">
-                        <Label class="font-medium text-[18px]">First Name:</Label>
-                        <input type="text" placeholder="Ex. Juan" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                    </div>
-                    <div class="flex flex-col w-full">
-                        <Label class="font-medium text-[18px]">Last Name:</Label>
-                        <input type="text" placeholder="Ex. Dela Cruz" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                    </div>
-                </div>
-                <div class="flex flex-col gap-[10px]">
-                    <div class="flex flex-col">
-                        <Label class="font-medium text-[18px]">Middle Name:</Label>
-                        <input type="text" placeholder="(Optional)" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                    </div>
-                </div>
-                <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
-                    <div class="flex flex-col w-full">
-                        <Label class="font-medium text-[18px]">Birthdate:</Label>
-                        <input type="date" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                    </div>
-                    <div class="flex flex-col w-full">
-                        <Label class="font-medium text-[18px]">Gender:</Label>
-                        <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                            <option value="">Choose Gender</option>
-                        </Select>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-[10px]">
-                    <div class="flex flex-col">
-                        <Label class="font-medium text-[18px]">Place of Birth:</Label>
-                        <input type="Email" placeholder="Ex. Quezon City" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                    </div>
-                </div>
-                <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
-                    <div class="flex flex-col w-full">
-                        <Label class="font-medium text-[18px]">Citizenship</Label>
-                        <input type="text" placeholder="Ex. Filipino" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                    </div>
-                    <div class="flex flex-col w-full">
-                        <Label class="font-medium text-[18px]">Civil Status:</Label>
-                        <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                            <option value="">Choose Gender</option>
-                        </Select>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-[10px]">
-                    <div class="flex flex-col">
-                        <Label class="font-medium text-[18px]">Occupation:</Label>
-                        <input type="Email" placeholder="Ex. Teacher" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                    </div>
-                </div>
-                <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
-                    <div class="flex flex-col w-full">
-                        <Label class="font-medium text-[18px]">House #:</Label>
-                        <input type="text" placeholder="Ex. 123" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                    </div>
-                    <div class="flex flex-col w-full">
-                        <Label class="font-medium text-[18px]">Street:</Label>
-                        <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                            <option value="">Choose Street</option>
-                        </Select>
-                    </div>
-                </div>
-                <div class="flex flex-col gap-[10px]">
-                    <div class="flex flex-col">
-                        <Label class="font-medium text-[18px]">Email:</Label>
-                        <input type="Email" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                    </div>
-                </div>
+                <h3 class="font-bold text-[40px]">Update Password</h3>
                 <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                     <div class="flex flex-col w-full">
                         <Label class="font-medium text-[18px]">Create Passord:</Label>
@@ -176,7 +106,7 @@
                 </div>
                 <div class="flex flex-col w-full gap-[20px]">
                     <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Save</button>
-                    <div id="" class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
+                    <div id="pwdCancelBtn" class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
                 </div>
             </form>
         </div>
@@ -330,7 +260,7 @@
                                     <div class="flex flex-col">
                                         <div class="font-semibold text-[16px]">Change Password</div>
                                     </div>
-                                    <div class="font-bold text-[#EA580C] text-[20px]">Edit</div>
+                                    <div id="pwdBtn" class="font-bold text-[#EA580C] text-[20px]">Edit</div>
                                 </div>
                                 <div class=" px-[20px] py-[15px] w-fill flex items-center justify-between">
                                     <div class="flex flex-col">
@@ -352,6 +282,7 @@
                     // change password modal
                     const pwdModal = document.getElementById('pwdModal');
                     const openPwdBtn = document.getElementById('pwdBtn');
+                    const pwdCancelBtn = document.getElementById('pwdCancelBtn')
 
                     openModalBtn.addEventListener('click', function() {
                         modal.style.display = 'flex';
@@ -360,6 +291,11 @@
                     openPwdBtn.addEventListener('click', function() {
                         pwdModal.style.display = 'flex';
                     })
+
+                    pwdCancelBtn.addEventListener('click', function() {
+                        pwdModal.style.display = 'none';
+                    })
+                    
 
                 })
 
