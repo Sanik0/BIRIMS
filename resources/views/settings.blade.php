@@ -86,7 +86,40 @@
                </div>
                <div class="flex flex-col w-full gap-[20px]">
                    <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Save</button>
-                   <div id="" class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
+                   <div id="cancelBtn" class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
+               </div>
+           </form>
+       </div>
+       <!-- password modal Section -->
+       <div id="pwdModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden items-center justify-center">
+           <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+               <h3 class="font-bold text-[40px]">Update Password</h3>
+               <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
+                   <div class="flex flex-col w-full">
+                       <Label class="font-medium text-[18px]">Create Passord:</Label>
+                       <input type="password" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                   </div>
+                   <div class="flex flex-col w-full">
+                       <Label class="font-medium text-[18px]">Confirm Password:</Label>
+                       <input type="text" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                   </div>
+               </div>
+               <div class="flex flex-col w-full gap-[20px]">
+                   <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Save</button>
+                   <div id="pwdCancelBtn" class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
+               </div>
+           </form>
+       </div>
+       <!--  delete account modal -->
+       <div id="deleteAccModal" class="modal w-full fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
+           <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+               <h3 class="font-bold text-[40px]">Delete Account</h3>
+               <div class="flex items-center justify-center w-full">
+                   <p class="font-regular text-[20px] text-gray-500">Are you sure you want to delete <span class="text-[#EF4444]">Your Account</span>? This action cannot be undone and all your information will be lost.</p>
+               </div>
+               <div class="flex flex-col w-full gap-[20px]">
+                   <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Yes, Delete Account</button>
+                   <div id="cancelDeleteBtn" class="cancelBtn  flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
                </div>
            </form>
        </div>
@@ -237,20 +270,20 @@
                                        <div class="font-semibold text-[16px]">Verify Account</div>
                                        <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Not Verified</p>
                                    </div>
-                                   <a href="{{url('/verify')}}" class="font-bold text-[#EA580C] text-[20px]">Verify</a>
+                                   <a href="{{url('/verify')}}" class="hover:cursor-pointer hover:text-orange-700 transition-text duration-300 font-bold text-[#EA580C] text-[20px]">Verify</a>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Change Password</div>
                                    </div>
-                                   <div class="font-bold text-[#EA580C] text-[20px]">Edit</div>
+                                   <div id="pwdBtn" class="hover:cursor-pointer hover:text-orange-700 transition-text duration-300 font-bold text-[#EA580C] text-[20px]">Edit</div>
                                </div>
                                <div class=" px-[20px] py-[15px] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Delete My Account</div>
                                        <p class="font-regular text-[16px] py-[10px] text-[#52525B]">This will Delete all your account’s information and cannot be undone</p>
                                    </div>
-                                   <div class="font-bold text-[#EA580C] text-[20px]">Delete</div>
+                                   <div id="deleteAccBtn" class="hover:cursor-pointer hover:text-orange-700 transition-text duration-300 font-bold text-[#EA580C] text-[20px]">Delete</div>
                                </div>
                            </div>
                        </div>
@@ -260,48 +293,48 @@
            </main>
            <script>
                document.addEventListener('DOMContentLoaded', function() {
-                    const modal = document.getElementById('modal');
-                    const openModalBtn = document.getElementById('modalBtn');
-                    const cancelBtn = document.getElementById('cancelBtn');
-                    // change password modal
-                    const pwdModal = document.getElementById('pwdModal');
-                    const openPwdBtn = document.getElementById('pwdBtn');
-                    const pwdCancelBtn = document.getElementById('pwdCancelBtn')
-                    // delete account modal
-                    const deleteAccModal = document.getElementById('deleteAccModal');
-                    const deleteAccBtn = document.getElementById('deleteAccBtn');
-                    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn')
+                   const modal = document.getElementById('modal');
+                   const openModalBtn = document.getElementById('modalBtn');
+                   const cancelBtn = document.getElementById('cancelBtn');
+                   // change password modal
+                   const pwdModal = document.getElementById('pwdModal');
+                   const openPwdBtn = document.getElementById('pwdBtn');
+                   const pwdCancelBtn = document.getElementById('pwdCancelBtn')
+                   // delete account modal
+                   const deleteAccModal = document.getElementById('deleteAccModal');
+                   const deleteAccBtn = document.getElementById('deleteAccBtn');
+                   const cancelDeleteBtn = document.getElementById('cancelDeleteBtn')
 
-                    openModalBtn.addEventListener('click', function() {
-                        modal.style.display = 'flex';
-                    })
+                   openModalBtn.addEventListener('click', function() {
+                       modal.style.display = 'flex';
+                   })
 
-                    cancelBtn.addEventListener('click', function() {
-                        modal.style.display = 'none';
-                    })
+                   cancelBtn.addEventListener('click', function() {
+                       modal.style.display = 'none';
+                   })
 
-                    // change password function
+                   // change password function
 
-                    openPwdBtn.addEventListener('click', function() {
-                        pwdModal.style.display = 'flex';
-                    })
+                   openPwdBtn.addEventListener('click', function() {
+                       pwdModal.style.display = 'flex';
+                   })
 
-                    pwdCancelBtn.addEventListener('click', function() {
-                        pwdModal.style.display = 'none';
-                    })
+                   pwdCancelBtn.addEventListener('click', function() {
+                       pwdModal.style.display = 'none';
+                   })
 
-                    // delete account function
+                   // delete account function
 
-                    deleteAccBtn.addEventListener('click', function() {
-                        deleteAccModal.style.display = 'flex';
-                    })
+                   deleteAccBtn.addEventListener('click', function() {
+                       deleteAccModal.style.display = 'flex';
+                   })
 
-                    cancelDeleteBtn.addEventListener('click', function() {
-                        deleteAccModal.style.display = 'none';
-                    })
+                   cancelDeleteBtn.addEventListener('click', function() {
+                       deleteAccModal.style.display = 'none';
+                   })
 
 
-                })
+               })
            </script>
        </body>
 
