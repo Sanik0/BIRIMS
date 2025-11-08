@@ -260,14 +260,48 @@
            </main>
            <script>
                document.addEventListener('DOMContentLoaded', function() {
-                   const modal = document.getElementById('modal');
-                   const openModalBtn = document.getElementById('modalBtn');
+                    const modal = document.getElementById('modal');
+                    const openModalBtn = document.getElementById('modalBtn');
+                    const cancelBtn = document.getElementById('cancelBtn');
+                    // change password modal
+                    const pwdModal = document.getElementById('pwdModal');
+                    const openPwdBtn = document.getElementById('pwdBtn');
+                    const pwdCancelBtn = document.getElementById('pwdCancelBtn')
+                    // delete account modal
+                    const deleteAccModal = document.getElementById('deleteAccModal');
+                    const deleteAccBtn = document.getElementById('deleteAccBtn');
+                    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn')
 
-                   openModalBtn.addEventListener('click', function() {
-                       modal.style.display = 'flex';
-                   })
+                    openModalBtn.addEventListener('click', function() {
+                        modal.style.display = 'flex';
+                    })
 
-               })
+                    cancelBtn.addEventListener('click', function() {
+                        modal.style.display = 'none';
+                    })
+
+                    // change password function
+
+                    openPwdBtn.addEventListener('click', function() {
+                        pwdModal.style.display = 'flex';
+                    })
+
+                    pwdCancelBtn.addEventListener('click', function() {
+                        pwdModal.style.display = 'none';
+                    })
+
+                    // delete account function
+
+                    deleteAccBtn.addEventListener('click', function() {
+                        deleteAccModal.style.display = 'flex';
+                    })
+
+                    cancelDeleteBtn.addEventListener('click', function() {
+                        deleteAccModal.style.display = 'none';
+                    })
+
+
+                })
            </script>
        </body>
 
