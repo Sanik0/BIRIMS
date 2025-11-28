@@ -2,16 +2,17 @@
      @include('admin.shared.header')
      <!-- modal add user Section -->
      <div id="addModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
-         <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+         <form action="{{ route('users.store')}}" method="POST" class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+            @csrf
              <h3 class="font-bold text-[40px]">Add User</h3>
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">First Name:</Label>
-                     <input type="text" placeholder="Ex. Juan" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input name="firstname" type="text" placeholder="Ex. Juan" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Last Name:</Label>
-                     <input type="text" placeholder="Ex. Dela Cruz" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input name="lastname" type="text" placeholder="Ex. Dela Cruz" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
              </div>
              <div class="flex flex-col gap-[10px]">
@@ -71,13 +72,13 @@
              <div class="flex flex-col gap-[10px]">
                  <div class="flex flex-col">
                      <Label class="font-medium text-[18px]">Email:</Label>
-                     <input type="Email" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input name="email" type="Email" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
              </div>
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Create Passord:</Label>
-                     <input type="password" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input name="password" type="password" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Confirm Password:</Label>
@@ -85,7 +86,7 @@
                  </div>
              </div>
              <div class="flex flex-col w-full gap-[20px]">
-                 <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Create User</button>
+                 <button type="submit" class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Create User</button>
                  <div id="" class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
              </div>
          </form>

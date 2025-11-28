@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('home');
@@ -43,9 +44,11 @@ Route::get('/admin/home', function () {
 Route::get('/admin/settings', function () {
     return view('admin.settings');
 });
-Route::get('/admin/users', function () {
-    return view('admin.users');
-});
+
+// Admin User Routes
+Route::get('/admin/users', [UserController::class, 'create']);
+Route::post('/admin/users', [UserController::class, 'store'])->name('users.store');
+
 Route::get('/admin/orders', function () {
     return view('admin.orders');
 });
