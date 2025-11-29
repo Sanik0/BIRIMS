@@ -46,7 +46,7 @@ Route::get('/admin/settings', function () {
 });
 
 // Admin User Routes
-Route::get('/admin/users', [UserController::class, 'create']);
+Route::get('/admin/users', [UserController::class, 'create'])->name('users.create');
 Route::post('/admin/users', [UserController::class, 'store'])->name('users.store');
 
 Route::get('/admin/orders', function () {

@@ -3,87 +3,102 @@
      <!-- modal add user Section -->
      <div id="addModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
          <form action="{{ route('users.store')}}" method="POST" class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
-            @csrf
+             @csrf
              <h3 class="font-bold text-[40px]">Add User</h3>
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">First Name:</Label>
-                     <input name="firstname" type="text" placeholder="Ex. Juan" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input required value="{{ old('firstname')}}" name="firstname" type="text" placeholder="Ex. Juan" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Last Name:</Label>
-                     <input name="lastname" type="text" placeholder="Ex. Dela Cruz" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input required value="{{ old('lastname')}}" name="lastname" type="text" placeholder="Ex. Dela Cruz" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
              </div>
              <div class="flex flex-col gap-[10px]">
                  <div class="flex flex-col">
                      <Label class="font-medium text-[18px]">Middle Name:</Label>
-                     <input type="text" placeholder="(Optional)" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input required value="{{ old('middlename')}}" name="middlename" type="text" placeholder="(Optional)" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
              </div>
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Birthdate:</Label>
-                     <input type="date" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input required value="{{ old('birthdate')}}" name="birthdate" type="date" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Gender:</Label>
-                     <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <Select required name="gender" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                          <option value="">Choose Gender</option>
+                         <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
+                         <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Male</option>
+                         <option value="lgbt" {{ old('gender') == 'lgbt' ? 'selected' : '' }}>LGBTQ+</option>
+                         <option value="prefer not to say" {{ old('gender') == 'prefer not to say' ? 'selected' : '' }}>Prefer not to say</option>
                      </Select>
                  </div>
              </div>
              <div class="flex flex-col gap-[10px]">
                  <div class="flex flex-col">
                      <Label class="font-medium text-[18px]">Place of Birth:</Label>
-                     <input type="Email" placeholder="Ex. Quezon City" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input required value="{{ old('birthplace')}}" name="birthplace" type="text" placeholder="Ex. Quezon City" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
              </div>
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Citizenship</Label>
-                     <input type="text" placeholder="Ex. Filipino" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input value="{{ old('citizenship')}}" name="citizenship" type="text" placeholder="Ex. Filipino" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Civil Status:</Label>
-                     <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <Select name="civil" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                          <option value="">Choose Gender</option>
+                         <option value="single" {{ old('civil') == 'single' ? 'selected' : '' }}>Single</option>
+                         <option value="married" {{ old('civil') == 'married' ? 'selected' : '' }}>Married</option>
                      </Select>
                  </div>
              </div>
              <div class="flex flex-col gap-[10px]">
                  <div class="flex flex-col">
                      <Label class="font-medium text-[18px]">Occupation:</Label>
-                     <input type="Email" placeholder="Ex. Teacher" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input required value="{{ old('occupation')}}" name="occupation" type="text" placeholder="Ex. Teacher" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
              </div>
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">House #:</Label>
-                     <input type="text" placeholder="Ex. 123" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input required value="{{ old('housenumber')}}" name="housenumber" type="number" placeholder="Ex. 123" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Street:</Label>
-                     <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <Select required name="street" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                          <option value="">Choose Street</option>
+                         <option value="gemini" {{ old('street') == 'gemini' ? 'selected' : '' }}>Gemini</option>
                      </Select>
                  </div>
              </div>
              <div class="flex flex-col gap-[10px]">
                  <div class="flex flex-col">
                      <Label class="font-medium text-[18px]">Email:</Label>
-                     <input name="email" type="Email" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input required value="{{ $errors->has('email') ? '' : old('email') }}" name="email" type="Email" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     @error('email')
+                     <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                     @enderror
                  </div>
              </div>
-             <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
-                 <div class="flex flex-col w-full">
-                     <Label class="font-medium text-[18px]">Create Passord:</Label>
-                     <input name="password" type="password" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+             <div class="flex flex-col items-center gap-[30px] w-full">
+                 <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
+                     <div class="flex flex-col w-full">
+                         <Label class="font-medium text-[18px]">Create Passord:</Label>
+                         <input required name="password" type="password" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     </div>
+                     <div class="flex flex-col w-full">
+                         <Label class="font-medium text-[18px]">Confirm Password:</Label>
+                         <input required name="password_confirmation" type="text" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     </div>
                  </div>
-                 <div class="flex flex-col w-full">
-                     <Label class="font-medium text-[18px]">Confirm Password:</Label>
-                     <input type="text" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                 </div>
+                 @error('password')
+                 <small class=" w-full text-red-600 text-sm mt-1">{{ $message }}</small>
+                 @enderror
              </div>
              <div class="flex flex-col w-full gap-[20px]">
                  <button type="submit" class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Create User</button>
@@ -587,6 +602,13 @@
 
              });
          </script>
+         @if ($errors->any())
+         <script>
+             const modal = document.getElementById('addModal');
+             modal.classList.remove('hidden');
+             modal.classList.add('flex');
+         </script>
+         @endif
      </body>
 
      </html>
