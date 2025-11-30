@@ -31,7 +31,7 @@
                      <Select required name="gender" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                          <option value="">Choose Gender</option>
                          <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
-                         <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Male</option>
+                         <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
                          <option value="lgbt" {{ old('gender') == 'lgbt' ? 'selected' : '' }}>LGBTQ+</option>
                          <option value="prefer not to say" {{ old('gender') == 'prefer not to say' ? 'selected' : '' }}>Prefer not to say</option>
                      </Select>

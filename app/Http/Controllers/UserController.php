@@ -8,12 +8,15 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function create()
+    // Show Users
+    public function index()
     {
-        return view('admin.users');
+        $users = User::all();
+        return view('admin.users', compact('users'));
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         // validate input
         $request->validate([
             'firstname' => 'required|string|max:255',
@@ -39,22 +42,16 @@ class UserController extends Controller
             'middlename' => $request->middlename,
             'birthdate' => $request->birthdate,
             'gender' => $request->gender,
-            'birthplace' => $request->birthplace,
+            'place_of_birth' => $request->birthplace,
             'citizenship' => $request->citizenship,
-            'civil' => $request->civil,
+            'civil_status' => $request->civil,
             'occupation' => $request->occupation,
-            'housenumber' => $request->housenumber,
-            'street' => $request->street,   
+            'house_number' => $request->housenumber,
+            'street' => $request->street,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('users.create')->with('success', 'User created successfully.');
-    }
-
-    // Show Users
-    public function index() {
-        $users = User::all();
-        return view('admin.users', compact('users'));
+        return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 }
