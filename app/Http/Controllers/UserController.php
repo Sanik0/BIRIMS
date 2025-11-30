@@ -15,6 +15,7 @@ class UserController extends Controller
         return view('admin.users', compact('users'));
     }
 
+    // Create User
     public function store(Request $request)
     {
         // validate input
@@ -57,8 +58,57 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User created successfully.');
     }
 
+    // Update User
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        // Validate input
+        $validated = $request->validate([
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'middlename' => 'nullable|string|max:255',
+            'birthdate' => 'required|date',
+            'gender' => 'required|string|max:45',
+            'birthplace' => 'required|string|max:255',
+            'citizenship' => 'required|string|max:45',
+            'civil' => 'required|string|max:45',
+            'occupation' => 'nullable|string|max:255',
+            'housenumber' => 'required|integer',
+            'street' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:user,email,' . $id . ',user_id',
+            'contact' => 'required|digits_between:10,11|unique:user,contact,' . $id . ',user_id',
+            'password' => 'nullable|string|min:8|confirmed',
+        ]);
+
+        // Update user data
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->middlename = $request->middlename;
+        $user->birthdate = $request->birthdate;
+        $user->gender = $request->gender;
+        $user->place_of_birth = $request->birthplace;
+        $user->citizenship = $request->citizenship;
+        $user->civil_status = $request->civil;
+        $user->occupation = $request->occupation;
+        $user->house_number = $request->housenumber;
+        $user->street = $request->street;
+        $user->email = $request->email;
+        $user->contact = $request->contact;
+
+        // Only update password if provided
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return redirect()->route('users.index')->with('success', 'User updated successfully.');
+    }
+
     // Delete User
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $user = User::findOrFail($id);
         $user->delete();
 

@@ -4,6 +4,7 @@
      <div id="addModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
          <form action="{{ route('users.store')}}" method="POST" class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
              @csrf
+             <input type="hidden" name="form_type" value="create">
              <h3 class="font-bold text-[40px]">Add User</h3>
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                  <div class="flex flex-col w-full">
@@ -134,95 +135,118 @@
          </form>
      </div>
      <!-- modal edit user Section -->
-     <div id="editModal" class="modal w-full fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
-         <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+     <div id="editModal" class="modal w-full fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-start">
+         <form id="editForm" method="POST" action="" class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+             @csrf
+             @method('PUT')
+             <input type="hidden" name="form_type" value="edit">
+             <input type="hidden" id="edit_user_id" name="user_id" value="">
              <h3 class="font-bold text-[40px]">Edit User</h3>
-             <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
-                 <div class="flex flex-col w-full">
-                     <Label class="font-medium text-[18px]">First Name:</Label>
-                     <input type="text" placeholder="Ex. Juan" value="Juan" class="py-[10px] border-b-[1px]  border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+             <div class="w-full flex-col gap-[30px]">
+                 <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
+                     <div class="flex flex-col w-full">
+                         <Label class="font-medium text-[18px]">First Name:</Label>
+                         <input id="edit_firstname" name="firstname" type="text" placeholder="Ex. Juan" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     </div>
+                     <div class="flex flex-col w-full">
+                         <Label class="font-medium text-[18px]">Last Name:</Label>
+                         <input id="edit_lastname" name="lastname" type="text" placeholder="Ex. Dela Cruz" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     </div>
                  </div>
-                 <div class="flex flex-col w-full">
-                     <Label class="font-medium text-[18px]">Last Name:</Label>
-                     <input type="text" placeholder="Ex. Dela Cruz" value="Dela Cruz" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                 </div>
+                 @error('firstname')
+                 <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                 @enderror
+                 @error('lastname')
+                 <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                 @enderror
              </div>
+
              <div class="flex flex-col gap-[10px]">
                  <div class="flex flex-col">
                      <Label class="font-medium text-[18px]">Middle Name:</Label>
-                     <input type="text" placeholder="(Optional)" value="Santiago" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input id="edit_middlename" name="middlename" type="text" placeholder="(Optional)" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
              </div>
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Birthdate:</Label>
-                     <input type="date" value="2005-10-09" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input id="edit_birthdate" name="birthdate" type="date" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Gender:</Label>
-                     <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <Select id="edit_gender" name="gender" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                          <option value="">Choose Gender</option>
-                         <option selected value="">Male</option>
+                         <option value="male">Male</option>
+                         <option value="female">Female</option>
+                         <option value="lgbt">LGBTQ+</option>
+                         <option value="prefer not to say">Prefer not to say</option>
                      </Select>
                  </div>
              </div>
              <div class="flex flex-col gap-[10px]">
                  <div class="flex flex-col">
                      <Label class="font-medium text-[18px]">Place of Birth:</Label>
-                     <input type="Email" value="Quezon City" placeholder="Ex. Quezon City" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input id="edit_birthplace" name="birthplace" type="text" placeholder="Ex. Quezon City" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
              </div>
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Citizenship</Label>
-                     <input type="text" value="Filipino" placeholder="Ex. Filipino" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input id="edit_citizenship" name="citizenship" type="text" placeholder="Ex. Filipino" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Civil Status:</Label>
-                     <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                         <option value="">Choose Gender</option>
-                         <option selected value="">Single</option>
+                     <Select id="edit_civil" name="civil" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                         <option value="">Choose Status</option>
+                         <option value="single">Single</option>
+                         <option value="married">Married</option>
                      </Select>
                  </div>
              </div>
              <div class="flex flex-col gap-[10px]">
                  <div class="flex flex-col">
                      <Label class="font-medium text-[18px]">Occupation:</Label>
-                     <input type="Email" value="Professor" placeholder="Ex. Teacher" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input id="edit_occupation" name="occupation" type="text" placeholder="Ex. Teacher" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
              </div>
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">House #:</Label>
-                     <input type="text" value="13" placeholder="Ex. 123" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input id="edit_housenumber" name="housenumber" type="number" placeholder="Ex. 123" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Street:</Label>
-                     <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <Select id="edit_street" name="street" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                          <option value="">Choose Street</option>
-                         <option selected value="">Hummingbird</option>
+                         <option value="gemini">Gemini</option>
                      </Select>
                  </div>
              </div>
              <div class="flex flex-col gap-[10px]">
                  <div class="flex flex-col">
                      <Label class="font-medium text-[18px]">Email:</Label>
-                     <input value="juandelacruz@gmail.com" type="Email" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input id="edit_email" name="email" type="email" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                 </div>
+             </div>
+             <div class="flex flex-col gap-[10px]">
+                 <div class="flex flex-col">
+                     <Label class="font-medium text-[18px]">Contact:</Label>
+                     <input id="edit_contact" name="contact" type="number" placeholder="Ex. 09765098761" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
              </div>
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                  <div class="flex flex-col w-full">
-                     <Label class="font-medium text-[18px]">Update Passord:</Label>
-                     <input type="password" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <Label class="font-medium text-[18px]">Update Password:</Label>
+                     <input name="password" type="password" placeholder="Leave blank to keep current" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Confirm Password:</Label>
-                     <input type="text" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input name="password_confirmation" type="password" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
              </div>
              <div class="flex flex-col w-full gap-[20px]">
-                 <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Edit User</button>
-                 <div id="" class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
+                 <button type="submit" class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Update User</button>
+                 <div class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
              </div>
          </form>
      </div>
@@ -364,7 +388,22 @@
                              <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $user->role == 0 ? 'Resident' : 'Admin'}}</td>
                              <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $user->created_at}}</td>
                              <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                 <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                                 <div data-modal="editModal"
+                                     data-user-id="{{ $user->user_id }}"
+                                     data-firstname="{{ $user->firstname }}"
+                                     data-lastname="{{ $user->lastname }}"
+                                     data-middlename="{{ $user->middlename }}"
+                                     data-birthdate="{{ $user->birthdate }}"
+                                     data-gender="{{ $user->gender }}"
+                                     data-birthplace="{{ $user->place_of_birth }}"
+                                     data-citizenship="{{ $user->citizenship }}"
+                                     data-civil="{{ $user->civil_status }}"
+                                     data-occupation="{{ $user->occupation }}"
+                                     data-housenumber="{{ $user->house_number }}"
+                                     data-street="{{ $user->street }}"
+                                     data-email="{{ $user->email }}"
+                                     data-contact="{{ $user->contact }}"
+                                     class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                      <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                          <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                                      </svg>
@@ -384,7 +423,7 @@
                          @endforeach
                      </tbody>
                  </table>
-                 
+
                  <!-- Mobile User Cards -->
                  <div class="w-full gap-[20px] mb-[30px] flex sm:hidden flex-col">
                      @foreach ($users as $user)
@@ -418,7 +457,7 @@
                      </div>
                      @endforeach
                  </div>
-                 
+
                  <!-- Pagination Links -->
                  <div class="mt-[20px] mb-[20px] bg-white rounded-[4px] p-[10px]">
                      {{ $users->links() }}
@@ -442,17 +481,43 @@
                          const modal = document.getElementById(modalId);
                          if (!modal) return;
 
+                         // If it's an edit button, populate the form
+                         if (this.classList.contains('editBtn')) {
+                             const userId = this.getAttribute('data-user-id');
+                             const editForm = document.getElementById('editForm');
+
+                             if (editForm) {
+                                 editForm.action = `/admin/users/${userId}`;
+                             }
+
+                             // Populate all fields
+                             document.getElementById('edit_user_id').value = userId;
+                             document.getElementById('edit_firstname').value = this.getAttribute('data-firstname') || '';
+                             document.getElementById('edit_lastname').value = this.getAttribute('data-lastname') || '';
+                             document.getElementById('edit_middlename').value = this.getAttribute('data-middlename') || '';
+                             document.getElementById('edit_birthdate').value = this.getAttribute('data-birthdate') || '';
+                             document.getElementById('edit_gender').value = this.getAttribute('data-gender') || '';
+                             document.getElementById('edit_birthplace').value = this.getAttribute('data-birthplace') || '';
+                             document.getElementById('edit_citizenship').value = this.getAttribute('data-citizenship') || '';
+                             document.getElementById('edit_civil').value = this.getAttribute('data-civil') || '';
+                             document.getElementById('edit_occupation').value = this.getAttribute('data-occupation') || '';
+                             document.getElementById('edit_housenumber').value = this.getAttribute('data-housenumber') || '';
+                             document.getElementById('edit_street').value = this.getAttribute('data-street') || '';
+                             document.getElementById('edit_email').value = this.getAttribute('data-email') || '';
+                             document.getElementById('edit_contact').value = this.getAttribute('data-contact') || '';
+                         }
+
                          // If it's a delete button, set the user ID and name
                          if (this.classList.contains('deleteBtn')) {
                              const userId = this.getAttribute('data-user-id');
-                             const userName = this.getAttribute('data-user-name'); // ← Get the name
+                             const userName = this.getAttribute('data-user-name');
                              const deleteForm = document.getElementById('deleteForm');
-                             const userNameSpan = document.getElementById('deleteUserName'); // ← Find the span
+                             const userNameSpan = document.getElementById('deleteUserName');
 
                              if (deleteForm) {
                                  deleteForm.action = `/admin/users/${userId}`;
                              }
-                             if (userNameSpan && userName) { // ← Update the span with the name
+                             if (userNameSpan && userName) {
                                  userNameSpan.textContent = userName;
                              }
                          }
@@ -486,9 +551,73 @@
          </script>
          @if ($errors->any())
          <script>
-             const modal = document.getElementById('addModal');
-             modal.classList.remove('hidden');
-             modal.classList.add('flex');
+             document.addEventListener('DOMContentLoaded', function() {
+                 // Check which form had the error
+                 const formType = "{{ old('form_type', 'create') }}";
+
+                 let modal;
+                 if (formType === 'edit') {
+                     modal = document.getElementById('editModal');
+
+                     // Repopulate edit form with old values
+                     const editForm = document.getElementById('editForm');
+                     if (editForm) {
+                         // Set form action if there's an old user_id
+                         const userId = "{{ old('user_id') }}";
+                         if (userId) {
+                             editForm.action = `/admin/users/${userId}`;
+                         }
+                     }
+
+                     // Populate fields with old values
+                     @if(old('firstname'))
+                     document.getElementById('edit_firstname').value = "{{ old('firstname') }}";
+                     @endif
+                     @if(old('lastname'))
+                     document.getElementById('edit_lastname').value = "{{ old('lastname') }}";
+                     @endif
+                     @if(old('middlename'))
+                     document.getElementById('edit_middlename').value = "{{ old('middlename') }}";
+                     @endif
+                     @if(old('birthdate'))
+                     document.getElementById('edit_birthdate').value = "{{ old('birthdate') }}";
+                     @endif
+                     @if(old('gender'))
+                     document.getElementById('edit_gender').value = "{{ old('gender') }}";
+                     @endif
+                     @if(old('birthplace'))
+                     document.getElementById('edit_birthplace').value = "{{ old('birthplace') }}";
+                     @endif
+                     @if(old('citizenship'))
+                     document.getElementById('edit_citizenship').value = "{{ old('citizenship') }}";
+                     @endif
+                     @if(old('civil'))
+                     document.getElementById('edit_civil').value = "{{ old('civil') }}";
+                     @endif
+                     @if(old('occupation'))
+                     document.getElementById('edit_occupation').value = "{{ old('occupation') }}";
+                     @endif
+                     @if(old('housenumber'))
+                     document.getElementById('edit_housenumber').value = "{{ old('housenumber') }}";
+                     @endif
+                     @if(old('street'))
+                     document.getElementById('edit_street').value = "{{ old('street') }}";
+                     @endif
+                     @if(old('email'))
+                     document.getElementById('edit_email').value = "{{ old('email') }}";
+                     @endif
+                     @if(old('contact'))
+                     document.getElementById('edit_contact').value = "{{ old('contact') }}";
+                     @endif
+                 } else {
+                     modal = document.getElementById('addModal');
+                 }
+
+                 if (modal) {
+                     modal.classList.remove('hidden');
+                     modal.classList.add('flex');
+                 }
+             });
          </script>
          @endif
      </body>

@@ -53,6 +53,8 @@ Route::get('/admin/users', [UserController::class, 'index'])->name('users.index'
 Route::post('/admin/users', [UserController::class, 'store'])->name('users.store');
 // Delete user
 Route::delete('/admin/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+// Update user
+Route::put('/admin/users/{id}', [UserController::class, 'update'])->name('users.update');
 
 Route::get('/admin/orders', function () {
     return view('admin.orders');
