@@ -215,14 +215,41 @@
 
      <body class="relative">
          <!-- Alerts Modal -->
-         <div class="absolute w-full py-[20px] flex items-center justify-center">
-             <div class="flex items-start sm:items-center bg-[#e1ffe7] p-4 mb-4 text-sm text-medium rounded-[8px] border border-[rgb(40,194,71)]" role="alert">
-                 <svg class="w-4 h-4 me-2 shrink-0 mt-0.5 sm:mt-0 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+         @if (session('success'))
+         <div id="successAlert" class="fixed top-0 left-0 w-full py-[20px] flex items-center justify-center z-50 opacity-0 -translate-y-full transition-all duration-500 ease-out">
+             <div class="flex items-start sm:items-center bg-[#e1ffe7] p-4 mb-4 text-sm text-medium rounded-[8px] border border-[rgb(40,194,71)] shadow-lg" role="alert">
+                 <svg class="w-4 h-4 me-2 shrink-0 mt-0.5 sm:mt-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                      <path class="stroke-[rgb(40,194,71)]" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                  </svg>
-                 <p class="text-[rgb(40,194,71)]"><span class="font-medium me-1 text-[rgb(40,194,71)]">Info alert!</span> Change a few things up and try submitting again.</p>
+                 <p class="text-[rgb(40,194,71)]">
+                     <span class="font-medium me-1 text-[rgb(40,194,71)]">Success!</span> {{ session('success') }}
+                 </p>
              </div>
          </div>
+
+         <script>
+             document.addEventListener('DOMContentLoaded', function() {
+                 const alert = document.getElementById('successAlert');
+
+                 if (alert) {
+                     setTimeout(() => {
+                         alert.classList.remove('-translate-y-full', 'opacity-0');
+                         alert.classList.add('translate-y-0', 'opacity-100');
+                     }, 100);
+
+                     setTimeout(() => {
+                         alert.classList.remove('translate-y-0', 'opacity-100');
+                         alert.classList.add('-translate-y-full', 'opacity-0');
+
+                         setTimeout(() => {
+                             alert.remove();
+                         }, 500);
+                     }, 3000);
+                 }
+             });
+         </script>
+         @endif
+
          <!--sidebar section -->
          @include('admin.shared.sidebar')
          <!-- mobile sidebar section -->
