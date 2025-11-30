@@ -51,6 +51,8 @@ Route::get('/admin/users', [UserController::class, 'index'])->name('users.index'
 
 // Handle form submission
 Route::post('/admin/users', [UserController::class, 'store'])->name('users.store');
+// Delete user
+Route::delete('/admin/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
 Route::get('/admin/orders', function () {
     return view('admin.orders');

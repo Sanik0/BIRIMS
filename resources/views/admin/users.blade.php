@@ -120,14 +120,16 @@
      </div>
      <!-- modal delete user Section -->
      <div id="deleteModal" class="modal w-full fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
-         <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+         <form id="deleteForm" method="POST" action="" class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+             @csrf
+             @method('DELETE')
              <h3 class="font-bold text-[40px]">Delete User</h3>
              <div class="flex items-center justify-center w-full">
-                 <p class="font-regular text-[20px] text-gray-500">Are you sure you want to delete <span class="text-[#EF4444]">Juan Dela Cruz</span>? This action cannot be undone.</p>
+                 <p class="font-regular text-[20px] text-gray-500">Are you sure you want to delete <span id="deleteUserName" class="text-[#EF4444]">this user</span>? This action cannot be undone.</p>
              </div>
              <div class="flex flex-col w-full gap-[20px]">
-                 <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Yes, Delete User</button>
-                 <div id="" class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
+                 <button type="submit" class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Yes, Delete User</button>
+                 <div class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
              </div>
          </form>
      </div>
@@ -238,7 +240,6 @@
                  </p>
              </div>
          </div>
-
          <script>
              document.addEventListener('DOMContentLoaded', function() {
                  const alert = document.getElementById('successAlert');
@@ -369,7 +370,10 @@
                                      </svg>
                                      Edit
                                  </div>
-                                 <div data-modal="deleteModal" class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                                 <div data-modal="deleteModal"
+                                     data-user-id="{{ $user->user_id }}"
+                                     data-user-name="{{ $user->firstname }} {{ $user->lastname }}"
+                                     class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                      <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                          <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                      </svg>
@@ -380,17 +384,7 @@
                          @endforeach
                      </tbody>
                  </table>
-                 <!-- Pagination Links -->
-                 <div class="mt-[20px] mb-[20px] bg-white rounded-[4px] p-[10px]">
-                     {{ $users->links() }}
-                 </div>
-                 <style>
-                     nav[role="navigation"] a,
-                     nav[role="navigation"] span {
-                         background: white !important;
-                     }
-                 </style>
-
+                 
                  <!-- Mobile User Cards -->
                  <div class="w-full gap-[20px] mb-[30px] flex sm:hidden flex-col">
                      @foreach ($users as $user)
@@ -411,7 +405,10 @@
                                  </svg>
                                  Edit
                              </div>
-                             <div data-modal="deleteModal" class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                             <div data-modal="deleteModal"
+                                 data-user-id="{{ $user->user_id }}"
+                                 data-user-name="{{ $user->firstname }} {{ $user->lastname }}"
+                                 class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                  <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                      <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                  </svg>
@@ -421,6 +418,17 @@
                      </div>
                      @endforeach
                  </div>
+                 
+                 <!-- Pagination Links -->
+                 <div class="mt-[20px] mb-[20px] bg-white rounded-[4px] p-[10px]">
+                     {{ $users->links() }}
+                 </div>
+                 <style>
+                     nav[role="navigation"] a,
+                     nav[role="navigation"] span {
+                         background: white !important;
+                     }
+                 </style>
              </section>
 
          </main>
@@ -433,6 +441,22 @@
                          const modalId = this.getAttribute('data-modal');
                          const modal = document.getElementById(modalId);
                          if (!modal) return;
+
+                         // If it's a delete button, set the user ID and name
+                         if (this.classList.contains('deleteBtn')) {
+                             const userId = this.getAttribute('data-user-id');
+                             const userName = this.getAttribute('data-user-name'); // ← Get the name
+                             const deleteForm = document.getElementById('deleteForm');
+                             const userNameSpan = document.getElementById('deleteUserName'); // ← Find the span
+
+                             if (deleteForm) {
+                                 deleteForm.action = `/admin/users/${userId}`;
+                             }
+                             if (userNameSpan && userName) { // ← Update the span with the name
+                                 userNameSpan.textContent = userName;
+                             }
+                         }
+
                          modal.classList.remove('hidden');
                          modal.classList.add('flex');
                      });
@@ -445,6 +469,16 @@
                          if (!modal) return;
                          modal.classList.remove('flex');
                          modal.classList.add('hidden');
+                     });
+                 });
+
+                 // 🔹 Close modal when clicking outside
+                 document.querySelectorAll('.modal').forEach(modal => {
+                     modal.addEventListener('click', function(e) {
+                         if (e.target === this) {
+                             this.classList.remove('flex');
+                             this.classList.add('hidden');
+                         }
                      });
                  });
 
