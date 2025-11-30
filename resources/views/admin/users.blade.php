@@ -19,7 +19,7 @@
                  <div class="flex flex-col">
                      <Label class="font-medium text-[18px]">Middle Name:</Label>
                      <input value="{{ old('middlename')}}" name="middlename" type="text" placeholder="(Optional)" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                        @error('middlename')
+                     @error('middlename')
                      <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
                      @enderror
                  </div>
@@ -63,7 +63,7 @@
              <div class="flex flex-col gap-[10px]">
                  <div class="flex flex-col">
                      <Label class="font-medium text-[18px]">Occupation:</Label>
-                     <input required value="{{ old('occupation')}}" name="occupation" type="text" placeholder="Ex. Teacher" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input value="{{ old('occupation')}}" name="occupation" type="text" placeholder="(Optional) Ex. Teacher" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
              </div>
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
@@ -88,7 +88,7 @@
                      @enderror
                  </div>
              </div>
-              <div class="flex flex-col gap-[10px]">
+             <div class="flex flex-col gap-[10px]">
                  <div class="flex flex-col">
                      <Label class="font-medium text-[18px]">Contact:</Label>
                      <input required value="{{ $errors->has('contact') ? '' : old('contact') }}" name="contact" type="number" placeholder="Ex. 09765098761" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
@@ -380,10 +380,20 @@
                          @endforeach
                      </tbody>
                  </table>
+                 <!-- Pagination Links -->
+                 <div class="mt-[20px] mb-[20px] bg-white rounded-[4px] p-[10px]">
+                     {{ $users->links() }}
+                 </div>
+                 <style>
+                     nav[role="navigation"] a,
+                     nav[role="navigation"] span {
+                         background: white !important;
+                     }
+                 </style>
 
                  <!-- Mobile User Cards -->
                  <div class="w-full gap-[20px] mb-[30px] flex sm:hidden flex-col">
-                    @foreach ($users as $user)
+                     @foreach ($users as $user)
                      <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
                          <h6 class="text-[14px] text-gray-600 font-semibold">Full Name:</h6>
                          <p class="text-[16px] font-medium">{{ $user->firstname}} {{ $user->middlename ? substr($user->middlename, 0, 1) . '.' : '' }} {{ $user->lastname}}</p>
@@ -392,7 +402,7 @@
                          <h6 class="text-[14px] text-gray-600 font-semibold">Verified:</h6>
                          <p class="text-[16px] font-medium">No</p>
                          <h6 class="text-[14px] text-gray-600 font-semibold">Role:</h6>
-                         <p class="text-[16px] font-medium">>{{ $user->role == 0 ? 'Resident' : 'Admin'}}</p>
+                         <p class="text-[16px] font-medium">{{ $user->role == 0 ? 'Resident' : 'Admin'}}</p>
                          <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
                          <div class="w-full flex items-center gap-[10px]">
                              <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">

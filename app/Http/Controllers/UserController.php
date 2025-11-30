@@ -11,7 +11,7 @@ class UserController extends Controller
     // Show Users
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(10);
         return view('admin.users', compact('users'));
     }
 
@@ -27,7 +27,7 @@ class UserController extends Controller
             'birthplace' => 'required|string|max:255',
             'citizenship' => 'required|string|max:45',
             'civil' => 'required|string|max:45',
-            'occupation' => 'required|string|max:255',
+            'occupation' => 'nullable|string|max:255',
             'housenumber' => 'required|integer',
             'street' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:user,email',
