@@ -241,6 +241,12 @@
              </div>
          </section>
          <main class="w-full h-[100vh] sm:pl-[290px] sm:pr-[20px] flex flex-col gap-[30px] transition-all duration-300">
+             <div class="flex items-start sm:items-center bg-[rgba(0,255,51,0.1)] p-4 mb-4 text-sm text-medium rounded-[8px] border border-[rgb(40,194,71)]" role="alert">
+                 <svg class="w-4 h-4 me-2 shrink-0 mt-0.5 sm:mt-0 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                     <path class="stroke-[rgb(40,194,71)]" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                 </svg>
+                 <p><span class="font-medium me-1 text-[rgb(40,194,71)]">Info alert!</span> Change a few things up and try submitting again.</p>
+             </div>
              <div class="flex w-full items-start justify-between py-[25px] border-b-[1px] border-[#D4D4D8] px-[15px] sm:px-[0]">
                  <div class="flex items-center gap-[10px] max-w-[579px]">
                      <div class="h-[90px] min-w-[90px] sm:flex hidden max-w-[90px] rounded-[50%] overflow-hidden">
@@ -307,7 +313,7 @@
                          </tr>
                      </thead>
                      <tbody>
-                        @foreach ($users as $user)
+                         @foreach ($users as $user)
                          <tr class="border-b-[1px] border-gray-300 bg-white">
                              <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">{{ $user->firstname}}</td>
                              <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">{{ $user->email}}</td>
