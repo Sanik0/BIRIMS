@@ -18,7 +18,10 @@
              <div class="flex flex-col gap-[10px]">
                  <div class="flex flex-col">
                      <Label class="font-medium text-[18px]">Middle Name:</Label>
-                     <input required value="{{ old('middlename')}}" name="middlename" type="text" placeholder="(Optional)" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <input value="{{ old('middlename')}}" name="middlename" type="text" placeholder="(Optional)" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                        @error('middlename')
+                     <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                     @enderror
                  </div>
              </div>
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
@@ -81,6 +84,15 @@
                      <Label class="font-medium text-[18px]">Email:</Label>
                      <input required value="{{ $errors->has('email') ? '' : old('email') }}" name="email" type="Email" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                      @error('email')
+                     <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                     @enderror
+                 </div>
+             </div>
+              <div class="flex flex-col gap-[10px]">
+                 <div class="flex flex-col">
+                     <Label class="font-medium text-[18px]">Contact:</Label>
+                     <input required value="{{ $errors->has('contact') ? '' : old('contact') }}" name="contact" type="number" placeholder="Ex. 09765098761" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     @error('contact')
                      <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
                      @enderror
                  </div>
@@ -345,7 +357,7 @@
                      <tbody>
                          @foreach ($users as $user)
                          <tr class="border-b-[1px] border-gray-300 bg-white">
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">{{ $user->firstname}}</td>
+                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">{{ $user->firstname}} {{ $user->middlename ? substr($user->middlename, 0, 1) . '.' : '' }} {{ $user->lastname}}</td>
                              <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">{{ $user->email}}</td>
                              <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">No</td>
                              <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $user->role == 0 ? 'Resident' : 'Admin'}}</td>
@@ -371,15 +383,16 @@
 
                  <!-- Mobile User Cards -->
                  <div class="w-full gap-[20px] mb-[30px] flex sm:hidden flex-col">
+                    @foreach ($users as $user)
                      <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
                          <h6 class="text-[14px] text-gray-600 font-semibold">Full Name:</h6>
-                         <p class="text-[16px] font-medium">Juan Dela Cruz</p>
+                         <p class="text-[16px] font-medium">{{ $user->firstname}} {{ $user->middlename ? substr($user->middlename, 0, 1) . '.' : '' }} {{ $user->lastname}}</p>
                          <h6 class="text-[14px] text-gray-600 font-semibold">Email:</h6>
-                         <p class="text-[16px] font-medium underline">juandelacruz@gmail.com</p>
+                         <p class="text-[16px] font-medium underline">{{ $user->email }}</p>
                          <h6 class="text-[14px] text-gray-600 font-semibold">Verified:</h6>
                          <p class="text-[16px] font-medium">No</p>
                          <h6 class="text-[14px] text-gray-600 font-semibold">Role:</h6>
-                         <p class="text-[16px] font-medium">Resident</p>
+                         <p class="text-[16px] font-medium">>{{ $user->role == 0 ? 'Resident' : 'Admin'}}</p>
                          <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
                          <div class="w-full flex items-center gap-[10px]">
                              <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
@@ -396,31 +409,7 @@
                              </div>
                          </div>
                      </div>
-                     <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
-                         <h6 class="text-[14px] text-gray-600 font-semibold">Full Name:</h6>
-                         <p class="text-[16px] font-medium">Juan Dela Cruz</p>
-                         <h6 class="text-[14px] text-gray-600 font-semibold">Email:</h6>
-                         <p class="text-[16px] font-medium underline">juandelacruz@gmail.com</p>
-                         <h6 class="text-[14px] text-gray-600 font-semibold">Verified:</h6>
-                         <p class="text-[16px] font-medium">No</p>
-                         <h6 class="text-[14px] text-gray-600 font-semibold">Role:</h6>
-                         <p class="text-[16px] font-medium">Resident</p>
-                         <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
-                         <div class="w-full flex items-center gap-[10px]">
-                             <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                 <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                     <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                 </svg>
-                                 Edit
-                             </div>
-                             <div data-modal="deleteModal" class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                 <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                     <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                 </svg>
-                                 Delete
-                             </div>
-                         </div>
-                     </div>
+                     @endforeach
                  </div>
              </section>
 

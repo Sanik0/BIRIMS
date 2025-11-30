@@ -21,7 +21,7 @@ class UserController extends Controller
         $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
-            'middlename' => 'required|string|max:255',
+            'middlename' => 'nullable|string|max:255',
             'birthdate' => 'required|date',
             'gender' => 'required|string|max:45',
             'birthplace' => 'required|string|max:255',
@@ -31,6 +31,7 @@ class UserController extends Controller
             'housenumber' => 'required|integer',
             'street' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:user,email',
+            'contact' => 'required|digits_between:10,11|unique:user,contact',
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required|string|same:password',
         ]);
@@ -50,6 +51,7 @@ class UserController extends Controller
             'street' => $request->street,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'contact' => $request->contact,
         ]);
 
         return redirect()->route('users.index')->with('success', 'User created successfully.');
