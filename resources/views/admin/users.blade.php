@@ -307,12 +307,13 @@
                          </tr>
                      </thead>
                      <tbody>
+                        @foreach ($users as $user)
                          <tr class="border-b-[1px] border-gray-300 bg-white">
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Juan Dela Cruz</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">juandelacruz@gmail.com</td>
+                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">{{ $user->firstname}}</td>
+                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">{{ $user->email}}</td>
                              <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">No</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Resident</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">20-10-2024</td>
+                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $user->role == 0 ? 'Resident' : 'Admin'}}</td>
+                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $user->created_at}}</td>
                              <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
                                  <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                      <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
@@ -328,195 +329,7 @@
                                  </div>
                              </td>
                          </tr>
-                         <tr class="border-b-[1px] border-gray-300 bg-white">
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Juan Dela Cruz</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">juandelacruz@gmail.com</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">No</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Resident</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">20-10-2024</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                     </svg>
-                                     Edit
-                                 </div>
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                     </svg>
-                                     Delete
-                                 </div>
-                             </td>
-                         </tr>
-                         <tr class="border-b-[1px] border-gray-300 bg-white">
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Juan Dela Cruz</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">juandelacruz@gmail.com</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">No</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Resident</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">20-10-2024</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                     </svg>
-                                     Edit
-                                 </div>
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                     </svg>
-                                     Delete
-                                 </div>
-                             </td>
-                         </tr>
-                         <tr class="border-b-[1px] border-gray-300 bg-white">
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Juan Dela Cruz</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">juandelacruz@gmail.com</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">No</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Resident</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">20-10-2024</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                     </svg>
-                                     Edit
-                                 </div>
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                     </svg>
-                                     Delete
-                                 </div>
-                             </td>
-                         </tr>
-                         <tr class="border-b-[1px] border-gray-300 bg-white">
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Juan Dela Cruz</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">juandelacruz@gmail.com</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">No</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Resident</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">20-10-2024</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                     </svg>
-                                     Edit
-                                 </div>
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                     </svg>
-                                     Delete
-                                 </div>
-                             </td>
-                         </tr>
-                         <tr class="border-b-[1px] border-gray-300 bg-white">
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Juan Dela Cruz</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">juandelacruz@gmail.com</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">No</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Resident</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">20-10-2024</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                     </svg>
-                                     Edit
-                                 </div>
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                     </svg>
-                                     Delete
-                                 </div>
-                             </td>
-                         </tr>
-                         <tr class="border-b-[1px] border-gray-300 bg-white">
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Juan Dela Cruz</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">juandelacruz@gmail.com</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">No</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Resident</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">20-10-2024</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                     </svg>
-                                     Edit
-                                 </div>
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                     </svg>
-                                     Delete
-                                 </div>
-                             </td>
-                         </tr>
-                         <tr class="border-b-[1px] border-gray-300 bg-white">
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Juan Dela Cruz</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">juandelacruz@gmail.com</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">No</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Resident</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">20-10-2024</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                     </svg>
-                                     Edit
-                                 </div>
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                     </svg>
-                                     Delete
-                                 </div>
-                             </td>
-                         </tr>
-                         <tr class="border-b-[1px] border-gray-300 bg-white">
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Juan Dela Cruz</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">juandelacruz@gmail.com</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">No</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Resident</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">20-10-2024</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                     </svg>
-                                     Edit
-                                 </div>
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                     </svg>
-                                     Delete
-                                 </div>
-                             </td>
-                         </tr>
-                         <tr class="border-b-[1px] border-gray-300 bg-white">
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Juan Dela Cruz</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">juandelacruz@gmail.com</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">No</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Resident</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">20-10-2024</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                     </svg>
-                                     Edit
-                                 </div>
-                                 <div class="rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-600">
-                                     <svg class="h-[20px] w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                     </svg>
-                                     Delete
-                                 </div>
-                             </td>
-                         </tr>
+                         @endforeach
                      </tbody>
                  </table>
 

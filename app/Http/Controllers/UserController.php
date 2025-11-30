@@ -51,4 +51,10 @@ class UserController extends Controller
 
         return redirect()->route('users.create')->with('success', 'User created successfully.');
     }
+
+    // Show Users
+    public function index() {
+        $users = User::all();
+        return view('admin.users', compact('users'));
+    }
 }
