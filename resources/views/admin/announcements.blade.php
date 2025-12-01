@@ -46,14 +46,16 @@
     </div>
     <!-- modal delete announcement Section -->
     <div id="deleteModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
-        <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+        <form id="deleteForm" method="POST" action="" class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+            @csrf
+            @method('DELETE')
             <h3 class="font-bold text-[40px]">Delete Announcement</h3>
             <div class="flex items-center justify-center w-full">
-                <p class="font-regular text-[20px] text-gray-500">Are you sure you want to delete <span class="text-[#EF4444]"> Community Tax Certificate (Cedula) Renewal Deadline</span>? This action cannot be undone and the user’s order will be cancelled.</p>
+                <p class="font-regular text-[20px] text-gray-500">Are you sure you want to delete <span id="deleteAnnouncementTitle" class="text-[#EF4444]">this announcement</span>? This action cannot be undone.</p>
             </div>
             <div class="flex flex-col w-full gap-[20px]">
-                <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Yes, Delete Order</button>
-                <div id="" class="flex cancelBtn items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
+                <button type="submit" class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Yes, Delete Announcement</button>
+                <div class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
             </div>
         </form>
     </div>
@@ -120,7 +122,7 @@
             });
         </script>
         @endif
-        
+
         <!--sidebar section -->
         @include('admin.shared.sidebar')
         <!-- mobile sidebar section -->
@@ -186,15 +188,6 @@
                         Add new announcement
                     </div>
                     <form class="flex  w-full sm:w-fit items-center gap-[20px]">
-                        <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] border-gray-400 text-[18px] font-normal text-gray-400 gap-[8px]">
-                            <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                <path d="M520-600v-80h120v-160h80v160h120v80H520Zm120 480v-400h80v400h-80Zm-400 0v-160H120v-80h320v80H320v160h-80Zm0-320v-400h80v400h-80Z" />
-                            </svg>
-                            <select class="appearance-none focus:outline-none" name="" id="">
-                                <option value="Filter">Filter By Type:</option>
-                            </select>
-                        </div>
-
                         <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] w-full sm:w-[308px] border-gray-400 text-[18px] font-normal text-gray-600 gap-[8px]">
                             <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                 <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
@@ -214,10 +207,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($announcements as $announcement)
                         <tr class="border-b-[1px] border-gray-300 bg-white">
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Community Tax Certificate (Cedula) Renewal Deadline</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Please be advised that the deadline for securing your annual Community Tax Certificate (Cedula) for the current year is on November 30.</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Notice</td>
+                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">{{ $announcement->title}}</td>
+                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $announcement->body}}</td>
+                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $announcement->type}}</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
                                 <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                     <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
@@ -225,7 +219,10 @@
                                     </svg>
                                     Edit
                                 </div>
-                                <div data-modal="deleteModal" class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                                <div data-modal="deleteModal"
+                                    data-announcement-id="{{ $announcement->announcement_id }}"
+                                    data-announcement-title="{{ $announcement->title }}"
+                                    class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                     <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                     </svg>
@@ -233,132 +230,20 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="border-b-[1px] border-gray-300 bg-white">
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Community Tax Certificate (Cedula) Renewal Deadline</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Please be advised that the deadline for securing your annual Community Tax Certificate (Cedula) for the current year is on November 30.</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Notice</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                <div id="editBtn" class="hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                    <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                        <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                    </svg>
-                                    Edit
-                                </div>
-                                <div id="deleteBtn" class="hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                    <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                        <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                    </svg>
-                                    Delete
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="border-b-[1px] border-gray-300 bg-white">
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Community Tax Certificate (Cedula) Renewal Deadline</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Please be advised that the deadline for securing your annual Community Tax Certificate (Cedula) for the current year is on November 30.</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Notice</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                <div id="editBtn" class="hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                    <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                        <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                    </svg>
-                                    Edit
-                                </div>
-                                <div id="deleteBtn" class="hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                    <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                        <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                    </svg>
-                                    Delete
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="border-b-[1px] border-gray-300 bg-white">
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Community Tax Certificate (Cedula) Renewal Deadline</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Please be advised that the deadline for securing your annual Community Tax Certificate (Cedula) for the current year is on November 30.</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Notice</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                <div id="editBtn" class="hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                    <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                        <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                    </svg>
-                                    Edit
-                                </div>
-                                <div id="deleteBtn" class="hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                    <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                        <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                    </svg>
-                                    Delete
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="border-b-[1px] border-gray-300 bg-white">
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Community Tax Certificate (Cedula) Renewal Deadline</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Please be advised that the deadline for securing your annual Community Tax Certificate (Cedula) for the current year is on November 30.</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Notice</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                <div id="editBtn" class="hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                    <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                        <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                    </svg>
-                                    Edit
-                                </div>
-                                <div id="deleteBtn" class="hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                    <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                        <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                    </svg>
-                                    Delete
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="border-b-[1px] border-gray-300 bg-white">
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Community Tax Certificate (Cedula) Renewal Deadline</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Please be advised that the deadline for securing your annual Community Tax Certificate (Cedula) for the current year is on November 30.</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Notice</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                <div id="editBtn" class="hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                    <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                        <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                    </svg>
-                                    Edit
-                                </div>
-                                <div id="deleteBtn" class="hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                    <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                        <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                    </svg>
-                                    Delete
-                                </div>
-                            </td>
-                        </tr>
-                        <tr class="border-b-[1px] border-gray-300 bg-white">
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Community Tax Certificate (Cedula) Renewal Deadline</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Please be advised that the deadline for securing your annual Community Tax Certificate (Cedula) for the current year is on November 30.</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Notice</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                <div id="editBtn" class="hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                    <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                        <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
-                                    </svg>
-                                    Edit
-                                </div>
-                                <div id="deleteBtn" class="hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                    <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                        <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                    </svg>
-                                    Delete
-                                </div>
-                            </td>
-                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
 
                 <!-- Mobile announcement Cards -->
                 <div class="w-full gap-[20px] mb-[30px] flex sm:hidden flex-col">
+                    @foreach ($announcements as $announcement)
                     <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
                         <h6 class="text-[14px] text-gray-600 font-semibold">Title:</h6>
-                        <p class="text-[16px] font-medium">Community Tax Certificate (Cedula) Renewal Deadline</p>
+                        <p class="text-[16px] font-medium">{{ $announcement->title}}</p>
                         <h6 class="text-[14px] text-gray-600 font-semibold">Body:</h6>
-                        <p class="text-[16px] font-medium">Please be advised that the deadline for securing your annual Community Tax Certificate (Cedula) for the current year is on November 30.</p>
+                        <p class="text-[16px] font-medium">{{ $announcement->body}}</p>
                         <h6 class="text-[14px] text-gray-600 font-semibold">Type:</h6>
-                        <p class="text-[16px] font-medium">Notice</p>
+                        <p class="text-[16px] font-medium">{{ $announcement->type}}</p>
                         <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
                         <div class="w-full flex items-center gap-[10px]">
                             <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
@@ -375,7 +260,7 @@
                             </div>
                         </div>
                     </div>
-
+                    @endforeach
                 </div>
             </section>
 
@@ -389,6 +274,27 @@
                         const modalId = this.getAttribute('data-modal');
                         const modal = document.getElementById(modalId);
                         if (!modal) return;
+
+                        // If it's a delete button for announcements
+                        if (this.classList.contains('deleteBtn')) {
+                            const announcementId = this.getAttribute('data-announcement-id');
+                            const announcementTitle = this.getAttribute('data-announcement-title');
+                            const deleteForm = document.getElementById('deleteForm');
+                            const titleSpan = document.getElementById('deleteAnnouncementTitle');
+
+                            console.log('Announcement ID:', announcementId); // DEBUG
+                            console.log('Delete Form:', deleteForm); // DEBUG
+                            console.log('Form method inputs:', deleteForm.querySelectorAll('input[name="_method"]')); // DEBUG
+
+                            if (deleteForm && announcementId) {
+                                deleteForm.action = `/admin/announcements/${announcementId}`;
+                                console.log('Form action set to:', deleteForm.action); // DEBUG
+                            }
+                            if (titleSpan && announcementTitle) {
+                                titleSpan.textContent = announcementTitle;
+                            }
+                        }
+
                         modal.classList.remove('hidden');
                         modal.classList.add('flex');
                     });
@@ -401,6 +307,16 @@
                         if (!modal) return;
                         modal.classList.remove('flex');
                         modal.classList.add('hidden');
+                    });
+                });
+
+                // 🔹 Close modal when clicking outside
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.addEventListener('click', function(e) {
+                        if (e.target === this) {
+                            this.classList.remove('flex');
+                            this.classList.add('hidden');
+                        }
                     });
                 });
 

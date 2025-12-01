@@ -9,6 +9,8 @@ class Announcement extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'announcement_id';
+
     protected $table = 'announcement';
 
     protected $fillable = [
