@@ -23,11 +23,6 @@ class UserController extends Controller
             });
         }
 
-        // Filter by role
-        if ($request->has('role') && $request->role != '') {
-            $query->where('role', $request->role);
-        }
-
         $users = $query->paginate(10);
 
         return view('admin.users', compact('users'));

@@ -101,14 +101,31 @@
              <div class="flex flex-col items-center gap-[30px] w-full">
                  <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                      <div class="flex flex-col w-full">
-                         <Label class="font-medium text-[18px]">Create Passord:</Label>
-                         <input required name="password" type="password" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                         <Label class="font-medium text-[18px]">Create Password:</Label>
+                         <div class="relative">
+                             <input required id="password" name="password" type="password" placeholder="" class="w-full py-[10px] pr-[40px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                             <button type="button" onclick="togglePassword('password', 'eyeIcon1')" class="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                 <svg id="eyeIcon1" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                     <circle cx="12" cy="12" r="3"></circle>
+                                 </svg>
+                             </button>
+                         </div>
                      </div>
                      <div class="flex flex-col w-full">
                          <Label class="font-medium text-[18px]">Confirm Password:</Label>
-                         <input required name="password_confirmation" type="text" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                         <div class="relative">
+                             <input required id="password_confirmation" name="password_confirmation" type="password" placeholder="" class="w-full py-[10px] pr-[40px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                             <button type="button" onclick="togglePassword('password_confirmation', 'eyeIcon2')" class="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                 <svg id="eyeIcon2" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                     <circle cx="12" cy="12" r="3"></circle>
+                                 </svg>
+                             </button>
+                         </div>
                      </div>
                  </div>
+
                  @error('password')
                  <small class=" w-full text-red-600 text-sm mt-1">{{ $message }}</small>
                  @enderror
@@ -243,11 +260,27 @@
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Update Password:</Label>
-                     <input name="password" type="password" placeholder="Leave blank to keep current" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <div class="relative">
+                         <input id="edit_password" name="password" type="password" placeholder="Leave blank to keep current" class="w-full py-[10px] pr-[40px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                         <button type="button" onclick="togglePassword('edit_password', 'eyeIcon3')" class="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                             <svg id="eyeIcon3" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                 <circle cx="12" cy="12" r="3"></circle>
+                             </svg>
+                         </button>
+                     </div>
                  </div>
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Confirm Password:</Label>
-                     <input name="password_confirmation" type="password" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                     <div class="relative">
+                         <input id="edit_password_confirmation" name="password_confirmation" type="password" placeholder="" class="w-full py-[10px] pr-[40px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                         <button type="button" onclick="togglePassword('edit_password_confirmation', 'eyeIcon4')" class="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                             <svg id="eyeIcon4" class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                 <circle cx="12" cy="12" r="3"></circle>
+                             </svg>
+                         </button>
+                     </div>
                  </div>
              </div>
              <div class="flex flex-col w-full gap-[20px]">
@@ -356,16 +389,6 @@
                          Add new User
                      </div>
                      <form method="GET" action="{{ route('users.index')}}" class="flex  w-full sm:w-fit items-center gap-[20px]">
-                         <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] border-gray-400 text-[18px] font-normal text-gray-400 gap-[8px]">
-                             <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                 <path d="M520-600v-80h120v-160h80v160h120v80H520Zm120 480v-400h80v400h-80Zm-400 0v-160H120v-80h320v80H320v160h-80Zm0-320v-400h80v400h-80Z" />
-                             </svg>
-                             <select name="role" class="appearance-none focus:outline-none" name="" id="">
-                                 <option value="Filter">Filter By: Role</option>
-                                 <option value="0" {{ request('role') == 0 ? 'selected' : '' }}>Resident</option>
-                                 <option value="0" {{ request('role') == 1 ? 'selected' : '' }}>Admin</option>
-                             </select>
-                         </div>
 
                          <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] w-full sm:w-[308px] border-gray-400 text-[18px] font-normal text-gray-600 gap-[8px]">
                              <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
@@ -373,12 +396,12 @@
                              </svg>
                              <input name="search" value="{{ request('search')}}" class="w-full focus:outline-none" placeholder="Search" type="text">
                          </div>
-                         <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-all duration-300 font-medium">
+                         <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded-sm hover:bg-orange-600 transition-all duration-300 font-medium">
                              Search
                          </button>
 
                          @if(request('search') || request('role'))
-                         <a href="{{ route('users.index') }}" class="px-4 py-2 border border-gray-400 text-gray-600 rounded-lg hover:bg-gray-100 transition-all duration-300 font-medium">
+                         <a href="{{ route('users.index') }}" class="px-4 py-2 border border-gray-400 text-gray-600 rounded-sm hover:bg-gray-100 transition-all duration-300 font-medium">
                              Clear
                          </a>
                          @endif
@@ -492,7 +515,7 @@
 
                  <!-- Pagination Links -->
                  <div class="mt-[20px] mb-[20px] bg-white rounded-[4px] p-[10px]">
-                    {{ $users->appends(request()->query())->links() }}
+                     {{ $users->appends(request()->query())->links() }}
                  </div>
                  <style>
                      nav[role="navigation"] a,
@@ -580,6 +603,27 @@
                  });
 
              });
+             //  Password visibility toggle
+             function togglePassword(inputId, iconId) {
+                 const input = document.getElementById(inputId);
+                 const icon = document.getElementById(iconId);
+
+                 if (input.type === 'password') {
+                     input.type = 'text';
+                     // Eye with slash (hidden state)
+                     icon.innerHTML = `
+                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                    `;
+                 } else {
+                     input.type = 'password';
+                     // Normal eye (visible state)
+                     icon.innerHTML = `
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    `;
+                 }
+             }
          </script>
          @if ($errors->any())
          <script>

@@ -2,27 +2,45 @@
     @include('admin.shared.header')
     <!-- modal add announcement Section -->
     <div id="addModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] items-center bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
-        <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+        <form method="POST" action="{{ route('announcements.store')}}" class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+            @csrf
+            <input type="hidden" name="form_type" value="create">
             <h3 class="font-bold text-[40px]">Create Announcement</h3>
+
             <div class="flex flex-col gap-[10px]">
                 <div class="flex flex-col">
                     <Label class="font-medium text-[18px]">Title:</Label>
-                    <input type="text" placeholder="Title" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                    <input required value="{{ old('title') }}" name="title" type="text" placeholder="Title" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                    @error('title')
+                    <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                    @enderror
                 </div>
             </div>
+
             <div class="flex flex-col w-full">
-                <Label class="font-medium text-[18px]">Body</Label>
-                <textarea type="text" placeholder="Body" value="₱0.00" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]"></textarea>
+                <Label class="font-medium text-[18px]">Body:</Label>
+                <textarea required name="body" rows="5" placeholder="Body" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">{{ old('body') }}</textarea>
+                @error('body')
+                <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                @enderror
             </div>
+
             <div class="flex flex-col w-full">
                 <Label class="font-medium text-[18px]">Type:</Label>
-                <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                <Select required name="type" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                     <option value="">Choose type</option>
+                    <option value="general" {{ old('type') == 'general' ? 'selected' : '' }}>General</option>
+                    <option value="emergency" {{ old('type') == 'emergency' ? 'selected' : '' }}>Emergency</option>
+                    <option value="event" {{ old('type') == 'event' ? 'selected' : '' }}>Event</option>
                 </Select>
+                @error('type')
+                <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                @enderror
             </div>
+
             <div class="flex flex-col w-full gap-[20px]">
-                <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Create Announcement</button>
-                <div id="" class="flex cancelBtn items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
+                <button type="submit" class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Create Announcement</button>
+                <div class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
             </div>
         </form>
     </div>
@@ -68,6 +86,41 @@
     </div>
 
     <body class="relative">
+        <!-- Alerts Modal -->
+        @if (session('success'))
+        <div id="successAlert" class="fixed top-0 left-0 w-full py-[20px] flex items-center justify-center z-50 opacity-0 -translate-y-full transition-all duration-500 ease-out">
+            <div class="flex items-start sm:items-center bg-[#e1ffe7] p-4 mb-4 text-sm text-medium rounded-[8px] border border-[rgb(40,194,71)] shadow-lg" role="alert">
+                <svg class="w-4 h-4 me-2 shrink-0 mt-0.5 sm:mt-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path class="stroke-[rgb(40,194,71)]" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <p class="text-[rgb(40,194,71)]">
+                    <span class="font-medium me-1 text-[rgb(40,194,71)]">Success!</span> {{ session('success') }}
+                </p>
+            </div>
+        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const alert = document.getElementById('successAlert');
+
+                if (alert) {
+                    setTimeout(() => {
+                        alert.classList.remove('-translate-y-full', 'opacity-0');
+                        alert.classList.add('translate-y-0', 'opacity-100');
+                    }, 100);
+
+                    setTimeout(() => {
+                        alert.classList.remove('translate-y-0', 'opacity-100');
+                        alert.classList.add('-translate-y-full', 'opacity-0');
+
+                        setTimeout(() => {
+                            alert.remove();
+                        }, 500);
+                    }, 3000);
+                }
+            });
+        </script>
+        @endif
+        
         <!--sidebar section -->
         @include('admin.shared.sidebar')
         <!-- mobile sidebar section -->
@@ -172,7 +225,7 @@
                                     </svg>
                                     Edit
                                 </div>
-                                <div  data-modal="deleteModal" class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                                <div data-modal="deleteModal" class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                     <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                         <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                     </svg>
@@ -353,6 +406,26 @@
 
             });
         </script>
+        @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const formType = "{{ old('form_type', 'create') }}";
+                let modal;
+
+                if (formType === 'edit') {
+                    modal = document.getElementById('editModal');
+                    // Populate edit form if needed
+                } else {
+                    modal = document.getElementById('addModal');
+                }
+
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    modal.classList.add('flex');
+                }
+            });
+        </script>
+        @endif
     </body>
 
     </html>

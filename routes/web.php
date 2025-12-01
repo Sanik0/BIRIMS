@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AnnouncementController;
 
 Route::get('/', function () {
     return view('home');
@@ -46,21 +47,21 @@ Route::get('/admin/settings', function () {
 });
 
 // Admin User Routes
-// Show users + create form
 Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
-// Handle form submission
 Route::post('/admin/users', [UserController::class, 'store'])->name('users.store');
-// Delete user
 Route::delete('/admin/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-// Update user
 Route::put('/admin/users/{id}', [UserController::class, 'update'])->name('users.update');
 
 Route::get('/admin/orders', function () {
     return view('admin.orders');
 });
-Route::get('/admin/announcements', function () {
-    return view('admin.announcements');
-});
+
+// Admin Announcement Routes
+Route::get('/admin/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
+Route::post('/admin/announcements', [AnnouncementController::class, 'store'])->name('announcements.store');
+Route::put('/admin/announcements/{id}', [AnnouncementController::class, 'update'])->name('announcements.update');
+Route::delete('/admin/announcements/{id}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
+
 Route::get('/admin/appointment', function () {
     return view('admin.appointment');
 });
