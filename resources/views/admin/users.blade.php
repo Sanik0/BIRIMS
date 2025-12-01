@@ -227,12 +227,18 @@
                      <Label class="font-medium text-[18px]">Email:</Label>
                      <input id="edit_email" name="email" type="email" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
+                 @error('email')
+                 <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                 @enderror
              </div>
              <div class="flex flex-col gap-[10px]">
                  <div class="flex flex-col">
                      <Label class="font-medium text-[18px]">Contact:</Label>
                      <input id="edit_contact" name="contact" type="number" placeholder="Ex. 09765098761" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  </div>
+                 @error('contact')
+                 <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                 @enderror
              </div>
              <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                  <div class="flex flex-col w-full">
@@ -349,13 +355,15 @@
                          </svg>
                          Add new User
                      </div>
-                     <form class="flex  w-full sm:w-fit items-center gap-[20px]">
+                     <form method="GET" action="{{ route('users.index')}}" class="flex  w-full sm:w-fit items-center gap-[20px]">
                          <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] border-gray-400 text-[18px] font-normal text-gray-400 gap-[8px]">
                              <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                  <path d="M520-600v-80h120v-160h80v160h120v80H520Zm120 480v-400h80v400h-80Zm-400 0v-160H120v-80h320v80H320v160h-80Zm0-320v-400h80v400h-80Z" />
                              </svg>
-                             <select class="appearance-none focus:outline-none" name="" id="">
+                             <select name="role" class="appearance-none focus:outline-none" name="" id="">
                                  <option value="Filter">Filter By: Role</option>
+                                 <option value="0" {{ request('role') == 0 ? 'selected' : '' }}>Resident</option>
+                                 <option value="0" {{ request('role') == 1 ? 'selected' : '' }}>Admin</option>
                              </select>
                          </div>
 
@@ -363,8 +371,17 @@
                              <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                  <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
                              </svg>
-                             <input class="w-full focus:outline-none" placeholder="Search" type="text">
+                             <input name="search" value="{{ request('search')}}" class="w-full focus:outline-none" placeholder="Search" type="text">
                          </div>
+                         <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-all duration-300 font-medium">
+                             Search
+                         </button>
+
+                         @if(request('search') || request('role'))
+                         <a href="{{ route('users.index') }}" class="px-4 py-2 border border-gray-400 text-gray-600 rounded-lg hover:bg-gray-100 transition-all duration-300 font-medium">
+                             Clear
+                         </a>
+                         @endif
                      </form>
                  </div>
 
@@ -438,7 +455,22 @@
                          <p class="text-[16px] font-medium">{{ $user->role == 0 ? 'Resident' : 'Admin'}}</p>
                          <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
                          <div class="w-full flex items-center gap-[10px]">
-                             <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                             <div data-modal="editModal"
+                                 data-user-id="{{ $user->user_id }}"
+                                 data-firstname="{{ $user->firstname }}"
+                                 data-lastname="{{ $user->lastname }}"
+                                 data-middlename="{{ $user->middlename }}"
+                                 data-birthdate="{{ $user->birthdate }}"
+                                 data-gender="{{ $user->gender }}"
+                                 data-birthplace="{{ $user->place_of_birth }}"
+                                 data-citizenship="{{ $user->citizenship }}"
+                                 data-civil="{{ $user->civil_status }}"
+                                 data-occupation="{{ $user->occupation }}"
+                                 data-housenumber="{{ $user->house_number }}"
+                                 data-street="{{ $user->street }}"
+                                 data-email="{{ $user->email }}"
+                                 data-contact="{{ $user->contact }}"
+                                 class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                  <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                      <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                                  </svg>
@@ -460,7 +492,7 @@
 
                  <!-- Pagination Links -->
                  <div class="mt-[20px] mb-[20px] bg-white rounded-[4px] p-[10px]">
-                     {{ $users->links() }}
+                    {{ $users->appends(request()->query())->links() }}
                  </div>
                  <style>
                      nav[role="navigation"] a,

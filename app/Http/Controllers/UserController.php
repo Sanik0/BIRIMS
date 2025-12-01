@@ -9,9 +9,27 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     // Show Users
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(10);
+        $query = User::query();
+
+        // Search by name (firstname, lastname, or middlename)
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('firstname', 'LIKE', "%{$search}%")
+                    ->orWhere('lastname', 'LIKE', "%{$search}%")
+                    ->orWhere('middlename', 'LIKE', "%{$search}%");
+            });
+        }
+
+        // Filter by role
+        if ($request->has('role') && $request->role != '') {
+            $query->where('role', $request->role);
+        }
+
+        $users = $query->paginate(10);
+
         return view('admin.users', compact('users'));
     }
 
@@ -70,12 +88,12 @@ class UserController extends Controller
             'middlename' => 'nullable|string|max:255',
             'birthdate' => 'required|date',
             'gender' => 'required|string|max:45',
-            'birthplace' => 'required|string|max:255',
-            'citizenship' => 'required|string|max:45',
-            'civil' => 'required|string|max:45',
+            'birthplace' => 'nullable|string|max:255',
+            'citizenship' => 'nullable|string|max:45',
+            'civil' => 'nullable|string|max:45',
             'occupation' => 'nullable|string|max:255',
-            'housenumber' => 'required|integer',
-            'street' => 'required|string|max:255',
+            'housenumber' => 'nullable|integer',
+            'street' => 'nullable|string|max:255',
             'email' => 'required|string|email|max:255|unique:user,email,' . $id . ',user_id',
             'contact' => 'required|digits_between:10,11|unique:user,contact,' . $id . ',user_id',
             'password' => 'nullable|string|min:8|confirmed',

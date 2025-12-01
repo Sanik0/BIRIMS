@@ -48,7 +48,6 @@ Route::get('/admin/settings', function () {
 // Admin User Routes
 // Show users + create form
 Route::get('/admin/users', [UserController::class, 'index'])->name('users.index');
-
 // Handle form submission
 Route::post('/admin/users', [UserController::class, 'store'])->name('users.store');
 // Delete user
