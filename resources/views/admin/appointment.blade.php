@@ -2,56 +2,152 @@
  @include('admin.shared.header')
  <!-- modal add announcement Section -->
  <div id="addModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
-     <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+     <form method="POST" action="{{ route('appointment.store') }}" class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+         @csrf
          <h3 class="font-bold text-[40px]">Create Appointment</h3>
+
          <div class="flex flex-col w-full">
              <Label class="font-medium text-[18px]">Service:</Label>
-             <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+             <Select required name="service" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  <option value="">Choose Service</option>
+                 <option value="consultation" {{ old('service') == 'consultation' ? 'selected' : '' }}>Consultation</option>
+                 <option value="checkup" {{ old('service') == 'checkup' ? 'selected' : '' }}>Check-up</option>
+                 <option value="vaccination" {{ old('service') == 'vaccination' ? 'selected' : '' }}>Vaccination</option>
              </Select>
+             @error('service')
+             <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+             @enderror
          </div>
+
          <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
              <div class="flex flex-col w-full">
                  <Label class="font-medium text-[18px]">Date:</Label>
-                 <input type="date" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                 <input required value="{{ old('date') }}" name="date" type="date" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                 @error('date')
+                 <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                 @enderror
              </div>
              <div class="flex flex-col w-full">
                  <Label class="font-medium text-[18px]">Time:</Label>
-                 <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                 <Select required name="time" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                      <option value="">Choose Time</option>
+                     <option value="09:00:00" {{ old('time') == '09:00:00' ? 'selected' : '' }}>9:00 AM</option>
+                     <option value="10:00:00" {{ old('time') == '10:00:00' ? 'selected' : '' }}>10:00 AM</option>
+                     <option value="11:00:00" {{ old('time') == '11:00:00' ? 'selected' : '' }}>11:00 AM</option>
+                     <option value="13:00:00" {{ old('time') == '13:00:00' ? 'selected' : '' }}>1:00 PM</option>
+                     <option value="14:00:00" {{ old('time') == '14:00:00' ? 'selected' : '' }}>2:00 PM</option>
+                     <option value="15:00:00" {{ old('time') == '15:00:00' ? 'selected' : '' }}>3:00 PM</option>
                  </Select>
+                 @error('time')
+                 <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                 @enderror
              </div>
          </div>
+
          <div class="flex flex-col w-full">
              <Label class="font-medium text-[18px]">Symptoms:</Label>
-             <textarea type="text" placeholder="Describe your symptoms (Optional)" value="₱0.00" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]"></textarea>
+             <textarea name="symptoms" rows="3" placeholder="Describe your symptoms (Optional)" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">{{ old('symptoms') }}</textarea>
          </div>
+
+         <div class="flex flex-col">
+             <Label class="font-medium text-[18px]">Email:</Label>
+             <input required id="email_lookup" type="email" value="{{ old('email') }}" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+             <input type="hidden" id="user_id" name="user_id" value="{{ old('user_id') }}">
+             <small id="email_status" class="text-sm mt-1"></small>
+             @error('email')
+             <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+             @enderror
+         </div>
+
          <div class="flex items-center flex-col sm:flex-row gap-[30px] w-full">
              <div class="flex flex-col w-full">
                  <Label class="font-medium text-[18px]">First Name:</Label>
-                 <input type="text" placeholder="Ex. Juan" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                 <input readonly id="firstname_display" type="text" placeholder="Auto-filled from email" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-400 text-[18px] bg-gray-50">
              </div>
              <div class="flex flex-col w-full">
                  <Label class="font-medium text-[18px]">Last Name:</Label>
-                 <input type="text" placeholder="Ex. Dela Cruz" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                 <input readonly id="lastname_display" type="text" placeholder="Auto-filled from email" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-400 text-[18px] bg-gray-50">
              </div>
          </div>
+
          <div class="flex flex-col gap-[10px]">
              <div class="flex flex-col">
                  <Label class="font-medium text-[18px]">Middle Name:</Label>
-                 <input type="text" placeholder="(Optional)" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                 <input readonly id="middlename_display" type="text" placeholder="Auto-filled from email" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-400 text-[18px] bg-gray-50">
              </div>
          </div>
-         <div class="flex flex-col">
-             <Label class="font-medium text-[18px]">Email:</Label>
-             <input type="email" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-         </div>
+
          <div class="flex flex-col w-full gap-[20px]">
-             <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Create Announcement</button>
-             <div id="" class="flex cancelBtn items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
+             <button type="submit" class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Create Appointment</button>
+             <div class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
          </div>
      </form>
  </div>
+
+ <script>
+     // Auto-populate user details when email is entered
+     document.addEventListener('DOMContentLoaded', function() {
+         const emailInput = document.getElementById('email_lookup');
+         const emailStatus = document.getElementById('email_status');
+         const userIdInput = document.getElementById('user_id');
+         const firstnameDisplay = document.getElementById('firstname_display');
+         const lastnameDisplay = document.getElementById('lastname_display');
+         const middlenameDisplay = document.getElementById('middlename_display');
+
+         let debounceTimer;
+
+         emailInput.addEventListener('input', function() {
+             clearTimeout(debounceTimer);
+             const email = this.value.trim();
+
+             if (!email) {
+                 clearUserFields();
+                 return;
+             }
+
+             // Debounce the API call
+             debounceTimer = setTimeout(() => {
+                 lookupUser(email);
+             }, 500);
+         });
+
+         function lookupUser(email) {
+             emailStatus.textContent = 'Looking up user...';
+             emailStatus.className = 'text-gray-500 text-sm mt-1';
+
+             fetch(`/lookup-user?email=${encodeURIComponent(email)}`)
+                 .then(response => response.json())
+                 .then(data => {
+                     if (data.success) {
+                         userIdInput.value = data.user.user_id;
+                         firstnameDisplay.value = data.user.firstname;
+                         lastnameDisplay.value = data.user.lastname;
+                         middlenameDisplay.value = data.user.middlename || '';
+
+                         emailStatus.textContent = '✓ User found';
+                         emailStatus.className = 'text-green-600 text-sm mt-1';
+                     } else {
+                         clearUserFields();
+                         emailStatus.textContent = '✗ User not found. Please register first.';
+                         emailStatus.className = 'text-red-600 text-sm mt-1';
+                     }
+                 })
+                 .catch(error => {
+                     clearUserFields();
+                     emailStatus.textContent = '✗ Error looking up user';
+                     emailStatus.className = 'text-red-600 text-sm mt-1';
+                 });
+         }
+
+         function clearUserFields() {
+             userIdInput.value = '';
+             firstnameDisplay.value = '';
+             lastnameDisplay.value = '';
+             middlenameDisplay.value = '';
+             emailStatus.textContent = '';
+         }
+     });
+ </script>
  <!-- modal delete announcement Section -->
  <div id="deleteModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
      <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
@@ -121,6 +217,40 @@
  </div>
 
  <body class="relative">
+     <!-- Alerts Modal -->
+     @if (session('success'))
+     <div id="successAlert" class="fixed top-0 left-0 w-full py-[20px] flex items-center justify-center z-50 opacity-0 -translate-y-full transition-all duration-500 ease-out">
+         <div class="flex items-start sm:items-center bg-[#e1ffe7] p-4 mb-4 text-sm text-medium rounded-[8px] border border-[rgb(40,194,71)] shadow-lg" role="alert">
+             <svg class="w-4 h-4 me-2 shrink-0 mt-0.5 sm:mt-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                 <path class="stroke-[rgb(40,194,71)]" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+             </svg>
+             <p class="text-[rgb(40,194,71)]">
+                 <span class="font-medium me-1 text-[rgb(40,194,71)]">Success!</span> {{ session('success') }}
+             </p>
+         </div>
+     </div>
+     <script>
+         document.addEventListener('DOMContentLoaded', function() {
+             const alert = document.getElementById('successAlert');
+
+             if (alert) {
+                 setTimeout(() => {
+                     alert.classList.remove('-translate-y-full', 'opacity-0');
+                     alert.classList.add('translate-y-0', 'opacity-100');
+                 }, 100);
+
+                 setTimeout(() => {
+                     alert.classList.remove('translate-y-0', 'opacity-100');
+                     alert.classList.add('-translate-y-full', 'opacity-0');
+
+                     setTimeout(() => {
+                         alert.remove();
+                     }, 500);
+                 }, 3000);
+             }
+         });
+     </script>
+     @endif
      @include('admin.shared.sidebar')
      <!-- mobile sidebar section -->
      @include('admin.shared.mobile-sidebar')

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\AppointmentController;
 
 Route::get('/', function () {
     return view('home');
@@ -62,9 +63,37 @@ Route::post('/admin/announcements', [AnnouncementController::class, 'store'])->n
 Route::put('/admin/announcements/{id}', [AnnouncementController::class, 'update'])->name('announcements.update');
 Route::delete('/admin/announcements/{id}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
 
-Route::get('/admin/appointment', function () {
-    return view('admin.appointment');
+// Admin Appointment Routes
+Route::get('/admin/appointment', [AppointmentController::class, 'index'])->name('appointment.index');
+Route::post('/admin/appointment', [AppointmentController::class, 'store'])->name('appointment.store');
+Route::delete('/admin/appointment/{id}', [AppointmentController::class, 'destroy'])->name('appointment.destroy');
+
+// User lookup for appointments
+Route::get('/lookup-user', function () {
+    $email = request('email');
+
+    if (!$email) {
+        return response()->json([
+            'success' => false,
+            'message' => 'No email provided'
+        ]);
+    }
+
+    $user = App\Models\User::where('email', $email)->first(['user_id', 'firstname', 'lastname', 'middlename']);
+
+    if ($user) {
+        return response()->json([
+            'success' => true,
+            'user' => $user
+        ]);
+    }
+
+    return response()->json([
+        'success' => false,
+        'message' => 'User not found'
+    ]);
 });
+
 Route::get('/admin/verifications', function () {
     return view('admin.verifications');
 });

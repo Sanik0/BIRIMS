@@ -207,13 +207,23 @@
                         </svg>
                         Add new announcement
                     </div>
-                    <form class="flex  w-full sm:w-fit items-center gap-[20px]">
+                    <form method="GET" action="{{ route('announcements.index') }}" class="flex w-full sm:w-fit items-center gap-[20px]">
                         <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] w-full sm:w-[308px] border-gray-400 text-[18px] font-normal text-gray-600 gap-[8px]">
                             <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                 <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
                             </svg>
-                            <input class="w-full focus:outline-none" placeholder="Search" type="text">
+                            <input name="search" value="{{ request('search') }}" class="w-full focus:outline-none" placeholder="Search by title or body" type="text">
                         </div>
+
+                        <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded-sm hover:bg-orange-600 transition-all duration-300 font-medium">
+                            Search
+                        </button>
+
+                        @if(request('search'))
+                        <a href="{{ route('announcements.index') }}" class="px-4 py-2 border border-gray-400 text-gray-600 rounded-sm hover:bg-gray-100 transition-all duration-300 font-medium">
+                            Clear
+                        </a>
+                        @endif
                     </form>
                 </div>
 
@@ -295,6 +305,17 @@
                     </div>
                     @endforeach
                 </div>
+
+                <!-- Pagination Links -->
+                <div class="mt-[20px] mb-[20px] bg-white rounded-[4px] p-[10px]">
+                    {{ $announcements->appends(request()->query())->links() }}
+                </div>
+                <style>
+                    nav[role="navigation"] a,
+                    nav[role="navigation"] span {
+                        background: white !important;
+                    }
+                </style>
             </section>
 
         </main>

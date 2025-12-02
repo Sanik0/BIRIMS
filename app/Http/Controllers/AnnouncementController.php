@@ -8,12 +8,23 @@ use App\Models\Announcement;
 class AnnouncementController extends Controller
 {
     // Show announcements
-    public function index()
+    public function index(Request $request)
     {
-        $announcements = Announcement::orderBy('created_at', 'desc')->paginate(10);
+        $query = Announcement::query();
+
+        // Search by title or body
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'LIKE', "%{$search}%")
+                    ->orWhere('body', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $announcements = $query->orderBy('created_at', 'desc')->paginate(10);
+
         return view('admin.announcements', compact('announcements'));
     }
-
     // Store new announcement
     public function store(Request $request)
     {
@@ -37,7 +48,7 @@ class AnnouncementController extends Controller
     public function update(Request $request, $id)
     {
         $announcement = Announcement::findOrFail($id);
-        
+
         $request->validate([
             'title' => 'required|string|max:255',
             'body' => 'required|string',
