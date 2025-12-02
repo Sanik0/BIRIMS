@@ -61,28 +61,48 @@
     </div>
     <!-- modal edit announcement Section -->
     <div id="editModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] items-center sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
-        <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px]flex flex-col w-full max-w-[540px] gap-[30px]">
-            <h3 class="font-bold text-[40px]">Create Announcement</h3>
+        <form id="editForm" method="POST" action="" class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="form_type" value="edit">
+            <input type="hidden" id="edit_announcement_id" name="announcement_id" value="">
+
+            <h3 class="font-bold text-[40px]">Edit Announcement</h3>
+
             <div class="flex flex-col gap-[10px]">
                 <div class="flex flex-col">
                     <Label class="font-medium text-[18px]">Title:</Label>
-                    <input type="text" value="Community Tax Certificate (Cedula) Renewal Deadline" placeholder="Title" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                    <input required id="edit_title" name="title" type="text" placeholder="Title" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                    @error('title')
+                    <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                    @enderror
                 </div>
             </div>
+
             <div class="flex flex-col w-full">
-                <Label class="font-medium text-[18px]">Body</Label>
-                <textarea type="text" placeholder="Body" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">Please be advised that the deadline for securing your annual Community Tax Certificate (Cedula) for the current year is on November 30</textarea>
+                <Label class="font-medium text-[18px]">Body:</Label>
+                <textarea required id="edit_body" name="body" rows="5" placeholder="Body" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]"></textarea>
+                @error('body')
+                <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                @enderror
             </div>
+
             <div class="flex flex-col w-full">
                 <Label class="font-medium text-[18px]">Type:</Label>
-                <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                <Select required id="edit_type" name="type" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                     <option value="">Choose type</option>
-                    <option value="" selected>Notice</option>
+                    <option value="general">General</option>
+                    <option value="emergency">Emergency</option>
+                    <option value="event">Event</option>
                 </Select>
+                @error('type')
+                <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                @enderror
             </div>
+
             <div class="flex flex-col w-full gap-[20px]">
-                <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Create Announcement</button>
-                <div id="" class="flex cancelBtn items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
+                <button type="submit" class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Update Announcement</button>
+                <div class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
             </div>
         </form>
     </div>
@@ -213,7 +233,12 @@
                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $announcement->body}}</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $announcement->type}}</td>
                             <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                                <div data-modal="editModal"
+                                    data-announcement-id="{{ $announcement->announcement_id }}"
+                                    data-title="{{ $announcement->title }}"
+                                    data-body="{{ $announcement->body }}"
+                                    data-type="{{ $announcement->type }}"
+                                    class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                     <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                         <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                                     </svg>
@@ -246,13 +271,21 @@
                         <p class="text-[16px] font-medium">{{ $announcement->type}}</p>
                         <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
                         <div class="w-full flex items-center gap-[10px]">
-                            <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                            <div data-modal="editModal"
+                                data-announcement-id="{{ $announcement->announcement_id }}"
+                                data-title="{{ $announcement->title }}"
+                                data-body="{{ $announcement->body }}"
+                                data-type="{{ $announcement->type }}"
+                                class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                 <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                     <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                                 </svg>
                                 Edit
                             </div>
-                            <div data-modal="deleteModal" class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                            <div data-modal="deleteModal"
+                                data-announcement-id="{{ $announcement->announcement_id }}"
+                                data-announcement-title="{{ $announcement->title }}"
+                                class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                 <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                     <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                 </svg>
@@ -267,13 +300,30 @@
         </main>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-
                 // 🔹 Open modal
                 document.querySelectorAll('.addBtn, .editBtn, .deleteBtn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         const modalId = this.getAttribute('data-modal');
                         const modal = document.getElementById(modalId);
                         if (!modal) return;
+
+                        // If it's an edit button for announcements
+                        if (this.classList.contains('editBtn')) {
+                            const announcementId = this.getAttribute('data-announcement-id');
+                            const editForm = document.getElementById('editForm');
+
+                            if (editForm && announcementId) {
+                                editForm.action = `/admin/announcements/${announcementId}`;
+                            }
+
+                            // Set hidden announcement_id field
+                            document.getElementById('edit_announcement_id').value = announcementId || '';
+
+                            // Populate form fields
+                            document.getElementById('edit_title').value = this.getAttribute('data-title') || '';
+                            document.getElementById('edit_body').value = this.getAttribute('data-body') || '';
+                            document.getElementById('edit_type').value = this.getAttribute('data-type') || '';
+                        }
 
                         // If it's a delete button for announcements
                         if (this.classList.contains('deleteBtn')) {
@@ -282,13 +332,8 @@
                             const deleteForm = document.getElementById('deleteForm');
                             const titleSpan = document.getElementById('deleteAnnouncementTitle');
 
-                            console.log('Announcement ID:', announcementId); // DEBUG
-                            console.log('Delete Form:', deleteForm); // DEBUG
-                            console.log('Form method inputs:', deleteForm.querySelectorAll('input[name="_method"]')); // DEBUG
-
                             if (deleteForm && announcementId) {
                                 deleteForm.action = `/admin/announcements/${announcementId}`;
-                                console.log('Form action set to:', deleteForm.action); // DEBUG
                             }
                             if (titleSpan && announcementTitle) {
                                 titleSpan.textContent = announcementTitle;
@@ -330,7 +375,24 @@
 
                 if (formType === 'edit') {
                     modal = document.getElementById('editModal');
-                    // Populate edit form if needed
+
+                    // Repopulate edit form
+                    const announcementId = "{{ old('announcement_id') }}";
+                    const editForm = document.getElementById('editForm');
+
+                    if (editForm && announcementId) {
+                        editForm.action = `/admin/announcements/${announcementId}`;
+                    }
+
+                    @if(old('title'))
+                    document.getElementById('edit_title').value = "{{ old('title') }}";
+                    @endif
+                    @if(old('body'))
+                    document.getElementById('edit_body').value = "{{ old('body') }}";
+                    @endif
+                    @if(old('type'))
+                    document.getElementById('edit_type').value = "{{ old('type') }}";
+                    @endif
                 } else {
                     modal = document.getElementById('addModal');
                 }
