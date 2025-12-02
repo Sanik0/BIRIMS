@@ -360,7 +360,7 @@
                              </div>
                              <div data-modal="deleteModal"
                                  data-appointment-id="{{ $appointment->appointment_id }}"
-                                 data-appointment-name="{{ $appointment->user->firstname }}"
+                                 data-user-name="{{ $appointment->user->firstname }} {{ $appointment->user->lastname }}"
                                  class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                  <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                      <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
@@ -414,6 +414,22 @@
                      const modalId = this.getAttribute('data-modal');
                      const modal = document.getElementById(modalId);
                      if (!modal) return;
+
+                     // If it's a delete button for appointments
+                     if (this.classList.contains('deleteBtn')) {
+                         const appointmentId = this.getAttribute('data-appointment-id');
+                         const userName = this.getAttribute('data-user-name');
+                         const deleteForm = document.getElementById('deleteForm');
+                         const userNameSpan = document.getElementById('deleteAppointmentUser');
+
+                         if (deleteForm && appointmentId) {
+                             deleteForm.action = `/admin/appointment/${appointmentId}`;
+                         }
+                         if (userNameSpan && userName) {
+                             userNameSpan.textContent = userName;
+                         }
+                     }
+
                      modal.classList.remove('hidden');
                      modal.classList.add('flex');
                  });
@@ -426,6 +442,16 @@
                      if (!modal) return;
                      modal.classList.remove('flex');
                      modal.classList.add('hidden');
+                 });
+             });
+
+             // 🔹 Close modal when clicking outside
+             document.querySelectorAll('.modal').forEach(modal => {
+                 modal.addEventListener('click', function(e) {
+                     if (e.target === this) {
+                         this.classList.remove('flex');
+                         this.classList.add('hidden');
+                     }
                  });
              });
 
