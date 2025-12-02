@@ -7,9 +7,22 @@ use App\Models\Appointment;
 
 class AppointmentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $appointments = Appointment::with('user')->orderBy('date', 'desc')->orderBy('time', 'desc')->paginate(10);
+        $query = Appointment::with('user');
+
+        // Search by user name
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->whereHas('user', function ($q) use ($search) {
+                $q->where('firstname', 'LIKE', "%{$search}%")
+                    ->orWhere('lastname', 'LIKE', "%{$search}%")
+                    ->orWhere('middlename', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $appointments = $query->orderBy('date', 'desc')->orderBy('time', 'desc')->paginate(10);
+
         return view('admin.appointment', compact('appointments'));
     }
 

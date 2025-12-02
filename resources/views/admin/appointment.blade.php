@@ -315,22 +315,23 @@
                      </svg>
                      Add new appointment
                  </div>
-                 <form class="flex  w-full sm:w-fit items-center gap-[20px]">
-                     <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] border-gray-400 text-[18px] font-normal text-gray-400 gap-[8px]">
-                         <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                             <path d="M520-600v-80h120v-160h80v160h120v80H520Zm120 480v-400h80v400h-80Zm-400 0v-160H120v-80h320v80H320v160h-80Zm0-320v-400h80v400h-80Z" />
-                         </svg>
-                         <select class="appearance-none focus:outline-none" name="" id="">
-                             <option value="Filter">Filter By Time:</option>
-                         </select>
-                     </div>
-
+                 <form method="GET" action="{{ route('appointment.index') }}" class="flex w-full sm:w-fit items-center gap-[20px]">
                      <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] w-full sm:w-[308px] border-gray-400 text-[18px] font-normal text-gray-600 gap-[8px]">
                          <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                              <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
                          </svg>
-                         <input class="w-full focus:outline-none" placeholder="Search" type="text">
+                         <input name="search" value="{{ request('search') }}" class="w-full focus:outline-none" placeholder="Search by name" type="text">
                      </div>
+
+                     <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded-sm hover:bg-orange-600 transition-all duration-300 font-medium">
+                         Search
+                     </button>
+
+                     @if(request('search'))
+                     <a href="{{ route('appointment.index') }}" class="px-4 py-2 border border-gray-400 text-gray-600 rounded-sm hover:bg-gray-100 transition-all duration-300 font-medium">
+                         Clear
+                     </a>
+                     @endif
                  </form>
              </div>
 
@@ -375,6 +376,7 @@
 
              <!-- Mobile appointments Cards -->
              <div class="w-full gap-[20px] mb-[30px] flex sm:hidden flex-col">
+                 @foreach ($appointments as $appointment)
                  <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
                      <h6 class="text-[14px] text-gray-600 font-semibold">Service:</h6>
                      <p class="text-[16px] font-medium">Blood pressure monitoring</p>
@@ -392,7 +394,10 @@
                              </svg>
                              Edit
                          </div>
-                         <div data-modal="deleteModal" class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                         <div data-modal="deleteModal"
+                             data-appointment-id="{{ $appointment->appointment_id }}"
+                             data-user-name="{{ $appointment->user->firstname }} {{ $appointment->user->lastname }}"
+                             class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                              <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                  <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                              </svg>
@@ -400,8 +405,18 @@
                          </div>
                      </div>
                  </div>
-
+                 @endforeach
              </div>
+             <!-- Pagination Links -->
+             <div class="mt-[20px] mb-[20px] bg-white rounded-[4px] p-[10px]">
+                 {{ $appointments->appends(request()->query())->links() }}
+             </div>
+             <style>
+                 nav[role="navigation"] a,
+                 nav[role="navigation"] span {
+                     background: white !important;
+                 }
+             </style>
          </section>
 
      </main>
