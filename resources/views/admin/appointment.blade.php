@@ -31,12 +31,12 @@
                  <Label class="font-medium text-[18px]">Time:</Label>
                  <Select required name="time" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                      <option value="">Choose Time</option>
-                     <option value="09:00:00" {{ old('time') == '09:00:00' ? 'selected' : '' }}>9:00 AM</option>
-                     <option value="10:00:00" {{ old('time') == '10:00:00' ? 'selected' : '' }}>10:00 AM</option>
-                     <option value="11:00:00" {{ old('time') == '11:00:00' ? 'selected' : '' }}>11:00 AM</option>
-                     <option value="13:00:00" {{ old('time') == '13:00:00' ? 'selected' : '' }}>1:00 PM</option>
-                     <option value="14:00:00" {{ old('time') == '14:00:00' ? 'selected' : '' }}>2:00 PM</option>
-                     <option value="15:00:00" {{ old('time') == '15:00:00' ? 'selected' : '' }}>3:00 PM</option>
+                     <option value="09:00:00 AM" {{ old('time') == '09:00:00 AM' ? 'selected' : '' }}>9:00 AM</option>
+                     <option value="10:00:00 AM" {{ old('time') == '10:00:00 AM' ? 'selected' : '' }}>10:00 AM</option>
+                     <option value="11:00:00 AM" {{ old('time') == '11:00:00 AM' ? 'selected' : '' }}>11:00 AM</option>
+                     <option value="13:00:00 PM" {{ old('time') == '13:00:00 PM' ? 'selected' : '' }}>1:00 PM</option>
+                     <option value="14:00:00 PM" {{ old('time') == '14:00:00 PM' ? 'selected' : '' }}>2:00 PM</option>
+                     <option value="15:00:00 PM" {{ old('time') == '15:00:00 PM' ? 'selected' : '' }}>3:00 PM</option>
                  </Select>
                  @error('time')
                  <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
@@ -83,7 +83,6 @@
          </div>
      </form>
  </div>
-
  <script>
      // Auto-populate user details when email is entered
      document.addEventListener('DOMContentLoaded', function() {
@@ -148,16 +147,18 @@
          }
      });
  </script>
- <!-- modal delete announcement Section -->
+ <!-- modal delete appointment Section -->
  <div id="deleteModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
-     <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+     <form id="deleteForm" method="POST" action="" class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+         @csrf
+         @method('DELETE')
          <h3 class="font-bold text-[40px]">Delete Appointment</h3>
          <div class="flex items-center justify-center w-full">
-             <p class="font-regular text-[20px] text-gray-500">Are you sure you want to delete this appointment for <span class="text-[#EF4444]"> Juan Dela Cruz</span>? This action cannot be undone and the user’s appointment will be cancelled.</p>
+             <p class="font-regular text-[20px] text-gray-500">Are you sure you want to delete this appointment for <span id="deleteAppointmentUser" class="text-[#EF4444]">this user</span>? This action cannot be undone and the user's appointment will be cancelled.</p>
          </div>
          <div class="flex flex-col w-full gap-[20px]">
-             <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Yes, Delete Order</button>
-             <div id="" class="flex cancelBtn items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
+             <button type="submit" class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Yes, Delete Appointment</button>
+             <div class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
          </div>
      </form>
  </div>
@@ -344,11 +345,12 @@
                      </tr>
                  </thead>
                  <tbody>
+                     @foreach ($appointments as $appointment)
                      <tr class="border-b-[1px] border-gray-300 bg-white">
-                         <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">Blood pressure monitroing</td>
-                         <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Juan Dela Cruz</td>
-                         <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">03-05-2025</td>
-                         <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">2:00 PM</td>
+                         <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">{{ $appointment->service}}</td>
+                         <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $appointment->user->firstname}} {{ $appointment->user->middlename ? substr($appointment->user->middlename, 0, 1) . '.' : '' }} {{ $appointment->user->lastname}}</td>
+                         <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $appointment->date}}</td>
+                         <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $appointment->time}}</td>
                          <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
                              <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                  <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
@@ -356,7 +358,10 @@
                                  </svg>
                                  Edit
                              </div>
-                             <div data-modal="deleteModal" class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                             <div data-modal="deleteModal"
+                                 data-appointment-id="{{ $appointment->appointment_id }}"
+                                 data-appointment-name="{{ $appointment->user->firstname }}"
+                                 class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                  <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                      <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                  </svg>
@@ -364,6 +369,7 @@
                              </div>
                          </td>
                      </tr>
+                     @endforeach
                  </tbody>
              </table>
 
