@@ -34,6 +34,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 
+    Route::put('/password/update', [ProfileController::class, 'updatePassword'])->name('password.update');
+
     Route::get('/notifications', function () {
         return view('notifications');
     });

@@ -11,7 +11,7 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user = Auth::user();
-        
+
         $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -28,7 +28,7 @@ class ProfileController extends Controller
             'contact' => 'required|digits:11|unique:user,contact,' . $user->user_id . ',user_id',
             'password' => 'nullable|string|min:8|confirmed',
         ]);
-        
+
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
         $user->middlename = $request->middlename;
@@ -42,14 +42,35 @@ class ProfileController extends Controller
         $user->street = $request->street;
         $user->email = $request->email;
         $user->contact = $request->contact;
-        
+
         // Only update password if provided
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
-        
+
         $user->save();
-        
+
         return redirect()->route('settings')->with('success', 'Profile updated successfully!');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = Auth::user();
+
+        // Check if current password is correct
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Current password is incorrect.'])->withInput();
+        }
+
+        // Update password
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return redirect()->route('settings')->with('success', 'Password updated successfully!');
     }
 }
