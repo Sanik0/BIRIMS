@@ -129,7 +129,7 @@
                         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-[15px]">
                             <div class="flex items-start flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
                                 <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="reporter_contact">Contact Number:</label>
-                                <input name="reporter_contact" id="reporter_contact" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif bg-gray-50" type="text" value="{{ old('reporter_contact', $user->contact) }}" readonly>
+                                <input name="reporter_contact" id="reporter_contact" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif bg-gray-50" type="number" value="{{ old('reporter_contact', $user->contact) }}" readonly>
                             </div>
                             <div class="flex items-start flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
                                 <label class="text-[16px] font-semibold font-serif" for="reporter_age">Edad:</label>
@@ -162,7 +162,7 @@
                         <div class="flex flex-col sm:flex-row items-start sm:items-center gap-[15px]">
                             <div class="flex items-start flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
                                 <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="respondent_contact">Contact Number:</label>
-                                <input name="respondent_contact" id="respondent_contact" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text" value="{{ old('respondent_contact') }}">
+                                <input name="respondent_contact" id="respondent_contact" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="number" value="{{ old('respondent_contact') }}">
                             </div>
                             <div class="flex items-start flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
                                 <label class="text-[16px] font-semibold font-serif" for="respondent_age">Edad:</label>

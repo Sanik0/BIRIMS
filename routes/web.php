@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\AnnouncementsController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
@@ -56,10 +57,8 @@ Route::middleware(['auth'])->group(function () {
         return view('appointment');
     });
 
-    Route::get('/announcements', function () {
-        return view('announcements');
-    });
-
+    Route::get('/announcements', [AnnouncementsController::class, 'index'])->name('announcements.index');
+    
     Route::get('/verify', function () {
         return view('verify');
     });
