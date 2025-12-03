@@ -443,7 +443,7 @@
 
                })
            </script>
-           @if ($errors->any())
+           @if ($errors->has('firstname') || $errors->has('lastname') || $errors->has('email') || $errors->has('contact'))
            <script>
                document.addEventListener('DOMContentLoaded', function() {
                    const modal = document.getElementById('modal');
