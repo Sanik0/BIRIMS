@@ -187,29 +187,40 @@
                            <div class="w-full rounded-[4px] border-solid border-[1px] py-[20px] border-[#D4D4D8]">
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
-                                       <div class="rounded-[50%] h-[98px] w-[98px] overflow-hidden">
-                                           <img class="h-full w-full object-cover object-center" src="{{asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
+                                       <div class="rounded-[50%] h-[98px] w-[98px] bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
+                                           <span class="text-white text-[40px] font-bold">
+                                               {{ strtoupper(substr(auth()->user()->firstname, 0, 1)) }}{{ strtoupper(substr(auth()->user()->lastname, 0, 1)) }}
+                                           </span>
                                        </div>
                                    </div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Full Name</div>
-                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">John K. Doe</p>
+                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">
+                                           {{ auth()->user()->firstname }} {{ auth()->user()->middlename }} {{ auth()->user()->lastname }}
+                                       </p>
                                    </div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Email</div>
-                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">johndoe@gmail.com</p>
+                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">{{ auth()->user()->email }}</p>
+                                   </div>
+                               </div>
+                               <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
+                                   <div class="flex flex-col">
+                                       <div class="font-semibold text-[16px]">Contact Number</div>
+                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">{{ auth()->user()->contact }}</p>
                                    </div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Address</div>
-                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">123 Mabini Street,
+                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">
+                                           {{ auth()->user()->house_number }} {{ auth()->user()->street }} Street,
                                            <br>
-                                           Barangay San Isidro,
+                                           Barangay San Bartolome,
                                            <br>
                                            Quezon City, Metro Manila,
                                            <br>
@@ -220,43 +231,39 @@
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Gender</div>
-                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Male</p>
+                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">{{ ucfirst(auth()->user()->gender) }}</p>
                                    </div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
-                                       <div class="font-semibold text-[16px]">Place of birth:</div>
-                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Quezon City</p>
+                                       <div class="font-semibold text-[16px]">Place of Birth:</div>
+                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">{{ auth()->user()->place_of_birth ?? 'N/A' }}</p>
                                    </div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Citizenship:</div>
-                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Filipino</p>
+                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">{{ auth()->user()->citizenship ?? 'N/A' }}</p>
                                    </div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Civil Status:</div>
-                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Single</p>
+                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">{{ ucfirst(auth()->user()->civil_status ?? 'N/A') }}</p>
                                    </div>
                                </div>
                                <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Occupation:</div>
-                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Professor</p>
-                                   </div>
-                               </div>
-                               <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
-                                   <div class="flex flex-col">
-                                       <div class="font-semibold text-[16px]">Civil Status:</div>
-                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">Single</p>
+                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">{{ auth()->user()->occupation ?? 'N/A' }}</p>
                                    </div>
                                </div>
                                <div class="px-[20px] py-[15px] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Birth Date</div>
-                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">05 May 2011</p>
+                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">
+                                           {{ \Carbon\Carbon::parse(auth()->user()->birthdate)->format('d F Y') }}
+                                       </p>
                                    </div>
                                </div>
                            </div>
