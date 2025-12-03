@@ -1,91 +1,172 @@
        <!-- header section -->
        @include('shared.header')
+       <!-- Alerts Modal -->
+       @if (session('success'))
+       <div id="successAlert" class="fixed top-0 left-0 w-full py-[20px] flex items-center justify-center z-50 opacity-0 -translate-y-full transition-all duration-500 ease-out">
+           <div class="flex items-start sm:items-center bg-[#e1ffe7] p-4 mb-4 text-sm text-medium rounded-[8px] border border-[rgb(40,194,71)] shadow-lg" role="alert">
+               <svg class="w-4 h-4 me-2 shrink-0 mt-0.5 sm:mt-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                   <path class="stroke-[rgb(40,194,71)]" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+               </svg>
+               <p class="text-[rgb(40,194,71)]">
+                   <span class="font-medium me-1 text-[rgb(40,194,71)]">Success!</span> {{ session('success') }}
+               </p>
+           </div>
+       </div>
+       <script>
+           document.addEventListener('DOMContentLoaded', function() {
+               const alert = document.getElementById('successAlert');
+
+               if (alert) {
+                   setTimeout(() => {
+                       alert.classList.remove('-translate-y-full', 'opacity-0');
+                       alert.classList.add('translate-y-0', 'opacity-100');
+                   }, 100);
+
+                   setTimeout(() => {
+                       alert.classList.remove('translate-y-0', 'opacity-100');
+                       alert.classList.add('-translate-y-full', 'opacity-0');
+
+                       setTimeout(() => {
+                           alert.remove();
+                       }, 500);
+                   }, 3000);
+               }
+           });
+       </script>
+       @endif
        <!-- modal Section -->
        <div id="modal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
-           <form class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
-               <h3 class="font-bold text-[40px]">Update Informations</h3>
+           <form method="POST" action="{{ route('profile.update') }}" class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+               @csrf
+               @method('PUT')
+               <h3 class="font-bold text-[40px]">Update Information</h3>
+
                <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                    <div class="flex flex-col w-full">
                        <Label class="font-medium text-[18px]">First Name:</Label>
-                       <input type="text" placeholder="Ex. Juan" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       <input required name="firstname" value="{{ old('firstname', auth()->user()->firstname) }}" type="text" placeholder="Ex. Juan" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       @error('firstname')
+                       <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                       @enderror
                    </div>
                    <div class="flex flex-col w-full">
                        <Label class="font-medium text-[18px]">Last Name:</Label>
-                       <input type="text" placeholder="Ex. Dela Cruz" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       <input required name="lastname" value="{{ old('lastname', auth()->user()->lastname) }}" type="text" placeholder="Ex. Dela Cruz" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       @error('lastname')
+                       <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                       @enderror
                    </div>
                </div>
+
                <div class="flex flex-col gap-[10px]">
                    <div class="flex flex-col">
                        <Label class="font-medium text-[18px]">Middle Name:</Label>
-                       <input type="text" placeholder="(Optional)" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       <input name="middlename" value="{{ old('middlename', auth()->user()->middlename) }}" type="text" placeholder="(Optional)" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                    </div>
                </div>
+
                <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                    <div class="flex flex-col w-full">
                        <Label class="font-medium text-[18px]">Birthdate:</Label>
-                       <input type="date" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       <input required name="birthdate" value="{{ old('birthdate', auth()->user()->birthdate) }}" type="date" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       @error('birthdate')
+                       <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                       @enderror
                    </div>
                    <div class="flex flex-col w-full">
                        <Label class="font-medium text-[18px]">Gender:</Label>
-                       <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       <Select required name="gender" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                            <option value="">Choose Gender</option>
+                           <option value="male" {{ old('gender', auth()->user()->gender) == 'male' ? 'selected' : '' }}>Male</option>
+                           <option value="female" {{ old('gender', auth()->user()->gender) == 'female' ? 'selected' : '' }}>Female</option>
+                           <option value="lgbt" {{ old('gender', auth()->user()->gender) == 'lgbt' ? 'selected' : '' }}>LGBTQ+</option>
+                           <option value="prefer not to say" {{ old('gender', auth()->user()->gender) == 'prefer not to say' ? 'selected' : '' }}>Prefer not to say</option>
                        </Select>
+                       @error('gender')
+                       <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                       @enderror
                    </div>
                </div>
+
                <div class="flex flex-col gap-[10px]">
                    <div class="flex flex-col">
                        <Label class="font-medium text-[18px]">Place of Birth:</Label>
-                       <input type="Email" placeholder="Ex. Quezon City" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       <input name="place_of_birth" value="{{ old('place_of_birth', auth()->user()->place_of_birth) }}" type="text" placeholder="Ex. Quezon City" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                    </div>
                </div>
+
                <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                    <div class="flex flex-col w-full">
                        <Label class="font-medium text-[18px]">Citizenship</Label>
-                       <input type="text" placeholder="Ex. Filipino" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       <input name="citizenship" value="{{ old('citizenship', auth()->user()->citizenship) }}" type="text" placeholder="Ex. Filipino" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                    </div>
                    <div class="flex flex-col w-full">
                        <Label class="font-medium text-[18px]">Civil Status:</Label>
-                       <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                           <option value="">Choose Gender</option>
+                       <Select name="civil_status" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                           <option value="">Choose Status</option>
+                           <option value="single" {{ old('civil_status', auth()->user()->civil_status) == 'single' ? 'selected' : '' }}>Single</option>
+                           <option value="married" {{ old('civil_status', auth()->user()->civil_status) == 'married' ? 'selected' : '' }}>Married</option>
                        </Select>
                    </div>
                </div>
+
                <div class="flex flex-col gap-[10px]">
                    <div class="flex flex-col">
                        <Label class="font-medium text-[18px]">Occupation:</Label>
-                       <input type="Email" placeholder="Ex. Teacher" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       <input name="occupation" value="{{ old('occupation', auth()->user()->occupation) }}" type="text" placeholder="Ex. Teacher" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                    </div>
                </div>
+
                <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                    <div class="flex flex-col w-full">
                        <Label class="font-medium text-[18px]">House #:</Label>
-                       <input type="text" placeholder="Ex. 123" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       <input name="house_number" value="{{ old('house_number', auth()->user()->house_number) }}" type="number" placeholder="Ex. 123" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                    </div>
                    <div class="flex flex-col w-full">
                        <Label class="font-medium text-[18px]">Street:</Label>
-                       <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       <Select name="street" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                            <option value="">Choose Street</option>
+                           <option value="gemini" {{ old('street', auth()->user()->street) == 'gemini' ? 'selected' : '' }}>Gemini</option>
                        </Select>
                    </div>
                </div>
+
                <div class="flex flex-col gap-[10px]">
                    <div class="flex flex-col">
                        <Label class="font-medium text-[18px]">Email:</Label>
-                       <input type="Email" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       <input required name="email" value="{{ old('email', auth()->user()->email) }}" type="email" placeholder="Ex. juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       @error('email')
+                       <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                       @enderror
                    </div>
                </div>
+
+               <div class="flex flex-col gap-[10px]">
+                   <div class="flex flex-col">
+                       <Label class="font-medium text-[18px]">Contact Number:</Label>
+                       <input required name="contact" value="{{ old('contact', auth()->user()->contact) }}" type="tel" maxlength="11" placeholder="Ex. 09xxxxxxxxx" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       @error('contact')
+                       <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                       @enderror
+                   </div>
+               </div>
+
                <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
                    <div class="flex flex-col w-full">
-                       <Label class="font-medium text-[18px]">Create Passord:</Label>
-                       <input type="password" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       <Label class="font-medium text-[18px]">New Password (Optional):</Label>
+                       <input name="password" type="password" placeholder="Leave blank to keep current" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       @error('password')
+                       <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                       @enderror
                    </div>
                    <div class="flex flex-col w-full">
                        <Label class="font-medium text-[18px]">Confirm Password:</Label>
-                       <input type="text" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                       <input name="password_confirmation" type="password" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                    </div>
                </div>
+
                <div class="flex flex-col w-full gap-[20px]">
-                   <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Save</button>
+                   <button type="submit" class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Save Changes</button>
                    <div id="cancelBtn" class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
                </div>
            </form>
@@ -343,6 +424,17 @@
 
                })
            </script>
+           @if ($errors->any())
+           <script>
+               document.addEventListener('DOMContentLoaded', function() {
+                   const modal = document.getElementById('modal'); 
+                   if (modal) {
+                       modal.classList.remove('hidden');
+                       modal.classList.add('flex');
+                   }
+               });
+           </script>
+           @endif
        </body>
 
        </html>
