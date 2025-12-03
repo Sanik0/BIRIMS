@@ -31,12 +31,12 @@
                  <Label class="font-medium text-[18px]">Time:</Label>
                  <Select required name="time" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                      <option value="">Choose Time</option>
-                     <option value="09:00:00 AM" {{ old('time') == '09:00:00 AM' ? 'selected' : '' }}>9:00 AM</option>
-                     <option value="10:00:00 AM" {{ old('time') == '10:00:00 AM' ? 'selected' : '' }}>10:00 AM</option>
-                     <option value="11:00:00 AM" {{ old('time') == '11:00:00 AM' ? 'selected' : '' }}>11:00 AM</option>
-                     <option value="13:00:00 PM" {{ old('time') == '13:00:00 PM' ? 'selected' : '' }}>1:00 PM</option>
-                     <option value="14:00:00 PM" {{ old('time') == '14:00:00 PM' ? 'selected' : '' }}>2:00 PM</option>
-                     <option value="15:00:00 PM" {{ old('time') == '15:00:00 PM' ? 'selected' : '' }}>3:00 PM</option>
+                     <option value="09:00:00" {{ old('time') == '09:00:00' ? 'selected' : '' }}>9:00 AM</option>
+                     <option value="10:00:00" {{ old('time') == '10:00:00' ? 'selected' : '' }}>10:00 AM</option>
+                     <option value="11:00:00" {{ old('time') == '11:00:00' ? 'selected' : '' }}>11:00 AM</option>
+                     <option value="13:00:00" {{ old('time') == '13:00:00' ? 'selected' : '' }}>1:00 PM</option>
+                     <option value="14:00:00" {{ old('time') == '14:00:00' ? 'selected' : '' }}>2:00 PM</option>
+                     <option value="15:00:00" {{ old('time') == '15:00:00' ? 'selected' : '' }}>3:00 PM</option>
                  </Select>
                  @error('time')
                  <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
@@ -162,57 +162,85 @@
          </div>
      </form>
  </div>
- <!-- modal edit announcement Section -->
+ <!-- modal edit appointment Section -->
  <div id="editModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
-     <form class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+     <form id="editForm" method="POST" action="" class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+         @csrf
+         @method('PUT')
+         <input type="hidden" name="form_type" value="edit">
+         <input type="hidden" id="edit_appointment_id" name="appointment_id" value="">
+
          <h3 class="font-bold text-[40px]">Edit Appointment</h3>
+
          <div class="flex flex-col w-full">
              <Label class="font-medium text-[18px]">Service:</Label>
-             <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+             <Select required id="edit_service" name="service" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                  <option value="">Choose Service</option>
-                 <option value="">Blood pressure monitoring</option>
+                 <option value="consultation">Consultation</option>
+                 <option value="checkup">Check-up</option>
+                 <option value="vaccination">Vaccination</option>
              </Select>
+             @error('service')
+             <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+             @enderror
          </div>
+
          <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
              <div class="flex flex-col w-full">
                  <Label class="font-medium text-[18px]">Date:</Label>
-                 <input type="date" placeholder="" value="2025-05-03" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                 <input required id="edit_date" name="date" type="date" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                 @error('date')
+                 <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                 @enderror
              </div>
              <div class="flex flex-col w-full">
                  <Label class="font-medium text-[18px]">Time:</Label>
-                 <Select class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                 <Select required id="edit_time" name="time" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
                      <option value="">Choose Time</option>
-                     <option value="" selected>2:00 PM</option>
+                     <option value="09:00:00">9:00 AM</option>
+                     <option value="10:00:00">10:00 AM</option>
+                     <option value="11:00:00">11:00 AM</option>
+                     <option value="13:00:00">1:00 PM</option>
+                     <option value="14:00:00">2:00 PM</option>
+                     <option value="15:00:00">3:00 PM</option>
                  </Select>
+                 @error('time')
+                 <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
+                 @enderror
              </div>
          </div>
+
          <div class="flex flex-col w-full">
              <Label class="font-medium text-[18px]">Symptoms:</Label>
-             <textarea type="text" placeholder="Describe your symptoms (Optional)" value="₱0.00" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]"></textarea>
+             <textarea id="edit_symptoms" name="symptoms" rows="3" placeholder="Describe your symptoms (Optional)" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]"></textarea>
          </div>
+
          <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
              <div class="flex flex-col w-full">
                  <Label class="font-medium text-[18px]">First Name:</Label>
-                 <input type="text" placeholder="Ex. Juan" value="Juan" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                 <input readonly id="edit_firstname" type="text" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-400 text-[18px] bg-gray-50">
              </div>
              <div class="flex flex-col w-full">
                  <Label class="font-medium text-[18px]">Last Name:</Label>
-                 <input type="text" placeholder="Ex. Dela Cruz" value="Dela Cruz" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                 <input readonly id="edit_lastname" type="text" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-400 text-[18px] bg-gray-50">
              </div>
          </div>
+
          <div class="flex flex-col gap-[10px]">
              <div class="flex flex-col">
                  <Label class="font-medium text-[18px]">Middle Name:</Label>
-                 <input type="text" placeholder="(Optional)" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+                 <input readonly id="edit_middlename" type="text" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-400 text-[18px] bg-gray-50">
              </div>
          </div>
+
          <div class="flex flex-col">
              <Label class="font-medium text-[18px]">Email:</Label>
-             <input type="email" placeholder="Ex. juandelacruz@gmail.com" value="juandelacruz@gmail.com" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
+             <input readonly id="edit_email" type="email" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-400 text-[18px] bg-gray-50">
          </div>
+
          <div class="flex flex-col w-full gap-[20px]">
-             <button class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Create Announcement</button>
-             <div id="" class="flex cancelBtn items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
+             <button type="submit" class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Update Appointment</button>
+             <div class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
          </div>
      </form>
  </div>
@@ -353,7 +381,17 @@
                          <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $appointment->date}}</td>
                          <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $appointment->time}}</td>
                          <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                             <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                             <div data-modal="editModal"
+                                 data-appointment-id="{{ $appointment->appointment_id }}"
+                                 data-service="{{ $appointment->service }}"
+                                 data-date="{{ $appointment->date }}"
+                                 data-time="{{ $appointment->time }}"
+                                 data-symptoms="{{ $appointment->symptoms }}"
+                                 data-firstname="{{ $appointment->user->firstname }}"
+                                 data-lastname="{{ $appointment->user->lastname }}"
+                                 data-middlename="{{ $appointment->user->middlename }}"
+                                 data-email="{{ $appointment->user->email }}"
+                                 class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                                  <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                      <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                                  </svg>
@@ -379,16 +417,26 @@
                  @foreach ($appointments as $appointment)
                  <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
                      <h6 class="text-[14px] text-gray-600 font-semibold">Service:</h6>
-                     <p class="text-[16px] font-medium">Blood pressure monitoring</p>
+                     <p class="text-[16px] font-medium">{{ $appointment->service}}</p>
                      <h6 class="text-[14px] text-gray-600 font-semibold">Patient:</h6>
-                     <p class="text-[16px] font-medium">Juan Dela Cruz</p>
+                     <p class="text-[16px] font-medium">{{ $appointment->user->firstname}} {{ $appointment->user->middlename ? substr($appointment->user->middlename, 0, 1) . '.' : '' }} {{ $appointment->user->lastname}}</p>
                      <h6 class="text-[14px] text-gray-600 font-semibold">Date Appointed:</h6>
-                     <p class="text-[16px] font-medium">03-05-2025</p>
+                     <p class="text-[16px] font-medium">{{ $appointment->date}}</p>
                      <h6 class="text-[14px] text-gray-600 font-semibold">Time:</h6>
-                     <p class="text-[16px] font-medium">2:00 PM</p>
+                     <p class="text-[16px] font-medium">{{ $appointment->time}}</p>
                      <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
                      <div class="w-full flex items-center gap-[10px]">
-                         <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
+                         <div data-modal="editModal"
+                             data-appointment-id="{{ $appointment->appointment_id }}"
+                             data-service="{{ $appointment->service }}"
+                             data-date="{{ $appointment->date }}"
+                             data-time="{{ $appointment->time }}"
+                             data-symptoms="{{ $appointment->symptoms }}"
+                             data-firstname="{{ $appointment->user->firstname }}"
+                             data-lastname="{{ $appointment->user->lastname }}"
+                             data-middlename="{{ $appointment->user->middlename }}"
+                             data-email="{{ $appointment->user->email }}"
+                             class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
                              <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                  <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                              </svg>
@@ -429,6 +477,31 @@
                      const modalId = this.getAttribute('data-modal');
                      const modal = document.getElementById(modalId);
                      if (!modal) return;
+
+                     // If it's an edit button for appointments
+                     if (this.classList.contains('editBtn')) {
+                         const appointmentId = this.getAttribute('data-appointment-id');
+                         const editForm = document.getElementById('editForm');
+
+                         if (editForm && appointmentId) {
+                             editForm.action = `/admin/appointment/${appointmentId}`;
+                         }
+
+                         // Set hidden appointment_id field
+                         document.getElementById('edit_appointment_id').value = appointmentId || '';
+
+                         // Populate editable fields
+                         document.getElementById('edit_service').value = this.getAttribute('data-service') || '';
+                         document.getElementById('edit_date').value = this.getAttribute('data-date') || '';
+                         document.getElementById('edit_time').value = this.getAttribute('data-time') || '';
+                         document.getElementById('edit_symptoms').value = this.getAttribute('data-symptoms') || '';
+
+                         // Populate readonly user fields
+                         document.getElementById('edit_firstname').value = this.getAttribute('data-firstname') || '';
+                         document.getElementById('edit_lastname').value = this.getAttribute('data-lastname') || '';
+                         document.getElementById('edit_middlename').value = this.getAttribute('data-middlename') || '';
+                         document.getElementById('edit_email').value = this.getAttribute('data-email') || '';
+                     }
 
                      // If it's a delete button for appointments
                      if (this.classList.contains('deleteBtn')) {

@@ -54,4 +54,25 @@ class AppointmentController extends Controller
 
         return redirect()->route('appointment.index')->with('success', 'Appointment deleted successfully.');
     }
+
+    public function update(Request $request, $id)
+    {
+        $appointment = Appointment::findOrFail($id);
+
+        $request->validate([
+            'service' => 'required|string|max:255',
+            'date' => 'required|date',
+            'time' => 'required',
+            'symptoms' => 'nullable|string|max:255',
+        ]);
+
+        $appointment->update([
+            'service' => $request->service,
+            'date' => $request->date,
+            'time' => $request->time,
+            'symptoms' => $request->symptoms,
+        ]);
+
+        return redirect()->route('appointment.index')->with('success', 'Appointment updated successfully.');
+    }
 }
