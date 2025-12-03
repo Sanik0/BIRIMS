@@ -1,5 +1,39 @@
     <!-- header section -->
     @include('shared.header')
+    <!-- Alerts Modal -->
+    @if (session('success'))
+    <div id="successAlert" class="fixed top-0 left-0 w-full py-[20px] flex items-center justify-center z-50 opacity-0 -translate-y-full transition-all duration-500 ease-out">
+        <div class="flex items-start sm:items-center bg-[#e1ffe7] p-4 mb-4 text-sm text-medium rounded-[8px] border border-[rgb(40,194,71)] shadow-lg" role="alert">
+            <svg class="w-4 h-4 me-2 shrink-0 mt-0.5 sm:mt-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path class="stroke-[rgb(40,194,71)]" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            <p class="text-[rgb(40,194,71)]">
+                <span class="font-medium me-1 text-[rgb(40,194,71)]">Success!</span> {{ session('success') }}
+            </p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const alert = document.getElementById('successAlert');
+
+            if (alert) {
+                setTimeout(() => {
+                    alert.classList.remove('-translate-y-full', 'opacity-0');
+                    alert.classList.add('translate-y-0', 'opacity-100');
+                }, 100);
+
+                setTimeout(() => {
+                    alert.classList.remove('translate-y-0', 'opacity-100');
+                    alert.classList.add('-translate-y-full', 'opacity-0');
+
+                    setTimeout(() => {
+                        alert.remove();
+                    }, 500);
+                }, 3000);
+            }
+        });
+    </script>
+    @endif
 
     <body class="relative">
         <!-- sidebar section -->
@@ -70,86 +104,117 @@
                         </div>
                         <div class="font-bold text-[18px] font-serif text-center">OFFICE OF THE SANGGUNIANG BAYAN</div>
                     </div>
-                    <form class="w-full flex flex-col gap-[15px] mt-[30px]" action="">
+                    <form action="{{ route('blotter.store') }}" method="POST" class="w-full flex flex-col gap-[15px] mt-[30px]">
+                        @csrf
                         <h3 class="font-bold text-[18px] font-serif text-center">BARANGAY BLOTTER FORM</h3>
-                        <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px]">
-                            <label class="text-[16px] font-semibold font-serif" for="">Blotter Date</label>
-                            <input class="border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="date">
-                        </div>
+
+
+
                         <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
-                            <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="">Name of Reporter/Complainant:</label>
-                            <input class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text">
+                            <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="reporter_name">Name of Reporter/Complainant:</label>
+                            <input name="reporter_name" id="reporter_name" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif bg-gray-50" type="text" value="{{ old('reporter_name', $user->firstname . ' ' . ($user->middlename ? $user->middlename . ' ' : '') . $user->lastname) }}" readonly>
                         </div>
+                        @error('reporter_name')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+
                         <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
-                            <label class="text-[16px] font-semibold font-serif" for="">Address:</label>
-                            <input class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text">
+                            <label class="text-[16px] font-semibold font-serif" for="reporter_address">Address:</label>
+                            <input name="reporter_address" id="reporter_address" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif bg-gray-50" type="text" value="{{ old('reporter_address', ($user->house_number ? $user->house_number . ' ' : '') . $user->street . ', Barangay San Bartolome, Quezon City, Metro Manila, Philippines') }}" readonly>
                         </div>
-                        <div class="flex flex-col sm:flex-row items-center gap-[15px]">
+                        @error('reporter_address')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-[15px]">
                             <div class="flex items-start flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
-                                <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="">Contact Number:</label>
-                                <input class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text">
+                                <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="reporter_contact">Contact Number:</label>
+                                <input name="reporter_contact" id="reporter_contact" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif bg-gray-50" type="text" value="{{ old('reporter_contact', $user->contact) }}" readonly>
                             </div>
                             <div class="flex items-start flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
-                                <label class="text-[16px] font-semibold font-serif" for="">Edad:</label>
-                                <input class=" border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text">
+                                <label class="text-[16px] font-semibold font-serif" for="reporter_age">Edad:</label>
+                                <input name="reporter_age" id="reporter_age" class="border-b-[1px] text-[16px] focus:outline-none text-regular font-serif bg-gray-50" type="number" value="{{ old('reporter_age', \Carbon\Carbon::parse($user->birthdate)->age) }}" readonly>
                             </div>
                         </div>
+                        @error('reporter_contact')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                        @error('reporter_age')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+
                         <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
-                            <label class="text-[16px] font-semibold font-serif" for="">Blotter Date:</label>
-                            <input class=" border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="date">
+                            <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="respondent_name">Name of Respondent:</label>
+                            <input name="respondent_name" id="respondent_name" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text" value="{{ old('respondent_name') }}">
                         </div>
+                        @error('respondent_name')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+
                         <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
-                            <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="">Name of Respondent:</label>
-                            <input class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text">
+                            <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="respondent_address">Address:</label>
+                            <input name="respondent_address" id="respondent_address" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text" value="{{ old('respondent_address') }}">
                         </div>
-                        <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
-                            <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="">Address:</label>
-                            <input class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text">
-                        </div>
-                        <div class="flex flex-col sm:flex-row items-center gap-[15px]">
+                        @error('respondent_address')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-[15px]">
                             <div class="flex items-start flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
-                                <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="">Contact Number:</label>
-                                <input class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text">
+                                <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="respondent_contact">Contact Number:</label>
+                                <input name="respondent_contact" id="respondent_contact" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text" value="{{ old('respondent_contact') }}">
                             </div>
                             <div class="flex items-start flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
-                                <label class="text-[16px] font-semibold font-serif" for="">Edad:</label>
-                                <input class=" border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text">
+                                <label class="text-[16px] font-semibold font-serif" for="respondent_age">Edad:</label>
+                                <input name="respondent_age" id="respondent_age" class="border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="number" value="{{ old('respondent_age') }}">
                             </div>
                         </div>
+                        @error('respondent_contact')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                        @error('respondent_age')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+
                         <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
-                            <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="">Complaint:</label>
-                            <input class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text">
+                            <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="complaint">Complaint:</label>
+                            <input name="complaint" id="complaint" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text" value="{{ old('complaint') }}">
                         </div>
+                        @error('complaint')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+
                         <div class="flex flex-col items-start gap-[10px] w-full">
-                            <label class="text-[16px] font-semibold font-serif whitespace-nowrap">
+                            <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="description">
                                 Description of incident:
                             </label>
-                            <textarea
+                            <textarea name="description" id="description"
                                 class="w-full border-b text-[16px] h-[475px] resize-none focus:outline-none text-black font-serif leading-[27px] p-1"
-                                style="background-image: repeating-linear-gradient(white, white 26px, #000000 27px); border-color: #000000;"></textarea>
+                                style="background-image: repeating-linear-gradient(white, white 26px, #000000 27px); border-color: #000000;">{{ old('description') }}</textarea>
+                        </div>
+                        @error('description')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
 
-                        </div>
-                        <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] w-full max-w-[500px]">
-                            <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="">Signature of Reporter:</label>
-                            <input class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text">
-                        </div>
-                        <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
-                            <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="">Name of Reporter:</label>
-                            <input class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text">
-                        </div>
-                        <div class="flex flex-col sm:flex-row items-center gap-[15px]">
-                            <div class="flex items-start flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
-                                <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="">Date:</label>
-                                <input class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="date">
+                        <div class="flex flex-col sm:flex-row items-start mt-[20px] sm:items-center gap-[15px]">
+                            <div class="flex items-start flex-col sm:flex-row gap-[10px] w-fit max-w-[700px]">
+                                <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="date">Date:</label>
+                                <input name="date" id="date" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="date" value="{{ old('date') }}">
                             </div>
                             <div class="flex items-start flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
-                                <label class="text-[16px] font-semibold font-serif" for="">Time:</label>
-                                <input class=" border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="time">
+                                <label class="text-[16px] font-semibold font-serif" for="time">Time:</label>
+                                <input name="time" id="time" class="border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="time" value="{{ old('time') }}">
                             </div>
                         </div>
+                        @error('date')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+                        @error('time')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
                         <div class="w-full justify-end mt-[30px] flex gap-[50px]">
-                            <button class="flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</button>
-                            <button class="flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Save</button>
+                            <a href="{{ url()->previous() }}" class="flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</a>
+                            <button type="submit" class="flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Save</button>
                         </div>
                     </form>
                 </div>

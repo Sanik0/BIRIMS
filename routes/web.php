@@ -7,6 +7,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BlotterController;
 
 // Public routes
 // Route::get('/', function () {
@@ -48,9 +49,8 @@ Route::middleware(['auth'])->group(function () {
         return view('documents');
     });
 
-    Route::get('/blotter', function () {
-        return view('blotter');
-    });
+    Route::get('/blotter', [BlotterController::class, 'create'])->name('blotter');
+    Route::post('/blotter', [BlotterController::class, 'store'])->name('blotter.store');
 
     Route::get('/appointment', function () {
         return view('appointment');
