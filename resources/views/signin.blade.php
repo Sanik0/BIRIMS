@@ -169,7 +169,7 @@
                                value="1" 
                                required
                                class="cursor-pointer accent-[var(--orange)] @error('terms') border-red-500 @enderror">
-                        <label class="md:text-[13px] text-[12px] font-semibold">I agree to the <a href="{{url('terms')}}" target="_blank" class="text-[var(--orange)] duration-150 ease-in hover:underline ">Terms and Conditions</a> and <a href="{{url('privacy')}}" target="_blank" class="text-[var(--orange)] duration-150 ease-in hover:underline">Privacy Policy</a></label>
+                        <label class="md:text-[13px] text-[12px] font-semibold">I agree to the <a href="{{url('terms')}}" target="_blank" class="text-orange-600 duration-150 ease-in hover:underline ">Terms and Conditions</a> and <a href="{{url('privacy')}}" target="_blank" class="text-orange-600 duration-150 ease-in hover:underline">Privacy Policy</a></label>
                     </div>
                     
                     <!-- Remember Me -->
@@ -184,7 +184,7 @@
                     <!-- Buttons -->
                     <div class="flex flex-col gap-4">
                         <button type="submit" class="rounded-[5px] w-full p-[10px] hover:text-green-50 hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center justify-center text-[18px] text-[#ffffff] font-medium">Sign In</button>
-                        <a href="{{route('signup')}}" class="rounded-[5px] w-full p-[10px] hover:text-green-50 hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center justify-center text-[18px] text-[#ffffff] font-medium">Create Account</a>
+                        <a href="{{route('signup')}}" class="rounded-[5px] w-full p-[10px] hover:text-orange-700 hover:border-orange-700 cursor-pointer transition-all duration-300 border border-orange-600 flex items-center justify-center text-[18px] text-orange-600 font-medium" >Create Account</a>
                     </div>
                 </div>
             </form>

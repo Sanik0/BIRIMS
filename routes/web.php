@@ -10,6 +10,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\UserAppointmentController;
+use App\Http\Controllers\VerificationController;
 
 // Public routes
 // Route::get('/', function () {
@@ -62,9 +63,8 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::get('/announcements', [AnnouncementsController::class, 'index'])->name('announcements.index');
 
-    Route::get('/verify', function () {
-        return view('verify');
-    });
+    Route::get('/verify', [VerificationController::class, 'index'])->name('verify.index');
+    Route::post('/verify', [VerificationController::class, 'store'])->name('verify.store');
 
     Route::get('/document', function () {
         return view('document');

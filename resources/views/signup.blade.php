@@ -160,7 +160,7 @@
                             </div>
                             <div class="flex gap-4 flex-col justify-between">
                                 <button type="button" class="rounded-[5px] w-full p-[10px] hover:text-green-50 hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center justify-center text-[18px] text-[#ffffff] font-medium" id="nextBtn">Next</button>
-                                <a href="{{url('signin')}}" class="rounded-[5px] w-full p-[10px] hover:text-green-50 hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center justify-center text-[18px] text-[#ffffff] font-medium">Sign In</a>
+                                <a href="{{url('signin')}}" class="rounded-[5px] w-full p-[10px] hover:text-orange-700 hover:border-orange-700 cursor-pointer transition-all duration-300 border border-orange-600 flex items-center justify-center text-[18px] text-orange-600 font-medium" >Sign In</a>
                             </div>
                         </div>
                     </div>
