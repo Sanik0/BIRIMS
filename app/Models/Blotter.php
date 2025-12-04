@@ -22,5 +22,6 @@ class Blotter extends Model
         'description',
         'date',
         'time',
+        'user_id',
     ];
 }

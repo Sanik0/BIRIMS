@@ -50,15 +50,16 @@ Route::middleware(['auth'])->group(function () {
         return view('documents');
     });
 
-    Route::get('/blotter', [BlotterController::class, 'create'])->name('blotter');
+    Route::get('/blotter', [BlotterController::class, 'create'])->name('blotter.create');
     Route::post('/blotter', [BlotterController::class, 'store'])->name('blotter.store');
+    Route::delete('/blotter/{id}', [BlotterController::class, 'destroy'])->name('blotter.destroy');
 
     Route::get('/appointment', function () {
         return view('appointment');
     });
 
     Route::get('/announcements', [AnnouncementsController::class, 'index'])->name('announcements.index');
-    
+
     Route::get('/verify', function () {
         return view('verify');
     });

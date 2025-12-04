@@ -11,7 +11,13 @@ class BlotterController extends Controller
     public function create()
     {
         $user = Auth::user();
-        return view('blotter', compact('user')); 
+
+        // Get user's blotter history, ordered by most recent first
+        $blotters = Blotter::where('user_id', $user->user_id)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('blotter', compact('user', 'blotters'));
     }
 
     public function store(Request $request)
@@ -24,16 +30,18 @@ class BlotterController extends Controller
             'reporter_age' => 'required|integer',
             'respondent_name' => 'required|string|max:255',
             'respondent_address' => 'required|string|max:255',
-            'respondent_contact' => 'required|string|size:11',
-            'respondent_age' => 'required|integer',
+            'respondent_contact' => 'nullable|string|size:11',
+            'respondent_age' => 'nullable|integer',
             'complaint' => 'required|string|max:255',
             'description' => 'required|string',
             'date' => 'required|date',
             'time' => 'required',
+            'user_id' => 'required|exists:user,user_id',
         ]);
 
         // Save to DB
         Blotter::create([
+            'user_id' => Auth::id(), // Add user_id
             'reporter_name' => $request->reporter_name,
             'reporter_address' => $request->reporter_address,
             'reporter_contact' => $request->reporter_contact,
@@ -46,8 +54,21 @@ class BlotterController extends Controller
             'description' => $request->description,
             'date' => $request->date,
             'time' => $request->time,
+            'status' => 'pending',
+            'user_id' => $request->user_id,
         ]);
 
-        return redirect()->back()->with('success', 'Blotter report submitted successfully!');
+        return redirect()->route('blotter.create')->with('success', 'Blotter report submitted successfully!');
+    }
+
+    public function destroy($id)
+    {
+        $blotter = Blotter::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->firstOrFail();
+
+        $blotter->delete();
+
+        return redirect()->route('blotter.create')->with('success', 'Blotter report deleted successfully!');
     }
 }
