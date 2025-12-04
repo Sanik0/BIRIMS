@@ -2,7 +2,7 @@
  @include('admin.shared.header')
  <!-- modal add announcement Section -->
  <div id="addModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center">
-     <form method="POST" action="{{ route('appointment.store') }}" class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+     <form method="POST" action="{{ route('admin.appointment.store') }}" class="rounded-[4px] h-fit bg-white p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
          @csrf
          <h3 class="font-bold text-[40px]">Create Appointment</h3>
 
@@ -343,7 +343,7 @@
                      </svg>
                      Add new appointment
                  </div>
-                 <form method="GET" action="{{ route('appointment.index') }}" class="flex w-full sm:w-fit items-center gap-[20px]">
+                 <form method="GET" action="{{ route('admin.appointment.index') }}" class="flex w-full sm:w-fit items-center gap-[20px]">
                      <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] w-full sm:w-[308px] border-gray-400 text-[18px] font-normal text-gray-600 gap-[8px]">
                          <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                              <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
@@ -356,7 +356,7 @@
                      </button>
 
                      @if(request('search'))
-                     <a href="{{ route('appointment.index') }}" class="px-4 py-2 border border-gray-400 text-gray-600 rounded-sm hover:bg-gray-100 transition-all duration-300 font-medium">
+                     <a href="{{ route('admin.appointment.index') }}" class="px-4 py-2 border border-gray-400 text-gray-600 rounded-sm hover:bg-gray-100 transition-all duration-300 font-medium">
                          Clear
                      </a>
                      @endif

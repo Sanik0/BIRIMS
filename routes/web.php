@@ -9,6 +9,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlotterController;
+use App\Http\Controllers\UserAppointmentController;
 
 // Public routes
 // Route::get('/', function () {
@@ -54,10 +55,11 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/blotter', [BlotterController::class, 'store'])->name('blotter.store');
     Route::delete('/blotter/{id}', [BlotterController::class, 'destroy'])->name('blotter.destroy');
 
-    Route::get('/appointment', function () {
-        return view('appointment');
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/appointment', [UserAppointmentController::class, 'create'])->name('appointment.create');
+        Route::post('/appointment', [UserAppointmentController::class, 'store'])->name('appointment.store');
+        Route::delete('/appointment/{id}', [UserAppointmentController::class, 'destroy'])->name('appointment.destroy');
     });
-
     Route::get('/announcements', [AnnouncementsController::class, 'index'])->name('announcements.index');
 
     Route::get('/verify', function () {
@@ -98,10 +100,10 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::delete('/announcements/{id}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
 
     // Admin Appointment Routes
-    Route::get('/appointment', [AppointmentController::class, 'index'])->name('appointment.index');
-    Route::post('/appointment', [AppointmentController::class, 'store'])->name('appointment.store');
-    Route::put('/appointment/{id}', [AppointmentController::class, 'update'])->name('appointment.update');
-    Route::delete('/appointment/{id}', [AppointmentController::class, 'destroy'])->name('appointment.destroy');
+    Route::get('/appointment', [AppointmentController::class, 'index'])->name('admin.appointment.index');
+    Route::post('/appointment', [AppointmentController::class, 'store'])->name('admin.appointment.store');
+    Route::put('/appointment/{id}', [AppointmentController::class, 'update'])->name('admin.appointment.update');
+    Route::delete('/appointment/{id}', [AppointmentController::class, 'destroy'])->name('admin.appointment.destroy');
 
     Route::get('/verifications', function () {
         return view('admin.verifications');

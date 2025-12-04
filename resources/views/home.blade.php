@@ -478,8 +478,12 @@
                             </defs>
                         </svg>
                         <div class="w-full flex flex-col gap-[9px]">
-                            <h3 class="font-medium text-[25px] text-[#ffffff]">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed</h3>
-                            <p class="text-[16px] font-medium text-[#FED7AA]">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut  labore et </p>
+                            <h3 class="font-medium text-[25px] text-[#ffffff]">
+                                Quality Care Starts With a Simple Appointment
+                            </h3>
+                            <p class="text-[16px] font-medium text-[#FED7AA]">
+                                Book your visit now and receive expert care, compassionate service, and timely medical attention.
+                            </p>
                             <a href="{{url('/appointment')}}" class="rounded-[4px] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 w-fit bg-[#ffffff] px-[50px] py-[5px] text-[#EA580C] text-[16px] font-semibold">Set Now</a>
                         </div>
                     </div>

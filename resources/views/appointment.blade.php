@@ -1,8 +1,57 @@
   <!-- header section -->
   @include('shared.header')
   <!-- modal Section -->
+  <!-- Modal Cancel Appointment Section -->
+  <div id="cancelAppointmentModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
+      <form id="cancelAppointmentForm" method="POST" action="" class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[30px]">
+          @csrf
+          @method('DELETE')
+          <h3 class="font-bold text-[40px]">Cancel Appointment</h3>
+          <div class="flex items-center justify-center w-full">
+              <p class="font-regular text-[20px] text-gray-500">Are you sure you want to cancel your <span id="cancelAppointmentService" class="text-[#EF4444]">appointment</span>? This action cannot be undone.</p>
+          </div>
+          <div class="flex flex-col w-full gap-[20px]">
+              <button type="submit" class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Yes, Cancel Appointment</button>
+              <div class="cancelAppointmentBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Close</div>
+          </div>
+      </form>
+  </div>
 
   <body class="relative">
+      <!-- Alerts Modal -->
+      @if (session('success'))
+      <div id="successAlert" class="fixed top-0 left-0 w-full py-[20px] flex items-center justify-center z-50 opacity-0 -translate-y-full transition-all duration-500 ease-out">
+          <div class="flex items-start sm:items-center bg-[#e1ffe7] p-4 mb-4 text-sm text-medium rounded-[8px] border border-[rgb(40,194,71)] shadow-lg" role="alert">
+              <svg class="w-4 h-4 me-2 shrink-0 mt-0.5 sm:mt-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path class="stroke-[rgb(40,194,71)]" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11h2v5m-2 0h4m-2.592-8.5h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              <p class="text-[rgb(40,194,71)]">
+                  <span class="font-medium me-1 text-[rgb(40,194,71)]">Success!</span> {{ session('success') }}
+              </p>
+          </div>
+      </div>
+      <script>
+          document.addEventListener('DOMContentLoaded', function() {
+              const alert = document.getElementById('successAlert');
+
+              if (alert) {
+                  setTimeout(() => {
+                      alert.classList.remove('-translate-y-full', 'opacity-0');
+                      alert.classList.add('translate-y-0', 'opacity-100');
+                  }, 100);
+
+                  setTimeout(() => {
+                      alert.classList.remove('translate-y-0', 'opacity-100');
+                      alert.classList.add('-translate-y-full', 'opacity-0');
+
+                      setTimeout(() => {
+                          alert.remove();
+                      }, 500);
+                  }, 3000);
+              }
+          });
+      </script>
+      @endif
       <!-- sidebar section -->
       @include('shared.sidebar')
       <!-- mobile sidebar section -->
@@ -65,72 +114,112 @@
                       <div id="btnShowSched" class="py-[12px] text-[14px] font-medium text-[#D4D4D8] border-b-[#D4D4D8] px-[12px] w-fit border-b-[1px] hover:cursor-pointer">My Appointments</div>
                   </div>
 
-                  <form id="schedForm" method="POST" class="flex flex-col gap-[30px] w-full mb-[30px]">
+                  <form id="schedForm" method="POST" action="{{ route('appointment.store') }}" class="flex flex-col gap-[30px] w-full mb-[30px]">
+                      @csrf
+                      <!-- Error Messages -->
+                      @if($errors->any())
+                      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                          <ul class="list-disc list-inside">
+                              @foreach($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                              @endforeach
+                          </ul>
+                      </div>
+                      @endif
+
                       <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] sm:gap-[100px]">
-                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Diagnostic Services:</label>
+                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Diagnostic Services: <span class="text-red-500">*</span></label>
                           <div class="w-full flex px-[8px] py-[10px] rounded-[4px] border-[#A1A1AA] border-solid border-[1px]">
-                              <select class="w-full text-[18px] font-normal focus:outline-none" name="" id="">
-                                  <option value="">Blood Test</option>
+                              <select name="service" required class="w-full text-[18px] font-normal focus:outline-none">
+                                  <option value="">Select a service</option>
+                                  <option value="Blood Test" {{ old('service') == 'Blood Test' ? 'selected' : '' }}>Blood Test</option>
+                                  <option value="X-Ray" {{ old('service') == 'X-Ray' ? 'selected' : '' }}>X-Ray</option>
+                                  <option value="Ultrasound" {{ old('service') == 'Ultrasound' ? 'selected' : '' }}>Ultrasound</option>
+                                  <option value="ECG" {{ old('service') == 'ECG' ? 'selected' : '' }}>ECG</option>
+                                  <option value="General Checkup" {{ old('service') == 'General Checkup' ? 'selected' : '' }}>General Checkup</option>
                               </select>
                           </div>
                       </div>
+
                       <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] sm:gap-[100px]">
-                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Date:</label>
+                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Date: <span class="text-red-500">*</span></label>
                           <div class="w-full flex px-[8px] py-[10px] rounded-[4px] border-[#A1A1AA] border-solid border-[1px]">
-                              <input type="date" class="w-full text-[18px] font-normal focus:outline-none" />
+                              <input type="date" name="date" required value="{{ old('date') }}" min="{{ date('Y-m-d') }}" class="w-full text-[18px] font-normal focus:outline-none" />
                           </div>
                       </div>
+
                       <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] sm:gap-[100px]">
-                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Time:</label>
+                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Time: <span class="text-red-500">*</span></label>
                           <div class="w-full flex px-[8px] py-[10px] rounded-[4px] border-[#A1A1AA] border-solid border-[1px]">
-                              <select class="w-full text-[18px] font-normal focus:outline-none" name="" id="">
-                                  <option value="">2:30 PM</option>
+                              <select name="time" required class="w-full text-[18px] font-normal focus:outline-none">
+                                  <option value="">Select a time</option>
+                                  <option value="08:00 AM" {{ old('time') == '08:00 AM' ? 'selected' : '' }}>08:00 AM</option>
+                                  <option value="09:00 AM" {{ old('time') == '09:00 AM' ? 'selected' : '' }}>09:00 AM</option>
+                                  <option value="10:00 AM" {{ old('time') == '10:00 AM' ? 'selected' : '' }}>10:00 AM</option>
+                                  <option value="11:00 AM" {{ old('time') == '11:00 AM' ? 'selected' : '' }}>11:00 AM</option>
+                                  <option value="01:00 PM" {{ old('time') == '01:00 PM' ? 'selected' : '' }}>01:00 PM</option>
+                                  <option value="02:00 PM" {{ old('time') == '02:00 PM' ? 'selected' : '' }}>02:00 PM</option>
+                                  <option value="02:30 PM" {{ old('time') == '02:30 PM' ? 'selected' : '' }}>02:30 PM</option>
+                                  <option value="03:00 PM" {{ old('time') == '03:00 PM' ? 'selected' : '' }}>03:00 PM</option>
+                                  <option value="04:00 PM" {{ old('time') == '04:00 PM' ? 'selected' : '' }}>04:00 PM</option>
                               </select>
                           </div>
                       </div>
+
                       <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] sm:gap-[100px]">
-                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Symptoms:</label>
+                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Symptoms: <span class="text-red-500">*</span></label>
                           <div class="w-full flex px-[8px] py-[10px] border-b-[1px] border-b-[#A1A1AA]">
-                              <input type="text" class=" text-[18px] font-normal focus:outline-none w-full" placeholder="Describe your symptoms" />
+                              <input type="text" name="symptoms" required value="{{ old('symptoms') }}" class="text-[18px] font-normal focus:outline-none w-full" placeholder="Describe your symptoms" />
                           </div>
                       </div>
+
                       <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] sm:gap-[100px]">
-                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Fisrt Name:</label>
+                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">First Name: <span class="text-red-500">*</span></label>
                           <div class="w-full flex px-[8px] py-[10px] border-b-[1px] border-b-[#A1A1AA]">
-                              <input type="text" class=" text-[18px] font-normal focus:outline-none w-full" placeholder="Ex. Juan" />
+                              <input type="text" name="first_name" required value="{{ old('first_name', $user->firstname ?? '') }}" readonly class="text-[18px] font-normal focus:outline-none w-full bg-gray-50" placeholder="Ex. Juan" />
                           </div>
                       </div>
+
                       <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] sm:gap-[100px]">
-                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Last Name:</label>
+                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Last Name: <span class="text-red-500">*</span></label>
                           <div class="w-full flex px-[8px] py-[10px] border-b-[1px] border-b-[#A1A1AA]">
-                              <input type="text" class=" text-[18px] font-normal focus:outline-none w-full" placeholder="Ex. Dela Cruz" />
+                              <input type="text" name="last_name" required value="{{ old('last_name', $user->lastname ?? '') }}" readonly class="text-[18px] font-normal focus:outline-none w-full bg-gray-50" placeholder="Ex. Dela Cruz" />
                           </div>
                       </div>
+
                       <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] sm:gap-[100px]">
                           <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Middle Name:</label>
                           <div class="w-full flex px-[8px] py-[10px] border-b-[1px] border-b-[#A1A1AA]">
-                              <input type="text" class=" text-[18px] font-normal focus:outline-none w-full" placeholder="(Optional)" />
+                              <input type="text" name="middle_name" value="{{ old('middle_name', $user->middlename ?? '') }}" readonly class="text-[18px] font-normal focus:outline-none w-full bg-gray-50" placeholder="(Optional)" />
                           </div>
                       </div>
+
                       <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] sm:gap-[100px]">
-                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Email:</label>
+                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Email: <span class="text-red-500">*</span></label>
                           <div class="w-full flex px-[8px] py-[10px] border-b-[1px] border-b-[#A1A1AA]">
-                              <input type="email" class="w-full text-[18px] font-normal focus:outline-none" placeholder="sample@gmail.com" />
+                              <input type="email" name="email" required value="{{ old('email', $user->email ?? '') }}" readonly class="w-full text-[18px] font-normal focus:outline-none bg-gray-50" placeholder="sample@gmail.com" />
                           </div>
                       </div>
+
                       <div class="w-full flex items-center justify-end gap-[50px]">
-                          <button class="rounded-[4px] hover:bg-orange-100 hover:text-orange-700 hover:cursor-pointer transition-all duration-300 border-[#FDBA74] border-[1px] px-[20px] py-[8px] text-[20px] text-[#FDBA74] font-medium">Cancel</button>
+                          <button type="button" onclick="document.getElementById('schedForm').reset()" class="rounded-[4px] hover:bg-orange-100 hover:text-orange-700 hover:cursor-pointer transition-all duration-300 border-[#FDBA74] border-[1px] px-[20px] py-[8px] text-[20px] text-[#FDBA74] font-medium">Cancel</button>
                           <button type="submit" class="rounded-[4px] hover:cursor-pointer hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] px-[20px] py-[8px] text-[20px] text-[#ffffff] font-medium">Save</button>
                       </div>
                   </form>
 
-                  <div id="notifSched" class="w-full hidden flex-col">
+                  <div id="notifSched" class="w-full flex-col" style="display: none;">
+                      @forelse($appointments as $appointment)
                       <div class="group relative w-full justify-between flex items-center border-solid border-b-[1px] px-[0px] border-[#E4E4E7] py-[15px]">
                           <div class="flex gap-[20px]">
                               <div class="flex flex-col gap-[0px]">
-                                  <h1 class="font-medium text-[25px] font-serif">Blood Test Schedule</h1>
-                                  <p class="text-[18px] font-normal text-[#71717A]">Dr. Maria Santos (Hermathology) • 10 September 28, 2025 at 10:30 AM • Blood Test</p>
-                                  <small class="font-semibold text-[#D4D4D8] text-[12px]">05 May 2023</small>
+                                  <h1 class="font-medium text-[25px] font-serif">{{ $appointment->service }} Appointment</h1>
+                                  <p class="text-[18px] font-normal text-[#71717A]">
+                                      {{ \Carbon\Carbon::parse($appointment->date)->format('F d, Y') }} at {{ $appointment->time }} • {{ $appointment->service }}
+                                  </p>
+                                  <p class="text-[14px] text-gray-600 mt-1">Symptoms: {{ $appointment->symptoms }}</p>
+                                  <small class="font-semibold text-[#D4D4D8] text-[12px]">
+                                      {{ \Carbon\Carbon::parse($appointment->created_at)->format('d M Y') }}
+                                  </small>
                               </div>
                           </div>
                           <div class="margin-left-auto flex">
@@ -140,252 +229,154 @@
                                   </svg>
                               </div>
                               <!-- Action -->
-                              <div class="action-box absolute bottom-0 right-0 mb-[-40px] sm:mb-[-70px] z-[99] mr-[25px] sm:mr-[30px] hidden flex-col gap-[10px] rounded-[4px] border-[1px] bg-white border-[#D4D4D8] p-[15px]">
-                                  <div class="flex items-center gap-[8px]">
-                                      <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                          <path d="m382-354 339-339q12-12 28-12t28 12q12 12 12 28.5T777-636L410-268q-12 12-28 12t-28-12L182-440q-12-12-11.5-28.5T183-497q12-12 28.5-12t28.5 12l142 143Z" />
-                                      </svg>
-                                      <div class="text-[#71717A] font-semibold text-[18px]">Mark as Read</div>
-                                  </div>
-                                  <div class="flex items-center gap-[8px]">
+                              <div class="action-box absolute bottom-0 right-0 z-[99] mr-[25px] mb-[-20px] hidden flex-col gap-[10px] rounded-[4px] border-[1px] bg-white border-[#D4D4D8] p-[15px]">
+                                  <button type="button"
+                                      data-appointment-id="{{ $appointment->appointment_id }}"
+                                      data-service="{{ $appointment->service }}"
+                                      class="cancel-appointment-btn flex items-center gap-[8px]">
                                       <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                           <path d="M480-424 284-228q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536-480l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480-424Z" />
                                       </svg>
                                       <div class="text-[#71717A] font-semibold text-[18px]">Cancel Appointment</div>
-                                  </div>
+                                  </button>
                               </div>
                           </div>
                       </div>
-                      <div class="group relative w-full justify-between flex items-center border-solid border-b-[1px] px-[0px] border-[#E4E4E7] py-[15px]">
-                          <div class="flex gap-[20px]">
-                              <div class="flex flex-col gap-[0px]">
-                                  <h1 class="font-medium text-[25px] font-serif">Blood Test Schedule</h1>
-                                  <p class="text-[18px] font-normal text-[#71717A]">Dr. Maria Santos (Hermathology) • 10 September 28, 2025 at 10:30 AM • Blood Test</p>
-                                  <small class="font-semibold text-[#D4D4D8] text-[12px]">05 May 2023</small>
-                              </div>
-                          </div>
-                          <div class="margin-left-auto flex">
-                              <div class="toggle-btn cursor-pointer flex items-center justify-center border-solid border-[1px] border-[#E4E4E7] h-[40px] w-[40px] rounded-[50%]">
-                                  <svg class="fill-[#A1A1AA]" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#EFEFEF">
-                                      <path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z" />
-                                  </svg>
-                              </div>
-                              <!-- Action -->
-                              <div class="action-box absolute bottom-0 right-0 mb-[-40px] sm:mb-[-70px] z-[99] mr-[25px] sm:mr-[30px] hidden flex-col gap-[10px] rounded-[4px] border-[1px] bg-white border-[#D4D4D8] p-[15px]">
-                                  <div class="flex items-center gap-[8px]">
-                                      <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                          <path d="m382-354 339-339q12-12 28-12t28 12q12 12 12 28.5T777-636L410-268q-12 12-28 12t-28-12L182-440q-12-12-11.5-28.5T183-497q12-12 28.5-12t28.5 12l142 143Z" />
-                                      </svg>
-                                      <div class="text-[#71717A] font-semibold text-[18px]">Mark as Read</div>
-                                  </div>
-                                  <div class="flex items-center gap-[8px]">
-                                      <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                          <path d="M480-424 284-228q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536-480l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480-424Z" />
-                                      </svg>
-                                      <div class="text-[#71717A] font-semibold text-[18px]">Cancel Appointment</div>
-                                  </div>
-                              </div>
-                          </div>
+                      @empty
+                      <div class="p-[30px] text-center">
+                          <svg class="w-[60px] h-[60px] mx-auto mb-[15px] text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <p class="text-gray-500 text-[14px]">No appointments scheduled yet</p>
+                          <p class="text-gray-400 text-[12px] mt-[5px]">Your scheduled appointments will appear here</p>
                       </div>
-                      <div class="action-box absolute bottom-0 right-0 mb-[-40px] sm:mb-[-70px] z-[99] mr-[25px] sm:mr-[30px] hidden flex-col gap-[10px] rounded-[4px] border-[1px] bg-white border-[#D4D4D8] p-[15px]">
-                          <div class="flex gap-[20px]">
-                              <div class="flex flex-col gap-[0px]">
-                                  <h1 class="font-medium text-[25px] font-serif">Blood Test Schedule</h1>
-                                  <p class="text-[18px] font-normal text-[#71717A]">Dr. Maria Santos (Hermathology) • 10 September 28, 2025 at 10:30 AM • Blood Test</p>
-                                  <small class="font-semibold text-[#D4D4D8] text-[12px]">05 May 2023</small>
-                              </div>
-                          </div>
-                          <div class="margin-left-auto flex">
-                              <div class="toggle-btn cursor-pointer flex items-center justify-center border-solid border-[1px] border-[#E4E4E7] h-[40px] w-[40px] rounded-[50%]">
-                                  <svg class="fill-[#A1A1AA]" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#EFEFEF">
-                                      <path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z" />
-                                  </svg>
-                              </div>
-                              <!-- Action -->
-                              <div class="action-box absolute bottom-0 right-0 mb-[-40px] sm:mb-[-70px] z-[99] mr-[25px] sm:mr-[30px] hidden flex-col gap-[10px] rounded-[4px] border-[1px] bg-white border-[#D4D4D8] p-[15px]">
-                                  <div class="flex items-center gap-[8px]">
-                                      <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                          <path d="m382-354 339-339q12-12 28-12t28 12q12 12 12 28.5T777-636L410-268q-12 12-28 12t-28-12L182-440q-12-12-11.5-28.5T183-497q12-12 28.5-12t28.5 12l142 143Z" />
-                                      </svg>
-                                      <div class="text-[#71717A] font-semibold text-[18px]">Mark as Read</div>
-                                  </div>
-                                  <div class="flex items-center gap-[8px]">
-                                      <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                          <path d="M480-424 284-228q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536-480l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480-424Z" />
-                                      </svg>
-                                      <div class="text-[#71717A] font-semibold text-[18px]">Cancel Appointment</div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="group relative w-full justify-between flex items-center border-solid border-b-[1px] px-[0px] border-[#E4E4E7] py-[15px]">
-                          <div class="flex gap-[20px]">
-                              <div class="flex flex-col gap-[0px]">
-                                  <h1 class="font-medium text-[25px] font-serif">Blood Test Schedule</h1>
-                                  <p class="text-[18px] font-normal text-[#71717A]">Dr. Maria Santos (Hermathology) • 10 September 28, 2025 at 10:30 AM • Blood Test</p>
-                                  <small class="font-semibold text-[#D4D4D8] text-[12px]">05 May 2023</small>
-                              </div>
-                          </div>
-                          <div class="margin-left-auto flex">
-                              <div class="toggle-btn cursor-pointer flex items-center justify-center border-solid border-[1px] border-[#E4E4E7] h-[40px] w-[40px] rounded-[50%]">
-                                  <svg class="fill-[#A1A1AA]" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#EFEFEF">
-                                      <path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z" />
-                                  </svg>
-                              </div>
-                              <!-- Action -->
-                              <div class="action-box absolute bottom-0 right-0 mb-[-40px] sm:mb-[-70px] z-[99] mr-[25px] sm:mr-[30px] hidden flex-col gap-[10px] rounded-[4px] border-[1px] bg-white border-[#D4D4D8] p-[15px]">
-                                  <div class="flex items-center gap-[8px]">
-                                      <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                          <path d="m382-354 339-339q12-12 28-12t28 12q12 12 12 28.5T777-636L410-268q-12 12-28 12t-28-12L182-440q-12-12-11.5-28.5T183-497q12-12 28.5-12t28.5 12l142 143Z" />
-                                      </svg>
-                                      <div class="text-[#71717A] font-semibold text-[18px]">Mark as Read</div>
-                                  </div>
-                                  <div class="flex items-center gap-[8px]">
-                                      <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                          <path d="M480-424 284-228q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536-480l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480-424Z" />
-                                      </svg>
-                                      <div class="text-[#71717A] font-semibold text-[18px]">Cancel Appointment</div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="action-box absolute bottom-0 right-0 mb-[-40px] sm:mb-[-70px] z-[99] mr-[25px] sm:mr-[30px] hidden flex-col gap-[10px] rounded-[4px] border-[1px] bg-white border-[#D4D4D8] p-[15px]">
-                          <div class="flex gap-[20px]">
-                              <div class="flex flex-col gap-[0px]">
-                                  <h1 class="font-medium text-[25px] font-serif">Blood Test Schedule</h1>
-                                  <p class="text-[18px] font-normal text-[#71717A]">Dr. Maria Santos (Hermathology) • 10 September 28, 2025 at 10:30 AM • Blood Test</p>
-                                  <small class="font-semibold text-[#D4D4D8] text-[12px]">05 May 2023</small>
-                              </div>
-                          </div>
-                          <div class="margin-left-auto flex">
-                              <div class="toggle-btn cursor-pointer flex items-center justify-center border-solid border-[1px] border-[#E4E4E7] h-[40px] w-[40px] rounded-[50%]">
-                                  <svg class="fill-[#A1A1AA]" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#EFEFEF">
-                                      <path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z" />
-                                  </svg>
-                              </div>
-                              <!-- Action -->
-                              <div class="action-box absolute bottom-0 right-0 mb-[-40px] sm:mb-[-70px] z-[99] mr-[25px] sm:mr-[30px] hidden flex-col gap-[10px] rounded-[4px] border-[1px] bg-white border-[#D4D4D8] p-[15px]">
-                                  <div class="flex items-center gap-[8px]">
-                                      <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                          <path d="m382-354 339-339q12-12 28-12t28 12q12 12 12 28.5T777-636L410-268q-12 12-28 12t-28-12L182-440q-12-12-11.5-28.5T183-497q12-12 28.5-12t28.5 12l142 143Z" />
-                                      </svg>
-                                      <div class="text-[#71717A] font-semibold text-[18px]">Mark as Read</div>
-                                  </div>
-                                  <div class="flex items-center gap-[8px]">
-                                      <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                          <path d="M480-424 284-228q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536-480l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480-424Z" />
-                                      </svg>
-                                      <div class="text-[#71717A] font-semibold text-[18px]">Cancel Appointment</div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="group relative w-full justify-between flex items-center border-solid border-b-[1px] px-[0px] border-[#E4E4E7] py-[15px]">
-                          <div class="flex gap-[20px]">
-                              <div class="flex flex-col gap-[0px]">
-                                  <h1 class="font-medium text-[25px] font-serif">Blood Test Schedule</h1>
-                                  <p class="text-[18px] font-normal text-[#71717A]">Dr. Maria Santos (Hermathology) • 10 September 28, 2025 at 10:30 AM • Blood Test</p>
-                                  <small class="font-semibold text-[#D4D4D8] text-[12px]">05 May 2023</small>
-                              </div>
-                          </div>
-                          <div class="margin-left-auto flex">
-                              <div class="toggle-btn cursor-pointer flex items-center justify-center border-solid border-[1px] border-[#E4E4E7] h-[40px] w-[40px] rounded-[50%]">
-                                  <svg class="fill-[#A1A1AA]" xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#EFEFEF">
-                                      <path d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z" />
-                                  </svg>
-                              </div>
-                              <!-- Action -->
-                              <div class="action-box absolute bottom-0 right-0 mb-[-40px] sm:mb-[-70px] z-[99] mr-[25px] sm:mr-[30px] hidden flex-col gap-[10px] rounded-[4px] border-[1px] bg-white border-[#D4D4D8] p-[15px]">
-                                  <div class="flex items-center gap-[8px]">
-                                      <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                          <path d="m382-354 339-339q12-12 28-12t28 12q12 12 12 28.5T777-636L410-268q-12 12-28 12t-28-12L182-440q-12-12-11.5-28.5T183-497q12-12 28.5-12t28.5 12l142 143Z" />
-                                      </svg>
-                                      <div class="text-[#71717A] font-semibold text-[18px]">Mark as Read</div>
-                                  </div>
-                                  <div class="flex items-center gap-[8px]">
-                                      <svg class="fill-[#71717A] h-[30px] w-[30px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                          <path d="M480-424 284-228q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536-480l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480-424Z" />
-                                      </svg>
-                                      <div class="text-[#71717A] font-semibold text-[18px]">Cancel Appointment</div>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
+                      @endforelse
                   </div>
               </div>
           </section>
       </main>
 
       <script>
-          // Event delegation - works for all notifications
-          document.addEventListener('click', (e) => {
-              // Check if clicked element is a toggle button
-              const toggleBtn = e.target.closest('.toggle-btn');
-
-              if (toggleBtn) {
-                  e.stopPropagation();
-                  const actionBox = toggleBtn.nextElementSibling;
-
-                  // Close all other open menus
-                  document.querySelectorAll('.action-box').forEach(box => {
-                      if (box !== actionBox) {
-                          box.style.display = 'none';
-                      }
-                  });
-
-                  // Toggle current menu
-                  if (actionBox.style.display === 'flex') {
-                      actionBox.style.display = 'none';
-                  } else {
-                      actionBox.style.display = 'flex';
-                  }
-              } else {
-                  // Close all menus when clicking outside
-                  document.querySelectorAll('.action-box').forEach(box => {
-                      box.style.display = 'none';
-                  });
-              }
-          });
-
           document.addEventListener('DOMContentLoaded', function() {
+              // Tab switching (Form/Schedule)
               const btnForm = document.getElementById('btnShowForm');
               const btnSched = document.getElementById('btnShowSched');
               const schedForm = document.getElementById('schedForm');
               const notifSched = document.getElementById('notifSched');
-              const modal = document.getElementById('modal');
 
-              btnSched.addEventListener('click', function() {
-                  if (!btnSched.classList.contains('text-orange-600')) {
-                      // show schedule
-                      notifSched.style.display = 'flex';
-                      schedForm.style.display = 'none';
+              if (btnSched && btnForm) {
+                  btnSched.addEventListener('click', function() {
+                      if (!btnSched.classList.contains('text-orange-600')) {
+                          // Show schedule
+                          notifSched.style.display = 'flex';
+                          schedForm.style.display = 'none';
 
-                      // make Sched active
-                      btnSched.classList.add('text-orange-600', 'border-b-orange-600');
-                      btnSched.classList.remove('text-gray-400', 'border-b-gray-400');
+                          // Make Sched active
+                          btnSched.classList.add('text-orange-600', 'border-b-orange-600');
+                          btnSched.classList.remove('text-gray-400', 'border-b-gray-400');
 
-                      // make Form inactive
-                      btnForm.classList.add('text-gray-400', 'border-b-gray-400');
-                      btnForm.classList.remove('text-orange-600', 'border-b-orange-600');
+                          // Make Form inactive
+                          btnForm.classList.add('text-gray-400', 'border-b-gray-400');
+                          btnForm.classList.remove('text-orange-600', 'border-b-orange-600');
+                      }
+                  });
+
+                  btnForm.addEventListener('click', function() {
+                      if (!btnForm.classList.contains('text-orange-600')) {
+                          // Show form
+                          notifSched.style.display = 'none';
+                          schedForm.style.display = 'flex';
+
+                          // Make Form active
+                          btnForm.classList.add('text-orange-600', 'border-b-orange-600');
+                          btnForm.classList.remove('text-gray-400', 'border-b-gray-400');
+
+                          // Make Sched inactive
+                          btnSched.classList.add('text-gray-400', 'border-b-gray-400');
+                          btnSched.classList.remove('text-orange-600', 'border-b-orange-600');
+                      }
+                  });
+              }
+
+              // Toggle action boxes (three dots menu)
+              document.addEventListener('click', function(e) {
+                  const toggleBtn = e.target.closest('.toggle-btn');
+
+                  if (toggleBtn) {
+                      e.stopPropagation();
+                      const actionBox = toggleBtn.nextElementSibling;
+
+                      // Close all other action boxes
+                      document.querySelectorAll('.action-box').forEach(box => {
+                          if (box !== actionBox) {
+                              box.classList.add('hidden');
+                              box.classList.remove('flex');
+                          }
+                      });
+
+                      // Toggle current action box
+                      actionBox.classList.toggle('hidden');
+                      actionBox.classList.toggle('flex');
+                  } else if (!e.target.closest('.action-box')) {
+                      // Close all action boxes when clicking outside
+                      document.querySelectorAll('.action-box').forEach(box => {
+                          box.classList.add('hidden');
+                          box.classList.remove('flex');
+                      });
                   }
               });
 
-              btnForm.addEventListener('click', function() {
-                  if (!btnForm.classList.contains('text-orange-600')) {
-                      // show form
-                      notifSched.style.display = 'none';
-                      schedForm.style.display = 'flex';
+              // Cancel appointment modal
+              const modal = document.getElementById('cancelAppointmentModal');
+              const cancelBtn = document.querySelector('.cancelAppointmentBtn');
 
-                      // make Form active
-                      btnForm.classList.add('text-orange-600', 'border-b-orange-600');
-                      btnForm.classList.remove('text-gray-400', 'border-b-gray-400');
-
-                      // make Sched inactive
-                      btnSched.classList.add('text-gray-400', 'border-b-gray-400');
-                      btnSched.classList.remove('text-orange-600', 'border-b-orange-600');
-                  }
+              // Open modal when clicking cancel buttons
+              document.querySelectorAll('.cancel-appointment-btn').forEach(button => {
+                  button.addEventListener('click', function(e) {
+                      e.preventDefault();
+                      const appointmentId = this.dataset.appointmentId;
+                      const service = this.dataset.service;
+                      openCancelModal(appointmentId, service);
+                  });
               });
+
+              // Close modal when clicking cancel button
+              if (cancelBtn) {
+                  cancelBtn.addEventListener('click', function() {
+                      modal.classList.add('hidden');
+                      modal.classList.remove('flex');
+                  });
+              }
+
+              // Close modal when clicking outside
+              if (modal) {
+                  modal.addEventListener('click', function(e) {
+                      if (e.target === modal) {
+                          modal.classList.add('hidden');
+                          modal.classList.remove('flex');
+                      }
+                  });
+              }
           });
+
+          // Open cancel modal function
+          function openCancelModal(appointmentId, service) {
+              const modal = document.getElementById('cancelAppointmentModal');
+              const form = document.getElementById('cancelAppointmentForm');
+              const serviceSpan = document.getElementById('cancelAppointmentService');
+
+              if (form && serviceSpan && modal) {
+                  // Set the form action with the appointment ID
+                  form.action = "{{ route('appointment.destroy', ':id') }}".replace(':id', appointmentId);
+
+                  // Set the service in the modal
+                  serviceSpan.textContent = service + ' appointment';
+
+                  // Show modal
+                  modal.classList.remove('hidden');
+                  modal.classList.add('flex');
+              }
+          }
       </script>
   </body>
 
