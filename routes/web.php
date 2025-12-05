@@ -25,7 +25,11 @@ Route::post('/signup', [RegisterController::class, 'store'])->name('signup.store
 // Protected User Routes (require login)
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', function () {
-        return view('home');
+        $announcements = \App\Models\Announcement::orderBy('created_at', 'desc')
+            ->take(5)
+            ->get();
+
+        return view('home', compact('announcements'));
     })->name('home');
 
     Route::get('/settings', function () {
@@ -55,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/appointment', [UserAppointmentController::class, 'store'])->name('appointment.store');
         Route::delete('/appointment/{id}', [UserAppointmentController::class, 'destroy'])->name('appointment.destroy');
     });
-    
+
     Route::get('/announcements', [AnnouncementsController::class, 'index'])->name('announcements.index');
 
     Route::get('/verify', [VerificationController::class, 'index'])->name('verify.index');

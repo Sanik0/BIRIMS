@@ -148,22 +148,46 @@
                     </div>
                 </div>
                 <!-- Announcements -->
-                <div class=" w-full flex flex-col gap-[15px] px-[15px] sm:px-[0]">
+                <div class="w-full flex flex-col gap-[15px] px-[15px] sm:px-[0]">
                     <h3 class="font-serif text-[25px] sm:text-[30px] font-medium">Latest Barangay Announcements</h3>
+
+                    @forelse($announcements as $announcement)
                     <a href="#"
-                        class=" group w-full flex flex-col sm:flex-row gap-[15px] rounded-[4px] border-solid border-[1px] border-[#D4D4D8] p-[15px]">
-                        <div class="w-full max-w-full sm:max-w-[178px] h-[178px] rounded-[4px] overflow-hidden">
-                            <img class="object-cover object-center h-full w-full" src="{{asset('images/images (47).jpg')}}" alt="">
+                        class="group w-full flex flex-col sm:flex-row gap-[15px] rounded-[4px] border-solid border-[1px] border-[#D4D4D8] p-[15px]">
+                        <div class="w-full max-w-full sm:max-w-[178px] h-[178px] rounded-[4px] overflow-hidden bg-gray-100">
+                            <img class="object-cover object-center h-full w-full"
+                                src="{{ asset('images/barangay_sb.png') }}"
+                                alt="{{ $announcement->title }}">
                         </div>
                         <div class="flex flex-col gap-[10px] w-full">
-                            <h2 class="font-medium text-[25px] text-[#52525B] group-hover:underline">Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed</h2>
-                            <p class="text-[16px] font-medium text-[#A1A1AA]">Lorem ipsum dolor sit amet, consectetur
-                                adipiscing elit, sed do eiusmod tempor incididunt ut  labore et dolore magna aliqua. Ut
-                                enim ad minim veniam, quis...</p>
-                            <small class="text-[14px] font-bold text-[#71717A]">Admin • January 20, 2024</small>
+                            <h2 class="font-medium text-[25px] text-[#52525B] group-hover:underline">
+                                {{ $announcement->title }}
+                            </h2>
+                            <p class="text-[16px] font-medium text-[#A1A1AA]">
+                                {{ Str::limit(strip_tags($announcement->body), 150, '...') }}
+                            </p>
+                            <small class="text-[14px] font-bold text-[#71717A]">
+                                Admin • {{ $announcement->created_at->format('F d, Y') }}
+                            </small>
                         </div>
                     </a>
+                    @empty
+                    <div class="w-full flex flex-col sm:flex-row items-center justify-start gap-[20px] rounded-[4px] border-solid border-[1px] border-[#D4D4D8] p-[20px] sm:p-[20px] bg-[#FAFAFA]">
+                        <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="60" cy="60" r="50" fill="#E4E4E7" />
+                            <path d="M40 45C40 42.2386 42.2386 40 45 40H75C77.7614 40 80 42.2386 80 45V75C80 77.7614 77.7614 80 75 80H45C42.2386 80 40 77.7614 40 75V45Z" fill="white" />
+                            <path d="M50 52H70M50 60H70M50 68H65" stroke="#A1A1AA" stroke-width="3" stroke-linecap="round" />
+                            <circle cx="85" cy="35" r="8" fill="#71717A" />
+                            <path d="M85 32V38M82 35H88" stroke="white" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        <div class="flex flex-col items-center gap-[8px] text-start">
+                            <h3 class="font-medium w-full text-[22px] text-[#52525B]">No Announcements Yet</h3>
+                            <p class="text-[16px] text-[#A1A1AA] max-w-[400px]">
+                                There are currently no announcements available. Check back later for updates from the barangay.
+                            </p>
+                        </div>
+                    </div>
+                    @endforelse
                 </div>
                 <!-- Appointment -->
                 <div class=" w-full flex flex-col gap-[15px] px-[15px] sm:px-[0] mb-[20px]">
