@@ -20,38 +20,37 @@ class VerificationController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'id_type' => 'required|string|in:government_id,passport,drivers_license,voters_id',
-            'id_image' => 'required|image|mimes:jpeg,jpg,png|max:2048', // 2MB max
+{
+    $request->validate([
+        'id_type' => 'required|string|in:government_id,passport,drivers_license,voters_id',
+        'id_image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+    ]);
+
+    $user = Auth::user();
+
+    $existingVerification = Verification::where('user_id', $user->user_id)->first();
+    
+    if ($existingVerification) {
+        return redirect()->back()->with('error', 'You have already submitted a verification request.');
+    }
+
+    if ($request->hasFile('id_image')) {
+        $image = $request->file('id_image');
+        $imageName = time() . '_' . $user->user_id . '.' . $image->getClientOriginalExtension();
+        
+        // Store directly in public/verifications
+        $image->move(public_path('verifications'), $imageName);
+
+        Verification::create([
+            'user_id' => $user->user_id,
+            'image' => $imageName,
+            'type' => $request->id_type,
+            'submitted_at' => now(),
         ]);
 
-        $user = Auth::user();
-
-        // Check if user already submitted verification
-        $existingVerification = Verification::where('user_id', $user->user_id)->first();
-        
-        if ($existingVerification) {
-            return redirect()->back()->with('error', 'You have already submitted a verification request.');
-        }
-
-        // Handle file upload
-        if ($request->hasFile('id_image')) {
-            $image = $request->file('id_image');
-            $imageName = time() . '_' . $user->user_id . '.' . $image->getClientOriginalExtension();
-            $image->storeAs('public/verifications', $imageName);
-
-            // Save to database
-            Verification::create([
-                'user_id' => $user->user_id,
-                'image' => $imageName,
-                'type' => $request->id_type,
-                'submitted_at' => now(),
-            ]);
-
-            return redirect()->route('verify.index')->with('success', 'Verification submitted successfully! Please wait for admin approval.');
-        }
-
-        return redirect()->back()->with('error', 'Failed to upload image. Please try again.');
+        return redirect()->route('verify.index')->with('success', 'Verification submitted successfully!');
     }
+
+    return redirect()->back()->with('error', 'Failed to upload image.');
+}
 }
