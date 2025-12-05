@@ -118,32 +118,32 @@
                         <div
                             class="rounded-[4px] flex flex-col min-w-[144px] gap-[10px] border-solid w-full max-w-[175px] h-[186px] border-[1px] border-[#E4E4E7] p-[10px]">
                             <div class="h-full overflow-hidden w-full">
-                                <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
+                                <img class="h-full w-full object-cover object-center" src="{{asset('images/clearance_brg.jpg')}}"
                                     alt="">
                             </div>
-                            <a href="#"
+                            <a href="{{url('/document')}}"
                                 class="rounded-[5px] w-full p-[5px] hover:text-green-50  hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center justify-center text-[16px] text-[#ffffff] font-semibold">
                                 Clearance</a>
                         </div>
                         <div
                             class="rounded-[4px] flex flex-col min-w-[144px] gap-[10px] border-solid w-full max-w-[175px] h-[186px] border-[1px] border-[#E4E4E7] p-[10px]">
                             <div class="h-full overflow-hidden w-full">
-                                <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
+                                <img class="h-full w-full object-cover object-center" src="{{asset('images/indigency_brg.jpg')}}"
                                     alt="">
                             </div>
-                            <a href="#"
+                            <a href="{{url('/document')}}"
                                 class="rounded-[5px] w-full p-[5px]  hover:text-green-50  hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center justify-center text-[16px] text-[#ffffff] font-semibold">
                                 Indigency</a>
                         </div>
                         <div
                             class="rounded-[4px] flex flex-col min-w-[144px] gap-[10px] border-solid w-full max-w-[175px] h-[186px] border-[1px] border-[#E4E4E7] p-[10px]">
                             <div class="h-full overflow-hidden w-full">
-                                <img class="h-full w-full object-cover object-center" src="{{asset('images/business-cert.png')}}"
+                                <img class="h-full w-full object-cover object-center" src="{{asset('images/goodmoral_brg.jpg')}}"
                                     alt="">
                             </div>
-                            <a href="#"
+                            <a href="{{url('/document')}}"
                                 class="rounded-[5px] w-full p-[5px]  hover:text-green-50  hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center justify-center text-[16px] text-[#ffffff] font-semibold">
-                                Business</a>
+                                Good Moral</a>
                         </div>
                     </div>
                 </div>

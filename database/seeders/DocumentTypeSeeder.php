@@ -18,79 +18,79 @@ class DocumentTypeSeeder extends Seeder
                 'fields' => json_encode([
                     [
                         'name' => 'full_name',
-                        'label' => 'Buong Pangalan',
+                        'label' => 'Full Name',
                         'type' => 'text',
-                        'placeholder' => 'Buong Pangalan',
+                        'placeholder' => 'Enter full name',
                         'required' => true,
                         'validation' => 'required|string|max:255'
                     ],
                     [
                         'name' => 'age',
-                        'label' => 'Edad',
+                        'label' => 'Age',
                         'type' => 'number',
-                        'placeholder' => 'Edad',
+                        'placeholder' => 'Enter age',
                         'required' => true,
                         'validation' => 'required|integer|min:1|max:150',
-                        'max_width' => '50px'
+                        'max_width' => '150px'
                     ],
                     [
                         'name' => 'years_resided',
-                        'label' => 'Taon ng Paninirahan',
+                        'label' => 'Years of Residency',
                         'type' => 'number',
-                        'placeholder' => 'Taon',
+                        'placeholder' => 'Enter years',
                         'required' => true,
                         'validation' => 'required|integer|min:0',
-                        'max_width' => '50px'
+                        'max_width' => '150px'
                     ],
                     [
                         'name' => 'purpose',
-                        'label' => 'Layunin',
+                        'label' => 'Purpose',
                         'type' => 'text',
-                        'placeholder' => 'Layunin',
+                        'placeholder' => 'Enter purpose',
                         'required' => true,
                         'validation' => 'required|string|max:255'
                     ],
                     [
                         'name' => 'issue_day',
-                        'label' => 'Araw',
+                        'label' => 'Day',
                         'type' => 'number',
                         'placeholder' => 'Day',
                         'required' => true,
                         'validation' => 'required|integer|min:1|max:31',
-                        'max_width' => '50px'
+                        'max_width' => '100px'
                     ],
                     [
                         'name' => 'issue_month',
-                        'label' => 'Buwan',
+                        'label' => 'Month',
                         'type' => 'text',
                         'placeholder' => 'Month',
                         'required' => true,
                         'validation' => 'required|string|max:50',
-                        'max_width' => '100px'
+                        'max_width' => '150px'
                     ],
                     [
                         'name' => 'issue_year',
-                        'label' => 'Taon',
+                        'label' => 'Year',
                         'type' => 'number',
                         'placeholder' => 'Year',
                         'required' => true,
                         'validation' => 'required|integer|min:1900|max:2100',
-                        'max_width' => '70px'
+                        'max_width' => '120px'
                     ],
                     [
                         'name' => 'or_number',
                         'label' => 'OR Number',
                         'type' => 'text',
-                        'placeholder' => 'OR No.',
+                        'placeholder' => 'Enter OR number',
                         'required' => true,
                         'validation' => 'required|string|max:100',
-                        'max_width' => '100px'
+                        'max_width' => '200px'
                     ],
                     [
                         'name' => 'payment_date',
-                        'label' => 'Petsa ng Pagbayad',
+                        'label' => 'Payment Date',
                         'type' => 'date',
-                        'placeholder' => 'araw',
+                        'placeholder' => 'Select date',
                         'required' => true,
                         'validation' => 'required|date'
                     ]
@@ -166,7 +166,7 @@ class DocumentTypeSeeder extends Seeder
                         'name' => 'age',
                         'label' => 'Age',
                         'type' => 'number',
-                        'placeholder' => 'Age',
+                        'placeholder' => 'Enter age',
                         'required' => true,
                         'validation' => 'required|integer|min:1|max:150'
                     ],
