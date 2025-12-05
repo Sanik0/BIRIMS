@@ -11,11 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\UserAppointmentController;
 use App\Http\Controllers\VerificationController;
-
-// Public routes
-// Route::get('/', function () {
-//     return view(''); // Landing page (not logged in home)
-// });
+use App\Http\Controllers\OrderController; // Add this
 
 // Public routes
 Route::get('/signin', [LoginController::class, 'show'])->name('login');
@@ -61,14 +57,16 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/appointment', [UserAppointmentController::class, 'store'])->name('appointment.store');
         Route::delete('/appointment/{id}', [UserAppointmentController::class, 'destroy'])->name('appointment.destroy');
     });
+    
     Route::get('/announcements', [AnnouncementsController::class, 'index'])->name('announcements.index');
 
     Route::get('/verify', [VerificationController::class, 'index'])->name('verify.index');
     Route::post('/verify', [VerificationController::class, 'store'])->name('verify.store');
 
-    Route::get('/document', function () {
-        return view('document');
-    });
+    // Document/Order routes - UPDATED
+    Route::get('/document', [OrderController::class, 'create'])->name('document.create');
+    Route::post('/document', [OrderController::class, 'store'])->name('document.store');
+    Route::get('/document/{id}', [OrderController::class, 'show'])->name('document.show');
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });

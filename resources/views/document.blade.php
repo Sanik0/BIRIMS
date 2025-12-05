@@ -1,5 +1,6 @@
      <!-- header section -->
      @include('shared.header')
+
      <body class="relative">
          <!-- sidebar section -->
          @include('shared.sidebar')
@@ -96,48 +97,126 @@
                                  <div class="w-full h-[10px] bg-[#FF0000]"></div>
 
                              </div>
-                             <form action="" class="w-full flex flex-col gap-[70px]">
+                             <form action="{{ route('document.store') }}" method="POST" class="w-full flex flex-col gap-[70px]">
+                                 @csrf
+
+                                 {{-- Hidden field for document type --}}
+                                 <input type="hidden" name="document_type_id" value="1"> {{-- Update with correct document_type_id --}}
+
                                  <h1 class="font-bold text-[35px] font-serif text-center">To Whom It May Concern</h1>
-                                 <div class="font-medium text-[16px] font-serif">This is to certify that
-                                     <input class="border-b-[1px] border-b-black focus:outline-none" placeholder="Buong Pangalan" type="text">,
-                                     <input class=" max-w-[50px] border-b-[1px] border-b-black focus:outline-none" placeholder="Edad" type="text">
+
+                                 <div class="font-medium text-[16px] font-serif">
+                                     This is to certify that
+                                     <input class="border-b-[1px] border-b-black focus:outline-none"
+                                         placeholder="Buong Pangalan"
+                                         name="full_name"
+                                         type="text"
+                                         value="{{ old('full_name') }}"
+                                         required>,
+                                     <input class="max-w-[50px] border-b-[1px] border-b-black focus:outline-none"
+                                         placeholder="Edad"
+                                         name="age"
+                                         type="number"
+                                         value="{{ old('age') }}"
+                                         required>
                                      years old, Filipino and bona-fide resident of Barangay San Bartolome, Quezon City, for about
-                                     <input class=" max-w-[50px] border-b-[1px] border-b-black focus:outline-none" placeholder="Taon" type="text">
+                                     <input class="max-w-[50px] border-b-[1px] border-b-black focus:outline-none"
+                                         placeholder="Taon"
+                                         name="years_resided"
+                                         type="number"
+                                         value="{{ old('years_resided') }}"
+                                         required>
                                      years.
-                                     <br>
-                                     <br>
-                                     THIS FURTHER CERTIFIES that he/she is known to me as a person of good moral character, a law-abiding citizen, and has never violated any law, ordinance, or rule du.ly implemented by the government authorities
-                                     <br>
-                                     <br>
+                                     <br><br>
+                                     THIS FURTHER CERTIFIES that he/she is known to me as a person of good moral character, a law-abiding citizen, and has never violated any law, ordinance, or rule duly implemented by the government authorities
+                                     <br><br>
                                      This certification is issued upon the request of the above mention individual for
-                                     <input class="border-b-[1px] border-b-black focus:outline-none" placeholder="Layunin" type="text">
+                                     <input class="border-b-[1px] border-b-black focus:outline-none"
+                                         placeholder="Layunin"
+                                         name="purpose"
+                                         type="text"
+                                         value="{{ old('purpose') }}"
+                                         required>
                                      purposes.
-                                     <br>
-                                     <br>
+                                     <br><br>
                                      DONE AND ISSUED this
-                                     <input class=" max-w-[50px] border-b-[1px] border-b-black focus:outline-none" placeholder="" type="text"> day of
-                                     <input class=" max-w-[50px] border-b-[1px] border-b-black focus:outline-none" placeholder="" type="text">,
-                                     <input class=" max-w-[50px] border-b-[1px] border-b-black focus:outline-none" placeholder="" type="text">
+                                     <input class="max-w-[50px] border-b-[1px] border-b-black focus:outline-none"
+                                         placeholder="Day"
+                                         name="issue_day"
+                                         type="number"
+                                         min="1"
+                                         max="31"
+                                         value="{{ old('issue_day') }}"
+                                         required> day of
+                                     <input class="max-w-[100px] border-b-[1px] border-b-black focus:outline-none"
+                                         placeholder="Month"
+                                         name="issue_month"
+                                         type="text"
+                                         value="{{ old('issue_month') }}"
+                                         required>,
+                                     <input class="max-w-[70px] border-b-[1px] border-b-black focus:outline-none"
+                                         placeholder="Year"
+                                         name="issue_year"
+                                         type="number"
+                                         value="{{ old('issue_year', date('Y')) }}"
+                                         required>
                                      at Barangay San Bartolome, Quezon City.
-                                     <br>
-                                     <br>
+                                     <br><br>
+
                                      <div class="w-full flex flex-col items-center justify-end">
                                          <h1 class="w-full font-bold text-[25px] font-serif underline text-right">NORBERTO J. PODADOR</h1>
                                          <p class="w-full text-[16px] font-medium font-serif text-right">Punong Barangay</p>
                                      </div>
-                                     <br>
-                                     <br>
+                                     <br><br>
+
                                      Paid Under OR. No;
-                                     <input class=" max-w-[50px] border-b-[1px] border-b-black focus:outline-none" placeholder="" type="text">
+                                     <input class="max-w-[100px] border-b-[1px] border-b-black focus:outline-none"
+                                         placeholder="OR No."
+                                         name="or_number"
+                                         type="text"
+                                         value="{{ old('or_number') }}"
+                                         required>
                                      <br>
                                      Date
-                                     <input class="border-b-[1px] border-b-black focus:outline-none text-gray-400" placeholder="araw" type="date">
+                                     <input class="border-b-[1px] border-b-black focus:outline-none text-gray-400"
+                                         placeholder="araw"
+                                         name="payment_date"
+                                         type="date"
+                                         value="{{ old('payment_date', date('Y-m-d')) }}"
+                                         required>
                                      <br>
                                      At; Barangay San Bartolome, Quezon City
                                  </div>
+
+                                 {{-- Error Messages --}}
+                                 @if ($errors->any())
+                                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                                     <strong class="font-bold">Oops! Something went wrong:</strong>
+                                     <ul class="mt-2 list-disc list-inside">
+                                         @foreach ($errors->all() as $error)
+                                         <li>{{ $error }}</li>
+                                         @endforeach
+                                     </ul>
+                                 </div>
+                                 @endif
+
+                                 {{-- Success Message --}}
+                                 @if (session('success'))
+                                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                                     <strong class="font-bold">Success!</strong>
+                                     <p>{{ session('success') }}</p>
+                                 </div>
+                                 @endif
+
                                  <div class="w-full justify-end mt-[30px] flex gap-[50px]">
-                                     <button class="flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</button>
-                                     <button class="flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Save</button>
+                                     <a href="{{ route('home') }}"
+                                         class="flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">
+                                         Cancel
+                                     </a>
+                                     <button type="submit"
+                                         class="flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">
+                                         Save
+                                     </button>
                                  </div>
                              </form>
                          </div>

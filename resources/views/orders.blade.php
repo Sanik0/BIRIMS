@@ -85,66 +85,6 @@
                         </div>
                         <a class="rounded-[4px] bg-orange-500 text-[20px] font-medium text-white px-[20px] py-[8px] hover:bg-orange-700 transition-all duration-300 " href="">View Details</a>
                     </div>
-                    <div class="flex items-start px-[15px] gap-[30px] sm:gap-[0] sm:px-[0] sm:items-center justify-between flex-col sm:flex-row w-full py-[30px] border-b-gray-300 border-b-[1px]">
-                        <div class="flex gap-[15px]">
-                            <div class="overflow-hidden border-[1px] border-gray-200 rounded-[4px]">
-                                <img class="object-center object-cover h-[138px] w-[96px]" src="{{asset('images/indegency.png')}}" alt="">
-                            </div>
-                            <div class="flex flex-col py-[10px] max-w-[225px]">
-                                <h3 class="text-[20px] font-semibold">Barangay Certificate of Residency</h3>
-                                <p class="mt-auto text-[16px] font-medium text-gray-400">Amount: <span class="text-[#85BB65]">P150</span></p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-[15px]">
-                            <p class="text-gray-400 font-semibold text-[16px]">Status</p>
-                            <h3 class="text-orange-500 font-bold text-[20px]">Processing</h3>
-                        </div>
-                        <div class="flex flex-col gap-[15px]">
-                            <p class="text-gray-400 font-semibold text-[16px]">Delivery Expected On</p>
-                            <h3 class="text-gray-600 font-bold text-[20px]">09 September 2025</h3>
-                        </div>
-                        <a class="rounded-[4px] bg-orange-500 text-[20px] font-medium text-white px-[20px] py-[8px] hover:bg-orange-700 transition-all duration-300 " href="">View Details</a>
-                    </div>
-                    <div class="flex items-start px-[15px] gap-[30px] sm:gap-[0] sm:px-[0] sm:items-center justify-between flex-col sm:flex-row w-full py-[30px] border-b-gray-300 border-b-[1px]">
-                        <div class="flex gap-[15px]">
-                            <div class="overflow-hidden border-[1px] border-gray-200 rounded-[4px]">
-                                <img class="object-center object-cover h-[138px] w-[96px]" src="{{asset('images/indegency.png')}}" alt="">
-                            </div>
-                            <div class="flex flex-col py-[10px] max-w-[225px]">
-                                <h3 class="text-[20px] font-semibold">Barangay Certificate of Residency</h3>
-                                <p class="mt-auto text-[16px] font-medium text-gray-400">Amount: <span class="text-[#85BB65]">P150</span></p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-[15px]">
-                            <p class="text-gray-400 font-semibold text-[16px]">Status</p>
-                            <h3 class="text-orange-500 font-bold text-[20px]">Processing</h3>
-                        </div>
-                        <div class="flex flex-col gap-[15px]">
-                            <p class="text-gray-400 font-semibold text-[16px]">Delivery Expected On</p>
-                            <h3 class="text-gray-600 font-bold text-[20px]">09 September 2025</h3>
-                        </div>
-                        <a class="rounded-[4px] bg-orange-500 text-[20px] font-medium text-white px-[20px] py-[8px] hover:bg-orange-700 transition-all duration-300 " href="">View Details</a>
-                    </div>
-                    <div class="flex items-start px-[15px] gap-[30px] sm:gap-[0] sm:px-[0] sm:items-center justify-between flex-col sm:flex-row w-full py-[30px] border-b-gray-300 border-b-[1px]">
-                        <div class="flex gap-[15px]">
-                            <div class="overflow-hidden border-[1px] border-gray-200 rounded-[4px]">
-                                <img class="object-center object-cover h-[138px] w-[96px]" src="{{asset('images/indegency.png')}}" alt="">
-                            </div>
-                            <div class="flex flex-col py-[10px] max-w-[225px]">
-                                <h3 class="text-[20px] font-semibold">Barangay Certificate of Residency</h3>
-                                <p class="mt-auto text-[16px] font-medium text-gray-400">Amount: <span class="text-[#85BB65]">P150</span></p>
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-[15px]">
-                            <p class="text-gray-400 font-semibold text-[16px]">Status</p>
-                            <h3 class="text-orange-500 font-bold text-[20px]">Processing</h3>
-                        </div>
-                        <div class="flex flex-col gap-[15px]">
-                            <p class="text-gray-400 font-semibold text-[16px]">Delivery Expected On</p>
-                            <h3 class="text-gray-600 font-bold text-[20px]">09 September 2025</h3>
-                        </div>
-                        <a class="rounded-[4px] bg-orange-500 text-[20px] font-medium text-white px-[20px] py-[8px] hover:bg-orange-700 transition-all duration-300 " href="">View Details</a>
-                    </div>
                 </section>
             </main>
         </body>
