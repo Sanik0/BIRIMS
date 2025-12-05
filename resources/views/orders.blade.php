@@ -100,6 +100,14 @@
 
                 <section class="w-full flex flex-col">
                     <div class="container mx-auto px-4 py-8">
+                        {{-- Success Message --}}
+                        @if (session('success'))
+                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-6">
+                            <strong class="font-bold">Success!</strong>
+                            <p>{{ session('success') }}</p>
+                        </div>
+                        @endif
+
                         {{-- Error Messages --}}
                         @if ($errors->any())
                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
@@ -196,7 +204,7 @@
                             </div>
 
                             {{-- Modal for this order --}}
-                            <div id="modal-{{ $order->order_id }}" class="hidden fixed inset-0 bg-black/50 backdrop-blur-[5px]  z-50 flex items-center justify-center p-4">
+                            <div id="modal-{{ $order->order_id }}" class="hidden fixed inset-0 bg-black/50 backdrop-blur-[5px] z-50 flex items-center justify-center p-4">
                                 <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
                                     {{-- Modal Header --}}
                                     <div class="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex justify-between items-center">
@@ -249,43 +257,25 @@
                                             ->where('order_id', $order->order_id)
                                             ->get()
                                             ->keyBy('field_name');
+
+                                            $fieldDefinitions = json_decode($order->fields ?? '[]', true);
                                             @endphp
 
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                @foreach($fieldDefinitions as $fieldDef)
+                                                @if(isset($fields[$fieldDef['name']]))
                                                 <div>
-                                                    <p class="text-sm text-gray-500 font-semibold">Full Name</p>
-                                                    <p class="text-base font-medium">{{ $fields['full_name']->field_value ?? 'N/A' }}</p>
-                                                </div>
-                                                <div>
-                                                    <p class="text-sm text-gray-500 font-semibold">Age</p>
-                                                    <p class="text-base font-medium">{{ $fields['age']->field_value ?? 'N/A' }}</p>
-                                                </div>
-                                                <div>
-                                                    <p class="text-sm text-gray-500 font-semibold">Years Resided</p>
-                                                    <p class="text-base font-medium">{{ $fields['years_resided']->field_value ?? 'N/A' }} years</p>
-                                                </div>
-                                                <div>
-                                                    <p class="text-sm text-gray-500 font-semibold">Purpose</p>
-                                                    <p class="text-base font-medium">{{ $fields['purpose']->field_value ?? 'N/A' }}</p>
-                                                </div>
-                                                <div>
-                                                    <p class="text-sm text-gray-500 font-semibold">Issue Date</p>
+                                                    <p class="text-sm text-gray-500 font-semibold">{{ $fieldDef['label'] }}</p>
                                                     <p class="text-base font-medium">
-                                                        {{ $fields['issue_month']->field_value ?? 'N/A' }}
-                                                        {{ $fields['issue_day']->field_value ?? 'N/A' }},
-                                                        {{ $fields['issue_year']->field_value ?? 'N/A' }}
+                                                        @if($fieldDef['type'] === 'date')
+                                                        {{ \Carbon\Carbon::parse($fields[$fieldDef['name']]->field_value)->format('F d, Y') }}
+                                                        @else
+                                                        {{ $fields[$fieldDef['name']]->field_value }}
+                                                        @endif
                                                     </p>
                                                 </div>
-                                                <div>
-                                                    <p class="text-sm text-gray-500 font-semibold">OR Number</p>
-                                                    <p class="text-base font-medium">{{ $fields['or_number']->field_value ?? 'N/A' }}</p>
-                                                </div>
-                                                <div class="md:col-span-2">
-                                                    <p class="text-sm text-gray-500 font-semibold">Payment Date</p>
-                                                    <p class="text-base font-medium">
-                                                        {{ $fields['payment_date']->field_value ? \Carbon\Carbon::parse($fields['payment_date']->field_value)->format('F d, Y') : 'N/A' }}
-                                                    </p>
-                                                </div>
+                                                @endif
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -372,6 +362,8 @@
                             }
                         });
                     </script>
+
+
                 </section>
             </main>
 

@@ -111,6 +111,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     });
 });
 
+// API Routes
+Route::get('/api/document-fields/{id}', [OrderController::class, 'getDocumentFields'])->name('api.document.fields');
+
 // User lookup API (public or protected - your choice)
 Route::get('/lookup-user', function () {
     $email = request('email');

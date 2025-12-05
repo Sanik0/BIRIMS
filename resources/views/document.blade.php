@@ -53,178 +53,179 @@
              </div>
 
              <section class="w-full items-center justify-center flex">
-                 <div class="rounded-[4px] w-full max-w-[990px] border-gray-300 border-[1px] px-[35px] py-[20px] mb-[]">
-                     <div class="border-b-[1px] pb-[10px] flex flex-col gap-[30px] relative">
-                         <div class="rounded-[50%] hidden sm:block h-[100px] w-[100px] overflow-hidden absolute left-0">
-                             <img src="{{asset('images/download (6).png')}}" class="w-full h-[full] object-center object-cover" alt="">
-                         </div>
-                         <div>
-                             <p class="font-medium text-[16px] font-serif text-center">Republic Of the Philippines</p>
-                             <p class="font-medium text-[16px] font-serif text-center">Nationlal Capital Region</p>
-                             <p class="font-medium text-[16px] font-serif text-center">Municipality OF Lorem Ipsum</p>
-                             <p class="font-medium text-[16px] font-serif text-center">Barangay San Bartolome</p>
-                         </div>
-                         <div class="font-bold text-[18px] font-serif text-center">OFFICE OF THE SANGGUNIANG BAYAN</div>
-                     </div>
-                     <div class="flex flex-col w-full gap-[50px] py-[30px]">
-                         <h1 class="font-bold text-[20px] font-serif text-center">BARANGAY CERTIFICATE OF RESIDENCY</h1>
-                         <div class="w-full flex items-center gap-[60px]">
-                             <div class="rounded-[4px] hidden sm:flex border-[1px] border-[#B8FB3C] w-full bg-[#F2FFD5] items-center justify-center flex-col gap-[25px] max-w-[320px] px-[15px] py-[20px]">
-                                 <div class="w-full h-[10px] bg-[#FF0000]"></div>
-                                 <div class="flex flex-col">
-                                     <div class="font-bold text-[18px] font-serif text-center">NORBERTO J. <br> PODADOR</div>
-                                     <p class="font-regular font-serif text-[16px] italic">Punong Barangay</p>
-                                 </div>
-                                 <div class="font-medium text-[18px] font-serif text-center">BARANGAY KAGAWAD</div>
-                                 <div class="font-bold text-[16px] font-serif">Rolando M. Rodel</div>
-                                 <div class="font-bold text-[16px] font-serif">George E. Washington</div>
-                                 <div class="font-bold text-[16px] font-serif">Mark D. Bohol</div>
-                                 <div class="font-bold text-[16px] font-serif">Carlos I. Gulo</div>
-                                 <div class="font-bold text-[16px] font-serif">Brenda G. Garcia</div>
-                                 <div class="font-bold text-[16px] font-serif">Jennifer P. Panghilinan</div>
-                                 <div class="flex flex-col items-center justify-center">
-                                     <div class="font-bold text-[16px] font-serif">Marco L. Lupang</div>
-                                     <p class="font-regular font-serif text-[16px] italic">SK ChairPerson</p>
-                                 </div>
-                                 <div class="flex flex-col items-center justify-center">
-                                     <div class="font-bold text-[16px] font-serif">Niko S. Roberto</div>
-                                     <p class="font-regular font-serif text-[16px] italic"> Barangay Secretary</p>
-                                 </div>
-                                 <div class="flex flex-col items-center justify-center">
-                                     <div class="font-bold text-[16px] font-serif">Ashley K. Curtis</div>
-                                     <p class="font-regular font-serif text-[16px] italic">Barangay Treasurer</p>
-                                 </div>
-                                 <div class="w-full h-[10px] bg-[#FF0000]"></div>
+                 <div class="container mx-auto px-4 py-8">
 
+                     {{-- Document Type Selection --}}
+                     <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+                         <label class="block text-lg font-semibold text-gray-700 mb-4">Select Document Type</label>
+                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                             @foreach($documentTypes as $docType)
+                             <div class="border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-orange-500 hover:shadow-lg document-type-card {{ $loop->first ? 'border-orange-500' : 'border-gray-200' }}"
+                                 data-document-id="{{ $docType->document_type_id }}"
+                                 onclick="selectDocumentType({{ $docType->document_type_id }})">
+                                 <h3 class="font-bold text-lg mb-2">{{ $docType->name }}</h3>
+                                 <p class="text-gray-600 text-sm mb-3">{{ $docType->description }}</p>
+                                 <p class="text-green-600 font-semibold">₱{{ number_format($docType->amount, 2) }}</p>
                              </div>
-                             <form action="{{ route('document.store') }}" method="POST" class="w-full flex flex-col gap-[70px]">
-                                 @csrf
-
-                                 {{-- Hidden field for document type --}}
-                                 <input type="hidden" name="document_type_id" value="1"> {{-- Update with correct document_type_id --}}
-
-                                 <h1 class="font-bold text-[35px] font-serif text-center">To Whom It May Concern</h1>
-
-                                 <div class="font-medium text-[16px] font-serif">
-                                     This is to certify that
-                                     <input class="border-b-[1px] border-b-black focus:outline-none"
-                                         placeholder="Buong Pangalan"
-                                         name="full_name"
-                                         type="text"
-                                         value="{{ old('full_name') }}"
-                                         required>,
-                                     <input class="max-w-[50px] border-b-[1px] border-b-black focus:outline-none"
-                                         placeholder="Edad"
-                                         name="age"
-                                         type="number"
-                                         value="{{ old('age') }}"
-                                         required>
-                                     years old, Filipino and bona-fide resident of Barangay San Bartolome, Quezon City, for about
-                                     <input class="max-w-[50px] border-b-[1px] border-b-black focus:outline-none"
-                                         placeholder="Taon"
-                                         name="years_resided"
-                                         type="number"
-                                         value="{{ old('years_resided') }}"
-                                         required>
-                                     years.
-                                     <br><br>
-                                     THIS FURTHER CERTIFIES that he/she is known to me as a person of good moral character, a law-abiding citizen, and has never violated any law, ordinance, or rule duly implemented by the government authorities
-                                     <br><br>
-                                     This certification is issued upon the request of the above mention individual for
-                                     <input class="border-b-[1px] border-b-black focus:outline-none"
-                                         placeholder="Layunin"
-                                         name="purpose"
-                                         type="text"
-                                         value="{{ old('purpose') }}"
-                                         required>
-                                     purposes.
-                                     <br><br>
-                                     DONE AND ISSUED this
-                                     <input class="max-w-[50px] border-b-[1px] border-b-black focus:outline-none"
-                                         placeholder="Day"
-                                         name="issue_day"
-                                         type="number"
-                                         min="1"
-                                         max="31"
-                                         value="{{ old('issue_day') }}"
-                                         required> day of
-                                     <input class="max-w-[100px] border-b-[1px] border-b-black focus:outline-none"
-                                         placeholder="Month"
-                                         name="issue_month"
-                                         type="text"
-                                         value="{{ old('issue_month') }}"
-                                         required>,
-                                     <input class="max-w-[70px] border-b-[1px] border-b-black focus:outline-none"
-                                         placeholder="Year"
-                                         name="issue_year"
-                                         type="number"
-                                         value="{{ old('issue_year', date('Y')) }}"
-                                         required>
-                                     at Barangay San Bartolome, Quezon City.
-                                     <br><br>
-
-                                     <div class="w-full flex flex-col items-center justify-end">
-                                         <h1 class="w-full font-bold text-[25px] font-serif underline text-right">NORBERTO J. PODADOR</h1>
-                                         <p class="w-full text-[16px] font-medium font-serif text-right">Punong Barangay</p>
-                                     </div>
-                                     <br><br>
-
-                                     Paid Under OR. No;
-                                     <input class="max-w-[100px] border-b-[1px] border-b-black focus:outline-none"
-                                         placeholder="OR No."
-                                         name="or_number"
-                                         type="text"
-                                         value="{{ old('or_number') }}"
-                                         required>
-                                     <br>
-                                     Date
-                                     <input class="border-b-[1px] border-b-black focus:outline-none text-gray-400"
-                                         placeholder="araw"
-                                         name="payment_date"
-                                         type="date"
-                                         value="{{ old('payment_date', date('Y-m-d')) }}"
-                                         required>
-                                     <br>
-                                     At; Barangay San Bartolome, Quezon City
-                                 </div>
-
-                                 {{-- Error Messages --}}
-                                 @if ($errors->any())
-                                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                                     <strong class="font-bold">Oops! Something went wrong:</strong>
-                                     <ul class="mt-2 list-disc list-inside">
-                                         @foreach ($errors->all() as $error)
-                                         <li>{{ $error }}</li>
-                                         @endforeach
-                                     </ul>
-                                 </div>
-                                 @endif
-
-                                 {{-- Success Message --}}
-                                 @if (session('success'))
-                                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
-                                     <strong class="font-bold">Success!</strong>
-                                     <p>{{ session('success') }}</p>
-                                 </div>
-                                 @endif
-
-                                 <div class="w-full justify-end mt-[30px] flex gap-[50px]">
-                                     <a href="{{ route('home') }}"
-                                         class="flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">
-                                         Cancel
-                                     </a>
-                                     <button type="submit"
-                                         class="flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">
-                                         Save
-                                     </button>
-                                 </div>
-                             </form>
+                             @endforeach
                          </div>
                      </div>
+
+                     {{-- Dynamic Form --}}
+                     <form action="{{ route('document.store') }}" method="POST" class="bg-white rounded-lg shadow-md p-6">
+                         @csrf
+
+                         <input type="hidden" name="document_type_id" id="selected_document_type" value="{{ $documentTypes->first()->document_type_id ?? '' }}">
+
+                         <div id="dynamic-fields-container">
+                             {{-- Fields will be loaded here via JavaScript --}}
+                         </div>
+
+                         {{-- Error Messages --}}
+                         @if ($errors->any())
+                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-6">
+                             <strong class="font-bold">Oops! Something went wrong:</strong>
+                             <ul class="mt-2 list-disc list-inside">
+                                 @foreach ($errors->all() as $error)
+                                 <li>{{ $error }}</li>
+                                 @endforeach
+                             </ul>
+                         </div>
+                         @endif
+
+                         {{-- Success Message --}}
+                         @if (session('success'))
+                         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mt-6">
+                             <strong class="font-bold">Success!</strong>
+                             <p>{{ session('success') }}</p>
+                         </div>
+                         @endif
+
+                         <div class="flex justify-end mt-8 gap-4">
+                             <a href="{{ route('home') }}"
+                                 class="px-6 py-3 text-lg text-orange-500 font-medium rounded border border-orange-500 hover:bg-orange-50 transition-all">
+                                 Cancel
+                             </a>
+                             <button type="submit"
+                                 class="px-6 py-3 text-lg bg-orange-500 text-white font-medium rounded border border-orange-500 hover:bg-orange-700 transition-all">
+                                 Submit Request
+                             </button>
+                         </div>
+                     </form>
                  </div>
+
+
              </section>
          </main>
+         <script>
+             let currentDocumentId = {{ $documentTypes->first()?->document_type_id ?? 'null' }};
 
+             // Load fields on page load
+             document.addEventListener('DOMContentLoaded', function() {
+                 if (currentDocumentId) {
+                     loadDocumentFields(currentDocumentId);
+                 }
+             });
+
+             function selectDocumentType(documentId) {
+                 currentDocumentId = documentId;
+                 document.getElementById('selected_document_type').value = documentId;
+
+                 // Update card styles
+                 document.querySelectorAll('.document-type-card').forEach(card => {
+                     if (card.dataset.documentId == documentId) {
+                         card.classList.add('border-orange-500');
+                         card.classList.remove('border-gray-200');
+                     } else {
+                         card.classList.remove('border-orange-500');
+                         card.classList.add('border-gray-200');
+                     }
+                 });
+
+                 // Load the fields for this document type
+                 loadDocumentFields(documentId);
+             }
+
+             function loadDocumentFields(documentId) {
+                 fetch(`/api/document-fields/${documentId}`)
+                     .then(response => response.json())
+                     .then(data => {
+                         if (data.success) {
+                             renderFields(data.document.fields);
+                         }
+                     })
+                     .catch(error => {
+                         console.error('Error loading fields:', error);
+                     });
+             }
+
+             function renderFields(fields) {
+                 const container = document.getElementById('dynamic-fields-container');
+                 container.innerHTML = '';
+
+                 fields.forEach(field => {
+                     const fieldWrapper = document.createElement('div');
+                     fieldWrapper.className = 'mb-6';
+
+                     const label = document.createElement('label');
+                     label.className = 'block text-sm font-semibold text-gray-700 mb-2';
+                     label.textContent = field.label;
+                     if (field.required) {
+                         const required = document.createElement('span');
+                         required.className = 'text-red-500';
+                         required.textContent = ' *';
+                         label.appendChild(required);
+                     }
+
+                     let input;
+
+                     if (field.type === 'select') {
+                         input = document.createElement('select');
+                         input.className = 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500';
+
+                         const defaultOption = document.createElement('option');
+                         defaultOption.value = '';
+                         defaultOption.textContent = field.placeholder || 'Select an option';
+                         input.appendChild(defaultOption);
+
+                         field.options.forEach(option => {
+                             const opt = document.createElement('option');
+                             opt.value = option;
+                             opt.textContent = option;
+                             input.appendChild(opt);
+                         });
+                     } else if (field.type === 'textarea') {
+                         input = document.createElement('textarea');
+                         input.className = 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500';
+                         input.rows = 4;
+                     } else {
+                         input = document.createElement('input');
+                         input.type = field.type;
+                         input.className = 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500';
+
+                         if (field.max_width) {
+                             input.style.maxWidth = field.max_width;
+                         }
+                     }
+
+                     input.name = field.name;
+                     input.placeholder = field.placeholder || '';
+
+                     if (field.required) {
+                         input.required = true;
+                     }
+
+                     // Set default value for date fields
+                     if (field.type === 'date' && !input.value) {
+                         input.value = new Date().toISOString().split('T')[0];
+                     }
+
+                     fieldWrapper.appendChild(label);
+                     fieldWrapper.appendChild(input);
+                     container.appendChild(fieldWrapper);
+                 });
+             }
+         </script>
      </body>
 
      </html>

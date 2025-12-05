@@ -60,15 +60,15 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 transition-all duration-300">Settings</div>
             </a>
             <div class="text-[16px] font-bold text-[#71717A]">Barangay</div>
-            <a href="{{url('/documents')}}" class="group flex gap-[10px] items-center py-[10px]">
+            <a href="{{url('/document')}}" class="group flex gap-[10px] items-center py-[10px]">
                 <svg class="h-[30px] w-[30px]  
-                    {{request()->is('documents') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'}} transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px"
+                    {{request()->is('document') ? 'fill-[#ea580c]' : 'group-hover:fill-[#71717A] fill-[#A1A1AA]'}} transition-all duration-300" xmlns="http://www.w3.org/2000/svg" height="24px"
                     viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                     <path
                         d="M320-440h320v-80H320v80Zm0 120h320v-80H320v80Zm0 120h200v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520h200L520-800v200Z" />
                 </svg>
                 <div class="font-semibold text-[20px] 
-                    {{request()->is('documents') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}} transition-all duration-300">Documents</div>
+                    {{request()->is('document') ? 'text-[#ea580c]' : 'group-hover:text-[#71717A] text-[#A1A1AA]'}} transition-all duration-300">Documents</div>
             </a>
             <a href="{{url('/blotter')}}" class="group flex gap-[10px] items-center py-[10px]">
                 <svg class="h-[30px] w-[30px] 
