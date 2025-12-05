@@ -8,6 +8,18 @@ use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
+    public function index()
+    {
+        $orders = DB::table('order')
+            ->where('user_id', Auth::id())
+            ->join('document_type', 'order.document_type_id', '=', 'document_type.document_type_id')
+            ->select('order.*', 'document_type.name as document_name', 'document_type.description')
+            ->orderBy('ordered_at', 'desc')
+            ->get();
+            
+        return view('orders', compact('orders'));
+    }
+
     public function create()
     {
         // Get document types if you want to make it dynamic
@@ -60,7 +72,7 @@ class OrderController extends Controller
 
             DB::commit();
 
-            return redirect()->route('home')
+            return redirect()->route('orders.index')
                 ->with('success', 'Barangay Certificate request submitted successfully!');
 
         } catch (\Exception $e) {
@@ -89,5 +101,36 @@ class OrderController extends Controller
             ->keyBy('field_name');
 
         return view('document-view', compact('order', 'fields'));
+    }
+
+    public function destroy($id)
+    {
+        try {
+            DB::beginTransaction();
+
+            $order = DB::table('order')
+                ->where('order_id', $id)
+                ->where('user_id', Auth::id())
+                ->first();
+
+            if (!$order) {
+                return back()->withErrors(['error' => 'Order not found or you do not have permission to delete it.']);
+            }
+
+            // Delete order_fields first (child records)
+            DB::table('order_fields')->where('order_id', $id)->delete();
+            
+            // Then delete the order (parent record)
+            DB::table('order')->where('order_id', $id)->delete();
+
+            DB::commit();
+
+            return redirect()->route('orders.index')
+                ->with('success', 'Order deleted successfully!');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withErrors(['error' => 'Failed to delete order: ' . $e->getMessage()]);
+        }
     }
 }

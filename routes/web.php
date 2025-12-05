@@ -40,9 +40,7 @@ Route::middleware(['auth'])->group(function () {
         return view('notifications');
     });
 
-    Route::get('/orders', function () {
-        return view('orders');
-    });
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
 
     Route::get('/documents', function () {
         return view('documents');
@@ -67,6 +65,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/document', [OrderController::class, 'create'])->name('document.create');
     Route::post('/document', [OrderController::class, 'store'])->name('document.store');
     Route::get('/document/{id}', [OrderController::class, 'show'])->name('document.show');
+    Route::delete('/document/{id}', [OrderController::class, 'destroy'])->name('document.destroy');
 
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
