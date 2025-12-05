@@ -26,7 +26,7 @@ Route::post('/signup', [RegisterController::class, 'store'])->name('signup.store
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', function () {
         $announcements = \App\Models\Announcement::orderBy('created_at', 'desc')
-            ->take(5)
+            ->take(1)
             ->get();
 
         return view('home', compact('announcements'));
