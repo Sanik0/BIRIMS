@@ -236,9 +236,13 @@
 
                       <div class="w-full flex flex-col gap-[20px]">
                           <h1 class="font-bold text-[40px]">Identity Verification</h1>
-                          <p class="text-[16px] text-gray-400 font-regular">To access all features and ensure the security of our community, please submit a valid government-issued ID for verification.
+                          <p class="text-[16px] text-gray-400 font-regular">
+                              To access all features and ensure the security of our community, please submit a valid government-issued ID for verification.
                               <br><br>
-                              Accepted IDs include: Government ID, Passport, Driver's License, or Voter's ID. Your information will be kept secure and confidential.
+                              <span class="text-red-500 font-semibold">
+                                  Important: The document you upload must clearly show your full address.
+                                  Blurry or incomplete details may result in your verification being rejected.
+                              </span>
                           </p>
                       </div>
                   </div>

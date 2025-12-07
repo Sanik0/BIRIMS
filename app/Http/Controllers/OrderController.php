@@ -5,17 +5,45 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
+    // Document type configurations
+    private $documentConfigs = [
+        'certificate_of_residency' => [
+            'name' => 'Certificate of Residency',
+            'amount' => 50,
+            'fields' => ['full_name', 'age', 'years_residency', 'purpose', 'mode_payment', 'contact']
+        ],
+        'barangay_clearance' => [
+            'name' => 'Barangay Clearance',
+            'amount' => 100,
+            'fields' => ['full_name', 'address', 'civil_status', 'purpose', 'valid_until', 'mode_payment', 'contact']
+        ],
+        'certificate_of_indigency' => [
+            'name' => 'Certificate of Indigency',
+            'amount' => 0,
+            'fields' => ['full_name', 'age', 'address', 'occupation', 'monthly_income', 'num_family_members', 'purpose', 'mode_payment', 'contact']
+        ],
+        'barangay_id' => [
+            'name' => 'Barangay ID',
+            'amount' => 150,
+            'fields' => ['full_name', 'address', 'gender', 'civil_status', 'date', 'month', 'year', 'mode_payment', 'contact']
+        ],
+        'business_permit' => [
+            'name' => 'Business Permit Clearance',
+            'amount' => 200,
+            'fields' => ['full_name', 'address', 'purpose', 'mode_payment', 'contact']
+        ]
+    ];
+
     public function index()
     {
         $orders = DB::table('order')
             ->where('user_id', Auth::id())
-            ->join('document_type', 'order.document_type_id', '=', 'document_type.document_type_id')
-            ->select('order.*', 'document_type.name as document_name', 'document_type.description', 'document_type.fields')
-            ->orderBy('ordered_at', 'desc')
+            ->leftJoin('order_information', 'order.order_information_id', '=', 'order_information.order_information_id')
+            ->select('order.*', 'order_information.*')
+            ->orderBy('order.ordered_at', 'desc')
             ->get();
 
         return view('orders', compact('orders'));
@@ -23,88 +51,74 @@ class OrderController extends Controller
 
     public function create()
     {
-        // Get all active document types
-        $documentTypes = DB::table('document_type')
-            ->where('is_active', true)
-            ->get();
-
-        // Get logged-in user data
         $user = Auth::user();
-
-        return view('document', compact('documentTypes', 'user'));
+        return view('document', compact('user'));
     }
 
     public function store(Request $request)
     {
-        // Get the document type
-        $documentType = DB::table('document_type')
-            ->where('document_type_id', $request->document_type_id)
-            ->first();
-
-        if (!$documentType) {
+        // Validate document type exists
+        $documentType = $request->input('document_type');
+        
+        if (!isset($this->documentConfigs[$documentType])) {
             return back()->withErrors(['error' => 'Invalid document type selected.']);
         }
 
-        // Decode the fields from JSON
-        $fields = json_decode($documentType->fields, true);
+        $config = $this->documentConfigs[$documentType];
 
-        // Build dynamic validation rules
+        // Build validation rules based on required fields
         $validationRules = [
-            'document_type_id' => 'required|exists:document_type,document_type_id'
+            'document_type' => 'required|string'
         ];
 
-        foreach ($fields as $field) {
-            if (isset($field['validation'])) {
-                $validationRules[$field['name']] = $field['validation'];
-            }
+        foreach ($config['fields'] as $fieldName) {
+            $validationRules[$fieldName] = 'required|string|max:255';
         }
 
-        // Validate the request
+        // Validate
         $validated = $request->validate($validationRules);
 
         try {
             DB::beginTransaction();
 
-            // Calculate the actual amount based on purpose and payment mode
-            $baseAmount = $documentType->amount;
+            // Calculate amount
+            $baseAmount = $config['amount'];
             $actualAmount = $baseAmount;
 
-            // Check if purpose is Educational - make it free
+            // Educational purpose discount
             if (isset($validated['purpose']) && $validated['purpose'] === 'Educational Purpose') {
                 $actualAmount = 0;
             }
 
-            // Add delivery fee if Cash on Delivery
-            if (isset($validated['payment_mode']) && $validated['payment_mode'] === 'Cash on Delivery') {
+            // Delivery fee
+            if (isset($validated['mode_payment']) && $validated['mode_payment'] === 'Cash on Delivery') {
                 $actualAmount += 50;
             }
 
+            // Insert into order_information
+            $orderInfo = [];
+            
+            foreach ($config['fields'] as $fieldName) {
+                if (isset($validated[$fieldName])) {
+                    $orderInfo[$fieldName] = $validated[$fieldName];
+                }
+            }
+            
+            $orderInfo['amount'] = $actualAmount;
+            $orderInfo['submitted_at'] = now();
+            $orderInfo['updated_at'] = now();
+
+            $orderInformationId = DB::table('order_information')->insertGetId($orderInfo);
+
             // Create order
-            $orderId = DB::table('order')->insertGetId([
+            DB::table('order')->insert([
                 'user_id' => Auth::id(),
-                'document_type_id' => $validated['document_type_id'],
-                'amount' => $actualAmount, // Use calculated amount instead of base amount
+                'document_type' => $config['name'],
+                'order_information_id' => $orderInformationId,
+                'amount' => $actualAmount,
                 'status' => 'Pending',
                 'ordered_at' => now(),
             ]);
-
-            // Prepare order fields dynamically
-            $orderFields = [];
-            foreach ($fields as $field) {
-                if (isset($validated[$field['name']])) {
-                    $orderFields[] = [
-                        'order_id' => $orderId,
-                        'field_name' => $field['name'],
-                        'field_value' => $validated[$field['name']],
-                        'created_at' => now()
-                    ];
-                }
-            }
-
-            // Insert all fields
-            if (!empty($orderFields)) {
-                DB::table('order_fields')->insert($orderFields);
-            }
 
             DB::commit();
 
@@ -120,25 +134,17 @@ class OrderController extends Controller
     public function show($id)
     {
         $order = DB::table('order')
-            ->where('order_id', $id)
-            ->where('user_id', Auth::id())
-            ->join('document_type', 'order.document_type_id', '=', 'document_type.document_type_id')
-            ->select('order.*', 'document_type.name as document_name', 'document_type.fields')
+            ->where('order.order_id', $id)
+            ->where('order.user_id', Auth::id())
+            ->leftJoin('order_information', 'order.order_information_id', '=', 'order_information.order_information_id')
+            ->select('order.*', 'order_information.*')
             ->first();
 
         if (!$order) {
             abort(404, 'Order not found');
         }
 
-        $fields = DB::table('order_fields')
-            ->where('order_id', $id)
-            ->get()
-            ->keyBy('field_name');
-
-        // Decode field definitions
-        $fieldDefinitions = json_decode($order->fields, true);
-
-        return view('document-view', compact('order', 'fields', 'fieldDefinitions'));
+        return view('document-view', compact('order'));
     }
 
     public function destroy($id)
@@ -155,10 +161,14 @@ class OrderController extends Controller
                 return back()->withErrors(['error' => 'Order not found or you do not have permission to delete it.']);
             }
 
-            // Delete order_fields first (child records) - handled by CASCADE if set
-            DB::table('order_fields')->where('order_id', $id)->delete();
-
-            // Then delete the order (parent record)
+            // Delete order_information
+            if ($order->order_information_id) {
+                DB::table('order_information')
+                    ->where('order_information_id', $order->order_information_id)
+                    ->delete();
+            }
+            
+            // Delete order
             DB::table('order')->where('order_id', $id)->delete();
 
             DB::commit();
@@ -169,29 +179,5 @@ class OrderController extends Controller
             DB::rollBack();
             return back()->withErrors(['error' => 'Failed to delete order: ' . $e->getMessage()]);
         }
-    }
-
-    // API endpoint to get document type fields
-    public function getDocumentFields($id)
-    {
-        $documentType = DB::table('document_type')
-            ->where('document_type_id', $id)
-            ->where('is_active', true)
-            ->first();
-
-        if (!$documentType) {
-            return response()->json(['error' => 'Document type not found'], 404);
-        }
-
-        return response()->json([
-            'success' => true,
-            'document' => [
-                'id' => $documentType->document_type_id,
-                'name' => $documentType->name,
-                'description' => $documentType->description,
-                'amount' => $documentType->amount,
-                'fields' => json_decode($documentType->fields, true)
-            ]
-        ]);
     }
 }

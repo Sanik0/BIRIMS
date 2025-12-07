@@ -58,30 +58,32 @@
              <section class="w-full items-center justify-center flex">
                  <div class="container mx-auto px-4 py-8">
 
-                     {{-- Document Type Selection --}}
-                     <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-                         <label class="block text-lg font-semibold text-gray-700 mb-4">Select Document Type</label>
-                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                             @foreach($documentTypes as $docType)
-                             <div class="border-2 rounded-lg p-4 cursor-pointer transition-all hover:border-orange-500 hover:shadow-lg document-type-card {{ $loop->first ? 'border-orange-500' : 'border-gray-200' }}"
-                                 data-document-id="{{ $docType->document_type_id }}"
-                                 onclick="selectDocumentType({{ $docType->document_type_id }})">
-                                 <h3 class="font-bold text-lg mb-2">{{ $docType->name }}</h3>
-                                 <p class="text-gray-600 text-sm mb-3">{{ $docType->description }}</p>
-                                 <p class="text-green-600 font-semibold">₱{{ number_format($docType->amount, 2) }}</p>
-                             </div>
-                             @endforeach
-                         </div>
-                     </div>
-
                      {{-- Dynamic Form --}}
                      <form action="{{ route('document.store') }}" method="POST" class="bg-white rounded-lg shadow-md p-6">
                          @csrf
 
-                         <input type="hidden" name="document_type_id" id="selected_document_type" value="{{ $documentTypes->first()->document_type_id ?? '' }}">
+                         <h2 class="text-2xl font-bold mb-6 text-gray-800">Request Barangay Document</h2>
 
+                         {{-- Document Type Selection --}}
+                         <div class="mb-6">
+                             <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                 Document Type <span class="text-red-500">*</span>
+                             </label>
+                             <select name="document_type" id="document_type" required
+                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                                 onchange="loadFieldsForDocumentType(this.value)">
+                                 <option value="">Select Document Type</option>
+                                 <option value="certificate_of_residency">Certificate of Residency</option>
+                                 <option value="barangay_clearance">Barangay Clearance</option>
+                                 <option value="certificate_of_indigency">Certificate of Indigency</option>
+                                 <option value="barangay_id">Barangay ID</option>
+                                 <option value="business_permit">Business Permit Clearance</option>
+                             </select>
+                         </div>
+
+                         {{-- Dynamic Fields Container --}}
                          <div id="dynamic-fields-container">
-                             {{-- Fields will be loaded here via JavaScript --}}
+                             <p class="text-gray-500 text-center py-8">Please select a document type to continue</p>
                          </div>
 
                          {{-- Error Messages --}}
@@ -104,7 +106,7 @@
                          </div>
                          @endif
 
-                         <div class="flex justify-end mt-8 gap-4">
+                         <div class="flex justify-end mt-8 gap-4" id="form-buttons" style="display: none;">
                              <a href="{{ route('home') }}"
                                  class="px-6 py-3 text-lg text-orange-500 font-medium rounded border border-orange-500 hover:bg-orange-50 transition-all">
                                  Cancel
@@ -116,283 +118,350 @@
                          </div>
                      </form>
                  </div>
-
-
              </section>
-         </main>
-         <script>
-             // Pass user data from Laravel to JavaScript - DECLARE ONCE
-             const userData = {
-                 user_fullname: "{{ auth()->user()->firstname ?? '' }} {{ auth()->user()->middlename ? strtoupper(substr(auth()->user()->middlename, 0, 1)) . '.' : '' }} {{ auth()->user()->lastname ?? '' }}".trim(),
-                 user_age: {
-                     {
-                         auth() - > user() - > birthdate ? \Carbon\ Carbon::parse(auth() - > user() - > birthdate) - > age : 0
+
+             <script>
+                 const userData = {
+                     user_fullname: "{{ auth()->user()->firstname ?? '' }} {{ auth()->user()->middlename ? strtoupper(substr(auth()->user()->middlename, 0, 1)) . '.' : '' }} {{ auth()->user()->lastname ?? '' }}".trim(),
+                     user_age: {{ auth()->user()->birthdate ? \Carbon\Carbon::parse(auth()->user()->birthdate)->age : 0 }},
+                     user_address: "{{ auth()->user()->address ?? '' }}",
+                     user_civil_status: "{{ auth()->user()->civil_status ?? '' }}"
+                 };
+
+                 let currentBaseAmount = 0;
+
+                 const documentConfigs = {
+                     certificate_of_residency: {
+                         name: 'Certificate of Residency',
+                         amount: 50,
+                         fields: ['full_name', 'age', 'years_residency', 'purpose', 'mode_payment']
+                     },
+                     barangay_clearance: {
+                         name: 'Barangay Clearance',
+                         amount: 100,
+                         fields: ['full_name', 'address', 'civil_status', 'purpose', 'valid_until', 'mode_payment']
+                     },
+                     certificate_of_indigency: {
+                         name: 'Certificate of Indigency',
+                         amount: 0,
+                         fields: ['full_name', 'age', 'address', 'occupation', 'monthly_income', 'num_family_members', 'purpose', 'mode_payment']
+                     },
+                     barangay_id: {
+                         name: 'Barangay ID',
+                         amount: 150,
+                         fields: ['full_name', 'address', 'gender', 'civil_status', 'date', 'month', 'year', 'mode_payment']
+                     },
+                     business_permit: {
+                         name: 'Business Permit Clearance',
+                         amount: 200,
+                         fields: ['full_name', 'address', 'purpose', 'mode_payment']
                      }
-                 },
-                 user_address: "{{ auth()->user()->address ?? '' }}",
-                 user_civil_status: "{{ auth()->user()->civil_status ?? '' }}"
-             };
+                 };
 
-             let currentDocumentId = document.getElementById('selected_document_type')?.value || null;
-             let currentBaseAmount = 0;
-
-             // Auto-populate fields when document is loaded or changed
-             function autoPopulateFields(fields) {
-                 fields.forEach(field => {
-                     if (field.auto_populate && userData[field.auto_populate]) {
-                         const element = document.querySelector(`[name="${field.name}"]`);
-                         if (element) {
-                             element.value = userData[field.auto_populate];
-
-                             // Trigger change event for any dependencies
-                             element.dispatchEvent(new Event('change'));
-                             element.dispatchEvent(new Event('input'));
-                         }
+                 const fieldDefinitions = {
+                     full_name: {
+                         label: 'Full Name',
+                         type: 'text',
+                         placeholder: 'Enter full name',
+                         required: true,
+                         auto_populate: 'user_fullname'
+                     },
+                     age: {
+                         label: 'Age',
+                         type: 'number',
+                         placeholder: 'Enter age',
+                         required: true,
+                         auto_populate: 'user_age'
+                     },
+                     address: {
+                         label: 'Address',
+                         type: 'text',
+                         placeholder: 'Complete Address',
+                         required: true,
+                         auto_populate: 'user_address'
+                     },
+                     gender: {
+                         label: 'Gender',
+                         type: 'select',
+                         options: ['Male', 'Female'],
+                         required: true
+                     },
+                     civil_status: {
+                         label: 'Civil Status',
+                         type: 'select',
+                         options: ['single', 'married', 'widowed', 'separated'],
+                         required: true,
+                         auto_populate: 'user_civil_status'
+                     },
+                     years_residency: {
+                         label: 'Years of Residency',
+                         type: 'number',
+                         placeholder: 'Enter years',
+                         required: true
+                     },
+                     purpose: {
+                         label: 'Purpose',
+                         type: 'select',
+                         options: ['Employment', 'Educational Purpose', 'Government Transaction', 'ID Application',
+                             'Bank/Loan Transaction', 'Business Permit', 'Legal/Court Matters',
+                             'Medical Assistance', 'Travel/Visa', 'Others'
+                         ],
+                         required: true
+                     },
+                     occupation: {
+                         label: 'Occupation',
+                         type: 'text',
+                         placeholder: 'Enter occupation',
+                         required: false
+                     },
+                     monthly_income: {
+                         label: 'Monthly Income',
+                         type: 'number',
+                         placeholder: 'Enter monthly income',
+                         required: false
+                     },
+                     valid_until: {
+                         label: 'Valid Until',
+                         type: 'date',
+                         required: true
+                     },
+                     num_family_members: {
+                         label: 'Number of Family Members',
+                         type: 'number',
+                         placeholder: 'Enter number',
+                         required: false
+                     },
+                     date: {
+                         label: 'Day',
+                         type: 'number',
+                         placeholder: 'DD',
+                         required: true
+                     },
+                     month: {
+                         label: 'Month',
+                         type: 'text',
+                         placeholder: 'Month',
+                         required: true
+                     },
+                     year: {
+                         label: 'Year',
+                         type: 'number',
+                         placeholder: 'YYYY',
+                         required: true
+                     },
+                     mode_payment: {
+                         label: 'Mode of Payment',
+                         type: 'select',
+                         options: ['Pay at Counter (Pick Up)', 'Cash on Delivery'],
+                         required: true
+                     },
+                     contact: {
+                         label: 'Contact Number',
+                         type: 'text',
+                         placeholder: 'Enter contact number (09XXXXXXXXX)',
+                         required: true
                      }
-                 });
-             }
+                 };
 
-             // Load fields on page load
-             document.addEventListener('DOMContentLoaded', function() {
-                 if (currentDocumentId) {
-                     loadDocumentFields(currentDocumentId);
-                 }
-             });
-
-             function selectDocumentType(documentId) {
-                 currentDocumentId = documentId;
-                 document.getElementById('selected_document_type').value = documentId;
-
-                 // Update card styles
-                 document.querySelectorAll('.document-type-card').forEach(card => {
-                     if (card.dataset.documentId == documentId) {
-                         card.classList.add('border-orange-500');
-                         card.classList.remove('border-gray-200');
-
-                         // Get and store the base amount from this card
-                         const amountText = card.querySelector('.text-green-600').textContent;
-                         currentBaseAmount = parseFloat(amountText.replace('₱', '').replace(',', ''));
-                     } else {
-                         card.classList.remove('border-orange-500');
-                         card.classList.add('border-gray-200');
-                     }
-                 });
-
-                 // Load the fields for this document type
-                 loadDocumentFields(documentId);
-             }
-
-             function loadDocumentFields(documentId) {
-                 fetch(`/api/document-fields/${documentId}`)
-                     .then(response => response.json())
-                     .then(data => {
-                         if (data.success) {
-                             // Store the base amount
-                             currentBaseAmount = parseFloat(data.document.amount);
-                             renderFields(data.document.fields);
-
-                             // Auto-populate after fields are rendered
-                             setTimeout(() => {
-                                 autoPopulateFields(data.document.fields);
-                             }, 100);
-                         }
-                     })
-                     .catch(error => {
-                         console.error('Error loading fields:', error);
-                     });
-             }
-
-             function renderFields(fields) {
-                 const container = document.getElementById('dynamic-fields-container');
-                 container.innerHTML = '';
-
-                 fields.forEach(field => {
-                     // Skip display/computed fields - we'll handle them separately
-                     if (field.type === 'display' && field.computed) {
+                 function loadFieldsForDocumentType(documentType) {
+                     if (!documentType) {
+                         document.getElementById('dynamic-fields-container').innerHTML =
+                             '<p class="text-gray-500 text-center py-8">Please select a document type to continue</p>';
+                         document.getElementById('form-buttons').style.display = 'none';
                          return;
                      }
 
-                     const fieldWrapper = document.createElement('div');
-                     fieldWrapper.className = 'mb-6';
+                     const config = documentConfigs[documentType];
+                     currentBaseAmount = config.amount;
 
-                     const label = document.createElement('label');
-                     label.className = 'block text-sm font-semibold text-gray-700 mb-2';
-                     label.textContent = field.label;
-                     if (field.required) {
-                         const required = document.createElement('span');
-                         required.className = 'text-red-500';
-                         required.textContent = ' *';
-                         label.appendChild(required);
-                     }
+                     renderFields(config.fields);
+                     document.getElementById('form-buttons').style.display = 'flex';
+                 }
 
-                     let input;
-                     const baseInputClass = 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500';
+                 function renderFields(fieldNames) {
+                     const container = document.getElementById('dynamic-fields-container');
+                     container.innerHTML = '';
 
-                     if (field.type === 'select') {
-                         input = document.createElement('select');
-                         input.className = baseInputClass;
+                     fieldNames.forEach(function(fieldName) {
+                         const field = fieldDefinitions[fieldName];
+                         if (!field) return;
 
-                         const defaultOption = document.createElement('option');
-                         defaultOption.value = '';
-                         defaultOption.textContent = field.placeholder || 'Select an option';
-                         input.appendChild(defaultOption);
+                         const fieldWrapper = document.createElement('div');
+                         fieldWrapper.className = 'mb-6';
 
-                         field.options.forEach(option => {
-                             const opt = document.createElement('option');
-                             opt.value = option;
-                             opt.textContent = option;
-                             input.appendChild(opt);
-                         });
+                         const label = document.createElement('label');
+                         label.className = 'block text-sm font-semibold text-gray-700 mb-2';
+                         label.textContent = field.label;
+                         if (field.required) {
+                             const required = document.createElement('span');
+                             required.className = 'text-red-500';
+                             required.textContent = ' *';
+                             label.appendChild(required);
+                         }
 
-                         // Add event listener for payment_mode field
-                         if (field.name === 'payment_mode') {
-                             input.addEventListener('change', function() {
-                                 const purposeField = document.querySelector('[name="purpose"]');
-                                 calculateTotalAmount(this.value, purposeField?.value);
+                         let input;
+                         const baseInputClass = 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500';
+
+                         if (field.type === 'select') {
+                             input = document.createElement('select');
+                             input.className = baseInputClass;
+
+                             const defaultOption = document.createElement('option');
+                             defaultOption.value = '';
+                             defaultOption.textContent = 'Select ' + field.label;
+                             input.appendChild(defaultOption);
+
+                             field.options.forEach(function(option) {
+                                 const opt = document.createElement('option');
+                                 opt.value = option;
+                                 opt.textContent = option;
+                                 input.appendChild(opt);
                              });
+
+                             if (fieldName === 'mode_payment') {
+                                 input.addEventListener('change', function() {
+                                     const purposeField = document.querySelector('[name="purpose"]');
+                                     calculateTotalAmount(this.value, purposeField ? purposeField.value : null);
+                                     toggleContactField(this.value);
+                                 });
+                             }
+
+                             if (fieldName === 'purpose') {
+                                 input.addEventListener('change', function() {
+                                     const paymentModeField = document.querySelector('[name="mode_payment"]');
+                                     calculateTotalAmount(paymentModeField ? paymentModeField.value : null, this.value);
+                                 });
+                             }
+                         } else {
+                             input = document.createElement('input');
+                             input.type = field.type;
+                             input.className = baseInputClass;
+                             input.placeholder = field.placeholder || '';
                          }
 
-                         // Add event listener for purpose field
-                         if (field.name === 'purpose') {
-                             input.addEventListener('change', function() {
-                                 const paymentModeField = document.querySelector('[name="payment_mode"]');
-                                 calculateTotalAmount(paymentModeField?.value, this.value);
-                             });
-                         }
-                     } else if (field.type === 'textarea') {
-                         input = document.createElement('textarea');
-                         input.className = baseInputClass;
-                         input.rows = 4;
-                     } else {
-                         input = document.createElement('input');
-                         input.type = field.type;
-                         input.className = baseInputClass;
-                     }
+                         input.name = fieldName;
+                            if (field.required) input.required = true;
 
-                     input.name = field.name;
-                     input.placeholder = field.placeholder || '';
+                            // Auto-populate
+                            if (field.auto_populate && userData[field.auto_populate]) {
+                                input.value = userData[field.auto_populate];
+                                
+                                // For select fields, trigger change event to ensure proper selection
+                                if (field.type === 'select') {
+                                    input.dispatchEvent(new Event('change'));
+                                }
+                            }
 
-                     if (field.required) {
-                         input.required = true;
-                     }
+                            // Default date value
+                            if (field.type === 'date' && !input.value) {
+                                input.value = new Date().toISOString().split('T')[0];
+                            }
 
-                     // Check for readonly fields
-                     if (field.readonly) {
-                         input.readOnly = true;
-                         input.className += ' bg-gray-100 cursor-not-allowed';
-                     }
-
-                     // Auto-populate fields
-                     if (field.auto_populate) {
-                         const today = new Date();
-
-                         // Date auto-population
-                         if (field.auto_populate === 'current_day') {
-                             input.value = today.getDate();
-                         } else if (field.auto_populate === 'current_month') {
-                             const months = ['January', 'February', 'March', 'April', 'May', 'June',
-                                 'July', 'August', 'September', 'October', 'November', 'December'
-                             ];
-                             input.value = months[today.getMonth()];
-                         } else if (field.auto_populate === 'current_year') {
-                             input.value = today.getFullYear();
-                         }
-                         // User data auto-population
-                         else if (field.auto_populate === 'user_fullname' && typeof userData !== 'undefined') {
-                             input.value = userData.user_fullname || '';
-                         } else if (field.auto_populate === 'user_age' && typeof userData !== 'undefined') {
-                             input.value = userData.user_age || '';
-                         } else if (field.auto_populate === 'user_address' && typeof userData !== 'undefined') {
-                             input.value = userData.user_address || '';
-                         } else if (field.auto_populate === 'user_civil_status' && typeof userData !== 'undefined') {
-                             input.value = userData.user_civil_status || '';
-                         }
-                     }
-
-                     // Apply max_width only for specific short fields (like phone, zip codes)
-                     // and ensure minimum width of 250px
-                     if (field.max_width) {
-                         const wrapper = document.createElement('div');
-                         wrapper.style.maxWidth = field.max_width;
-                         wrapper.style.minWidth = '250px'; // Ensure minimum readable width
-                         wrapper.appendChild(input);
-
-                         fieldWrapper.appendChild(label);
-                         fieldWrapper.appendChild(wrapper);
-                     } else {
                          fieldWrapper.appendChild(label);
                          fieldWrapper.appendChild(input);
-                     }
-
-                     // Set default value for date fields
-                     if (field.type === 'date' && !input.value) {
-                         input.value = new Date().toISOString().split('T')[0];
-                     }
-
-                     container.appendChild(fieldWrapper);
-                 });
-             }
-
-             function calculateTotalAmount(paymentMode, purpose) {
-                 // Check if purpose is Educational - if so, base amount is free
-                 let baseAmount = currentBaseAmount;
-                 const isEducational = purpose === 'Educational Purpose';
-
-                 if (isEducational) {
-                     baseAmount = 0;
+                         container.appendChild(fieldWrapper);
+                     });
                  }
 
-                 const deliveryFee = paymentMode === 'Cash on Delivery' ? 50 : 0;
-                 const totalAmount = baseAmount + deliveryFee;
-
-                 // Update or create the total display
-                 updateTotalDisplay(totalAmount, deliveryFee, baseAmount, isEducational);
-             }
-
-             function updateTotalDisplay(total, deliveryFee, baseAmount, isEducational) {
-                 let displayDiv = document.getElementById('total-amount-display');
-
-                 if (!displayDiv) {
-                     displayDiv = document.createElement('div');
-                     displayDiv.id = 'total-amount-display';
-                     displayDiv.className = 'mt-6 p-6 bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-500 rounded-lg shadow-md';
-
+                 function toggleContactField(paymentMode) {
                      const container = document.getElementById('dynamic-fields-container');
-                     container.appendChild(displayDiv);
+                     let contactField = document.getElementById('contact-field-wrapper');
+
+                     if (paymentMode === 'Cash on Delivery') {
+                         if (!contactField) {
+                             const field = fieldDefinitions['contact'];
+
+                             contactField = document.createElement('div');
+                             contactField.id = 'contact-field-wrapper';
+                             contactField.className = 'mb-6';
+
+                             const label = document.createElement('label');
+                             label.className = 'block text-sm font-semibold text-gray-700 mb-2';
+                             label.textContent = field.label;
+
+                             const required = document.createElement('span');
+                             required.className = 'text-red-500';
+                             required.textContent = ' *';
+                             label.appendChild(required);
+
+                             const input = document.createElement('input');
+                             input.type = field.type;
+                             input.name = 'contact';
+                             input.placeholder = field.placeholder;
+                             input.required = true;
+                             input.className = 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500';
+                                input.value = "{{ auth()->user()->contact ?? '' }}";
+
+                             contactField.appendChild(label);
+                             contactField.appendChild(input);
+
+                             const totalDisplay = document.getElementById('total-amount-display');
+                             if (totalDisplay) {
+                                 container.insertBefore(contactField, totalDisplay);
+                             } else {
+                                 container.appendChild(contactField);
+                             }
+                         }
+                     } else {
+                         if (contactField) {
+                             contactField.remove();
+                         }
+                     }
                  }
 
-                 displayDiv.innerHTML = `
-            <div class="space-y-3">
-                <div class="flex justify-between items-center">
-                    <span class="text-md font-medium text-gray-600">Base Amount:</span>
-                    <span class="text-lg font-semibold ${isEducational ? 'text-green-600 line-through' : 'text-gray-700'}">
-                        ₱${currentBaseAmount.toFixed(2)}
-                        ${isEducational ? '<span class="ml-2 text-green-600 no-underline font-bold">FREE</span>' : ''}
-                    </span>
-                </div>
-                ${isEducational ? `
-                <div class="flex items-start gap-2 bg-green-100 p-3 rounded-lg border border-green-300">
-                    <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                    </svg>
-                    <p class="text-sm text-green-700 font-medium">Educational Purpose discount applied! Base fee waived.</p>
-                </div>
-                ` : ''}
-                ${deliveryFee > 0 ? `
-                <div class="flex justify-between items-center">
-                    <span class="text-md font-medium text-gray-600">Delivery Fee:</span>
-                    <span class="text-lg font-semibold text-orange-600">₱${deliveryFee.toFixed(2)}</span>
-                </div>
-                <hr class="border-gray-300">
-                ` : ''}
-                <div class="flex justify-between items-center pt-2">
-                    <span class="text-lg font-bold text-gray-800">Total Amount to Pay:</span>
-                    <span class="text-3xl font-bold text-green-600">₱${total.toFixed(2)}</span>
-                </div>
-            </div>
-        `;
-             }
-         </script>
+                 function calculateTotalAmount(paymentMode, purpose) {
+                     let baseAmount = currentBaseAmount;
+                     const isEducational = purpose === 'Educational Purpose';
+
+                     if (isEducational) {
+                         baseAmount = 0;
+                     }
+
+                     const deliveryFee = paymentMode === 'Cash on Delivery' ? 50 : 0;
+                     const totalAmount = baseAmount + deliveryFee;
+
+                     updateTotalDisplay(totalAmount, deliveryFee, baseAmount, isEducational);
+                 }
+
+                 function updateTotalDisplay(total, deliveryFee, baseAmount, isEducational) {
+                     let displayDiv = document.getElementById('total-amount-display');
+
+                     if (!displayDiv) {
+                         displayDiv = document.createElement('div');
+                         displayDiv.id = 'total-amount-display';
+                         displayDiv.className = 'mt-6 p-6 bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-500 rounded-lg shadow-md';
+
+                         const container = document.getElementById('dynamic-fields-container');
+                         container.appendChild(displayDiv);
+                     }
+
+                     displayDiv.innerHTML = '<div class="space-y-3">' +
+                         '<div class="flex justify-between items-center">' +
+                         '<span class="text-md font-medium text-gray-600">Base Amount:</span>' +
+                         '<span class="text-lg font-semibold ' + (isEducational ? 'text-green-600 line-through' : 'text-gray-700') + '">' +
+                         '₱' + currentBaseAmount.toFixed(2) +
+                         (isEducational ? '<span class="ml-2 text-green-600 no-underline font-bold">FREE</span>' : '') +
+                         '</span>' +
+                         '</div>' +
+                         (isEducational ? '<div class="flex items-start gap-2 bg-green-100 p-3 rounded-lg border border-green-300">' +
+                             '<svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">' +
+                             '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>' +
+                             '</svg>' +
+                             '<p class="text-sm text-green-700 font-medium">Educational Purpose discount applied! Base fee waived.</p>' +
+                             '</div>' : '') +
+                         (deliveryFee > 0 ? '<div class="flex justify-between items-center">' +
+                             '<span class="text-md font-medium text-gray-600">Delivery Fee:</span>' +
+                             '<span class="text-lg font-semibold text-orange-600">₱' + deliveryFee.toFixed(2) + '</span>' +
+                             '</div><hr class="border-gray-300">' : '') +
+                         '<div class="flex justify-between items-center pt-2">' +
+                         '<span class="text-lg font-bold text-gray-800">Total Amount to Pay:</span>' +
+                         '<span class="text-3xl font-bold text-green-600">₱' + total.toFixed(2) + '</span>' +
+                         '</div>' +
+                         '</div>';
+                 }
+             </script>
+         </main>
+
      </body>
 
      </html>

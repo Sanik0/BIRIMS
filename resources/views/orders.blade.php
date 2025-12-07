@@ -145,11 +145,11 @@
                                     <div class="overflow-hidden border-[1px] border-gray-200 rounded-[4px]">
                                         <img class="object-center object-cover h-[138px] w-[96px]"
                                             src="{{ asset('images/indegency.png') }}"
-                                            alt="{{ $order->document_name }}">
+                                            alt="{{ $order->document_type }}">
                                     </div>
                                     <div class="flex flex-col py-[10px] max-w-[225px]">
-                                        <h3 class="text-[20px] font-semibold">{{ $order->document_name }}</h3>
-                                        <p class="text-[14px] text-gray-500 mt-1">{{ $order->description }}</p>
+                                        <h3 class="text-[20px] font-semibold">{{ $order->document_type }}</h3>
+                                        <p class="text-[14px] text-gray-500 mt-1">{{ $order->full_name ?? 'N/A' }}</p>
                                         <p class="mt-auto text-[16px] font-medium text-gray-400">
                                             Amount: <span class="text-[#85BB65]">₱{{ number_format($order->amount, 2) }}</span>
                                         </p>
@@ -174,20 +174,9 @@
                                 </div>
 
                                 <div class="flex flex-col gap-[15px]">
-                                    <p class="text-gray-400 font-semibold text-[16px]">
-                                        @if($order->status === 'Delivered')
-                                        Delivered On
-                                        @elseif($order->status === 'Cancelled')
-                                        Cancelled
-                                        @else
-                                        Expected Delivery
-                                        @endif
-                                    </p>
-                                    <h3 class="text-gray-600 font-bold text-[20px]">
-                                        @php
-                                        $expectedDate = \Carbon\Carbon::parse($order->ordered_at)->addDays(7);
-                                        @endphp
-                                        {{ $expectedDate->format('d F Y') }}
+                                    <p class="text-gray-400 font-semibold text-[16px]">Address</p>
+                                    <h3 class="text-gray-600 font-bold text-[16px] max-w-[200px]">
+                                        {{ $order->address ?? 'N/A' }}
                                     </h3>
                                 </div>
 
@@ -200,7 +189,7 @@
 
                                     @if($order->status === 'Pending')
                                     <button
-                                        onclick="openDeleteModal({{ $order->order_id }}, '{{ $order->document_name }}')"
+                                        onclick="openDeleteModal({{ $order->order_id }}, '{{ $order->document_type }}')"
                                         class="w-full rounded-[4px] border-[1px] border-red-500 text-[20px] font-medium text-red-500 px-[20px] py-[8px] hover:bg-red-50 transition-all duration-300">
                                         Cancel Order
                                     </button>
@@ -231,7 +220,7 @@
                                             </div>
                                             <div>
                                                 <p class="text-sm text-gray-500 font-semibold">Document Type</p>
-                                                <p class="text-lg font-medium">{{ $order->document_name }}</p>
+                                                <p class="text-lg font-medium">{{ $order->document_type }}</p>
                                             </div>
                                             <div>
                                                 <p class="text-sm text-gray-500 font-semibold">Status</p>
@@ -245,42 +234,114 @@
                                                 <p class="text-sm text-gray-500 font-semibold">Order Date</p>
                                                 <p class="text-lg font-medium">{{ \Carbon\Carbon::parse($order->ordered_at)->format('F d, Y h:i A') }}</p>
                                             </div>
-                                            <div>
-                                                <p class="text-sm text-gray-500 font-semibold">Expected Delivery</p>
-                                                <p class="text-lg font-medium">{{ $expectedDate->format('F d, Y') }}</p>
-                                            </div>
                                         </div>
 
                                         <hr class="my-6">
 
-                                        {{-- Document Fields --}}
+                                        {{-- Document Fields from order_information table --}}
                                         <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
                                             <h3 class="text-xl font-bold mb-4">Document Information</h3>
 
-                                            @php
-                                            $fields = DB::table('order_fields')
-                                            ->where('order_id', $order->order_id)
-                                            ->get()
-                                            ->keyBy('field_name');
-
-                                            $fieldDefinitions = json_decode($order->fields ?? '[]', true);
-                                            @endphp
-
                                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                @foreach($fieldDefinitions as $fieldDef)
-                                                @if(isset($fields[$fieldDef['name']]))
+                                                @if($order->full_name)
                                                 <div>
-                                                    <p class="text-sm text-gray-500 font-semibold">{{ $fieldDef['label'] }}</p>
+                                                    <p class="text-sm text-gray-500 font-semibold">Full Name</p>
+                                                    <p class="text-base font-medium">{{ $order->full_name }}</p>
+                                                </div>
+                                                @endif
+
+                                                @if($order->age)
+                                                <div>
+                                                    <p class="text-sm text-gray-500 font-semibold">Age</p>
+                                                    <p class="text-base font-medium">{{ $order->age }}</p>
+                                                </div>
+                                                @endif
+
+                                                @if($order->address)
+                                                <div>
+                                                    <p class="text-sm text-gray-500 font-semibold">Address</p>
+                                                    <p class="text-base font-medium">{{ $order->address }}</p>
+                                                </div>
+                                                @endif
+
+                                                @if($order->gender)
+                                                <div>
+                                                    <p class="text-sm text-gray-500 font-semibold">Gender</p>
+                                                    <p class="text-base font-medium">{{ $order->gender }}</p>
+                                                </div>
+                                                @endif
+
+                                                @if($order->civil_status)
+                                                <div>
+                                                    <p class="text-sm text-gray-500 font-semibold">Civil Status</p>
+                                                    <p class="text-base font-medium">{{ $order->civil_status }}</p>
+                                                </div>
+                                                @endif
+
+                                                @if($order->years_residency)
+                                                <div>
+                                                    <p class="text-sm text-gray-500 font-semibold">Years of Residency</p>
+                                                    <p class="text-base font-medium">{{ $order->years_residency }}</p>
+                                                </div>
+                                                @endif
+
+                                                @if($order->purpose)
+                                                <div>
+                                                    <p class="text-sm text-gray-500 font-semibold">Purpose</p>
+                                                    <p class="text-base font-medium">{{ $order->purpose }}</p>
+                                                </div>
+                                                @endif
+
+                                                @if($order->occupation)
+                                                <div>
+                                                    <p class="text-sm text-gray-500 font-semibold">Occupation</p>
+                                                    <p class="text-base font-medium">{{ $order->occupation }}</p>
+                                                </div>
+                                                @endif
+
+                                                @if($order->monthly_income)
+                                                <div>
+                                                    <p class="text-sm text-gray-500 font-semibold">Monthly Income</p>
+                                                    <p class="text-base font-medium">₱{{ number_format($order->monthly_income, 2) }}</p>
+                                                </div>
+                                                @endif
+
+                                                @if($order->num_family_members)
+                                                <div>
+                                                    <p class="text-sm text-gray-500 font-semibold">Number of Family Members</p>
+                                                    <p class="text-base font-medium">{{ $order->num_family_members }}</p>
+                                                </div>
+                                                @endif
+
+                                                @if($order->valid_until)
+                                                <div>
+                                                    <p class="text-sm text-gray-500 font-semibold">Valid Until</p>
+                                                    <p class="text-base font-medium">{{ \Carbon\Carbon::parse($order->valid_until)->format('F d, Y') }}</p>
+                                                </div>
+                                                @endif
+
+                                                @if($order->mode_payment)
+                                                <div>
+                                                    <p class="text-sm text-gray-500 font-semibold">Mode of Payment</p>
+                                                    <p class="text-base font-medium">{{ $order->mode_payment }}</p>
+                                                </div>
+                                                @endif
+
+                                                @if($order->contact && $order->mode_payment === 'Cash on Delivery')
+                                                <div>
+                                                    <p class="text-sm text-gray-500 font-semibold">Contact Number</p>
+                                                    <p class="text-base font-medium">{{ $order->contact }}</p>
+                                                </div>
+                                                @endif
+
+                                                @if($order->date || $order->month || $order->year)
+                                                <div>
+                                                    <p class="text-sm text-gray-500 font-semibold">Date Issued</p>
                                                     <p class="text-base font-medium">
-                                                        @if($fieldDef['type'] === 'date')
-                                                        {{ \Carbon\Carbon::parse($fields[$fieldDef['name']]->field_value)->format('F d, Y') }}
-                                                        @else
-                                                        {{ $fields[$fieldDef['name']]->field_value }}
-                                                        @endif
+                                                        {{ $order->month ?? '' }} {{ $order->date ?? '' }}, {{ $order->year ?? '' }}
                                                     </p>
                                                 </div>
                                                 @endif
-                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -315,58 +376,53 @@
                         </form>
                     </div>
                 </section>
-            </main>
-            <script>
-                function openModal(orderId) {
-                    document.getElementById('modal-' + orderId).classList.remove('hidden');
-                    document.body.style.overflow = 'hidden';
-                }
 
-                function closeModal(orderId) {
-                    document.getElementById('modal-' + orderId).classList.add('hidden');
-                    document.body.style.overflow = 'auto';
-                }
+                <script>
+                    function openModal(orderId) {
+                        document.getElementById('modal-' + orderId).classList.remove('hidden');
+                        document.body.style.overflow = 'hidden';
+                    }
 
-                function openDeleteModal(orderId, documentName) {
-                    const deleteModal = document.getElementById('deleteOrderModal');
-                    const deleteForm = document.getElementById('deleteOrderForm');
-                    const deleteTitle = document.getElementById('deleteOrderTitle');
-
-                    // Set the form action to the delete route
-                    deleteForm.action = '/document/' + orderId;
-
-                    // Set the document name in the modal
-                    deleteTitle.textContent = documentName;
-
-                    // Show the modal
-                    deleteModal.classList.remove('hidden');
-                    deleteModal.classList.add('flex');
-                    document.body.style.overflow = 'hidden';
-                }
-
-                function closeDeleteModal() {
-                    const deleteModal = document.getElementById('deleteOrderModal');
-                    deleteModal.classList.add('hidden');
-                    deleteModal.classList.remove('flex');
-                    document.body.style.overflow = 'auto';
-                }
-
-                // Close modal when clicking outside
-                document.addEventListener('click', function(event) {
-                    if (event.target.classList.contains('bg-opacity-50')) {
-                        const modals = document.querySelectorAll('[id^="modal-"]');
-                        modals.forEach(modal => {
-                            modal.classList.add('hidden');
-                        });
+                    function closeModal(orderId) {
+                        document.getElementById('modal-' + orderId).classList.add('hidden');
                         document.body.style.overflow = 'auto';
                     }
 
-                    // Close delete modal when clicking outside
-                    if (event.target.id === 'deleteOrderModal') {
-                        closeDeleteModal();
+                    function openDeleteModal(orderId, documentName) {
+                        const deleteModal = document.getElementById('deleteOrderModal');
+                        const deleteForm = document.getElementById('deleteOrderForm');
+                        const deleteTitle = document.getElementById('deleteOrderTitle');
+
+                        deleteForm.action = '/document/' + orderId;
+                        deleteTitle.textContent = documentName;
+
+                        deleteModal.classList.remove('hidden');
+                        deleteModal.classList.add('flex');
+                        document.body.style.overflow = 'hidden';
                     }
-                });
-            </script>
+
+                    function closeDeleteModal() {
+                        const deleteModal = document.getElementById('deleteOrderModal');
+                        deleteModal.classList.add('hidden');
+                        deleteModal.classList.remove('flex');
+                        document.body.style.overflow = 'auto';
+                    }
+
+                    document.addEventListener('click', function(event) {
+                        if (event.target.classList.contains('bg-opacity-50')) {
+                            const modals = document.querySelectorAll('[id^="modal-"]');
+                            modals.forEach(function(modal) {
+                                modal.classList.add('hidden');
+                            });
+                            document.body.style.overflow = 'auto';
+                        }
+
+                        if (event.target.id === 'deleteOrderModal') {
+                            closeDeleteModal();
+                        }
+                    });
+                </script>
+            </main>
         </body>
 
         </html>

@@ -106,6 +106,8 @@
                            <option value="">Choose Status</option>
                            <option value="single" {{ old('civil_status', auth()->user()->civil_status) == 'single' ? 'selected' : '' }}>Single</option>
                            <option value="married" {{ old('civil_status', auth()->user()->civil_status) == 'married' ? 'selected' : '' }}>Married</option>
+                           <option value="widowed" {{ old('civil_status', auth()->user()->civil_status) == 'widdowed' ? 'selected' : '' }}>Widowed</option>
+                           <option value="seperated" {{ old('civil_status', auth()->user()->civil_status) == 'seperated' ? 'selected' : '' }}>Separated</option>
                        </Select>
                    </div>
                </div>
@@ -150,21 +152,6 @@
                        @enderror
                    </div>
                </div>
-
-               <div class="flex flex-col sm:flex-row items-center gap-[30px] w-full">
-                   <div class="flex flex-col w-full">
-                       <Label class="font-medium text-[18px]">New Password (Optional):</Label>
-                       <input name="password" type="password" placeholder="Leave blank to keep current" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                       @error('password')
-                       <small class="text-red-600 text-sm mt-1">{{ $message }}</small>
-                       @enderror
-                   </div>
-                   <div class="flex flex-col w-full">
-                       <Label class="font-medium text-[18px]">Confirm Password:</Label>
-                       <input name="password_confirmation" type="password" placeholder="" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                   </div>
-               </div>
-
                <div class="flex flex-col w-full gap-[20px]">
                    <button type="submit" class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Save Changes</button>
                    <div id="cancelBtn" class="cancelBtn flex items-center justify-center px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300 hover:cursor-pointer">Cancel</div>
