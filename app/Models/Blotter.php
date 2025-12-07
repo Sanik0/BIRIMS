@@ -21,6 +21,8 @@ class Blotter extends Model
         'complaint',
         'description',
         'date',
+        'incident_date',
+        'incident_time',
         'time',
         'user_id',
     ];

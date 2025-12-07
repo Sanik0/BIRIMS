@@ -152,15 +152,15 @@
                     <h3 class="font-serif text-[25px] sm:text-[30px] font-medium">Latest Barangay Announcements</h3>
 
                     @forelse($announcements as $announcement)
-                    <a href="#"
+                    <div
                         class="group w-full flex flex-col sm:flex-row gap-[15px] rounded-[4px] border-solid border-[1px] border-[#D4D4D8] p-[15px]">
-                        <div class="w-full max-w-full sm:max-w-[178px] h-[178px] rounded-[4px] overflow-hidden bg-gray-100">
+                        <div class="w-full max-w-full sm:min-w-[200px] sm:max-w-[200px] h-[178px] rounded-[4px] overflow-hidden bg-gray-100">
                             <img class="object-cover object-center h-full w-full"
                                 src="{{ asset('images/barangay_sb.png') }}"
                                 alt="{{ $announcement->title }}">
                         </div>
                         <div class="flex flex-col gap-[10px] w-full">
-                            <h2 class="font-medium text-[25px] text-[#52525B] group-hover:underline">
+                            <h2 class="font-medium text-[25px] text-[#52525B]">
                                 {{ $announcement->title }}
                             </h2>
                             <p class="text-[16px] font-medium text-[#A1A1AA]">
@@ -170,7 +170,7 @@
                                 Admin • {{ $announcement->created_at->format('F d, Y') }}
                             </small>
                         </div>
-                    </a>
+                    </div>
                     @empty
                     <div class="w-full flex flex-col sm:flex-row items-center justify-start gap-[20px] rounded-[4px] border-solid border-[1px] border-[#D4D4D8] p-[20px] sm:p-[20px] bg-[#FAFAFA]">
                         <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">

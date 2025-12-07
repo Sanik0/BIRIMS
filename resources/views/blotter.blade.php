@@ -159,7 +159,7 @@
 
                             <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
                                 <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="respondent_name">Name of Respondent:</label>
-                                <input required name="respondent_name" id="respondent_name" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text" value="{{ old('respondent_name') }}">
+                                <input placeholder="(If Applicable)" name="respondent_name" id="respondent_name" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text" value="{{ old('respondent_name') }}">
                             </div>
                             @error('respondent_name')
                             <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
@@ -167,7 +167,7 @@
 
                             <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
                                 <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="respondent_address">Address:</label>
-                                <input required name="respondent_address" id="respondent_address" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text" value="{{ old('respondent_address') }}">
+                                <input placeholder="(If Applicable)" name="respondent_address" id="respondent_address" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text" value="{{ old('respondent_address') }}">
                             </div>
                             @error('respondent_address')
                             <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
@@ -176,11 +176,11 @@
                             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-[15px]">
                                 <div class="flex items-start flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
                                     <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="respondent_contact">Contact Number:</label>
-                                    <input name="respondent_contact" id="respondent_contact" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="number" value="{{ old('respondent_contact') }}">
+                                    <input placeholder="(If Applicable)" name="respondent_contact" id="respondent_contact" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="number" value="{{ old('respondent_contact') }}">
                                 </div>
                                 <div class="flex items-start flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
                                     <label class="text-[16px] font-semibold font-serif" for="respondent_age">Edad:</label>
-                                    <input name="respondent_age" id="respondent_age" class="border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="number" value="{{ old('respondent_age') }}">
+                                    <input placeholder="(If Applicable)" name="respondent_age" id="respondent_age" class="border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="number" value="{{ old('respondent_age') }}">
                                 </div>
                             </div>
                             @error('respondent_contact')
@@ -195,6 +195,23 @@
                                 <input required name="complaint" id="complaint" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="text" value="{{ old('complaint') }}">
                             </div>
                             @error('complaint')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+
+                            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-[15px]">
+                                <div class="flex items-start flex-col sm:flex-row gap-[10px] w-fit max-w-[700px]">
+                                    <label class="text-[16px] font-semibold font-serif whitespace-nowrap" for="date">Date of Incident:</label>
+                                    <input required name="incident_date" id="date" class="w-full border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="date" value="{{ old('incident_date') }}">
+                                </div>
+                                <div class="flex items-start flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
+                                    <label class="text-[16px] font-semibold font-serif" for="time">Time of Incident:</label>
+                                    <input required  name="incident_time" id="time" class="border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="time" value="{{ old('incident_time') }}">
+                                </div>
+                            </div>
+                            @error('incident_date')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                            @enderror
+                            @error('incident_time')
                             <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                             @enderror
 
