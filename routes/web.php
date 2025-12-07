@@ -12,6 +12,7 @@ use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\UserAppointmentController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\OrderController; // Add this
+use App\Http\Controllers\AdminOrderController; // Add this
 
 // Public routes
 Route::get('/signin', [LoginController::class, 'show'])->name('login');
@@ -90,9 +91,11 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
-    Route::get('/orders', function () {
-        return view('admin.orders');
-    });
+    // With these lines:
+    Route::get('/orders', [App\Http\Controllers\AdminOrderController::class, 'index'])->name('admin.orders.index');
+    Route::put('/orders/{id}', [App\Http\Controllers\AdminOrderController::class, 'update'])->name('admin.orders.update');
+    Route::delete('/orders/{id}', [App\Http\Controllers\AdminOrderController::class, 'destroy'])->name('admin.orders.destroy');
+    Route::get('/orders/{id}', [App\Http\Controllers\AdminOrderController::class, 'show'])->name('admin.orders.show');
 
     // Admin Announcement Routes
     Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');

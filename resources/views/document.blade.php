@@ -55,7 +55,7 @@
                  </div>
              </div>
 
-             <section class="w-full items-center justify-center flex">
+            <section class="w-full items-center justify-center flex">
                  <div class="container mx-auto px-4 py-8">
 
                      {{-- Dynamic Form --}}
@@ -76,8 +76,6 @@
                                  <option value="certificate_of_residency">Certificate of Residency</option>
                                  <option value="barangay_clearance">Barangay Clearance</option>
                                  <option value="certificate_of_indigency">Certificate of Indigency</option>
-                                 <option value="barangay_id">Barangay ID</option>
-                                 <option value="business_permit">Business Permit Clearance</option>
                              </select>
                          </div>
 
@@ -121,12 +119,15 @@
              </section>
 
              <script>
-                 const userData = {
-                     user_fullname: "{{ auth()->user()->firstname ?? '' }} {{ auth()->user()->middlename ? strtoupper(substr(auth()->user()->middlename, 0, 1)) . '.' : '' }} {{ auth()->user()->lastname ?? '' }}".trim(),
-                     user_age: {{ auth()->user()->birthdate ? \Carbon\Carbon::parse(auth()->user()->birthdate)->age : 0 }},
-                     user_address: "{{ auth()->user()->address ?? '' }}",
-                     user_civil_status: "{{ auth()->user()->civil_status ?? '' }}"
-                 };
+                const userData = {
+                    user_fullname: "{{ auth()->user()->firstname ?? '' }} {{ auth()->user()->middlename ? strtoupper(substr(auth()->user()->middlename, 0, 1)) . '.' : '' }} {{ auth()->user()->lastname ?? '' }}".trim(),
+                    user_age: {{ auth()->user()->birthdate ? \Carbon\Carbon::parse(auth()->user()->birthdate)->age : 0 }},
+                    user_address: "{{ auth()->user()->house_number ?? '' }} {{ auth()->user()->street ?? '' }}, Barangay San Bartolome, Quezon City, Metro Manila, Philippines".trim(),
+                    user_civil_status: "{{ auth()->user()->civil_status ?? '' }}",
+                    user_occupation: "{{ auth()->user()->occupation ?? '' }}"
+                };
+
+                console.log('User Data:', userData); // Debug log
 
                  let currentBaseAmount = 0;
 
@@ -134,7 +135,7 @@
                      certificate_of_residency: {
                          name: 'Certificate of Residency',
                          amount: 50,
-                         fields: ['full_name', 'age', 'years_residency', 'purpose', 'mode_payment']
+                         fields: ['full_name', 'address', 'age', 'years_residency', 'purpose', 'mode_payment']
                      },
                      barangay_clearance: {
                          name: 'Barangay Clearance',
@@ -146,16 +147,6 @@
                          amount: 0,
                          fields: ['full_name', 'age', 'address', 'occupation', 'monthly_income', 'num_family_members', 'purpose', 'mode_payment']
                      },
-                     barangay_id: {
-                         name: 'Barangay ID',
-                         amount: 150,
-                         fields: ['full_name', 'address', 'gender', 'civil_status', 'date', 'month', 'year', 'mode_payment']
-                     },
-                     business_permit: {
-                         name: 'Business Permit Clearance',
-                         amount: 200,
-                         fields: ['full_name', 'address', 'purpose', 'mode_payment']
-                     }
                  };
 
                  const fieldDefinitions = {
@@ -212,7 +203,8 @@
                          label: 'Occupation',
                          type: 'text',
                          placeholder: 'Enter occupation',
-                         required: false
+                         required: false,
+                         auto_populate: 'user_occupation'
                      },
                      monthly_income: {
                          label: 'Monthly Income',
@@ -259,7 +251,7 @@
                          label: 'Contact Number',
                          type: 'text',
                          placeholder: 'Enter contact number (09XXXXXXXXX)',
-                         required: true
+                         required: false
                      }
                  };
 
@@ -340,22 +332,26 @@
                          }
 
                          input.name = fieldName;
-                            if (field.required) input.required = true;
+                         if (field.required) input.required = true;
 
-                            // Auto-populate
-                            if (field.auto_populate && userData[field.auto_populate]) {
-                                input.value = userData[field.auto_populate];
-                                
-                                // For select fields, trigger change event to ensure proper selection
-                                if (field.type === 'select') {
-                                    input.dispatchEvent(new Event('change'));
-                                }
-                            }
+                         // Auto-populate logic
+                         if (field.auto_populate && userData[field.auto_populate]) {
+                             const valueToSet = userData[field.auto_populate];
+                             
+                             if (field.type === 'select') {
+                                 // Set value directly for select fields
+                                 input.value = valueToSet;
+                                 console.log(`Setting ${fieldName} to: ${valueToSet}, actual value: ${input.value}`); // Debug
+                             } else {
+                                 input.value = valueToSet;
+                                 console.log(`Setting ${fieldName} to: ${valueToSet}`); // Debug
+                             }
+                         }
 
-                            // Default date value
-                            if (field.type === 'date' && !input.value) {
-                                input.value = new Date().toISOString().split('T')[0];
-                            }
+                         // Default date value
+                         if (field.type === 'date' && !input.value) {
+                             input.value = new Date().toISOString().split('T')[0];
+                         }
 
                          fieldWrapper.appendChild(label);
                          fieldWrapper.appendChild(input);
@@ -390,7 +386,7 @@
                              input.placeholder = field.placeholder;
                              input.required = true;
                              input.className = 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500';
-                                input.value = "{{ auth()->user()->contact ?? '' }}";
+                             input.value = "{{ auth()->user()->contact ?? '' }}";
 
                              contactField.appendChild(label);
                              contactField.appendChild(input);

@@ -13,27 +13,27 @@ class OrderController extends Controller
         'certificate_of_residency' => [
             'name' => 'Certificate of Residency',
             'amount' => 50,
-            'fields' => ['full_name', 'age', 'years_residency', 'purpose', 'mode_payment', 'contact']
+            'fields' => ['full_name', 'address', 'age', 'years_residency', 'purpose', 'mode_payment']
         ],
         'barangay_clearance' => [
             'name' => 'Barangay Clearance',
             'amount' => 100,
-            'fields' => ['full_name', 'address', 'civil_status', 'purpose', 'valid_until', 'mode_payment', 'contact']
+            'fields' => ['full_name', 'address', 'civil_status', 'purpose', 'valid_until', 'mode_payment']
         ],
         'certificate_of_indigency' => [
             'name' => 'Certificate of Indigency',
             'amount' => 0,
-            'fields' => ['full_name', 'age', 'address', 'occupation', 'monthly_income', 'num_family_members', 'purpose', 'mode_payment', 'contact']
+            'fields' => ['full_name', 'age', 'address', 'occupation', 'monthly_income', 'num_family_members', 'purpose', 'mode_payment']
         ],
         'barangay_id' => [
             'name' => 'Barangay ID',
             'amount' => 150,
-            'fields' => ['full_name', 'address', 'gender', 'civil_status', 'date', 'month', 'year', 'mode_payment', 'contact']
+            'fields' => ['full_name', 'address', 'gender', 'civil_status', 'date', 'month', 'year', 'mode_payment']
         ],
         'business_permit' => [
             'name' => 'Business Permit Clearance',
             'amount' => 200,
-            'fields' => ['full_name', 'address', 'purpose', 'mode_payment', 'contact']
+            'fields' => ['full_name', 'address', 'purpose', 'mode_payment']
         ]
     ];
 
@@ -59,7 +59,7 @@ class OrderController extends Controller
     {
         // Validate document type exists
         $documentType = $request->input('document_type');
-        
+
         if (!isset($this->documentConfigs[$documentType])) {
             return back()->withErrors(['error' => 'Invalid document type selected.']);
         }
@@ -73,6 +73,11 @@ class OrderController extends Controller
 
         foreach ($config['fields'] as $fieldName) {
             $validationRules[$fieldName] = 'required|string|max:255';
+        }
+
+        // Contact is only required for Cash on Delivery
+        if ($request->input('mode_payment') === 'Cash on Delivery') {
+            $validationRules['contact'] = 'required|string|max:255';
         }
 
         // Validate
@@ -97,13 +102,18 @@ class OrderController extends Controller
 
             // Insert into order_information
             $orderInfo = [];
-            
+
             foreach ($config['fields'] as $fieldName) {
                 if (isset($validated[$fieldName])) {
                     $orderInfo[$fieldName] = $validated[$fieldName];
                 }
             }
-            
+
+            // Add contact if provided (for Cash on Delivery)
+            if (isset($validated['contact'])) {
+                $orderInfo['contact'] = $validated['contact'];
+            }
+
             $orderInfo['amount'] = $actualAmount;
             $orderInfo['submitted_at'] = now();
             $orderInfo['updated_at'] = now();
@@ -122,7 +132,7 @@ class OrderController extends Controller
 
             DB::commit();
 
-            return redirect()->route('home')
+            return redirect()->route('orders.index')
                 ->with('success', 'Document request submitted successfully!');
         } catch (\Exception $e) {
             DB::rollBack();
@@ -167,13 +177,13 @@ class OrderController extends Controller
                     ->where('order_information_id', $order->order_information_id)
                     ->delete();
             }
-            
+
             // Delete order
             DB::table('order')->where('order_id', $id)->delete();
 
             DB::commit();
 
-            return redirect()->route('home')
+            return redirect()->route('orders.index')
                 ->with('success', 'Order deleted successfully!');
         } catch (\Exception $e) {
             DB::rollBack();
