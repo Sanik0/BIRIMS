@@ -121,7 +121,36 @@
              </section>
          </main>
          <script>
+             // Pass user data from Laravel to JavaScript - DECLARE ONCE
+             const userData = {
+                 user_fullname: "{{ auth()->user()->firstname ?? '' }} {{ auth()->user()->middlename ? strtoupper(substr(auth()->user()->middlename, 0, 1)) . '.' : '' }} {{ auth()->user()->lastname ?? '' }}".trim(),
+                 user_age: {
+                     {
+                         auth() - > user() - > birthdate ? \Carbon\ Carbon::parse(auth() - > user() - > birthdate) - > age : 0
+                     }
+                 },
+                 user_address: "{{ auth()->user()->address ?? '' }}",
+                 user_civil_status: "{{ auth()->user()->civil_status ?? '' }}"
+             };
+
              let currentDocumentId = document.getElementById('selected_document_type')?.value || null;
+             let currentBaseAmount = 0;
+
+             // Auto-populate fields when document is loaded or changed
+             function autoPopulateFields(fields) {
+                 fields.forEach(field => {
+                     if (field.auto_populate && userData[field.auto_populate]) {
+                         const element = document.querySelector(`[name="${field.name}"]`);
+                         if (element) {
+                             element.value = userData[field.auto_populate];
+
+                             // Trigger change event for any dependencies
+                             element.dispatchEvent(new Event('change'));
+                             element.dispatchEvent(new Event('input'));
+                         }
+                     }
+                 });
+             }
 
              // Load fields on page load
              document.addEventListener('DOMContentLoaded', function() {
@@ -139,6 +168,10 @@
                      if (card.dataset.documentId == documentId) {
                          card.classList.add('border-orange-500');
                          card.classList.remove('border-gray-200');
+
+                         // Get and store the base amount from this card
+                         const amountText = card.querySelector('.text-green-600').textContent;
+                         currentBaseAmount = parseFloat(amountText.replace('₱', '').replace(',', ''));
                      } else {
                          card.classList.remove('border-orange-500');
                          card.classList.add('border-gray-200');
@@ -154,7 +187,14 @@
                      .then(response => response.json())
                      .then(data => {
                          if (data.success) {
+                             // Store the base amount
+                             currentBaseAmount = parseFloat(data.document.amount);
                              renderFields(data.document.fields);
+
+                             // Auto-populate after fields are rendered
+                             setTimeout(() => {
+                                 autoPopulateFields(data.document.fields);
+                             }, 100);
                          }
                      })
                      .catch(error => {
@@ -167,6 +207,11 @@
                  container.innerHTML = '';
 
                  fields.forEach(field => {
+                     // Skip display/computed fields - we'll handle them separately
+                     if (field.type === 'display' && field.computed) {
+                         return;
+                     }
+
                      const fieldWrapper = document.createElement('div');
                      fieldWrapper.className = 'mb-6';
 
@@ -198,6 +243,22 @@
                              opt.textContent = option;
                              input.appendChild(opt);
                          });
+
+                         // Add event listener for payment_mode field
+                         if (field.name === 'payment_mode') {
+                             input.addEventListener('change', function() {
+                                 const purposeField = document.querySelector('[name="purpose"]');
+                                 calculateTotalAmount(this.value, purposeField?.value);
+                             });
+                         }
+
+                         // Add event listener for purpose field
+                         if (field.name === 'purpose') {
+                             input.addEventListener('change', function() {
+                                 const paymentModeField = document.querySelector('[name="payment_mode"]');
+                                 calculateTotalAmount(paymentModeField?.value, this.value);
+                             });
+                         }
                      } else if (field.type === 'textarea') {
                          input = document.createElement('textarea');
                          input.className = baseInputClass;
@@ -213,6 +274,39 @@
 
                      if (field.required) {
                          input.required = true;
+                     }
+
+                     // Check for readonly fields
+                     if (field.readonly) {
+                         input.readOnly = true;
+                         input.className += ' bg-gray-100 cursor-not-allowed';
+                     }
+
+                     // Auto-populate fields
+                     if (field.auto_populate) {
+                         const today = new Date();
+
+                         // Date auto-population
+                         if (field.auto_populate === 'current_day') {
+                             input.value = today.getDate();
+                         } else if (field.auto_populate === 'current_month') {
+                             const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                                 'July', 'August', 'September', 'October', 'November', 'December'
+                             ];
+                             input.value = months[today.getMonth()];
+                         } else if (field.auto_populate === 'current_year') {
+                             input.value = today.getFullYear();
+                         }
+                         // User data auto-population
+                         else if (field.auto_populate === 'user_fullname' && typeof userData !== 'undefined') {
+                             input.value = userData.user_fullname || '';
+                         } else if (field.auto_populate === 'user_age' && typeof userData !== 'undefined') {
+                             input.value = userData.user_age || '';
+                         } else if (field.auto_populate === 'user_address' && typeof userData !== 'undefined') {
+                             input.value = userData.user_address || '';
+                         } else if (field.auto_populate === 'user_civil_status' && typeof userData !== 'undefined') {
+                             input.value = userData.user_civil_status || '';
+                         }
                      }
 
                      // Apply max_width only for specific short fields (like phone, zip codes)
@@ -237,6 +331,66 @@
 
                      container.appendChild(fieldWrapper);
                  });
+             }
+
+             function calculateTotalAmount(paymentMode, purpose) {
+                 // Check if purpose is Educational - if so, base amount is free
+                 let baseAmount = currentBaseAmount;
+                 const isEducational = purpose === 'Educational Purpose';
+
+                 if (isEducational) {
+                     baseAmount = 0;
+                 }
+
+                 const deliveryFee = paymentMode === 'Cash on Delivery' ? 50 : 0;
+                 const totalAmount = baseAmount + deliveryFee;
+
+                 // Update or create the total display
+                 updateTotalDisplay(totalAmount, deliveryFee, baseAmount, isEducational);
+             }
+
+             function updateTotalDisplay(total, deliveryFee, baseAmount, isEducational) {
+                 let displayDiv = document.getElementById('total-amount-display');
+
+                 if (!displayDiv) {
+                     displayDiv = document.createElement('div');
+                     displayDiv.id = 'total-amount-display';
+                     displayDiv.className = 'mt-6 p-6 bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-500 rounded-lg shadow-md';
+
+                     const container = document.getElementById('dynamic-fields-container');
+                     container.appendChild(displayDiv);
+                 }
+
+                 displayDiv.innerHTML = `
+            <div class="space-y-3">
+                <div class="flex justify-between items-center">
+                    <span class="text-md font-medium text-gray-600">Base Amount:</span>
+                    <span class="text-lg font-semibold ${isEducational ? 'text-green-600 line-through' : 'text-gray-700'}">
+                        ₱${currentBaseAmount.toFixed(2)}
+                        ${isEducational ? '<span class="ml-2 text-green-600 no-underline font-bold">FREE</span>' : ''}
+                    </span>
+                </div>
+                ${isEducational ? `
+                <div class="flex items-start gap-2 bg-green-100 p-3 rounded-lg border border-green-300">
+                    <svg class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <p class="text-sm text-green-700 font-medium">Educational Purpose discount applied! Base fee waived.</p>
+                </div>
+                ` : ''}
+                ${deliveryFee > 0 ? `
+                <div class="flex justify-between items-center">
+                    <span class="text-md font-medium text-gray-600">Delivery Fee:</span>
+                    <span class="text-lg font-semibold text-orange-600">₱${deliveryFee.toFixed(2)}</span>
+                </div>
+                <hr class="border-gray-300">
+                ` : ''}
+                <div class="flex justify-between items-center pt-2">
+                    <span class="text-lg font-bold text-gray-800">Total Amount to Pay:</span>
+                    <span class="text-3xl font-bold text-green-600">₱${total.toFixed(2)}</span>
+                </div>
+            </div>
+        `;
              }
          </script>
      </body>

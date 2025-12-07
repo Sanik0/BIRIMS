@@ -17,7 +17,7 @@ class OrderController extends Controller
             ->select('order.*', 'document_type.name as document_name', 'document_type.description', 'document_type.fields')
             ->orderBy('ordered_at', 'desc')
             ->get();
-            
+
         return view('orders', compact('orders'));
     }
 
@@ -27,8 +27,11 @@ class OrderController extends Controller
         $documentTypes = DB::table('document_type')
             ->where('is_active', true)
             ->get();
-            
-        return view('document', compact('documentTypes'));
+
+        // Get logged-in user data
+        $user = Auth::user();
+
+        return view('document', compact('documentTypes', 'user'));
     }
 
     public function store(Request $request)
@@ -62,11 +65,25 @@ class OrderController extends Controller
         try {
             DB::beginTransaction();
 
+            // Calculate the actual amount based on purpose and payment mode
+            $baseAmount = $documentType->amount;
+            $actualAmount = $baseAmount;
+
+            // Check if purpose is Educational - make it free
+            if (isset($validated['purpose']) && $validated['purpose'] === 'Educational Purpose') {
+                $actualAmount = 0;
+            }
+
+            // Add delivery fee if Cash on Delivery
+            if (isset($validated['payment_mode']) && $validated['payment_mode'] === 'Cash on Delivery') {
+                $actualAmount += 50;
+            }
+
             // Create order
             $orderId = DB::table('order')->insertGetId([
                 'user_id' => Auth::id(),
                 'document_type_id' => $validated['document_type_id'],
-                'amount' => $documentType->amount,
+                'amount' => $actualAmount, // Use calculated amount instead of base amount
                 'status' => 'Pending',
                 'ordered_at' => now(),
             ]);
@@ -93,7 +110,6 @@ class OrderController extends Controller
 
             return redirect()->route('home')
                 ->with('success', 'Document request submitted successfully!');
-
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withInput()
@@ -141,7 +157,7 @@ class OrderController extends Controller
 
             // Delete order_fields first (child records) - handled by CASCADE if set
             DB::table('order_fields')->where('order_id', $id)->delete();
-            
+
             // Then delete the order (parent record)
             DB::table('order')->where('order_id', $id)->delete();
 
@@ -149,7 +165,6 @@ class OrderController extends Controller
 
             return redirect()->route('home')
                 ->with('success', 'Order deleted successfully!');
-
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->withErrors(['error' => 'Failed to delete order: ' . $e->getMessage()]);
