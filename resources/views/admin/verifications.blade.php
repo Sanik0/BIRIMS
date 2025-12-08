@@ -59,7 +59,7 @@
                    <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
                </svg>
            </div>
-           <div class="sm:flex hidden items-center gap-[20px]">
+           <div class="flex items-center gap-[20px]">
                <div class="rounded-[50%] h-[50px] w-[50px] min-w-[50px] bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
                    <span class="text-white text-[20px] font-bold">
                        {{ strtoupper(substr(auth()->user()->firstname, 0, 1)) }}{{ strtoupper(substr(auth()->user()->lastname, 0, 1)) }}
@@ -86,24 +86,26 @@
                        </p>
                    </div>
                </div>
-               <div class="sm:flex hidden gap-[20px]">
-                   <div class="h-[50px] w-[50px] rounded-[50%] border-solid border-[2px] border-[#EA580C] overflow-hidden">
-                       <img class="w-full h-full object-center object-cover" src="{{asset('images/3d cartoon avatar of a man minimal 3d character _ Premium AI-generated image.jpg')}}" alt="">
+               <div class="sm:flex items-center hidden gap-[20px]">
+                   <div class="rounded-[50%] h-[50px] w-[50px] min-w-[50px] bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center">
+                       <span class="text-white text-[20px] font-bold">
+                           {{ strtoupper(substr(auth()->user()->firstname, 0, 1)) }}{{ strtoupper(substr(auth()->user()->lastname, 0, 1)) }}
+                       </span>
                    </div>
-                   <a href="#" class="group rounded-[4px] hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] px-[20px] flex items-center gap-[12px]">
-                       <svg class="h-[25px] w-[25px]  group-hover:fill-gray-50 transition-all duration-300 fill-[#ffffff]" xmlns="http://www.w3.org/2000/svg" height="24px"
-                           viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                           <path
-                               d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h240q17 0 28.5 11.5T480-800q0 17-11.5 28.5T440-760H200v560h240q17 0 28.5 11.5T480-160q0 17-11.5 28.5T440-120H200Zm487-320H400q-17 0-28.5-11.5T360-480q0-17 11.5-28.5T400-520h287l-75-75q-11-11-11-27t11-28q11-12 28-12.5t29 11.5l143 143q12 12 12 28t-12 28L669-309q-12 12-28.5 11.5T612-310q-11-12-10.5-28.5T613-366l74-74Z" />
-                       </svg>
-                       <div class="text-[16px] group-hover:text-gray-50 transition-all duration-300 font-medium text-[#ffffff]">Log Out</div>
-                   </a>
+                   <form method="POST" action="{{ route('logout') }}">
+                       @csrf
+                       <button type="submit" class="group rounded-[4px] py-[7px] px-[8px] hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center gap-[12px] w-full cursor-pointer">
+                           <svg class="h-[25px] w-[25px] group-hover:fill-gray-50 transition-all duration-300 fill-[#ffffff]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                               <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h240q17 0 28.5 11.5T480-800q0 17-11.5 28.5T440-760H200v560h240q17 0 28.5 11.5T480-160q0 17-11.5 28.5T440-120H200Zm487-320H400q-17 0-28.5-11.5T360-480q0-17 11.5-28.5T400-520h287l-75-75q-11-11-11-27t11-28q11-12 28-12.5t29 11.5l143 143q12 12 12 28t-12 28L669-309q-12 12-28.5 11.5T612-310q-11-12-10.5-28.5T613-366l74-74Z" />
+                           </svg>
+                           <div class="text-[16px] group-hover:text-gray-50 transition-all duration-300 font-medium text-[#ffffff]">Log Out</div>
+                       </button>
+                   </form>
                </div>
            </div>
 
-           <main class="w-full min-h-screen flex items-start justify-center py-[30px] px-[20px] sm:px-[50px]">
+           <main class="w-full min-h-screen flex items-start justify-center py-[30px] px-[15px] ">
                <section class="container w-full flex flex-col gap-[20px]">
-                   <h1 class="text-[32px] font-bold">Verification Requests</h1>
 
                    <section class="w-full flex px-[15px] sm:px-[0] flex-col gap-[15px]">
                        <div class="w-full items-center justify-between flex">
@@ -136,7 +138,6 @@
                                    <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Full Name</th>
                                    <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Email</th>
                                    <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Document</th>
-                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Date Submitted</th>
                                    <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Status</th>
                                    <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Action</th>
                                </tr>
@@ -149,9 +150,7 @@
                                    </td>
                                    <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $verification->email }}</td>
                                    <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $verification->type }}</td>
-                                   <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">
-                                       {{ \Carbon\Carbon::parse($verification->submitted_at)->format('d-m-Y') }}
-                                   </td>
+
                                    <td class="px-[20px] py-[10px] font-regular text-[16px]">
                                        <span class="px-3 py-1 rounded-full text-sm font-medium
                                 @if($verification->status == 'pending') bg-yellow-100 text-yellow-800
@@ -169,14 +168,14 @@
                                            View
                                        </button>
                                        @if($verification->status == 'pending')
-                                       <button data-verification-id="{{ $verification->verification_id }}" class="verifyBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                           <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                       <button data-verification-id="{{ $verification->verification_id }}" class="verifyBtn bg-green-100 text-green-500 border border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px]font-medium text-[14px] ">
+                                           <svg class="h-[20px] transition-all duration-300fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                                <path d="m424-408-86-86q-11-11-28-11t-28 11q-11 11-11 28t11 28l114 114q12 12 28 12t28-12l226-226q11-11 11-28t-11-28q-11-11-28-11t-28 11L424-408Z" />
                                            </svg>
                                            Verify
                                        </button>
-                                       <button data-verification-id="{{ $verification->verification_id }}" class="rejectBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                           <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                       <button data-verification-id="{{ $verification->verification_id }}" class="rejectBtn bg-red-100 text-red-500 border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                           <svg class="h-[20px] transition-all duration-300 fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                                <path d="m480-424 116 116q11 11 28 11t28-11q11-11 11-28t-11-28L536-480l116-116q11-11 11-28t-11-28q-11-11-28-11t-28 11L480-536 364-652q-11-11-28-11t-28 11q-11 11-11 28t11 28l116 116-116 116q-11 11-11 28t11 28q11 11 28 11t28-11l116-116Z" />
                                            </svg>
                                            Reject
@@ -227,14 +226,14 @@
                                        View
                                    </button>
                                    @if($verification->status == 'pending')
-                                   <button data-verification-id="{{ $verification->verification_id }}" class="verifyBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                       <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                   <button data-verification-id="{{ $verification->verification_id }}" class="verifyBtn bg-green-100 text-green-500 border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                       <svg class="h-[20px] transition-all duration-300 fill-green-500 w-[20px] " xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                            <path d="m424-408-86-86q-11-11-28-11t-28 11q-11 11-11 28t11 28l114 114q12 12 28 12t28-12l226-226q11-11 11-28t-11-28q-11-11-28-11t-28 11L424-408Z" />
                                        </svg>
                                        Verify
                                    </button>
-                                   <button data-verification-id="{{ $verification->verification_id }}" class="rejectBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                       <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                   <button data-verification-id="{{ $verification->verification_id }}" class="rejectBtn bg-red-100 text-red-500 border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                       <svg class="h-[20px] transition-all duration-300 fill-red-500 w-[20px] " xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                            <path d="m480-424 116 116q11 11 28 11t28-11q11-11 11-28t-11-28L536-480l116-116q11-11 11-28t-11-28q-11-11-28-11t-28 11L480-536 364-652q-11-11-28-11t-28 11q-11 11-11 28t11 28l116 116-116 116q-11 11-11 28t11 28q11 11 28 11t28-11l116-116Z" />
                                        </svg>
                                        Reject

@@ -289,6 +289,20 @@
              </div>
          </form>
      </div>
+     {{-- View User Modal --}}
+     <div id="viewModal" class="modal hidden fixed inset-0 bg-black/50 backdrop-blur-[5px] items-center justify-center z-50 overflow-y-auto p-4">
+         <div class="bg-white rounded-lg p-6 w-[90%] max-w-3xl max-h-[90vh] overflow-y-auto">
+             <div class="flex justify-between items-center mb-6">
+                 <h2 class="text-2xl font-bold">User Details</h2>
+                 <button type="button" class="cancelBtn text-gray-500 hover:text-gray-700">
+                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                     </svg>
+                 </button>
+             </div>
+             <div id="viewModalContent" class="space-y-4"></div>
+         </div>
+     </div>
 
      <body class="relative">
          <!-- Alerts Modal -->
@@ -430,6 +444,29 @@
                              <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $user->role == 0 ? 'Resident' : 'Admin'}}</td>
                              <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $user->created_at}}</td>
                              <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
+                                 <button data-modal="viewModal"
+                                     data-user-id="{{ $user->user_id }}"
+                                     data-firstname="{{ $user->firstname }}"
+                                     data-lastname="{{ $user->lastname }}"
+                                     data-middlename="{{ $user->middlename }}"
+                                     data-birthdate="{{ $user->birthdate }}"
+                                     data-gender="{{ $user->gender }}"
+                                     data-birthplace="{{ $user->place_of_birth }}"
+                                     data-citizenship="{{ $user->citizenship }}"
+                                     data-civil="{{ $user->civil_status }}"
+                                     data-occupation="{{ $user->occupation }}"
+                                     data-housenumber="{{ $user->house_number }}"
+                                     data-street="{{ $user->street }}"
+                                     data-email="{{ $user->email }}"
+                                     data-contact="{{ $user->contact }}"
+                                     data-role="{{ $user->role }}"
+                                     data-created="{{ $user->created_at }}"
+                                     class="viewBtn bg-blue-100 text-blue-500 border-blue-500 cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                     <svg class="h-[20px] w-[20px] fill-blue-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                         <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z" />
+                                     </svg>
+                                     View
+                                 </button>
                                  <div data-modal="editModal"
                                      data-user-id="{{ $user->user_id }}"
                                      data-firstname="{{ $user->firstname }}"
@@ -445,8 +482,8 @@
                                      data-street="{{ $user->street }}"
                                      data-email="{{ $user->email }}"
                                      data-contact="{{ $user->contact }}"
-                                     class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                     <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                     class="editBtn bg-green-100 text-green-500 border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                     <svg class="h-[20px] transition-all duration-300 fill-green-500 w-[20px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="">
                                          <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                                      </svg>
                                      Edit
@@ -454,8 +491,8 @@
                                  <div data-modal="deleteModal"
                                      data-user-id="{{ $user->user_id }}"
                                      data-user-name="{{ $user->firstname }} {{ $user->lastname }}"
-                                     class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                     <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                     class="deleteBtn bg-red-100 text-red-500 border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                     <svg class="h-[20px] transition-all duration-300 fill-red-500 w-[20px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="">
                                          <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                      </svg>
                                      Delete
@@ -480,6 +517,29 @@
                          <p class="text-[16px] font-medium">{{ $user->role == 0 ? 'Resident' : 'Admin'}}</p>
                          <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
                          <div class="w-full flex items-center gap-[10px]">
+                             <button data-modal="viewModal"
+                                 data-user-id="{{ $user->user_id }}"
+                                 data-firstname="{{ $user->firstname }}"
+                                 data-lastname="{{ $user->lastname }}"
+                                 data-middlename="{{ $user->middlename }}"
+                                 data-birthdate="{{ $user->birthdate }}"
+                                 data-gender="{{ $user->gender }}"
+                                 data-birthplace="{{ $user->place_of_birth }}"
+                                 data-citizenship="{{ $user->citizenship }}"
+                                 data-civil="{{ $user->civil_status }}"
+                                 data-occupation="{{ $user->occupation }}"
+                                 data-housenumber="{{ $user->house_number }}"
+                                 data-street="{{ $user->street }}"
+                                 data-email="{{ $user->email }}"
+                                 data-contact="{{ $user->contact }}"
+                                 data-role="{{ $user->role }}"
+                                 data-created="{{ $user->created_at }}"
+                                 class="viewBtn bg-blue-100 text-blue-500 border-blue-500 cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                 <svg class="h-[20px] w-[20px] fill-blue-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                     <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z" />
+                                 </svg>
+                                 View
+                             </button>
                              <div data-modal="editModal"
                                  data-user-id="{{ $user->user_id }}"
                                  data-firstname="{{ $user->firstname }}"
@@ -495,8 +555,8 @@
                                  data-street="{{ $user->street }}"
                                  data-email="{{ $user->email }}"
                                  data-contact="{{ $user->contact }}"
-                                 class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                 <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                 class="editBtn bg-green-100 text-green-500 border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                 <svg class="h-[20px] transition-all duration-300 fill-green-500 w-[20px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                      <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                                  </svg>
                                  Edit
@@ -504,8 +564,8 @@
                              <div data-modal="deleteModal"
                                  data-user-id="{{ $user->user_id }}"
                                  data-user-name="{{ $user->firstname }} {{ $user->lastname }}"
-                                 class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                 <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                 class="deleteBtnbg-red-100 text-red-500 border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                 <svg class="h-[20px] transition-all duration-300 fill-red-500 w-[20px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="">
                                      <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                  </svg>
                                  Delete
@@ -532,12 +592,11 @@
              document.addEventListener('DOMContentLoaded', function() {
 
                  // 🔹 Open modal
-                 document.querySelectorAll('.addBtn, .editBtn, .deleteBtn').forEach(btn => {
+                 document.querySelectorAll('.addBtn, .editBtn, .deleteBtn, .viewBtn').forEach(btn => {
                      btn.addEventListener('click', function() {
                          const modalId = this.getAttribute('data-modal');
                          const modal = document.getElementById(modalId);
                          if (!modal) return;
-
                          // If it's an edit button, populate the form
                          if (this.classList.contains('editBtn')) {
                              const userId = this.getAttribute('data-user-id');
@@ -577,6 +636,35 @@
                              if (userNameSpan && userName) {
                                  userNameSpan.textContent = userName;
                              }
+                         }
+
+                         // If it's a view button, populate the content
+                         if (this.classList.contains('viewBtn')) {
+                             const firstname = this.getAttribute('data-firstname') || '';
+                             const middlename = this.getAttribute('data-middlename') || '';
+                             const lastname = this.getAttribute('data-lastname') || '';
+                             const fullName = `${firstname} ${middlename ? middlename.charAt(0).toUpperCase() + '.' : ''} ${lastname}`;
+
+                             const content = `
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="col-span-2"><h3 class="text-lg font-semibold text-orange-600 mb-2">Personal Information</h3></div>
+                    <div><label class="text-sm font-semibold text-gray-600">Full Name:</label><p class="text-base text-gray-900">${fullName}</p></div>
+                    <div><label class="text-sm font-semibold text-gray-600">Email:</label><p class="text-base text-gray-900">${this.getAttribute('data-email') || 'N/A'}</p></div>
+                    <div><label class="text-sm font-semibold text-gray-600">Contact:</label><p class="text-base text-gray-900">${this.getAttribute('data-contact') || 'N/A'}</p></div>
+                    <div><label class="text-sm font-semibold text-gray-600">Birthdate:</label><p class="text-base text-gray-900">${this.getAttribute('data-birthdate') || 'N/A'}</p></div>
+                    <div><label class="text-sm font-semibold text-gray-600">Gender:</label><p class="text-base text-gray-900">${this.getAttribute('data-gender') || 'N/A'}</p></div>
+                    <div><label class="text-sm font-semibold text-gray-600">Place of Birth:</label><p class="text-base text-gray-900">${this.getAttribute('data-birthplace') || 'N/A'}</p></div>
+                    <div><label class="text-sm font-semibold text-gray-600">Citizenship:</label><p class="text-base text-gray-900">${this.getAttribute('data-citizenship') || 'N/A'}</p></div>
+                    <div><label class="text-sm font-semibold text-gray-600">Civil Status:</label><p class="text-base text-gray-900">${this.getAttribute('data-civil') || 'N/A'}</p></div>
+                    <div><label class="text-sm font-semibold text-gray-600">Occupation:</label><p class="text-base text-gray-900">${this.getAttribute('data-occupation') || 'N/A'}</p></div>
+                    <div class="col-span-2"><label class="text-sm font-semibold text-gray-600">Address:</label><p class="text-base text-gray-900">${this.getAttribute('data-housenumber') || ''} ${this.getAttribute('data-street') || ''}, Barangay San Bartolome, Quezon City</p></div>
+                    <div class="col-span-2 mt-4"><h3 class="text-lg font-semibold text-orange-600 mb-2">Account Information</h3></div>
+                    <div><label class="text-sm font-semibold text-gray-600">Role:</label><p class="text-base text-gray-900">${this.getAttribute('data-role') == 0 ? 'Resident' : 'Admin'}</p></div>
+                    <div><label class="text-sm font-semibold text-gray-600">Account Created:</label><p class="text-base text-gray-900">${this.getAttribute('data-created') || 'N/A'}</p></div>
+                </div>
+            `;
+
+                             document.getElementById('viewModalContent').innerHTML = content;
                          }
 
                          modal.classList.remove('hidden');
