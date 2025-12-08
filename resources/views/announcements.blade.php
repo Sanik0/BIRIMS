@@ -62,9 +62,9 @@
                 @foreach ($announcements as $announcement)
                 <div class="group relative w-full justify-between flex items-center border-solid border-b-[1px]  border-[#E4E4E7] py-[15px]">
                     <div class="flex gap-[10px] sm:gap-[20px]">
-                        <div class="h-fit w-fit flex items-center justify-center mt-[10px] p-[8px] rounded-[50%] bg-blue-600">
+                        <div class="h-fit w-fit flex items-center justify-center mt-[10px] p-[8px] rounded-[50%] bg-[#FF9727]">
                             <svg class="h-[25px] sm:h-[50px] w-[25px] sm:w-[50px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#EFEFEF">
-                                <path d="M438-226 296-368l58-58 84 84 168-168 58 58-226 226ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Z" />
+                                <path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 412L346-160H160v-186L28-480l132-134v-186h186l134-132 134 132h186v186l132 134-132 134v186H614L480-28Z" />
                             </svg>
                         </div>
                         <div class="flex flex-col gap-[0px] mr-[50px]">
