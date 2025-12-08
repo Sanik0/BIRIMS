@@ -12,7 +12,8 @@ use App\Http\Controllers\BlotterController;
 use App\Http\Controllers\UserAppointmentController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\OrderController; // Add this
-use App\Http\Controllers\AdminOrderController; // Add this
+use App\Http\Controllers\AdminOrderController; // Add this  
+use App\Http\Controllers\NotificationController;    
 
 // Public routes
 Route::get('/signin', [LoginController::class, 'show'])->name('login');
@@ -50,6 +51,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/documents', function () {
         return view('documents');
     });
+
+    // Notification routes
+    Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'index'])->name('notifications.index');
+    Route::post('/notifications/{id}/read', [App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::delete('/notifications/{id}', [App\Http\Controllers\NotificationController::class, 'destroy'])->name('notifications.destroy');
 
     Route::get('/blotter', [BlotterController::class, 'create'])->name('blotter.create');
     Route::post('/blotter', [BlotterController::class, 'store'])->name('blotter.store');

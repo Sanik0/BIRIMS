@@ -48,39 +48,35 @@ class AdminOrderController extends Controller
         ]);
 
         try {
+            // Get the order details before updating
+            $order = DB::table('order')
+                ->where('order_id', $id)
+                ->first();
+
+            if (!$order) {
+                return back()->withErrors(['error' => 'Order not found.']);
+            }
+
+            $oldStatus = $order->status;
+            $newStatus = $validated['status'];
+
+            // Update order status
             DB::table('order')
                 ->where('order_id', $id)
                 ->update([
-                    'status' => $validated['status']
+                    'status' => $newStatus
                 ]);
+
+            // Create notification if status changed
+            if ($oldStatus !== $newStatus) {
+                $this->createStatusNotification($order, $newStatus);
+            }
 
             return redirect()->route('admin.orders.index')
                 ->with('success', 'Order status updated successfully!');
         } catch (\Exception $e) {
             return back()->withErrors(['error' => 'Failed to update order: ' . $e->getMessage()]);
         }
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'status' => 'required|string|in:Pending,Processing,Ready for Pickup,Delivered,Cancelled'
-        ]);
-
-        $order = Order::findOrFail($id);
-        $oldStatus = $order->status;
-        $newStatus = $request->status;
-
-        $order->status = $newStatus;
-        $order->save();
-
-        // Create notification for the user
-        if ($oldStatus !== $newStatus) {
-            $this->createStatusNotification($order, $newStatus);
-        }
-
-        return redirect()->route('admin.orders.index')
-            ->with('success', 'Order status updated successfully');
     }
 
     private function createStatusNotification($order, $newStatus)
@@ -97,15 +93,14 @@ class AdminOrderController extends Controller
         $body = $statusMessages[$newStatus] ?? "Your order status has been updated to {$newStatus}.";
         $body .= " Document Type: {$order->document_type}";
 
-        Notification::create([
+        DB::table('notification')->insert([
             'user_id' => $order->user_id,
             'title' => $title,
             'body' => $body,
-            'read' => false,
+            'read' => 0,
             'created_at' => now()
         ]);
     }
-
 
     public function show($id)
     {
