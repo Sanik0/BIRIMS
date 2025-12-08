@@ -100,7 +100,7 @@
                   </div>
                   @endif
 
-                  @if($verification)
+                  @if($verification && $verification->status == 'pending')
                   <!-- Verification Pending State -->
                   <div class="w-full mx-auto">
                       <!-- Status Card -->
@@ -144,8 +144,8 @@
                                       </div>
                                       <div class="flex-1">
                                           <p class="text-[14px] text-gray-500 font-medium mb-[4px]">Submitted</p>
-                                          <p class="text-[16px] text-gray-800 font-semibold">{{ $verification->submitted_at->format('F d, Y') }}</p>
-                                          <p class="text-[13px] text-gray-500">{{ $verification->submitted_at->format('h:i A') }}</p>
+                                          <p class="text-[16px] text-gray-800 font-semibold">{{ $verification->submitted_at ? $verification->submitted_at->format('F d, Y') : 'N/A' }}</p>
+                                          <p class="text-[13px] text-gray-500">{{ $verification->submitted_at ? $verification->submitted_at->format('h:i A') : '' }}</p>
                                       </div>
                                   </div>
                               </div>
@@ -174,7 +174,74 @@
                           </div>
                       </div>
                   </div>
-                  @else
+                  @elseif($verification && $verification->status == 'rejected')
+                  <!-- Verification Rejected State -->
+                  <div class="w-full mx-auto">
+                      <!-- Status Card -->
+                      <div class="bg-gradient-to-br from-red-50 to-rose-50 rounded-[20px] border-[2px] border-red-200 p-[32px] shadow-lg">
+
+                          <!-- Header -->
+                          <div class="text-center mb-[32px]">
+                              <div class="w-[80px] h-[80px] mx-auto mb-[20px] bg-gradient-to-br from-red-500 to-red-600 rounded-[20px] flex items-center justify-center shadow-lg">
+                                  <svg class="w-[40px] h-[40px] fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                                  </svg>
+                              </div>
+                              <h1 class="text-[36px] font-bold text-gray-800 mb-[12px]">Verification Rejected</h1>
+                              <p class="text-[16px] text-gray-600 leading-relaxed max-w-[600px] mx-auto">
+                                  Unfortunately, your verification request was rejected. This may be due to unclear images, incomplete information, or invalid documents. Please review the requirements and try again.
+                              </p>
+                          </div>
+
+                          <!-- Info Cards -->
+                          <div class="grid grid-cols-1 md:grid-cols-2 gap-[16px] mb-[32px]">
+                              <!-- ID Type Card -->
+                              <div class="bg-white rounded-[16px] p-[20px] shadow-sm border border-gray-200">
+                                  <div class="flex items-center gap-[12px]">
+                                      <div class="w-[48px] h-[48px] bg-red-100 rounded-[12px] flex items-center justify-center flex-shrink-0">
+                                          <svg class="w-[24px] h-[24px] fill-red-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                              <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4V8h16v10z" />
+                                          </svg>
+                                      </div>
+                                      <div class="flex-1">
+                                          <p class="text-[14px] text-gray-500 font-medium mb-[4px]">Previous ID Type</p>
+                                          <p class="text-[16px] text-gray-800 font-semibold capitalize">{{ str_replace('_', ' ', $verification->type) }}</p>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <!-- Rejected Date Card -->
+                              <div class="bg-white rounded-[16px] p-[20px] shadow-sm border border-gray-200">
+                                  <div class="flex items-center gap-[12px]">
+                                      <div class="w-[48px] h-[48px] bg-red-100 rounded-[12px] flex items-center justify-center flex-shrink-0">
+                                          <svg class="w-[24px] h-[24px] fill-red-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                              <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
+                                          </svg>
+                                      </div>
+                                      <div class="flex-1">
+                                          <p class="text-[14px] text-gray-500 font-medium mb-[4px]">Rejected On</p>
+                                          <p class="text-[16px] text-gray-800 font-semibold">{{ $verification->updated_at ? $verification->updated_at->format('F d, Y') : 'N/A' }}</p>
+<p class="text-[13px] text-gray-500">{{ $verification->updated_at ? $verification->updated_at->format('h:i A') : '' }}</p>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="mt-[24px] flex flex-col sm:flex-row gap-[16px]">
+                              <form method="POST" action="{{ route('verify.delete') }}" class="w-full">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="w-full flex items-center justify-center gap-[8px] px-[24px] py-[14px] text-[18px] text-white font-semibold rounded-[12px] border-[2px] bg-red-600 hover:bg-red-700 transition-all duration-300">
+                                      <svg class="w-[25px] h-[25px] fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                          <path d="M19 4h-3.5l-1-1h-5l-1 1H5v2h14V4zM6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12z" />
+                                      </svg>
+                                      Delete & Try Again
+                                  </button>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
+                  @elseif(!$verification || $verification->status == 'rejected')
                   <!-- Verification Upload Form -->
                   <div class="flex flex-col sm:flex-row w-full gap-[30px]">
                       <svg class="w-[200px] xmlns=" http://www.w3.org/2000/svg" viewBox="0 0 64 64">
@@ -360,6 +427,28 @@
                           <button type="submit" class="w-full flex items-center justify-center px-[20px] py-[10px] text-[20px] bg-[#EA580C] text-[#ffffff] font-medium rounded-[4px] border-[1px] border-[#EA580C] hover:bg-orange-700 transition-all duration-300 hover:cursor-pointer">Submit for Verification</button>
                       </div>
                   </form>
+                  @else
+                  <!-- Verification Verified State -->
+                  <div class="w-full mx-auto">
+                      <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-[20px] border-[2px] border-green-200 p-[32px] shadow-lg">
+                          <div class="text-center mb-[32px]">
+                              <div class="w-[80px] h-[80px] mx-auto mb-[20px] bg-gradient-to-br from-green-500 to-green-600 rounded-[20px] flex items-center justify-center shadow-lg">
+                                  <svg class="w-[40px] h-[40px] fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                                  </svg>
+                              </div>
+                              <h1 class="text-[36px] font-bold text-gray-800 mb-[12px]">Account Verified</h1>
+                              <p class="text-[16px] text-gray-600 leading-relaxed max-w-[600px] mx-auto">
+                                  Your account has been successfully verified! You now have full access to all barangay services.
+                              </p>
+                          </div>
+                          <div class="mt-[24px]">
+                              <a href="{{ route('home') }}" class="w-full flex items-center justify-center gap-[8px] px-[24px] py-[14px] text-[18px] text-white font-semibold rounded-[12px] bg-green-600 hover:bg-green-700 transition-all duration-300">
+                                  Go to Home
+                              </a>
+                          </div>
+                      </div>
+                  </div>
                   @endif
               </div>
           </section>

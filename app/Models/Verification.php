@@ -23,6 +23,7 @@ class Verification extends Model
 
     protected $casts = [
         'submitted_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function user()

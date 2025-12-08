@@ -53,4 +53,16 @@ class VerificationController extends Controller
 
     return redirect()->back()->with('error', 'Failed to upload image.');
 }
+
+public function delete()
+{
+    $verification = Auth::user()->verification;
+    
+    if ($verification && $verification->status == 'rejected') {
+        $verification->delete();
+        return redirect()->route('verify.index')->with('success', 'Previous verification deleted. You can now submit a new one.');
+    }
+    
+    return redirect()->back()->with('error', 'Unable to delete verification.');
+}
 }

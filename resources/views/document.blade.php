@@ -57,6 +57,39 @@
 
              <section class="w-full items-center justify-center flex">
                  <div class="container mx-auto px-4 py-8">
+                     @if(!auth()->user()->verification || auth()->user()->verification->status !== 'verified')
+                     <!-- Not Verified State -->
+                     <div class="w-full max-w-2xl mx-auto">
+                         <div class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-[20px] border-[2px] border-orange-200 p-[32px] shadow-lg">
+
+                             <!-- Header -->
+                             <div class="text-center mb-[32px]">
+                                 <div class="w-[80px] h-[80px] mx-auto mb-[20px] bg-gradient-to-br from-orange-500 to-orange-600 rounded-[20px] flex items-center justify-center shadow-lg">
+                                     <svg class="w-[40px] h-[40px] fill-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                                     </svg>
+                                 </div>
+                                 <h1 class="text-[36px] font-bold text-gray-800 mb-[12px]">Verification Required</h1>
+                                 <p class="text-[16px] text-gray-600 leading-relaxed max-w-[600px] mx-auto">
+                                     You need to verify your account before you can request barangay documents. Please complete the verification process to access this feature.
+                                 </p>
+                             </div>
+
+                             <!-- Action Button -->
+                             <div class="mt-[24px] flex flex-col sm:flex-row gap-[16px]">
+                                 <a href="{{ route('verify.index') }}" class="w-full flex items-center justify-center gap-[8px] px-[24px] py-[14px] text-[18px] text-white font-semibold rounded-[12px] bg-orange-600 hover:bg-orange-700 transition-all duration-300">
+                                     <svg class="w-[25px] h-[25px] fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                         <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z" />
+                                     </svg>
+                                     Verify My Account
+                                 </a>
+                                 <a href="{{ route('home') }}" class="w-full flex items-center justify-center gap-[8px] px-[24px] py-[14px] text-[18px] text-orange-600 font-semibold rounded-[12px] border-[2px] border-orange-600 hover:bg-orange-50 transition-all duration-300">
+                                     Back to Home
+                                 </a>
+                             </div>
+                         </div>
+                     </div>
+                     @else
 
                      {{-- Dynamic Form --}}
                      <form action="{{ route('document.store') }}" method="POST" class="bg-white rounded-lg shadow-md p-6">
@@ -106,6 +139,7 @@
                              </button>
                          </div>
                      </form>
+                     @endif
                  </div>
              </section>
 

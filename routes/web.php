@@ -13,7 +13,7 @@ use App\Http\Controllers\UserAppointmentController;
 use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\OrderController; // Add this
 use App\Http\Controllers\AdminOrderController; // Add this  
-use App\Http\Controllers\NotificationController;    
+use App\Http\Controllers\NotificationController;
 
 // Public routes
 Route::get('/signin', [LoginController::class, 'show'])->name('login');
@@ -71,6 +71,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/verify', [VerificationController::class, 'index'])->name('verify.index');
     Route::post('/verify', [VerificationController::class, 'store'])->name('verify.store');
+    Route::delete('/verify/delete', [VerificationController::class, 'delete'])->name('verify.delete');
 
     // Document/Order routes - UPDATED
     Route::get('/document', [OrderController::class, 'create'])->name('document.create');
@@ -115,9 +116,11 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::put('/appointment/{id}', [AppointmentController::class, 'update'])->name('admin.appointment.update');
     Route::delete('/appointment/{id}', [AppointmentController::class, 'destroy'])->name('admin.appointment.destroy');
 
-    Route::get('/verifications', function () {
-        return view('admin.verifications');
-    });
+    // Admin Verification Routes
+    Route::get('/verifications', [App\Http\Controllers\AdminVerificationController::class, 'index'])->name('admin.verifications.index');
+    Route::get('/verifications/{id}', [App\Http\Controllers\AdminVerificationController::class, 'show'])->name('admin.verifications.show');
+    Route::post('/verifications/{id}/verify', [App\Http\Controllers\AdminVerificationController::class, 'verify'])->name('admin.verifications.verify');
+    Route::post('/verifications/{id}/reject', [App\Http\Controllers\AdminVerificationController::class, 'reject'])->name('admin.verifications.reject');
 
     Route::get('/blotters', function () {
         return view('admin.blotters');
