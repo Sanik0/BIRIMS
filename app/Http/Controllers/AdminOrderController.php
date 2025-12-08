@@ -29,10 +29,10 @@ class AdminOrderController extends Controller
         // Search by document type or user name
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
-            $query->where(function($q) use ($search) {
+            $query->where(function ($q) use ($search) {
                 $q->where('order.document_type', 'like', "%{$search}%")
-                  ->orWhere('user.firstname', 'like', "%{$search}%")
-                  ->orWhere('user.lastname', 'like', "%{$search}%");
+                    ->orWhere('user.firstname', 'like', "%{$search}%")
+                    ->orWhere('user.lastname', 'like', "%{$search}%");
             });
         }
 
@@ -60,6 +60,52 @@ class AdminOrderController extends Controller
             return back()->withErrors(['error' => 'Failed to update order: ' . $e->getMessage()]);
         }
     }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|string|in:Pending,Processing,Ready for Pickup,Delivered,Cancelled'
+        ]);
+
+        $order = Order::findOrFail($id);
+        $oldStatus = $order->status;
+        $newStatus = $request->status;
+
+        $order->status = $newStatus;
+        $order->save();
+
+        // Create notification for the user
+        if ($oldStatus !== $newStatus) {
+            $this->createStatusNotification($order, $newStatus);
+        }
+
+        return redirect()->route('admin.orders.index')
+            ->with('success', 'Order status updated successfully');
+    }
+
+    private function createStatusNotification($order, $newStatus)
+    {
+        $statusMessages = [
+            'Pending' => 'Your document request is now pending review.',
+            'Processing' => 'Your document request is now being processed.',
+            'Ready for Pickup' => 'Your document is ready for pickup at the barangay hall.',
+            'Delivered' => 'Your document has been delivered.',
+            'Cancelled' => 'Your document request has been cancelled.'
+        ];
+
+        $title = "Order Status Updated: {$newStatus}";
+        $body = $statusMessages[$newStatus] ?? "Your order status has been updated to {$newStatus}.";
+        $body .= " Document Type: {$order->document_type}";
+
+        Notification::create([
+            'user_id' => $order->user_id,
+            'title' => $title,
+            'body' => $body,
+            'read' => false,
+            'created_at' => now()
+        ]);
+    }
+
 
     public function show($id)
     {

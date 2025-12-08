@@ -180,7 +180,6 @@
                               </div>
                           </form>
                       </div>
-
                       {{-- Desktop Table --}}
                       <table class="w-full hidden sm:table border-collapse text-left border-[1px] border-gray-300 rounded-[4px]">
                           <thead>
@@ -188,6 +187,7 @@
                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Document Type</th>
                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Requested By</th>
                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Date Requested</th>
+                                  <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Payment Mode</th>
                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Status</th>
                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Action</th>
                               </tr>
@@ -202,19 +202,28 @@
                                   <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">
                                       {{ \Carbon\Carbon::parse($order->ordered_at)->format('d-m-Y') }}
                                   </td>
+                                  <td class="px-[20px] py-[10px] font-regular text-[15px]">
+                                      <span class="px-3 py-1 rounded-full text-sm font-medium
+                    @if($order->mode_payment == 'Cash on Delivery') bg-orange-100 text-orange-700 border border-orange-200
+                    @elseif($order->mode_payment == 'Pay at Counter (Pick Up)') bg-indigo-100 text-indigo-700 border border-indigo-200
+                    @else bg-gray-100 text-gray-700 border border-gray-200
+                    @endif">
+                                          {{ $order->mode_payment ?? 'N/A' }}
+                                      </span>
+                                  </td>
                                   <td class="px-[20px] py-[10px] font-regular text-[16px]">
                                       <span class="px-3 py-1 rounded-full text-sm font-medium
-                                        @if($order->status == 'Pending') bg-yellow-100 text-yellow-800
-                                        @elseif($order->status == 'Processing') bg-blue-100 text-blue-800
-                                        @elseif($order->status == 'Ready for Pickup') bg-purple-100 text-purple-800
-                                        @elseif($order->status == 'Delivered') bg-green-100 text-green-800
-                                        @elseif($order->status == 'Cancelled') bg-red-100 text-red-800
-                                        @endif">
+                    @if($order->status == 'Pending') bg-yellow-100 text-yellow-800
+                    @elseif($order->status == 'Processing') bg-blue-100 text-blue-800
+                    @elseif($order->status == 'Ready for Pickup') bg-purple-100 text-purple-800
+                    @elseif($order->status == 'Delivered') bg-green-100 text-green-800
+                    @elseif($order->status == 'Cancelled') bg-red-100 text-red-800
+                    @endif">
                                           {{ $order->status }}
                                       </span>
                                   </td>
                                   <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                      <button data-order-id="{{ $order->order_id }}" class="viewBtn bg-blue-100 text-blue-500 border-blue-500 cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px] ">
+                                      <button data-order-id="{{ $order->order_id }}" class="viewBtn bg-blue-100 text-blue-500 border-blue-500 cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
                                           <svg class="h-[20px] transition-all duration-300 fill-blue-500 w-[20px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                               <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z" />
                                           </svg>
@@ -227,7 +236,7 @@
                                           Edit
                                       </button>
                                       <button data-order-id="{{ $order->order_id }}" class="deleteBtn bg-red-100 text-red-500 border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
-                                          <svg class="h-[20px] transition-all duration-300fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                          <svg class="h-[20px] transition-all duration-300 fill-red-500 w-[20px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                               <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                           </svg>
                                           Delete
@@ -236,7 +245,7 @@
                               </tr>
                               @empty
                               <tr>
-                                  <td colspan="5" class="px-[20px] py-[40px] text-center text-gray-500">
+                                  <td colspan="6" class="px-[20px] py-[40px] text-center text-gray-500">
                                       No orders found
                                   </td>
                               </tr>
@@ -250,40 +259,55 @@
                           <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
                               <h6 class="text-[14px] text-gray-600 font-semibold">Document Type:</h6>
                               <p class="text-[16px] font-medium">{{ $order->document_type }}</p>
+
                               <h6 class="text-[14px] text-gray-600 font-semibold">Requested By</h6>
                               <p class="text-[16px] font-medium">
                                   {{ $order->firstname }} {{ $order->middlename ? strtoupper(substr($order->middlename, 0, 1)) . '.' : '' }} {{ $order->lastname }}
                               </p>
+
                               <h6 class="text-[14px] text-gray-600 font-semibold">Date Requested:</h6>
                               <p class="text-[16px] font-medium">{{ \Carbon\Carbon::parse($order->ordered_at)->format('d-m-Y') }}</p>
+
+                              <h6 class="text-[14px] text-gray-600 font-semibold">Payment Mode:</h6>
+                              <p class="text-[16px] font-medium">
+                                  <span class="px-3 py-1 rounded-full text-sm font-medium
+                @if($order->mode_payment == 'Cash on Delivery') bg-orange-100 text-orange-700 border border-orange-200
+                @elseif($order->mode_payment == 'Pay at Counter (Pick Up)') bg-indigo-100 text-indigo-700 border border-indigo-200
+                @else bg-gray-100 text-gray-700 border border-gray-200
+                @endif">
+                                      {{ $order->mode_payment ?? 'N/A' }}
+                                  </span>
+                              </p>
+
                               <h6 class="text-[14px] text-gray-600 font-semibold">Status:</h6>
                               <p class="text-[16px] font-medium">
                                   <span class="px-3 py-1 rounded-full text-sm font-medium
-                        @if($order->status == 'Pending') bg-yellow-100 text-yellow-800
-                        @elseif($order->status == 'Processing') bg-blue-100 text-blue-800
-                        @elseif($order->status == 'Ready for Pickup') bg-purple-100 text-purple-800
-                        @elseif($order->status == 'Delivered') bg-green-100 text-green-800
-                        @elseif($order->status == 'Cancelled') bg-red-100 text-red-800
-                        @endif">
+                @if($order->status == 'Pending') bg-yellow-100 text-yellow-800
+                @elseif($order->status == 'Processing') bg-blue-100 text-blue-800
+                @elseif($order->status == 'Ready for Pickup') bg-purple-100 text-purple-800
+                @elseif($order->status == 'Delivered') bg-green-100 text-green-800
+                @elseif($order->status == 'Cancelled') bg-red-100 text-red-800
+                @endif">
                                       {{ $order->status }}
                                   </span>
                               </p>
+
                               <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
                               <div class="w-full flex items-center gap-[10px]">
-                                  <button data-order-id="{{ $order->order_id }}" class="viewBtn hover:bg-blue-100 hover:text-blue-500 hover:border-blue-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                      <svg class="h-[20px] transition-all duration-300 group-hover:fill-blue-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                  <button data-order-id="{{ $order->order_id }}" class="viewBtn bg-blue-100 text-blue-500 border-blue-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                      <svg class="h-[20px] transition-all duration-300 fill-blue-500 w-[20px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                           <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z" />
                                       </svg>
                                       View
                                   </button>
-                                  <button data-order-id="{{ $order->order_id }}" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                      <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                  <button data-order-id="{{ $order->order_id }}" class="editBtn bg-green-100 text-green-500 border-green-500 border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                      <svg class="h-[20px] transition-all duration-300 fill-green-500 w-[20px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                           <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                                       </svg>
                                       Edit
                                   </button>
-                                  <button data-order-id="{{ $order->order_id }}" class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                      <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                  <button data-order-id="{{ $order->order_id }}" class="deleteBtn bg-red-100 text-red-500 border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px font-medium text-[14px">
+                                      <svg class="h-[20px] transition-all duration-300 fill-red-500 w-[20px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                           <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                       </svg>
                                       Delete
@@ -300,7 +324,7 @@
               </main>
 
               {{-- View Order Details Modal --}}
-              <div id="viewModal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50 overflow-y-auto p-4">
+              <div id="viewModal" class="modal hidden fixed inset-0 bg-black/50 backdrop-blur-[5px] items-center justify-center z-50 overflow-y-auto p-4">
                   <div class="bg-white rounded-lg p-6 w-[90%] max-w-2xl max-h-[90vh] overflow-y-auto">
                       <div class="flex justify-between items-center mb-6">
                           <h2 class="text-2xl font-bold">Order Details</h2>
@@ -316,9 +340,8 @@
                       </div>
                   </div>
               </div>
-
               {{-- Edit Status Modal --}}
-              <div id="editModal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+              <div id="editModal" class="modal hidden fixed inset-0 bg-black/50 backdrop-blur-[5px] items-center justify-center z-50">
                   <div class="bg-white rounded-lg p-6 w-[90%] max-w-md">
                       <h2 class="text-2xl font-bold mb-4">Update Order Status</h2>
                       <form id="editForm" method="POST">
@@ -326,11 +349,11 @@
                           @method('PUT')
                           <div class="mb-4">
                               <label class="block text-sm font-semibold text-gray-700 mb-2">Status</label>
-                              <select name="status" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
+                              <select id="statusSelect" name="status" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500">
                                   <option value="Pending">Pending</option>
                                   <option value="Processing">Processing</option>
-                                  <option value="Ready for Pickup">Ready for Pickup</option>
-                                  <option value="Delivered">Delivered</option>
+                                  <option value="Ready for Pickup" data-mode="pickup">Ready for Pickup</option>
+                                  <option value="Delivered" data-mode="delivery">Delivered</option>
                                   <option value="Cancelled">Cancelled</option>
                               </select>
                           </div>
@@ -343,7 +366,7 @@
               </div>
 
               {{-- Delete Confirmation Modal --}}
-              <div id="deleteModal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+              <div id="deleteModal" class="modal hidden fixed inset-0 bg-black/50 backdrop-blur-[5px] items-center justify-center z-50">
                   <div class="bg-white rounded-lg p-6 w-[90%] max-w-md">
                       <h2 class="text-2xl font-bold mb-4">Delete Order</h2>
                       <p class="mb-6">Are you sure you want to delete this order? This action cannot be undone.</p>
@@ -370,164 +393,29 @@
 
                               if (!order) return;
 
-                              // Build the content dynamically based on what fields exist
-                              let content = `
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="col-span-2">
-                            <h3 class="text-lg font-semibold text-orange-600 mb-2">Document Information</h3>
-                        </div>
-                        
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Document Type:</label>
-                            <p class="text-base text-gray-900">${order.document_type || 'N/A'}</p>
-                        </div>
-                        
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Status:</label>
-                            <p class="text-base">
-                                <span class="px-3 py-1 rounded-full text-sm font-medium
-                                    ${order.status == 'Pending' ? 'bg-yellow-100 text-yellow-800' : ''}
-                                    ${order.status == 'Processing' ? 'bg-blue-100 text-blue-800' : ''}
-                                    ${order.status == 'Ready for Pickup' ? 'bg-purple-100 text-purple-800' : ''}
-                                    ${order.status == 'Delivered' ? 'bg-green-100 text-green-800' : ''}
-                                    ${order.status == 'Cancelled' ? 'bg-red-100 text-red-800' : ''}">
-                                    ${order.status}
-                                </span>
-                            </p>
-                        </div>
-                        
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Amount:</label>
-                            <p class="text-base text-gray-900">₱${parseFloat(order.amount || 0).toFixed(2)}</p>
-                        </div>
-                        
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Date Requested:</label>
-                            <p class="text-base text-gray-900">${new Date(order.ordered_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                        </div>
+                              // Build modal content with all order details
+                              let content = `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="col-span-2"><h3 class="text-lg font-semibold text-orange-600 mb-2">Document Information</h3></div>
+                <div><label class="text-sm font-semibold text-gray-600">Document Type:</label><p class="text-base text-gray-900">${order.document_type || 'N/A'}</p></div>
+                <div><label class="text-sm font-semibold text-gray-600">Status:</label><p class="text-base"><span class="px-3 py-1 rounded-full text-sm font-medium ${order.status == 'Pending' ? 'bg-yellow-100 text-yellow-800' : ''} ${order.status == 'Processing' ? 'bg-blue-100 text-blue-800' : ''} ${order.status == 'Ready for Pickup' ? 'bg-purple-100 text-purple-800' : ''} ${order.status == 'Delivered' ? 'bg-green-100 text-green-800' : ''} ${order.status == 'Cancelled' ? 'bg-red-100 text-red-800' : ''}">${order.status}</span></p></div>
+                <div><label class="text-sm font-semibold text-gray-600">Amount:</label><p class="text-base text-gray-900">₱${parseFloat(order.amount || 0).toFixed(2)}</p></div>
+                <div><label class="text-sm font-semibold text-gray-600">Date Requested:</label><p class="text-base text-gray-900">${new Date(order.ordered_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p></div>
+                <div class="col-span-2 mt-4"><h3 class="text-lg font-semibold text-orange-600 mb-2">Requester Information</h3></div>
+                <div><label class="text-sm font-semibold text-gray-600">Full Name:</label><p class="text-base text-gray-900">${order.firstname || ''} ${order.middlename ? order.middlename.charAt(0).toUpperCase() + '.' : ''} ${order.lastname || ''}</p></div>`;
 
-                        <div class="col-span-2 mt-4">
-                            <h3 class="text-lg font-semibold text-orange-600 mb-2">Requester Information</h3>
-                        </div>
-                        
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Full Name:</label>
-                            <p class="text-base text-gray-900">${order.firstname || ''} ${order.middlename ? order.middlename.charAt(0).toUpperCase() + '.' : ''} ${order.lastname || ''}</p>
-                        </div>
-                `;
-
-                              // Add document-specific fields
-                              if (order.full_name) {
-                                  content += `
-                        <div class="col-span-2 mt-4">
-                            <h3 class="text-lg font-semibold text-orange-600 mb-2">Document Details</h3>
-                        </div>
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Name on Document:</label>
-                            <p class="text-base text-gray-900">${order.full_name}</p>
-                        </div>
-                    `;
-                              }
-
-                              if (order.address) {
-                                  content += `
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Address:</label>
-                            <p class="text-base text-gray-900">${order.address}</p>
-                        </div>
-                    `;
-                              }
-
-                              if (order.age) {
-                                  content += `
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Age:</label>
-                            <p class="text-base text-gray-900">${order.age}</p>
-                        </div>
-                    `;
-                              }
-
-                              if (order.civil_status) {
-                                  content += `
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Civil Status:</label>
-                            <p class="text-base text-gray-900">${order.civil_status.charAt(0).toUpperCase() + order.civil_status.slice(1)}</p>
-                        </div>
-                    `;
-                              }
-
-                              if (order.years_residency) {
-                                  content += `
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Years of Residency:</label>
-                            <p class="text-base text-gray-900">${order.years_residency} years</p>
-                        </div>
-                    `;
-                              }
-
-                              if (order.occupation) {
-                                  content += `
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Occupation:</label>
-                            <p class="text-base text-gray-900">${order.occupation}</p>
-                        </div>
-                    `;
-                              }
-
-                              if (order.monthly_income) {
-                                  content += `
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Monthly Income:</label>
-                            <p class="text-base text-gray-900">₱${parseFloat(order.monthly_income).toFixed(2)}</p>
-                        </div>
-                    `;
-                              }
-
-                              if (order.num_family_members) {
-                                  content += `
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Family Members:</label>
-                            <p class="text-base text-gray-900">${order.num_family_members}</p>
-                        </div>
-                    `;
-                              }
-
-                              if (order.purpose) {
-                                  content += `
-                        <div class="col-span-2">
-                            <label class="text-sm font-semibold text-gray-600">Purpose:</label>
-                            <p class="text-base text-gray-900">${order.purpose}</p>
-                        </div>
-                    `;
-                              }
-
-                              if (order.valid_until) {
-                                  content += `
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Valid Until:</label>
-                            <p class="text-base text-gray-900">${new Date(order.valid_until).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                        </div>
-                    `;
-                              }
-
-                              if (order.mode_payment) {
-                                  content += `
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Payment Mode:</label>
-                            <p class="text-base text-gray-900">${order.mode_payment}</p>
-                        </div>
-                    `;
-                              }
-
-                              if (order.contact) {
-                                  content += `
-                        <div>
-                            <label class="text-sm font-semibold text-gray-600">Contact Number:</label>
-                            <p class="text-base text-gray-900">${order.contact}</p>
-                        </div>
-                    `;
-                              }
-
+                              // Add document-specific fields if they exist
+                              if (order.full_name) content += `<div class="col-span-2 mt-4"><h3 class="text-lg font-semibold text-orange-600 mb-2">Document Details</h3></div><div><label class="text-sm font-semibold text-gray-600">Name on Document:</label><p class="text-base text-gray-900">${order.full_name}</p></div>`;
+                              if (order.address) content += `<div><label class="text-sm font-semibold text-gray-600">Address:</label><p class="text-base text-gray-900">${order.address}</p></div>`;
+                              if (order.age) content += `<div><label class="text-sm font-semibold text-gray-600">Age:</label><p class="text-base text-gray-900">${order.age}</p></div>`;
+                              if (order.civil_status) content += `<div><label class="text-sm font-semibold text-gray-600">Civil Status:</label><p class="text-base text-gray-900">${order.civil_status.charAt(0).toUpperCase() + order.civil_status.slice(1)}</p></div>`;
+                              if (order.years_residency) content += `<div><label class="text-sm font-semibold text-gray-600">Years of Residency:</label><p class="text-base text-gray-900">${order.years_residency} years</p></div>`;
+                              if (order.occupation) content += `<div><label class="text-sm font-semibold text-gray-600">Occupation:</label><p class="text-base text-gray-900">${order.occupation}</p></div>`;
+                              if (order.monthly_income) content += `<div><label class="text-sm font-semibold text-gray-600">Monthly Income:</label><p class="text-base text-gray-900">₱${parseFloat(order.monthly_income).toFixed(2)}</p></div>`;
+                              if (order.num_family_members) content += `<div><label class="text-sm font-semibold text-gray-600">Family Members:</label><p class="text-base text-gray-900">${order.num_family_members}</p></div>`;
+                              if (order.purpose) content += `<div class="col-span-2"><label class="text-sm font-semibold text-gray-600">Purpose:</label><p class="text-base text-gray-900">${order.purpose}</p></div>`;
+                              if (order.valid_until) content += `<div><label class="text-sm font-semibold text-gray-600">Valid Until:</label><p class="text-base text-gray-900">${new Date(order.valid_until).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p></div>`;
+                              if (order.mode_payment) content += `<div><label class="text-sm font-semibold text-gray-600">Payment Mode:</label><p class="text-base text-gray-900">${order.mode_payment}</p></div>`;
+                              if (order.contact) content += `<div><label class="text-sm font-semibold text-gray-600">Contact Number:</label><p class="text-base text-gray-900">${order.contact}</p></div>`;
                               content += `</div>`;
 
                               document.getElementById('viewModalContent').innerHTML = content;
@@ -536,17 +424,48 @@
                           });
                       });
 
-                      // Edit button click
+                      // Edit button click with conditional status options
                       document.querySelectorAll('.editBtn').forEach(btn => {
                           btn.addEventListener('click', function() {
                               const orderId = this.getAttribute('data-order-id');
                               const order = orders.find(o => o.order_id == orderId);
                               const form = document.getElementById('editForm');
+                              const statusSelect = document.getElementById('statusSelect');
+
+                              if (!form || !statusSelect) {
+                                  console.error('Edit form or status select not found');
+                                  return;
+                              }
+
                               form.action = `/admin/orders/${orderId}`;
+
+                              // Show/hide options based on payment mode
+                              const pickupOption = statusSelect.querySelector('[data-mode="pickup"]');
+                              const deliveryOption = statusSelect.querySelector('[data-mode="delivery"]');
+
+                              if (!pickupOption || !deliveryOption) {
+                                  console.error('Status options not found');
+                                  return;
+                              }
+
+                              if (order && order.mode_payment) {
+                                  if (order.mode_payment === 'Cash on Delivery') {
+                                      // Hide "Ready for Pickup", show "Delivered"
+                                      pickupOption.style.display = 'none';
+                                      deliveryOption.style.display = 'block';
+                                  } else if (order.mode_payment === 'Pay at Counter (Pick Up)') {
+                                      // Show "Ready for Pickup", hide "Delivered"
+                                      pickupOption.style.display = 'block';
+                                      deliveryOption.style.display = 'none';
+                                  } else {
+                                      // Show both if payment mode is unknown
+                                      pickupOption.style.display = 'block';
+                                      deliveryOption.style.display = 'block';
+                                  }
+                              }
 
                               // Pre-select the current status
                               if (order) {
-                                  const statusSelect = form.querySelector('[name="status"]');
                                   statusSelect.value = order.status;
                               }
 

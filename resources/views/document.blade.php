@@ -55,7 +55,7 @@
                  </div>
              </div>
 
-            <section class="w-full items-center justify-center flex">
+             <section class="w-full items-center justify-center flex">
                  <div class="container mx-auto px-4 py-8">
 
                      {{-- Dynamic Form --}}
@@ -95,15 +95,6 @@
                              </ul>
                          </div>
                          @endif
-
-                         {{-- Success Message --}}
-                         @if (session('success'))
-                         <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mt-6">
-                             <strong class="font-bold">Success!</strong>
-                             <p>{{ session('success') }}</p>
-                         </div>
-                         @endif
-
                          <div class="flex justify-end mt-8 gap-4" id="form-buttons" style="display: none;">
                              <a href="{{ route('home') }}"
                                  class="px-6 py-3 text-lg text-orange-500 font-medium rounded border border-orange-500 hover:bg-orange-50 transition-all">
@@ -119,15 +110,15 @@
              </section>
 
              <script>
-                const userData = {
-                    user_fullname: "{{ auth()->user()->firstname ?? '' }} {{ auth()->user()->middlename ? strtoupper(substr(auth()->user()->middlename, 0, 1)) . '.' : '' }} {{ auth()->user()->lastname ?? '' }}".trim(),
-                    user_age: {{ auth()->user()->birthdate ? \Carbon\Carbon::parse(auth()->user()->birthdate)->age : 0 }},
-                    user_address: "{{ auth()->user()->house_number ?? '' }} {{ auth()->user()->street ?? '' }}, Barangay San Bartolome, Quezon City, Metro Manila, Philippines".trim(),
-                    user_civil_status: "{{ auth()->user()->civil_status ?? '' }}",
-                    user_occupation: "{{ auth()->user()->occupation ?? '' }}"
-                };
+                 const userData = {
+                     user_fullname: "{{ auth()->user()->firstname ?? '' }} {{ auth()->user()->middlename ? strtoupper(substr(auth()->user()->middlename, 0, 1)) . '.' : '' }} {{ auth()->user()->lastname ?? '' }}".trim(),
+                     user_age: {{ auth()->user()->birthdate ? \Carbon\Carbon::parse(auth()->user()->birthdate)->age : 0 }},
+                     user_address: "{{ auth()->user()->house_number ?? '' }} {{ auth()->user()->street ?? '' }}, Barangay San Bartolome, Quezon City, Metro Manila, Philippines".trim(),
+                     user_civil_status: "{{ auth()->user()->civil_status ?? '' }}",
+                     user_occupation: "{{ auth()->user()->occupation ?? '' }}"
+                 };
 
-                console.log('User Data:', userData); // Debug log
+                 console.log('User Data:', userData); // Debug log
 
                  let currentBaseAmount = 0;
 
@@ -337,7 +328,7 @@
                          // Auto-populate logic
                          if (field.auto_populate && userData[field.auto_populate]) {
                              const valueToSet = userData[field.auto_populate];
-                             
+
                              if (field.type === 'select') {
                                  // Set value directly for select fields
                                  input.value = valueToSet;
@@ -348,9 +339,20 @@
                              }
                          }
 
+                         // In the renderFields function, after creating the input element, add this code:
+
                          // Default date value
                          if (field.type === 'date' && !input.value) {
-                             input.value = new Date().toISOString().split('T')[0];
+                             if (fieldName === 'valid_until') {
+                                 // Set to 6 months from today
+                                 const sixMonthsLater = new Date();
+                                 sixMonthsLater.setMonth(sixMonthsLater.getMonth() + 6);
+                                 input.value = sixMonthsLater.toISOString().split('T')[0];
+                                 input.readOnly = true;
+                                 input.classList.add('bg-gray-100', 'cursor-not-allowed');
+                             } else {
+                                 input.value = new Date().toISOString().split('T')[0];
+                             }
                          }
 
                          fieldWrapper.appendChild(label);

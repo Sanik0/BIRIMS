@@ -157,7 +157,7 @@
                                     $statusColors = [
                                     'Pending' => 'text-yellow-500',
                                     'In-transit' => 'text-blue-500',
-                                    'Delivered' => 'text-green-500',
+                                    'Ready for Pickup' => 'text-green-500',
                                     'Cancelled' => 'text-red-500'
                                     ];
                                     $statusColor = $statusColors[$order->status] ?? 'text-gray-500';
