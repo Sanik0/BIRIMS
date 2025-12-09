@@ -269,7 +269,7 @@
                                         <span class="px-[8px] py-[2px] text-[11px] rounded-full 
                             {{ $blotter->status == 'pending' ? 'bg-yellow-100 text-yellow-800' : '' }}
                             {{ $blotter->status == 'resolved' ? 'bg-green-100 text-green-800' : '' }}
-                            {{ $blotter->status == 'investigating' ? 'bg-blue-100 text-blue-800' : '' }}
+                            {{ $blotter->status == 'rejected' ? 'bg-red-100 text-red-800' : '' }}
                         ">
                                             {{ ucfirst($blotter->status ?? 'pending') }}
                                         </span>

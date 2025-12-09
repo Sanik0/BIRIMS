@@ -59,22 +59,39 @@
 
         <section class="w-full items-center justify-center flex px-[15px] sm:px-[0]">
             <div class="w-full">
-                @foreach ($announcements as $announcement)
-                <div class="group relative w-full justify-between flex items-center border-solid border-b-[1px]  border-[#E4E4E7] py-[15px]">
-                    <div class="flex gap-[10px] sm:gap-[20px]">
-                        <div class="h-fit w-fit flex items-center justify-center mt-[10px] p-[8px] rounded-[50%] bg-[#FF9727]">
-                            <svg class="h-[25px] sm:h-[50px] w-[25px] sm:w-[50px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#EFEFEF">
-                                <path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 412L346-160H160v-186L28-480l132-134v-186h186l134-132 134 132h186v186l132 134-132 134v186H614L480-28Z" />
-                            </svg>
-                        </div>
-                        <div class="flex flex-col gap-[0px] mr-[50px]">
-                            <h1 class="font-medium text-[25px] font-serif">{{ $announcement->title}}</h1>
-                            <p class="text-[18px] font-normal text-[#71717A]">{{ $announcement->body}}</p>
-                            <small class="font-semibold text-[#D4D4D8] text-[12px]">{{ $announcement->created_at->format('d M Y') }}</small>
+                <div class="w-full">
+                    @foreach ($announcements as $announcement)
+                    <div class="group relative w-full justify-between flex items-center border-solid border-b-[1px] border-[#E4E4E7] py-[15px]">
+                        <div class="flex gap-[10px] sm:gap-[20px]">
+                            @if($announcement->type == 'general')
+                            <div class="h-fit w-fit flex items-center justify-center mt-[10px] p-[8px] rounded-[50%] bg-[#3B82F6]">
+                                <svg class="h-[25px] sm:h-[50px] w-[25px] sm:w-[50px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#EFEFEF">
+                                    <path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z" />
+                                </svg>
+                            </div>
+                            @elseif($announcement->type == 'event')
+                            <div class="h-fit w-fit flex items-center justify-center mt-[10px] p-[8px] rounded-[50%] bg-[#10B981]">
+                                <svg class="h-[25px] sm:h-[50px] w-[25px] sm:w-[50px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#EFEFEF">
+                                    <path d="M580-240q-42 0-71-29t-29-71q0-42 29-71t71-29q42 0 71 29t29 71q0 42-29 71t-71 29ZM200-80q-33 0-56.5-23.5T120-160v-560q0-33 23.5-56.5T200-800h40v-80h80v80h320v-80h80v80h40q33 0 56.5 23.5T840-720v560q0 33-23.5 56.5T760-80H200Zm0-80h560v-400H200v400Z" />
+                                </svg>
+                            </div>
+                            @elseif($announcement->type == 'emergency')
+                            <div class="h-fit w-fit flex items-center justify-center mt-[10px] p-[8px] rounded-[50%] bg-[#EF4444]">
+                                <svg class="h-[25px] sm:h-[50px] w-[25px] sm:w-[50px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#EFEFEF">
+                                    <path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 412L346-160H160v-186L28-480l132-134v-186h186l134-132 134 132h186v186l132 134-132 134v186H614L480-28Z" />
+                                </svg>
+                            </div>
+                            @endif
+
+                            <div class="flex flex-col gap-[0px] mr-[50px]">
+                                <h1 class="font-medium text-[25px] font-serif">{{ $announcement->title}}</h1>
+                                <p class="text-[18px] font-normal text-[#71717A]">{{ $announcement->body}}</p>
+                                <small class="font-semibold text-[#D4D4D8] text-[12px]">{{ $announcement->created_at->format('d M Y') }}</small>
+                            </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
                 <!-- <div class="group relative w-full justify-between flex items-center border-solid border-b-[1px]  border-[#E4E4E7] py-[15px]">
                     <div class="flex gap-[10px] sm:gap-[20px] mr-[50px]">
                         <div class="h-fit w-fit flex items-center justify-center mt-[10px] p-[8px] rounded-[50%] bg-[#FF9727]">

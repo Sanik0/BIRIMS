@@ -30,5 +30,6 @@ class Blotter extends Model
         'incident_time',
         'time',
         'user_id',
+        'status', 
     ];
 }

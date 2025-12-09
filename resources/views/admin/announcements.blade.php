@@ -252,22 +252,33 @@
                     </form>
                 </div>
 
-                <table class="w-full hidden sm:table border-collapse text-left border-[1px] border-gray-300 rounded-[4px]">
+                <table class="w-full hidden sm:table border-collapse text-left border-[1px] border-gray-300 rounded-[4px] table-fixed">
                     <thead>
                         <tr class="border-b-[1px] border-gray-300 bg-[#FFF7ED]">
-                            <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Title</th>
-                            <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Body</th>
-                            <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Type</th>
-                            <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Action</th>
+                            <th class="px-[20px] py-[10px] font-medium text-[16px] w-full text-gray-600">Title</th>
+                            <th class="px-[20px] py-[10px] font-medium text-[16px] w-full text-gray-600">Body</th>
+                            <th class="px-[20px] py-[10px] font-medium text-[16px] w-[50%] text-gray-600">Type</th>
+                            <th class="px-[20px] py-[10px] font-medium text-[16px] w-full text-gray-600">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($announcements as $announcement)
                         <tr class="border-b-[1px] border-gray-300 bg-white">
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">{{ $announcement->title}}</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $announcement->body}}</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $announcement->type}}</td>
-                            <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
+                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-black truncate">
+                                {{ $announcement->title}}
+                            </td>
+                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-black truncate">
+                                {{ $announcement->body}}
+                            </td>
+                            <td class="px-[20px] py-[10px] font-regular text-[16px] w-0 whitespace-nowrap">
+                                <span class="px-[10px] py-[3px] rounded-full text-[14px] font-medium
+                                {{ $announcement->type == 'general' ? 'bg-blue-100 text-blue-600' : '' }}
+                                {{ $announcement->type == 'event' ? 'bg-green-100 text-green-600' : '' }}
+                                {{ $announcement->type == 'emergency' ? 'bg-red-100 text-red-600' : '' }}">
+                                    {{ ucfirst($announcement->type) }}
+                                </span>
+                            </td>
+                            <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 flex items-center gap-[10px]">
                                 <div data-modal="viewModal"
                                     data-announcement-id="{{ $announcement->announcement_id }}"
                                     data-title="{{ $announcement->title }}"
@@ -314,7 +325,12 @@
                         <h6 class="text-[14px] text-gray-600 font-semibold">Body:</h6>
                         <p class="text-[16px] font-medium">{{ $announcement->body}}</p>
                         <h6 class="text-[14px] text-gray-600 font-semibold">Type:</h6>
-                        <p class="text-[16px] font-medium">{{ $announcement->type}}</p>
+                        <span class="px-[10px] w-fit py-[3px] rounded-full text-[14px] font-medium
+                                {{ $announcement->type == 'general' ? 'bg-blue-100 text-blue-600' : '' }}
+                                {{ $announcement->type == 'event' ? 'bg-green-100 text-green-600' : '' }}
+                                {{ $announcement->type == 'emergency' ? 'bg-red-100 text-red-600' : '' }}">
+                            {{ ucfirst($announcement->type) }}
+                        </span>
                         <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
                         <div class="w-full flex items-center gap-[10px]">
                             <div data-modal="viewModal"
