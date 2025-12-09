@@ -25,7 +25,6 @@ class AnnouncementController extends Controller
 
         return view('admin.announcements', compact('announcements'));
     }
-    // Store new announcement
     public function store(Request $request)
     {
         $request->validate([
@@ -38,7 +37,7 @@ class AnnouncementController extends Controller
             'title' => $request->title,
             'body' => $request->body,
             'type' => $request->type,
-            'user_id' => 1, // Assuming admin user ID is 1
+            'user_id' => 1,
         ]);
 
         return redirect()->route('announcements.index')->with('success', 'Announcement created successfully.');
@@ -47,7 +46,11 @@ class AnnouncementController extends Controller
     // Update announcement
     public function update(Request $request, $id)
     {
-        $announcement = Announcement::findOrFail($id);
+        $announcement = Announcement::find($id); // Change findOrFail to find
+
+        if (!$announcement) {
+            return redirect()->route('announcements.index')->with('error', 'Announcement not found.');
+        }
 
         $request->validate([
             'title' => 'required|string|max:255',
@@ -67,7 +70,12 @@ class AnnouncementController extends Controller
     // Delete announcement
     public function destroy($id)
     {
-        $announcement = Announcement::findOrFail($id);
+        $announcement = Announcement::find($id); // Change findOrFail to find
+
+        if (!$announcement) {
+            return redirect()->route('announcements.index')->with('error', 'Announcement not found.');
+        }
+
         $announcement->delete();
 
         return redirect()->route('announcements.index')->with('success', 'Announcement deleted successfully.');

@@ -105,10 +105,10 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/orders/{id}', [App\Http\Controllers\AdminOrderController::class, 'show'])->name('admin.orders.show');
 
     // Admin Announcement Routes
-    Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
-    Route::post('/announcements', [AnnouncementController::class, 'store'])->name('announcements.store');
-    Route::put('/announcements/{id}', [AnnouncementController::class, 'update'])->name('announcements.update');
     Route::delete('/announcements/{id}', [AnnouncementController::class, 'destroy'])->name('announcements.destroy');
+    Route::put('/announcements/{id}', [AnnouncementController::class, 'update'])->name('announcements.update');
+    Route::post('/announcements', [AnnouncementController::class, 'store'])->name('announcements.store');
+    Route::get('/announcements', [AnnouncementController::class, 'index'])->name('announcements.index');
 
     // Admin Appointment Routes
     Route::get('/appointment', [AppointmentController::class, 'index'])->name('admin.appointment.index');
@@ -122,9 +122,10 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::post('/verifications/{id}/verify', [App\Http\Controllers\AdminVerificationController::class, 'verify'])->name('admin.verifications.verify');
     Route::post('/verifications/{id}/reject', [App\Http\Controllers\AdminVerificationController::class, 'reject'])->name('admin.verifications.reject');
 
-    Route::get('/blotters', function () {
-        return view('admin.blotters');
-    });
+    // Admin Blotter Routes
+    Route::get('/blotters', [App\Http\Controllers\AdminBlotterController::class, 'index'])->name('admin.blotters.index');
+    Route::put('/blotters/{id}', [App\Http\Controllers\AdminBlotterController::class, 'update'])->name('admin.blotters.update');
+    Route::delete('/blotters/{id}', [App\Http\Controllers\AdminBlotterController::class, 'destroy'])->name('admin.blotters.destroy');
 });
 
 // API Routes

@@ -244,6 +244,44 @@
          </div>
      </form>
  </div>
+ <!-- modal view appointment Section -->
+ <div id="viewModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
+     <div class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[20px]">
+         <h3 class="font-bold text-[40px]">View Appointment</h3>
+
+         <div class="flex flex-col gap-[10px]">
+             <label class="font-medium text-[18px] text-gray-600">Patient Name:</label>
+             <p id="view_patient_name" class="text-[18px] font-semibold"></p>
+         </div>
+
+         <div class="flex flex-col gap-[10px]">
+             <label class="font-medium text-[18px] text-gray-600">Email:</label>
+             <p id="view_email" class="text-[16px]"></p>
+         </div>
+
+         <div class="flex flex-col gap-[10px]">
+             <label class="font-medium text-[18px] text-gray-600">Service:</label>
+             <p id="view_service" class="text-[16px]"></p>
+         </div>
+
+         <div class="flex flex-col gap-[10px]">
+             <label class="font-medium text-[18px] text-gray-600">Date:</label>
+             <p id="view_date" class="text-[16px]"></p>
+         </div>
+
+         <div class="flex flex-col gap-[10px]">
+             <label class="font-medium text-[18px] text-gray-600">Time:</label>
+             <p id="view_time" class="text-[16px]"></p>
+         </div>
+
+         <div class="flex flex-col gap-[10px]">
+             <label class="font-medium text-[18px] text-gray-600">Symptoms:</label>
+             <p id="view_symptoms" class="text-[16px]"></p>
+         </div>
+
+         <button class="cancelBtn w-full px-[20px] py-[10px] text-[20px] text-[#FDBA74] font-medium rounded-[4px] border-[1px] border-[#FDBA74] hover:bg-orange-100 hover:text-orange-700 transition-all duration-300">Close</button>
+     </div>
+ </div>
 
  <body class="relative">
      <!-- Alerts Modal -->
@@ -383,6 +421,23 @@
                          <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $appointment->date}}</td>
                          <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $appointment->time}}</td>
                          <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
+                             <!-- In table (desktop) - add after delete button -->
+                             <div data-modal="viewModal"
+                                 data-appointment-id="{{ $appointment->appointment_id }}"
+                                 data-service="{{ $appointment->service }}"
+                                 data-date="{{ $appointment->date }}"
+                                 data-time="{{ $appointment->time }}"
+                                 data-symptoms="{{ $appointment->symptoms }}"
+                                 data-firstname="{{ $appointment->user->firstname }}"
+                                 data-lastname="{{ $appointment->user->lastname }}"
+                                 data-middlename="{{ $appointment->user->middlename }}"
+                                 data-email="{{ $appointment->user->email }}"
+                                 class="viewBtn bg-blue-100 text-blue-500 border-blue-500 hover:bg-blue-200 cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                 <svg class="h-[20px] w-[20px] fill-blue-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                     <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z" />
+                                 </svg>
+                                 View
+                             </div>
                              <div data-modal="editModal"
                                  data-appointment-id="{{ $appointment->appointment_id }}"
                                  data-service="{{ $appointment->service }}"
@@ -393,8 +448,8 @@
                                  data-lastname="{{ $appointment->user->lastname }}"
                                  data-middlename="{{ $appointment->user->middlename }}"
                                  data-email="{{ $appointment->user->email }}"
-                                 class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                 <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                 class="editBtn bg-green-100 text-green-500 border-green-500 hover:bg-green-200 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                 <svg class="h-[20px] w-[20px] fill-green-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                      <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                                  </svg>
                                  Edit
@@ -402,8 +457,8 @@
                              <div data-modal="deleteModal"
                                  data-appointment-id="{{ $appointment->appointment_id }}"
                                  data-user-name="{{ $appointment->user->firstname }} {{ $appointment->user->lastname }}"
-                                 class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                 <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                 class="deleteBtn bg-red-100 text-red-500 border-red-500 hover:bg-red-200 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                 <svg class="h-[20px] w-[20px] fill-red-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                      <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                  </svg>
                                  Delete
@@ -428,6 +483,23 @@
                      <p class="text-[16px] font-medium">{{ $appointment->time}}</p>
                      <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
                      <div class="w-full flex items-center gap-[10px]">
+                         <!-- In table (desktop) - add after delete button -->
+                         <div data-modal="viewModal"
+                             data-appointment-id="{{ $appointment->appointment_id }}"
+                             data-service="{{ $appointment->service }}"
+                             data-date="{{ $appointment->date }}"
+                             data-time="{{ $appointment->time }}"
+                             data-symptoms="{{ $appointment->symptoms }}"
+                             data-firstname="{{ $appointment->user->firstname }}"
+                             data-lastname="{{ $appointment->user->lastname }}"
+                             data-middlename="{{ $appointment->user->middlename }}"
+                             data-email="{{ $appointment->user->email }}"
+                             class="viewBtn bg-blue-100 text-blue-500 border-blue-500 hover:bg-blue-200 cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                             <svg class="h-[20px] w-[20px] fill-blue-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                 <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z" />
+                             </svg>
+                             View
+                         </div>
                          <div data-modal="editModal"
                              data-appointment-id="{{ $appointment->appointment_id }}"
                              data-service="{{ $appointment->service }}"
@@ -438,8 +510,8 @@
                              data-lastname="{{ $appointment->user->lastname }}"
                              data-middlename="{{ $appointment->user->middlename }}"
                              data-email="{{ $appointment->user->email }}"
-                             class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                             <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                             class="editBtn bg-green-100 text-green-500 border-green-500 hover:bg-green-200 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                             <svg class="h-[20px] w-[20px] fill-green-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                  <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                              </svg>
                              Edit
@@ -447,15 +519,16 @@
                          <div data-modal="deleteModal"
                              data-appointment-id="{{ $appointment->appointment_id }}"
                              data-user-name="{{ $appointment->user->firstname }} {{ $appointment->user->lastname }}"
-                             class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                             <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                             class="deleteBtn bg-red-100 text-red-500 border-red-500 hover:bg-red-200 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                             <svg class="h-[20px] w-[20px] fill-red-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                  <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                              </svg>
                              Delete
                          </div>
                      </div>
                  </div>
-                 @endforeach
+             </div>
+             @endforeach
              </div>
              <!-- Pagination Links -->
              <div class="mt-[20px] mb-[20px] bg-white rounded-[4px] p-[10px]">
@@ -545,6 +618,27 @@
                  });
              });
 
+         });
+         // 🔹 View button
+         document.querySelectorAll('.viewBtn').forEach(btn => {
+             btn.addEventListener('click', function() {
+                 const modal = document.getElementById('viewModal');
+
+                 const firstname = this.getAttribute('data-firstname') || '';
+                 const middlename = this.getAttribute('data-middlename') || '';
+                 const lastname = this.getAttribute('data-lastname') || '';
+                 const middleInitial = middlename ? middlename.charAt(0) + '.' : '';
+
+                 document.getElementById('view_patient_name').textContent = `${firstname} ${middleInitial} ${lastname}`.trim();
+                 document.getElementById('view_email').textContent = this.getAttribute('data-email') || '';
+                 document.getElementById('view_service').textContent = this.getAttribute('data-service') || '';
+                 document.getElementById('view_date').textContent = this.getAttribute('data-date') || '';
+                 document.getElementById('view_time').textContent = this.getAttribute('data-time') || '';
+                 document.getElementById('view_symptoms').textContent = this.getAttribute('data-symptoms') || '';
+
+                 modal.classList.remove('hidden');
+                 modal.classList.add('flex');
+             });
          });
      </script>
  </body>

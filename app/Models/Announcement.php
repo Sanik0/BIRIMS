@@ -9,9 +9,10 @@ class Announcement extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'announcement_id';
-
     protected $table = 'announcement';
+    protected $primaryKey = 'announcement_id';
+    public $incrementing = true; // or false if non-int
+    protected $keyType = 'int';  // or 'string' if UUID
 
     protected $fillable = [
         'title',
@@ -19,5 +20,5 @@ class Announcement extends Model
         'type',
         'user_id',
     ];
-    
 }
+

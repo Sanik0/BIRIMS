@@ -197,26 +197,57 @@
                        </tr>
                    </thead>
                    <tbody>
+                       @foreach ($blotters as $blotter)
                        <tr class="border-b-[1px] border-gray-300 bg-white">
-                           <td data-modal="addModal" class="addBtn hover:underline cursor-pointer px-[20px] py-[10px] font-regular text-[16px] text-black">Juan Dela Cruz</td>
-                           <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Pedro Santos</td>
-                           <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">Physical assault during argument</td>
-                           <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">03-05-2025</td>
+                           <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">{{ $blotter->reporter_name }}</td>
+                           <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $blotter->respondent_name }}</td>
+                           <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $blotter->complaint }}</td>
+                           <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $blotter->incident_date }}</td>
                            <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                               <div data-modal="editModal" class="editBtn hover:bg-green-100 hover:text-green-500 hover:border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                   <svg class="h-[20px] transition-all duration-300 group-hover:fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                               <div data-modal="viewModal"
+                                   data-blotter-id="{{ $blotter->id }}"
+                                   data-reporter-name="{{ $blotter->reporter_name }}"
+                                   data-reporter-address="{{ $blotter->reporter_address }}"
+                                   data-reporter-contact="{{ $blotter->reporter_contact }}"
+                                   data-reporter-age="{{ $blotter->reporter_age }}"
+                                   data-respondent-name="{{ $blotter->respondent_name }}"
+                                   data-respondent-address="{{ $blotter->respondent_address }}"
+                                   data-respondent-contact="{{ $blotter->respondent_contact }}"
+                                   data-respondent-age="{{ $blotter->respondent_age }}"
+                                   data-complaint="{{ $blotter->complaint }}"
+                                   data-description="{{ $blotter->description }}"
+                                   data-incident-date="{{ $blotter->incident_date }}"
+                                   data-incident-time="{{ $blotter->incident_time }}"
+                                   class="viewBtn bg-blue-100 text-blue-500 border-blue-500 hover:bg-blue-200 cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                   <svg class="h-[20px] w-[20px] fill-blue-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                       <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z" />
+                                   </svg>
+                                   View
+                               </div>
+                               <div data-modal="editModal"
+                                   data-blotter-id="{{ $blotter->id }}"
+                                   data-reporter-name="{{ $blotter->reporter_name }}"
+                                   data-respondent-name="{{ $blotter->respondent_name }}"
+                                   data-complaint="{{ $blotter->complaint }}"
+                                   data-incident-date="{{ $blotter->incident_date }}"
+                                   class="editBtn bg-green-100 text-green-500 border-green-500 hover:bg-green-200 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                   <svg class="h-[20px] w-[20px] fill-green-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                        <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                                    </svg>
                                    Edit
                                </div>
-                               <div data-modal="deleteModal" class="deleteBtn hover:bg-red-100 hover:text-red-500 hover:border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] border-gray-400 font-medium text-[14px] text-gray-400">
-                                   <svg class="h-[20px] transition-all duration-300 group-hover:fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                               <div data-modal="deleteModal"
+                                   data-blotter-id="{{ $blotter->id }}"
+                                   data-reporter-name="{{ $blotter->reporter_name }}"
+                                   class="deleteBtn bg-red-100 text-red-500 border-red-500 hover:bg-red-200 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                   <svg class="h-[20px] w-[20px] fill-red-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                        <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                    </svg>
                                    Delete
                                </div>
                            </td>
                        </tr>
+                       @endforeach
                    </tbody>
                </table>
 
