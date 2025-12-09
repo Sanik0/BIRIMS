@@ -410,17 +410,11 @@
                              <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                  <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
                              </svg>
-                             <input name="search" value="{{ request('search')}}" class="w-full focus:outline-none" placeholder="Search" type="text">
+                             <input name="search" value="{{ request('search')}}" class="w-full focus:outline-none" placeholder="Search" type="search">
                          </div>
-                         <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded-sm hover:bg-orange-600 transition-all duration-300 font-medium">
+                         <button type="submit" class="px-4 py-[10px] bg-orange-500 text-white rounded-sm hover:bg-orange-600 transition-all duration-300 font-medium">
                              Search
                          </button>
-
-                         @if(request('search') || request('role'))
-                         <a href="{{ route('users.index') }}" class="px-4 py-2 border border-gray-400 text-gray-600 rounded-sm hover:bg-gray-100 transition-all duration-300 font-medium">
-                             Clear
-                         </a>
-                         @endif
                      </form>
                  </div>
 
@@ -564,7 +558,7 @@
                              <div data-modal="deleteModal"
                                  data-user-id="{{ $user->user_id }}"
                                  data-user-name="{{ $user->firstname }} {{ $user->lastname }}"
-                                 class="deleteBtnbg-red-100 text-red-500 border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                 class="deleteBtn bg-red-100 text-red-500 border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
                                  <svg class="h-[20px] transition-all duration-300 fill-red-500 w-[20px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="">
                                      <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                  </svg>

@@ -22,11 +22,15 @@ class AdminBlotterController extends Controller
             });
         }
 
+        // Filter by status
+        if ($request->has('status') && $request->status != '') {
+            $query->where('status', $request->status);
+        }
+
         $blotters = $query->orderBy('created_at', 'desc')->paginate(10);
 
         return view('admin.blotters', compact('blotters'));
     }
-
     public function update(Request $request, $id)
     {
         $blotter = Blotter::with('user')->find($id);

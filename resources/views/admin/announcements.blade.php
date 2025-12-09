@@ -240,7 +240,7 @@
                             <input name="search" value="{{ request('search') }}" class="w-full focus:outline-none" placeholder="Search by title or body" type="text">
                         </div>
 
-                        <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded-sm hover:bg-orange-600 transition-all duration-300 font-medium">
+                        <button type="submit" class="px-4 py-[10px] bg-orange-500 text-white rounded-sm hover:bg-orange-600 transition-all duration-300 font-medium">
                             Search
                         </button>
 

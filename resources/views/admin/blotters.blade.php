@@ -232,21 +232,28 @@
 
            <section class="w-full flex px-[15px] sm:px-[0] flex-col gap-[15px]">
                <div class="w-full items-center justify-between flex">
-                   <form class="flex  w-full sm:w-fit items-center gap-[20px]">
-                       <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] border-gray-400 text-[18px] font-normal text-gray-400 gap-[8px]">
+                   <form method="GET" action="{{ route('admin.blotters.index') }}" class="flex w-full flex-col sm:flex-row sm:w-fit gap-[20px]">
+                       <div class="flex w-fit items-center rounded-[4px] px-[8px] py-[10px] border-[1px] border-gray-400 text-[18px] font-normal text-gray-400 gap-[8px]">
                            <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                <path d="M520-600v-80h120v-160h80v160h120v80H520Zm120 480v-400h80v400h-80Zm-400 0v-160H120v-80h320v80H320v160h-80Zm0-320v-400h80v400h-80Z" />
                            </svg>
-                           <select class="appearance-none focus:outline-none" name="" id="">
-                               <option value="Filter">Filter By Street:</option>
+                           <select class="appearance-none focus:outline-none" name="status" id="status">
+                               <option value="">Filter By Status:</option>
+                               <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                               <option value="resolved" {{ request('status') == 'resolved' ? 'selected' : '' }}>Resolved</option>
+                               <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
                            </select>
                        </div>
-
-                       <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] w-full sm:w-[308px] border-gray-400 text-[18px] font-normal text-gray-600 gap-[8px]">
-                           <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                               <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
-                           </svg>
-                           <input class="w-full focus:outline-none" placeholder="Search" type="text">
+                       <div class="flex w-full items-center gap-[10px]">
+                           <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] w-full sm:w-[308px] border-gray-400 text-[18px] font-normal text-gray-600 gap-[8px]">
+                               <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                   <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+                               </svg>
+                               <input name="search" value="{{ request('search') }}" class="w-full focus:outline-none" placeholder="Search" type="search">
+                           </div>
+                           <button type="submit" class="px-4 py-[10px] bg-orange-500 text-white rounded-sm hover:bg-orange-600 transition-all duration-300 font-medium">
+                               Search
+                           </button>
                        </div>
                    </form>
                </div>
@@ -325,14 +332,15 @@
                </table>
 
                <!-- Mobile appointments Cards -->
+               @foreach ($blotters as $blotter)
                <div class="w-full gap-[20px] mb-[30px] flex sm:hidden flex-col">
                    <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
                        <h6 class="text-[14px] text-gray-600 font-semibold">Complainant:</h6>
-                       <p data-modal="addModal" class="addBtn text-[16px] font-medium">Juan Dela Cruz</p>
-                       <h6 class="text-[14px] text-gray-600 font-semibold">Respondent:</h6>
-                       <p class="text-[16px] font-medium">Pedro Santos</p>
+                       <p data-modal="addModal" class="addBtn text-[16px] font-medium">{{ $blotter->reporter_name }}</p>
                        <h6 class="text-[14px] text-gray-600 font-semibold">Complaint:</h6>
-                       <p class="text-[16px] font-medium">Physical assault during argument</p>
+                       <p class="text-[16px] font-medium">{{ $blotter->complaint }}t</p>
+                       <h6 class="text-[14px] text-gray-600 font-semibold">Date of incident:</h6>
+                       <p class="text-[16px] font-medium">{{ $blotter->incident_date }}</p>
                        <h6 class="text-[14px] text-gray-600 font-semibold">Status:</h6>
                        <div class="font-regular text-[16px]">
                            <span class="px-[10px] py-[3px] rounded-full text-[14px] font-medium
@@ -390,6 +398,7 @@
                    </div>
 
                </div>
+               @endforeach
            </section>
 
        </main>
@@ -496,7 +505,6 @@
                        const submitBtn = this.querySelector('button[type="submit"]');
                        if (submitBtn && !submitBtn.disabled) {
                            submitBtn.disabled = true;
-                           submitBtn.textContent = 'Submitting...';
                        }
                    });
                });

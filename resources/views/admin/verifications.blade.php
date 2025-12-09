@@ -104,13 +104,13 @@
                </div>
            </div>
 
-           <main class="w-full min-h-screen flex items-start justify-center py-[30px] px-[15px] ">
+           <main class="w-full flex items-start justify-center sm:px-[15px] ">
                <section class="container w-full flex flex-col gap-[20px]">
 
-                   <section class="w-full flex px-[15px] sm:px-[0] flex-col gap-[15px]">
+                   <section class="w-full flex sm:px-[0] flex-col gap-[15px]">
                        <div class="w-full items-center justify-between flex">
-                           <form method="GET" action="{{ route('admin.verifications.index') }}" class="flex w-full sm:w-fit items-center gap-[20px]">
-                               <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] border-gray-400 text-[18px] font-normal text-gray-400 gap-[8px]">
+                           <form method="GET" action="{{ route('admin.verifications.index') }}" class="flex w-full flex-col sm:flex-row sm:w-fit gap-[20px]">
+                               <div class="flex w-fit items-center rounded-[4px] px-[8px] py-[10px] border-[1px] border-gray-400 text-[18px] font-normal text-gray-400 gap-[8px]">
                                    <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                        <path d="M520-600v-80h120v-160h80v160h120v80H520Zm120 480v-400h80v400h-80Zm-400 0v-160H120v-80h320v80H320v160h-80Zm0-320v-400h80v400h-80Z" />
                                    </svg>
@@ -121,12 +121,16 @@
                                        <option value="Driver License" {{ request('type') == 'Driver License' ? 'selected' : '' }}>Driver License</option>
                                    </select>
                                </div>
-
-                               <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] w-full sm:w-[308px] border-gray-400 text-[18px] font-normal text-gray-600 gap-[8px]">
-                                   <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                                       <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
-                                   </svg>
-                                   <input name="search" value="{{ request('search') }}" class="w-full focus:outline-none" placeholder="Search" type="text">
+                               <div class="flex w-full items-center gap-[10px]">
+                                   <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] w-full sm:w-[308px] border-gray-400 text-[18px] font-normal text-gray-600 gap-[8px]">
+                                       <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                           <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
+                                       </svg>
+                                       <input name="search" value="{{ request('search') }}" class="w-full focus:outline-none" placeholder="Search" type="search">
+                                   </div>
+                                   <button type="submit" class="px-4 py-[10px] bg-orange-500 text-white rounded-sm hover:bg-orange-600 transition-all duration-300 font-medium">
+                                       Search
+                                   </button>
                                </div>
                            </form>
                        </div>

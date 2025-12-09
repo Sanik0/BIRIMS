@@ -14,6 +14,8 @@ use App\Http\Controllers\VerificationController;
 use App\Http\Controllers\OrderController; // Add this
 use App\Http\Controllers\AdminOrderController; // Add this  
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\AdminAppointmentController;
+use App\Http\Controllers\AdminProfileController;
 
 // Public routes
 Route::get('/signin', [LoginController::class, 'show'])->name('login');
@@ -90,7 +92,7 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     Route::get('/settings', function () {
         return view('admin.settings');
-    });
+    })->name('admin.settings'); 
 
     // Admin User Routes
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
@@ -121,6 +123,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/verifications/{id}', [App\Http\Controllers\AdminVerificationController::class, 'show'])->name('admin.verifications.show');
     Route::post('/verifications/{id}/verify', [App\Http\Controllers\AdminVerificationController::class, 'verify'])->name('admin.verifications.verify');
     Route::post('/verifications/{id}/reject', [App\Http\Controllers\AdminVerificationController::class, 'reject'])->name('admin.verifications.reject');
+
+    Route::put('/profile/update', [AdminProfileController::class, 'update'])->name('admin.profile.update');
+    Route::put('/password/update', [AdminProfileController::class, 'updatePassword'])->name('admin.password.update');
 
     // Admin Blotter Routes
     Route::get('/blotters', [App\Http\Controllers\AdminBlotterController::class, 'index'])->name('admin.blotters.index');
