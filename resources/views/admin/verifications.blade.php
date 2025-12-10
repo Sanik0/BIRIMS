@@ -104,125 +104,68 @@
                </div>
            </div>
 
-           <main class="w-full flex items-start justify-center sm:px-[15px] ">
-               <section class="container w-full flex flex-col gap-[20px]">
+           <main class="w-full flex items-start justify-center px-[15px] sm:px-[0]">
+               <section class="w-full flex flex-col gap-[15px]">
+                   <div class="w-full items-center justify-between flex">
+                       <form method="GET" action="{{ route('admin.verifications.index') }}" class="flex w-full flex-col sm:flex-row sm:w-fit gap-[20px]">
+                           <!-- Status Filter -->
+                           <div class="flex w-fit items-center rounded-[4px] px-[8px] py-[10px] border-[1px] border-gray-400 text-[18px] font-normal text-gray-400 gap-[8px]">
+                               <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                   <path d="M520-600v-80h120v-160h80v160h120v80H520Zm120 480v-400h80v400h-80Zm-400 0v-160H120v-80h320v80H320v160h-80Zm0-320v-400h80v400h-80Z" />
+                               </svg>
+                               <select name="status" class="appearance-none focus:outline-none">
+                                   <option value="">Filter By Status</option>
+                                   <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                                   <option value="verified" {{ request('status') == 'verified' ? 'selected' : '' }}>Verified</option>
+                                   <option value="rejected" {{ request('status') == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                               </select>
+                           </div>
 
-                   <section class="w-full flex sm:px-[0] flex-col gap-[15px]">
-                       <div class="w-full items-center justify-between flex">
-                           <form method="GET" action="{{ route('admin.verifications.index') }}" class="flex w-full flex-col sm:flex-row sm:w-fit gap-[20px]">
-                               <div class="flex w-fit items-center rounded-[4px] px-[8px] py-[10px] border-[1px] border-gray-400 text-[18px] font-normal text-gray-400 gap-[8px]">
+                           <!-- Search Input -->
+                           <div class="flex w-full items-center gap-[10px]">
+                               <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] w-full sm:w-[308px] border-gray-400 text-[18px] font-normal text-gray-600 gap-[8px]">
                                    <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                                       <path d="M520-600v-80h120v-160h80v160h120v80H520Zm120 480v-400h80v400h-80Zm-400 0v-160H120v-80h320v80H320v160h-80Zm0-320v-400h80v400h-80Z" />
+                                       <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
                                    </svg>
-                                   <select name="type" class="appearance-none focus:outline-none" onchange="this.form.submit()">
-                                       <option value="">Filter By Document</option>
-                                       <option value="Valid ID" {{ request('type') == 'Valid ID' ? 'selected' : '' }}>Valid ID</option>
-                                       <option value="Barangay ID" {{ request('type') == 'Barangay ID' ? 'selected' : '' }}>Barangay ID</option>
-                                       <option value="Driver License" {{ request('type') == 'Driver License' ? 'selected' : '' }}>Driver License</option>
-                                   </select>
+                                   <input name="search" value="{{ request('search') }}" class="w-full focus:outline-none" placeholder="Search" type="search">
                                </div>
-                               <div class="flex w-full items-center gap-[10px]">
-                                   <div class="flex items-center rounded-[4px] px-[8px] py-[10px] border-[1px] w-full sm:w-[308px] border-gray-400 text-[18px] font-normal text-gray-600 gap-[8px]">
-                                       <svg class="h-[25px] w-[25px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                                           <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" />
-                                       </svg>
-                                       <input name="search" value="{{ request('search') }}" class="w-full focus:outline-none" placeholder="Search" type="search">
-                                   </div>
-                                   <button type="submit" class="px-4 py-[10px] bg-orange-500 text-white rounded-sm hover:bg-orange-600 transition-all duration-300 font-medium">
-                                       Search
-                                   </button>
-                               </div>
-                           </form>
-                       </div>
+                               <button type="submit" class="px-4 py-[10px] bg-orange-500 text-white rounded-sm hover:bg-orange-600 transition-all duration-300 font-medium">
+                                   Search
+                               </button>
+                           </div>
+                       </form>
+                   </div>
 
-                       {{-- Desktop Table --}}
-                       <table class="w-full hidden sm:table border-collapse text-left border-[1px] border-gray-300 rounded-[4px]">
-                           <thead>
-                               <tr class="border-b-[1px] border-gray-300 bg-[#FFF7ED]">
-                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Full Name</th>
-                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Email</th>
-                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Document</th>
-                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Status</th>
-                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Action</th>
-                               </tr>
-                           </thead>
-                           <tbody>
-                               @forelse($verifications as $verification)
-                               <tr class="border-b-[1px] border-gray-300 bg-white">
-                                   <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">
-                                       {{ $verification->firstname }} {{ $verification->middlename ? strtoupper(substr($verification->middlename, 0, 1)) . '.' : '' }} {{ $verification->lastname }}
-                                   </td>
-                                   <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $verification->email }}</td>
-                                   <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $verification->type }}</td>
+                   {{-- Desktop Table --}}
+                   <table class="w-full hidden sm:table border-collapse text-left border-[1px] border-gray-300 rounded-[4px]">
+                       <thead>
+                           <tr class="border-b-[1px] border-gray-300 bg-[#FFF7ED]">
+                               <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Full Name</th>
+                               <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Email</th>
+                               <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Document</th>
+                               <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Status</th>
+                               <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Action</th>
+                           </tr>
+                       </thead>
+                       <tbody>
+                           @forelse($verifications as $verification)
+                           <tr class="border-b-[1px] border-gray-300 bg-white">
+                               <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">
+                                   {{ $verification->firstname }} {{ $verification->middlename ? strtoupper(substr($verification->middlename, 0, 1)) . '.' : '' }} {{ $verification->lastname }}
+                               </td>
+                               <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $verification->email }}</td>
+                               <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $verification->type }}</td>
 
-                                   <td class="px-[20px] py-[10px] font-regular text-[16px]">
-                                       <span class="px-3 py-1 rounded-full text-sm font-medium
+                               <td class="px-[20px] py-[10px] font-regular text-[16px]">
+                                   <span class="px-3 py-1 rounded-full text-sm font-medium
                                 @if($verification->status == 'pending') bg-yellow-100 text-yellow-800
                                 @elseif($verification->status == 'verified') bg-green-100 text-green-800
                                 @elseif($verification->status == 'rejected') bg-red-100 text-red-800
                                 @endif">
-                                           {{ ucfirst($verification->status) }}
-                                       </span>
-                                   </td>
-                                   <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                                       <button data-verification-id="{{ $verification->verification_id }}" class="viewBtn bg-blue-100 text-blue-500 border-blue-500 cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
-                                           <svg class="h-[20px] w-[20px] fill-blue-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                                               <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z" />
-                                           </svg>
-                                           View
-                                       </button>
-                                       @if($verification->status == 'pending')
-                                       <button data-verification-id="{{ $verification->verification_id }}" class="verifyBtn bg-green-100 text-green-500 border border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px]font-medium text-[14px] ">
-                                           <svg class="h-[20px] transition-all duration-300fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                                               <path d="m424-408-86-86q-11-11-28-11t-28 11q-11 11-11 28t11 28l114 114q12 12 28 12t28-12l226-226q11-11 11-28t-11-28q-11-11-28-11t-28 11L424-408Z" />
-                                           </svg>
-                                           Verify
-                                       </button>
-                                       <button data-verification-id="{{ $verification->verification_id }}" class="rejectBtn bg-red-100 text-red-500 border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
-                                           <svg class="h-[20px] transition-all duration-300 fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                                               <path d="m480-424 116 116q11 11 28 11t28-11q11-11 11-28t-11-28L536-480l116-116q11-11 11-28t-11-28q-11-11-28-11t-28 11L480-536 364-652q-11-11-28-11t-28 11q-11 11-11 28t11 28l116 116-116 116q-11 11-11 28t11 28q11 11 28 11t28-11l116-116Z" />
-                                           </svg>
-                                           Reject
-                                       </button>
-                                       @endif
-                                   </td>
-                               </tr>
-                               @empty
-                               <tr>
-                                   <td colspan="6" class="px-[20px] py-[40px] text-center text-gray-500">
-                                       No verification requests found
-                                   </td>
-                               </tr>
-                               @endforelse
-                           </tbody>
-                       </table>
-
-                       {{-- Mobile Cards --}}
-                       <div class="w-full gap-[20px] mb-[30px] flex sm:hidden flex-col">
-                           @forelse($verifications as $verification)
-                           <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
-                               <h6 class="text-[14px] text-gray-600 font-semibold">Full Name:</h6>
-                               <p class="text-[16px] font-medium">
-                                   {{ $verification->firstname }} {{ $verification->middlename ? strtoupper(substr($verification->middlename, 0, 1)) . '.' : '' }} {{ $verification->lastname }}
-                               </p>
-                               <h6 class="text-[14px] text-gray-600 font-semibold">Email:</h6>
-                               <p class="text-[16px] font-medium">{{ $verification->email }}</p>
-                               <h6 class="text-[14px] text-gray-600 font-semibold">Document:</h6>
-                               <p class="text-[16px] font-medium">{{ $verification->type }}</p>
-                               <h6 class="text-[14px] text-gray-600 font-semibold">Date Submitted:</h6>
-                               <p class="text-[16px] font-medium">{{ \Carbon\Carbon::parse($verification->submitted_at)->format('d-m-Y') }}</p>
-                               <h6 class="text-[14px] text-gray-600 font-semibold">Status:</h6>
-                               <p class="text-[16px] font-medium">
-                                   <span class="px-3 py-1 rounded-full text-sm font-medium
-                            @if($verification->status == 'pending') bg-yellow-100 text-yellow-800
-                            @elseif($verification->status == 'verified') bg-green-100 text-green-800
-                            @elseif($verification->status == 'rejected') bg-red-100 text-red-800
-                            @endif">
                                        {{ ucfirst($verification->status) }}
                                    </span>
-                               </p>
-                               <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
-                               <div class="w-full flex items-center gap-[10px]">
+                               </td>
+                               <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
                                    <button data-verification-id="{{ $verification->verification_id }}" class="viewBtn bg-blue-100 text-blue-500 border-blue-500 cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
                                        <svg class="h-[20px] w-[20px] fill-blue-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                            <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z" />
@@ -230,28 +173,85 @@
                                        View
                                    </button>
                                    @if($verification->status == 'pending')
-                                   <button data-verification-id="{{ $verification->verification_id }}" class="verifyBtn bg-green-100 text-green-500 border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
-                                       <svg class="h-[20px] transition-all duration-300 fill-green-500 w-[20px] " xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                   <button data-verification-id="{{ $verification->verification_id }}" class="verifyBtn bg-green-100 text-green-500 border border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px]font-medium text-[14px] ">
+                                       <svg class="h-[20px] transition-all duration-300fill-green-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                            <path d="m424-408-86-86q-11-11-28-11t-28 11q-11 11-11 28t11 28l114 114q12 12 28 12t28-12l226-226q11-11 11-28t-11-28q-11-11-28-11t-28 11L424-408Z" />
                                        </svg>
                                        Verify
                                    </button>
                                    <button data-verification-id="{{ $verification->verification_id }}" class="rejectBtn bg-red-100 text-red-500 border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
-                                       <svg class="h-[20px] transition-all duration-300 fill-red-500 w-[20px] " xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                       <svg class="h-[20px] transition-all duration-300 fill-red-500 w-[20px] fill-gray-400" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                                            <path d="m480-424 116 116q11 11 28 11t28-11q11-11 11-28t-11-28L536-480l116-116q11-11 11-28t-11-28q-11-11-28-11t-28 11L480-536 364-652q-11-11-28-11t-28 11q-11 11-11 28t11 28l116 116-116 116q-11 11-11 28t11 28q11 11 28 11t28-11l116-116Z" />
                                        </svg>
                                        Reject
                                    </button>
                                    @endif
-                               </div>
-                           </div>
+                               </td>
+                           </tr>
                            @empty
-                           <div class="w-full text-center py-[40px] text-gray-500">
-                               No verification requests found
-                           </div>
+                           <tr>
+                               <td colspan="6" class="px-[20px] py-[40px] text-center text-gray-500">
+                                   No verification requests found
+                               </td>
+                           </tr>
                            @endforelse
+                       </tbody>
+                   </table>
+
+                   {{-- Mobile Cards --}}
+                   <div class="w-full gap-[20px] mb-[30px] flex sm:hidden flex-col">
+                       @forelse($verifications as $verification)
+                       <div class="w-full border-[1px] border-gray-300 rounded-[4px] flex flex-col gap-[10px] p-[10px]">
+                           <h6 class="text-[14px] text-gray-600 font-semibold">Full Name:</h6>
+                           <p class="text-[16px] font-medium">
+                               {{ $verification->firstname }} {{ $verification->middlename ? strtoupper(substr($verification->middlename, 0, 1)) . '.' : '' }} {{ $verification->lastname }}
+                           </p>
+                           <h6 class="text-[14px] text-gray-600 font-semibold">Email:</h6>
+                           <p class="text-[16px] font-medium">{{ $verification->email }}</p>
+                           <h6 class="text-[14px] text-gray-600 font-semibold">Document:</h6>
+                           <p class="text-[16px] font-medium">{{ $verification->type }}</p>
+                           <h6 class="text-[14px] text-gray-600 font-semibold">Date Submitted:</h6>
+                           <p class="text-[16px] font-medium">{{ \Carbon\Carbon::parse($verification->submitted_at)->format('d-m-Y') }}</p>
+                           <h6 class="text-[14px] text-gray-600 font-semibold">Status:</h6>
+                           <p class="text-[16px] font-medium">
+                               <span class="px-3 py-1 rounded-full text-sm font-medium
+                            @if($verification->status == 'pending') bg-yellow-100 text-yellow-800
+                            @elseif($verification->status == 'verified') bg-green-100 text-green-800
+                            @elseif($verification->status == 'rejected') bg-red-100 text-red-800
+                            @endif">
+                                   {{ ucfirst($verification->status) }}
+                               </span>
+                           </p>
+                           <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
+                           <div class="w-full flex items-center gap-[10px]">
+                               <button data-verification-id="{{ $verification->verification_id }}" class="viewBtn bg-blue-100 text-blue-500 border-blue-500 cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                   <svg class="h-[20px] w-[20px] fill-blue-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                       <path d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Z" />
+                                   </svg>
+                                   View
+                               </button>
+                               @if($verification->status == 'pending')
+                               <button data-verification-id="{{ $verification->verification_id }}" class="verifyBtn bg-green-100 text-green-500 border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                   <svg class="h-[20px] transition-all duration-300 fill-green-500 w-[20px] " xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                       <path d="m424-408-86-86q-11-11-28-11t-28 11q-11 11-11 28t11 28l114 114q12 12 28 12t28-12l226-226q11-11 11-28t-11-28q-11-11-28-11t-28 11L424-408Z" />
+                                   </svg>
+                                   Verify
+                               </button>
+                               <button data-verification-id="{{ $verification->verification_id }}" class="rejectBtn bg-red-100 text-red-500 border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                   <svg class="h-[20px] transition-all duration-300 fill-red-500 w-[20px] " xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                       <path d="m480-424 116 116q11 11 28 11t28-11q11-11 11-28t-11-28L536-480l116-116q11-11 11-28t-11-28q-11-11-28-11t-28 11L480-536 364-652q-11-11-28-11t-28 11q-11 11-11 28t11 28l116 116-116 116q-11 11-11 28t11 28q11 11 28 11t28-11l116-116Z" />
+                                   </svg>
+                                   Reject
+                               </button>
+                               @endif
+                           </div>
                        </div>
-                   </section>
+                       @empty
+                       <div class="w-full text-center py-[40px] text-gray-500">
+                           No verification requests found
+                       </div>
+                       @endforelse
+                   </div>
                </section>
            </main>
 

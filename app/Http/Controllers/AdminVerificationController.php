@@ -20,6 +20,11 @@ class AdminVerificationController extends Controller
             )
             ->orderBy('verification.submitted_at', 'desc');
 
+        // Filter by status
+        if ($request->has('status') && $request->status != '') {
+            $query->where('verification.status', $request->status);
+        }
+
         // Filter by document type if provided
         if ($request->has('type') && $request->type != '') {
             $query->where('verification.type', $request->type);

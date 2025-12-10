@@ -20,6 +20,9 @@ use App\Http\Controllers\AdminProfileController;
 // Public routes
 Route::get('/signin', [LoginController::class, 'show'])->name('login');
 Route::post('/signin', [LoginController::class, 'login'])->name('signin.post');
+Route::get('/', function () {
+    return view('index');
+});
 
 Route::get('/signup', function () {
     return view('signup');
@@ -86,13 +89,11 @@ Route::middleware(['auth'])->group(function () {
 
 // Protected Admin Routes (require login)
 Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::get('/home', function () {
-        return view('admin.home');
-    })->name('admin.home');
+    Route::get('/home', [App\Http\Controllers\AdminHomeController::class, 'index'])->name('admin.home');
 
     Route::get('/settings', function () {
         return view('admin.settings');
-    })->name('admin.settings'); 
+    })->name('admin.settings');
 
     // Admin User Routes
     Route::get('/users', [UserController::class, 'index'])->name('users.index');

@@ -503,7 +503,7 @@
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Address</div>
                                        <p class="font-regular text-[16px] py-[10px] text-[#52525B]">
-                                           {{ auth()->user()->house_number }} {{ auth()->user()->street }} Street,
+                                           {{ auth()->user()->house_number }} {{ auth()->user()->street }},
                                            <br>
                                            Barangay San Bartolome,
                                            <br>

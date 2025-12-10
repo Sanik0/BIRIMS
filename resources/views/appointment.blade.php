@@ -84,9 +84,10 @@
               <div class="flex items-center gap-[10px] max-w-[579px]">
                   <div class="flex flex-col">
                       <h1 class="font-serif font-medium sm:text-[35px] text-[25px]">Request Documents</h1>
-                      <p class="sm:text-[16px] text-[14px] font-medium text-[#A1A1AA]">Lorem ipsum dolor sit amet, consectetur adipiscing
-                          elit, sed do eiusmod tempor incididunt ut
-                           labore et dolore </p>
+                      <p class="sm:text-[16px] text-[14px] font-medium text-[#A1A1AA]">
+                          Easily request barangay documents such as certificates, permits, and clearances.
+                          Submit your details and track the status of your requests online.
+                      </p>
                   </div>
               </div>
               <div class="sm:flex items-center hidden gap-[20px]">

@@ -71,7 +71,7 @@
                          </svg>
                          <div class="flex flex-col items-end">
                              <p class="text-gray-600 font-regular text-[18px]">Users</p>
-                             <h1 class="text-[30px] font-medium">887</h1>
+                             <h1 class="text-[30px] font-medium">{{ $totalUsers }}</h1>
                          </div>
                      </div>
                      <div class="w-full flex items-center gap-[15px]">
@@ -105,7 +105,7 @@
                          </svg>
                          <div class="flex flex-col items-end">
                              <p class="text-gray-600 font-regular text-[18px]">Blotters</p>
-                             <h1 class="text-[30px] font-medium">887</h1>
+                             <h1 class="text-[30px] font-medium">{{ $totalBlotters }}</h1>
                          </div>
                      </div>
                      <div class="w-full flex items-center gap-[15px]">
@@ -122,7 +122,7 @@
                          </svg>
                          <div class="flex flex-col items-end">
                              <p class="text-gray-600 font-regular text-[18px]">Appoints</p>
-                             <h1 class="text-[30px] font-medium">887</h1>
+                             <h1 class="text-[30px] font-medium">{{ $totalAppointments }}</h1>
                          </div>
                      </div>
                      <div class="w-full flex items-center gap-[15px]">
@@ -138,58 +138,27 @@
                  <div class="rounded-[4px] h-fit sm:h-[368px] flex flex-col gap-[0] sm:gap-[10px] w-full max-w-[703px] fit px-[30px] py-[20px] border-[1px] border-gray-300">
                      <div class="flex flex-col">
                          <h1 class="text-[25px] font-medium">Barangay Blotter Reports</h1>
-                         <p class="text-gray-500 ">Reports in the past year</p>
+                         <p class="text-gray-500">Reports in the past year</p>
                      </div>
                      <div class="flex flex-col sm:flex-row w-full items-center py-[20px] gap-[64px] h-full">
                          <div class="h-fit sm:h-full w-[194px]">
                              <canvas id="myPieChart"></canvas>
                          </div>
                          <div class="flex flex-col w-full overflow-auto max-h-[225px]">
-                             <div class="flex w-full items-center justify-between border-b-[1px]  border-b-gray-400 py-[10px]">
+                             @if($blotterData->count() > 0)
+                             @foreach($blotterData as $index => $data)
+                             <div class="flex w-full items-center justify-between border-b-[1px] border-b-gray-400 py-[10px]">
                                  <div class="flex items-center gap-[15px]">
-                                     <div class="h-[20px] w-[20px] rounded-[50%] bg-[#FF89D7]">
-                                     </div>
-                                     <p class="font-regular text-[16px] ">Gemini Alley</p>
+                                     <div class="h-[20px]  min-w-[20px] w-[20px] rounded-[50%]" style="background-color: {{ $colors[$index] ?? '#ccc' }}"></div>
+                                     <p class="font-regular text-[16px]">{{ $data->street ?: 'Unknown' }}</p>
                                  </div>
-                                 <div>197</div>
-                                 <div>30%</div>
+                                 <div>{{ $data->count }}</div>
+                                 <div>{{ $percentages[$index] }}%</div>
                              </div>
-                             <div class="flex w-full items-center justify-between border-b-[1px]  border-b-gray-400 py-[10px]">
-                                 <div class="flex items-center gap-[15px]">
-                                     <div class="h-[20px] w-[20px] rounded-[50%] bg-[#CF93FF]">
-                                     </div>
-                                     <p class="font-regular text-[16px] ">Gold Street</p>
-                                 </div>
-                                 <div>197</div>
-                                 <div>30%</div>
-                             </div>
-                             <div class="flex w-full items-center justify-between border-b-[1px]  border-b-gray-400 py-[10px]">
-                                 <div class="flex items-center gap-[15px]">
-                                     <div class="h-[20px] w-[20px] rounded-[50%] bg-[#89C6FF]">
-                                     </div>
-                                     <p class="font-regular text-[16px] ">Gumamela</p>
-                                 </div>
-                                 <div>197</div>
-                                 <div>30%</div>
-                             </div>
-                             <div class="flex w-full items-center justify-between border-b-[1px]  border-b-gray-400 py-[10px]">
-                                 <div class="flex items-center gap-[15px]">
-                                     <div class="h-[20px] w-[20px] rounded-[50%] bg-[#FFEBA5]">
-                                     </div>
-                                     <p class="font-regular text-[16px] ">Hummingbird</p>
-                                 </div>
-                                 <div>197</div>
-                                 <div>30%</div>
-                             </div>
-                             <div class="flex w-full items-center justify-between border-b-[1px]  border-b-gray-400 py-[10px]">
-                                 <div class="flex items-center gap-[15px]">
-                                     <div class="h-[20px] w-[20px] rounded-[50%] bg-[#8AFFC7]">
-                                     </div>
-                                     <p class="font-regular text-[16px] ">Hermes Drive</p>
-                                 </div>
-                                 <div>197</div>
-                                 <div>30%</div>
-                             </div>
+                             @endforeach
+                             @else
+                             <div class="text-center text-gray-500 py-[20px]">No blotter reports in the past year</div>
+                             @endif
                          </div>
                      </div>
                  </div>
@@ -197,12 +166,14 @@
                  <div class="rounded-[4px] h-fit sm:h-[368px] flex flex-col gap-[10px] w-full max-w-[500px] fit px-[30px] py-[20px] border-[1px] border-gray-300">
                      <div class="flex flex-col">
                          <h1 class="text-[25px] font-medium">Medical Appointment</h1>
-                         <p class="text-gray-500 ">Appointments in the past year</p>
+                         <p class="text-gray-500">Appointments in the past week</p>
                      </div>
                      <div class="h-full w-full">
                          <canvas id="myBarChart"></canvas>
                      </div>
                  </div>
+
+
              </div>
 
              <div class="w-full flex flex-col gap-[10px] sm:flex-row sm:gap-[0] justify-between items-center mb-[30px]">
@@ -346,17 +317,11 @@
              const myPieChart = new Chart(ctx, {
                  type: 'pie',
                  data: {
-                     labels: ['Gemini Alley', 'Gold Street', 'Gumamela', 'Hummingbird', 'Hermes Drive'],
+                     labels: @json($streets),
                      datasets: [{
                          label: 'Reports',
-                         data: [30, 25, 15, 15, 15],
-                         backgroundColor: [
-                             '#FF89D7',
-                             '#CF93FF',
-                             '#89C6FF',
-                             '#FFEBA5',
-                             '#8AFFC7'
-                         ],
+                         data: @json($counts),
+                         backgroundColor: @json($colors),
                          borderColor: '#fff',
                          borderWidth: 2
                      }]
@@ -366,47 +331,39 @@
                      plugins: {
                          legend: {
                              display: false
-                         },
-
+                         }
                      }
                  }
              });
+
              const ctx2 = document.getElementById('myBarChart').getContext('2d');
              const myBarChart = new Chart(ctx2, {
                  type: 'bar',
                  data: {
-                     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                     labels: @json($days),
                      datasets: [{
                          label: 'Appointments',
-                         data: [37, 20, 44, 27, 25, 50, 30, 40, 45, 20, 33, 60],
-                         backgroundColor: [
-                             '#89C6FF',
-                             '#89C6FF',
-                             '#89C6FF',
-                             '#89C6FF',
-                             '#89C6FF',
-                             '#89C6FF',
-                             '#89C6FF',
-                             '#89C6FF',
-                             '#89C6FF',
-                             '#89C6FF',
-                             '#89C6FF',
-                             '#89C6FF',
-                             '#89C6FF',
-                             '#89C6FF',
-
-                         ],
+                         data: @json($appointmentCounts),
+                         backgroundColor: '#89C6FF',
                          borderColor: '#fff',
                          borderWidth: 2
                      }]
                  },
                  options: {
                      responsive: true,
+                     maintainAspectRatio: false,
+                     scales: {
+                         y: {
+                             beginAtZero: true,
+                             ticks: {
+                                 stepSize: 1
+                             }
+                         }
+                     },
                      plugins: {
                          legend: {
                              display: false
-                         },
-
+                         }
                      }
                  }
              });

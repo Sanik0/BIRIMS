@@ -34,9 +34,10 @@
             <div class="flex items-center gap-[10px] max-w-[579px]">
                 <div class="flex flex-col">
                     <h1 class="font-serif font-medium sm:text-[35px] text-[25px]">Barangay Announcements</h1>
-                    <p class="sm:text-[16px] text-[14px] font-medium text-[#A1A1AA]">Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit, sed do eiusmod tempor incididunt ut
-                         labore et dolore </p>
+                    <p class="sm:text-[16px] text-[14px] font-medium text-[#A1A1AA]">
+                        Stay updated with the latest news, activities, and important reminders from the barangay.
+                        All announcements are posted here to keep the community informed and involved.
+                    </p>
                 </div>
             </div>
             <div class="sm:flex items-center hidden gap-[20px]">
