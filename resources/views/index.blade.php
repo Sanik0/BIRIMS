@@ -197,63 +197,142 @@
         <!-- Blotter Section -->
 
         <!-- FAQ Section -->
-        <section class="lg:h-screen min-h-screen w-full flex md:flex-row pt-[30px] md:pt-0 flex-col items-center justify-center pb-[80px] md:gap-0 gap-[30px] px-[40px] lg:px-0" id="contact-us">
+        <section class="lg:h-screen min-h-screen w-full flex md:flex-row pt-8 md:pt-0 flex-col items-center justify-center pb-20 md:gap-0 gap-8 px-10 lg:px-0" id="contact-us">
+            <!-- Left Column: Info & CTA -->
             <div class="w-full lg:max-w-[600px] flex flex-col md:gap-6 gap-3 justify-center items-center lg:items-start lg:px-20">
-                <h1 class="font-medium md:text-[50px] text-[32px] md:leading-[65px] text-center md:text-left" style="font-family: var(--font-ibm-plex-serif);">Frequently Asked Questions</h1>
-                <div class="w-full ">
-                    <p class="font-medium md:text-[18px] text-[16px] text-center md:text-left text-[#A1A1AA] ">If you have any question or concern, you can contact us in <a href="" class="w-full text-[var(--orange)] duration-150 ease-in hover:underline md:text-[18px] text-[16px] block truncate">birims.sanbartolome@gmail.com</a> and we will quickly response at you! You can also contact us in different platforms just by clicking Contact Us below.</p>
+                <h1 class="font-medium md:text-5xl text-[32px] md:leading-[65px] text-center md:text-left" style="font-family: var(--font-ibm-plex-serif);">
+                    Frequently Asked Questions
+                </h1>
+                <div class="w-full">
+                    <p class="font-medium md:text-lg text-base text-center md:text-left text-[#A1A1AA]">
+                        If you have any question or concern, you can contact us at
+                        <a href="mailto:birims.sanbartolome@gmail.com" class="text-[var(--orange)] duration-150 ease-in hover:underline inline-block">
+                            birims.sanbartolome@gmail.com
+                        </a>
+                        and we will quickly respond to you! You can also contact us on different platforms just by clicking Contact Us below.
+                    </p>
                 </div>
                 <div class="w-full flex justify-center md:justify-start">
-                    <a href="{{url('contact')}}" class="rounded-[5px] w-fit flex gap-5 py-[13px] px-[25px] hover:text-green-50 hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center justify-center text-[20px] text-[#ffffff] font-medium">
-                        <p class="md:text-[18px] text-[16px] font-medium">Contact Us</p>
-                        <svg class="fill-white" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                    <a href="/contact" class="rounded-md w-fit flex gap-4 py-3 px-6 hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] items-center justify-center text-white font-medium group">
+                        <p class="md:text-lg text-base font-medium">Contact Us</p>
+                        <svg class="fill-white transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
                             <path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z" />
                         </svg>
                     </a>
                 </div>
             </div>
+
+            <!-- Right Column: FAQ Accordion -->
             <div class="w-full lg:max-w-[600px] flex flex-col gap-6 justify-center items-center lg:px-10">
-                <ul class="w-full lg:max-w-[600px] h-full md:mt-[100px]">
-                    <li class="md:p-[16px] py-[16px]">
-                        <label for="first" class="faq-details">How do i request for my barangay documents?</label>
-                        <input type="radio" name="accordion" id="first" class="hidden" checked class="bg-amber-300">
+                <ul class="w-full h-full md:mt-24">
+                    <li class="faq-item md:p-4 py-4">
+                        <input type="radio" name="accordion" id="first" checked>
+                        <label for="first" class="faq-details">
+                            How do I request for my barangay documents?
+                        </label>
                         <div class="content">
                             <p class="faq-summary">You can request barangay documents by visiting the Barangay Hall or through our online portal. Fill out the request form, provide valid identification, and indicate the document type you need.</p>
                         </div>
                     </li>
-                    <hr class="text-[#E4E4E7]">
-                    <li class="md:p-[16px] py-[16px]">
-                        <label for="second" class="faq-details">What are the requirements to request for my documents?</label>
-                        <input type="radio" name="accordion" id="second" class="hidden">
+                    <hr class="border-[#E4E4E7]">
+
+                    <li class="faq-item md:p-4 py-4">
+                        <input type="radio" name="accordion" id="second">
+                        <label for="second" class="faq-details">
+                            What are the requirements to request for my documents?
+                        </label>
                         <div class="content">
-                            <p class="faq-summary">You’ll need a valid government-issued ID, proof of residency, and in some cases, supporting documents depending on the type of clearance or certificate you’re requesting.</p>
+                            <p class="faq-summary">You'll need a valid government-issued ID, proof of residency, and in some cases, supporting documents depending on the type of clearance or certificate you're requesting.</p>
                         </div>
                     </li>
-                    <hr class="text-[#E4E4E7]">
-                    <li class="md:p-[16px] py-[16px]">
-                        <label for="third" class="faq-details">What are the types of documents i can request for?</label>
-                        <input type="radio" name="accordion" id="third" class="hidden">
+                    <hr class="border-[#E4E4E7]">
+
+                    <li class="faq-item md:p-4 py-4">
+                        <input type="radio" name="accordion" id="third">
+                        <label for="third" class="faq-details">
+                            What are the types of documents I can request for?
+                        </label>
                         <div class="content">
                             <p class="faq-summary">The types of documents that you can request are: Barangay Clearance, Business Clearance, Cedula, Oath Taking Certificate and Certificate of Residence, Indigency or Good Moral Character.</p>
                         </div>
                     </li>
-                    <hr class="text-[#E4E4E7]">
-                    <li class="md:p-[16px] py-[16px]">
-                        <label for="fourth" class="faq-details">Do i need to pay for a fee to deliver my documents?</label>
-                        <input type="radio" name="accordion" id="fourth" class="hidden">
+                    <hr class="border-[#E4E4E7]">
+
+                    <li class="faq-item md:p-4 py-4">
+                        <input type="radio" name="accordion" id="fourth">
+                        <label for="fourth" class="faq-details">
+                            Do I need to pay a fee to deliver my documents?
+                        </label>
                         <div class="content">
                             <p class="faq-summary">Yes, minimal processing or delivery fees may apply depending on your document type and delivery option.</p>
                         </div>
                     </li>
-                    <hr class="text-[#E4E4E7]">
-                    <li class="md:p-[16px] py-[16px]">
-                        <label for="fifth" class="faq-details">Does (company name) support delivery services?</label>
-                        <input type="radio" name="accordion" id="fifth" class="hidden">
+                    <hr class="border-[#E4E4E7]">
+
+                    <li class="faq-item md:p-4 py-4">
+                        <input type="radio" name="accordion" id="fifth">
+                        <label for="fifth" class="faq-details">
+                            Does BIRIMS support delivery services?
+                        </label>
                         <div class="content">
-                            <p class="faq-summary">Yes. We offer door-to-door document delivery through our barangay’s partnered courier service for added convenience.</p>
+                            <p class="faq-summary">Yes. We offer door-to-door document delivery through our barangay's partnered courier service for added convenience.</p>
                         </div>
                     </li>
-                    <hr class="text-[#E4E4E7]">
+                    <hr class="border-[#E4E4E7]">
+
+                    <li class="faq-item md:p-4 py-4">
+                        <input type="radio" name="accordion" id="sixth">
+                        <label for="sixth" class="faq-details">
+                            Can I authorize someone else to claim my requested document?
+                        </label>
+                        <div class="content">
+                            <p class="faq-summary">Yes, you can authorize another person by providing a signed authorization letter, a copy of your valid ID, and a copy of the representative's valid ID.</p>
+                        </div>
+                    </li>
+                    <hr class="border-[#E4E4E7]">
+
+                    <li class="faq-item md:p-4 py-4">
+                        <input type="radio" name="accordion" id="seventh">
+                        <label for="seventh" class="faq-details">
+                            What should I do if I entered incorrect information in my request form?
+                        </label>
+                        <div class="content">
+                            <p class="faq-summary">Contact the barangay staff immediately through the Contact Us page or visit the barangay office to request correction before the document is processed.</p>
+                        </div>
+                    </li>
+                    <hr class="border-[#E4E4E7]">
+
+                    <li class="faq-item md:p-4 py-4">
+                        <input type="radio" name="accordion" id="eighth">
+                        <label for="eighth" class="faq-details">
+                            What types of incidents can I report?
+                        </label>
+                        <div class="content">
+                            <p class="faq-summary">You can report incidents such as fire, theft, accidents, domestic disputes, lost items, or any emergency situations within the barangay.</p>
+                        </div>
+                    </li>
+                    <hr class="border-[#E4E4E7]">
+
+                    <li class="faq-item md:p-4 py-4">
+                        <input type="radio" name="accordion" id="ninth">
+                        <label for="ninth" class="faq-details">
+                            How secure is my information in BIRIMS?
+                        </label>
+                        <div class="content">
+                            <p class="faq-summary">All data is encrypted and stored securely following data privacy regulations to ensure the confidentiality of residents' information.</p>
+                        </div>
+                    </li>
+                    <hr class="border-[#E4E4E7]">
+
+                    <li class="faq-item md:p-4 py-4">
+                        <input type="radio" name="accordion" id="tenth">
+                        <label for="tenth" class="faq-details">
+                            Is BIRIMS accessible on mobile phones?
+                        </label>
+                        <div class="content">
+                            <p class="faq-summary">Yes. BIRIMS is designed to be mobile-responsive, so you can access it conveniently through any smartphone browser.</p>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </section>
@@ -421,6 +500,72 @@
             height: 3px;
             background-color: #EA580C;
             border-radius: 2px;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --orange: #EA580C;
+            --font-ibm-plex-serif: 'IBM Plex Serif', serif;
+        }
+
+        .faq-item input[type="radio"] {
+            display: none;
+        }
+
+        .content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 0;
+        }
+
+        .faq-item input[type="radio"]:checked~.content {
+            max-height: 500px;
+            padding-top: 12px;
+        }
+
+        .faq-details {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            font-size: 1rem;
+            color: #18181B;
+            transition: color 0.2s ease;
+            position: relative;
+            padding-right: 40px;
+        }
+
+        .faq-details:hover {
+            color: var(--orange);
+        }
+
+        .faq-details::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            width: 24px;
+            height: 24px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%2371717A' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item input[type="radio"]:checked~.faq-details::after {
+            transform: rotate(180deg);
+        }
+
+        .faq-item input[type="radio"]:checked~.faq-details {
+            color: var(--orange);
+        }
+
+        .faq-summary {
+            color: #52525B;
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
     </style>
 </body>

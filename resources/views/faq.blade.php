@@ -1,0 +1,369 @@
+@include('shared.header')
+
+<body class="w-full h-full">
+    <!-- Navbar Section -->
+    <header class="fixed top-0 left-0 w-full z-[100] bg-white shadow-sm">
+        <div class="flex items-center justify-between px-4 h-16 sm:px-10 md:h-20">
+
+            <!-- Logo Section -->
+            <div class="flex items-center gap-2.5">
+                <div class="h-[50px] w-[50px] min-w-[50px] rounded-full flex items-center justify-center bg-orange-500 p-[10px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                        <path fill="#ffffff" d="M15 17a6 6 0 1 0 0-12a6 6 0 0 0 0 12Zm18 0a6 6 0 1 0 0-12a6 6 0 0 0 0 12ZM4 22.446A3.446 3.446 0 0 1 7.446 19h9.624A7.963 7.963 0 0 0 16 23a7.98 7.98 0 0 0 2.708 6h-2.262a5.444 5.444 0 0 0-4.707 2.705c-3.222-.632-5.18-2.203-6.32-3.968C4 25.54 4 23.27 4 22.877v-.43ZM31.554 29a5.444 5.444 0 0 1 4.707 2.705c3.222-.632 5.18-2.203 6.32-3.968C44 25.54 44 23.27 44 22.877v-.43A3.446 3.446 0 0 0 40.554 19H30.93A7.963 7.963 0 0 1 32 23a7.98 7.98 0 0 1-2.708 6h2.262ZM30 23a6 6 0 1 1-12 0a6 6 0 0 1 12 0ZM13 34.446A3.446 3.446 0 0 1 16.446 31h15.108A3.446 3.446 0 0 1 35 34.446v.431c0 .394 0 2.663-1.419 4.86C32.098 42.033 29.233 44 24 44s-8.098-1.967-9.581-4.263C13 37.54 13 35.27 13 34.877v-.43Z" />
+                    </svg>
+                </div>
+                <h1 class="font-medium text-[24px] md:text-[30px] text-[#EA580C]">BIRIMS</h1>
+            </div>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8">
+                <ul class="flex items-center gap-6 lg:gap-[40px]">
+                    <li><a href="{{url('/')}}" class="header-nav {{request()->is('/') ? 'active' : ''}}">Home</a></li>
+                    <li><a href="{{url('about')}}" class="header-nav whitespace-nowrap {{request()->is('about') ? 'active' : ''}}">About Us</a></li>
+                    <li><a href="{{url('contact')}}" class="header-nav {{request()->is('contact') ? 'active' : ''}}">Contact</a></li>
+                    <li><a href="{{url('faq')}}" class="header-nav {{request()->is('faq') ? 'active' : ''}}">FAQs</a></li>
+                </ul>
+                <a href="{{ url('signin') }}" class="rounded-[5px] py-[8px] px-[15px] hover:text-white hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] text-[16px] text-white font-medium whitespace-nowrap">SIGN-IN</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden focus:outline-none p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+        </div>
+
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200 shadow-lg">
+            <nav class="px-4 py-4">
+                <ul class="space-y-1">
+                    <li>
+                        <a href="{{url('/')}}" class="block px-4 py-3 rounded-lg hover:bg-orange-50 transition-colors {{request()->is('/') ? 'bg-orange-100 text-orange-600 font-medium' : 'text-gray-700'}}">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url('about')}}" class="block px-4 py-3 rounded-lg hover:bg-orange-50 transition-colors {{request()->is('about') ? 'bg-orange-100 text-orange-600 font-medium' : 'text-gray-700'}}">
+                            About Us
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url('contact')}}" class="block px-4 py-3 rounded-lg hover:bg-orange-50 transition-colors {{request()->is('contact') ? 'bg-orange-100 text-orange-600 font-medium' : 'text-gray-700'}}">
+                            Contact
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url('faq')}}" class="block px-4 py-3 rounded-lg hover:bg-orange-50 transition-colors {{request()->is('faq') ? 'bg-orange-100 text-orange-600 font-medium' : 'text-gray-700'}}">
+                            FAQs
+                        </a>
+                    </li>
+                </ul>
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <a href="{{ url('signin') }}" class="block rounded-lg py-3 px-4 bg-[#EA580C] hover:bg-orange-700 transition-all duration-300 text-center text-white font-medium">
+                        SIGN-IN
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- Navbar Section -->
+
+    <main class="w-full min-h-screen flex-1 bg-[var(--gray)] relative md:pb-[40px] pb-[120px]">
+        <svg viewBox="0 0 185 185" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute bottom-0 right-0 md:w-[250px] w-[130px]">
+            <g clip-path="url(#clip0_58_1146)">
+                <path d="M185 65.366H65.3661V185H185V65.366Z" fill="#FDBA74" />
+                <path d="M125.184 5.55005H5.55005V125.184H125.184V5.55005Z" stroke="#111111" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            </g>
+            <defs>
+                <clipPath id="clip0_58_1146">
+                    <rect width="185" height="185" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+        <svg viewBox="0 0 328 316" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute md:top-20 z-0 top-10 md:h-[360px] h-[200px]">
+            <path d="M0 265.498V0H160.263V106.199C160.263 127.118 156.118 147.833 148.064 167.16C140.01 186.487 128.205 204.048 113.323 218.84C83.2681 248.715 42.5045 265.498 0 265.498H0Z" fill="#EA580C" />
+            <path d="M213.161 100.775C225.123 100.775 234.821 91.136 234.821 79.2458C234.821 67.3555 225.123 57.7166 213.161 57.7166C201.199 57.7166 191.501 67.3555 191.501 79.2458C191.501 91.136 201.199 100.775 213.161 100.775Z" fill="#FFEDD5" />
+            <path d="M213.161 207.781C225.123 207.781 234.821 198.142 234.821 186.252C234.821 174.362 225.123 164.723 213.161 164.723C201.199 164.723 191.501 174.362 191.501 186.252C191.501 198.142 201.199 207.781 213.161 207.781Z" fill="#FB923C" />
+        </svg>
+        <div class="flex flex-col items-center pt-[35px] gap-[10px] md:gap-0">
+            <h1 style="font-family: 'IBM Plex Serif';" class="md:pt-[80px] pt-[60px] relative z-10 md:text-[50px] text-center md:text-left text-[32px] font-medium px-[30px] md:px-0">Frequently Asked Questions</h1>
+            <p class="relative z-10 text-[var(--darkgray)] text-center px-10 md:px-0 md:text-[16px] text-[14px]">We're here to help with any questions you have about requests, reports, and supported features. </p>
+        </div>
+        <section class="h-full w-full mt-[30px] flex justify-center pb-20" id="contact-us">
+            <div class="w-full max-w-3xl h-full flex flex-col gap-6 justify-center items-center px-4 sm:px-6 md:px-10">
+                <ul class="w-full bg-white rounded-lg shadow-sm border border-gray-200">
+                    <li class="faq-item border-b border-gray-200 last:border-b-0">
+                        <input type="radio" name="accordion" id="faq1" checked>
+                        <label for="faq1" class="faq-content p-4">
+                            How do I request for my barangay documents?
+                        </label>
+                        <p class="faq-summary">You can request barangay documents by visiting the Barangay Hall or through our online portal. Fill out the request form, provide valid identification, and indicate the document type you need.</p>
+                    </li>
+
+                    <li class="faq-item border-b border-gray-200 last:border-b-0">
+                        <input type="radio" name="accordion" id="faq2">
+                        <label for="faq2" class="faq-content p-4">
+                            What are the requirements to request for my documents?
+                        </label>
+                        <p class="faq-summary">You'll need a valid government-issued ID, proof of residency, and in some cases, supporting documents depending on the type of clearance or certificate you're requesting.</p>
+                    </li>
+
+                    <li class="faq-item border-b border-gray-200 last:border-b-0">
+                        <input type="radio" name="accordion" id="faq3">
+                        <label for="faq3" class="faq-content p-4">
+                            What are the types of documents I can request for?
+                        </label>
+                        <p class="faq-summary">The types of documents that you can request are: Barangay Clearance, Business Clearance, Cedula, Oath Taking Certificate and Certificate of Residence, Indigency or Good Moral Character.</p>
+                    </li>
+
+                    <li class="faq-item border-b border-gray-200 last:border-b-0">
+                        <input type="radio" name="accordion" id="faq4">
+                        <label for="faq4" class="faq-content p-4">
+                            Do I need to pay a fee to deliver my documents?
+                        </label>
+                        <p class="faq-summary">Yes, minimal processing or delivery fees may apply depending on your document type and delivery option.</p>
+                    </li>
+
+                    <li class="faq-item border-b border-gray-200 last:border-b-0">
+                        <input type="radio" name="accordion" id="faq5">
+                        <label for="faq5" class="faq-content p-4">
+                            Does BIRIMS support delivery services?
+                        </label>
+                        <p class="faq-summary">Yes. We offer door-to-door document delivery through our barangay's partnered courier service for added convenience.</p>
+                    </li>
+
+                    <li class="faq-item border-b border-gray-200 last:border-b-0">
+                        <input type="radio" name="accordion" id="faq6">
+                        <label for="faq6" class="faq-content p-4">
+                            Can I authorize someone else to claim my requested document?
+                        </label>
+                        <p class="faq-summary">Yes, you can authorize another person by providing a signed authorization letter, a copy of your valid ID, and a copy of the representative's valid ID.</p>
+                    </li>
+
+                    <li class="faq-item border-b border-gray-200 last:border-b-0">
+                        <input type="radio" name="accordion" id="faq7">
+                        <label for="faq7" class="faq-content p-4">
+                            What should I do if I entered incorrect information in my request form?
+                        </label>
+                        <p class="faq-summary">Contact the barangay staff immediately through the Contact Us page or visit the barangay office to request correction before the document is processed.</p>
+                    </li>
+
+                    <li class="faq-item border-b border-gray-200 last:border-b-0">
+                        <input type="radio" name="accordion" id="faq8">
+                        <label for="faq8" class="faq-content p-4">
+                            What types of incidents can I report?
+                        </label>
+                        <p class="faq-summary">You can report incidents such as fire, theft, accidents, domestic disputes, lost items, or any emergency situations within the barangay.</p>
+                    </li>
+
+                    <li class="faq-item border-b border-gray-200 last:border-b-0">
+                        <input type="radio" name="accordion" id="faq9">
+                        <label for="faq9" class="faq-content p-4">
+                            How secure is my information in BIRIMS?
+                        </label>
+                        <p class="faq-summary">All data is encrypted and stored securely following data privacy regulations to ensure the confidentiality of residents' information.</p>
+                    </li>
+
+                    <li class="faq-item">
+                        <input type="radio" name="accordion" id="faq10">
+                        <label for="faq10" class="faq-content p-4">
+                            Is BIRIMS accessible on mobile phones?
+                        </label>
+                        <p class="faq-summary">Yes. BIRIMS is designed to be mobile-responsive, so you can access it conveniently through any smartphone browser.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <!-- Footer Section -->
+    <footer class="md:max-h-[230px] h-[200px] w-full flex-col md:flex-row flex justify-between items-center px-[20px] lg:px-20 md:px-[20px] pt-[30px] md:py-0 text-center md:text-left">
+        <div class="pb-[10px] md:pb-0 w-full md:block md:truncate">
+            <div class="flex items-center gap-2.5 mb-4 justify-center md:justify-start">
+                <div class="h-[30px] w-[30px] min-w-[30px] rounded-[50%] flex items-center justify-center bg-orange-500 p-[5px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                        <path fill="#ffffff" d="M15 17a6 6 0 1 0 0-12a6 6 0 0 0 0 12Zm18 0a6 6 0 1 0 0-12a6 6 0 0 0 0 12ZM4 22.446A3.446 3.446 0 0 1 7.446 19h9.624A7.963 7.963 0 0 0 16 23a7.98 7.98 0 0 0 2.708 6h-2.262a5.444 5.444 0 0 0-4.707 2.705c-3.222-.632-5.18-2.203-6.32-3.968C4 25.54 4 23.27 4 22.877v-.43ZM31.554 29a5.444 5.444 0 0 1 4.707 2.705c3.222-.632 5.18-2.203 6.32-3.968C44 25.54 44 23.27 44 22.877v-.43A3.446 3.446 0 0 0 40.554 19H30.93A7.963 7.963 0 0 1 32 23a7.98 7.98 0 0 1-2.708 6h2.262ZM30 23a6 6 0 1 1-12 0a6 6 0 0 1 12 0ZM13 34.446A3.446 3.446 0 0 1 16.446 31h15.108A3.446 3.446 0 0 1 35 34.446v.431c0 .394 0 2.663-1.419 4.86C32.098 42.033 29.233 44 24 44s-8.098-1.967-9.581-4.263C13 37.54 13 35.27 13 34.877v-.43Z" />
+                    </svg>
+                </div>
+                <h1 class="font-medium font md:text-[30px] text-[24px] text-[#EA580C]">BIRIMS</h1>
+            </div>
+            <div class="w-full flex flex-col gap-[10px]">
+                <div class="w-full flex stroke-[var(--darkgray)] items-center gap-[10px] justify-center md:justify-start">
+                    <svg class="fill-gray-700 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="size-8 md:size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                    </svg>
+                    <p class="w-fit block truncate font-medium text-[#A1A1AA] text-[12px]">Quirino Hwy, Novaliches, Quezon City, Metro Manila, Philippines</p>
+                </div>
+                <div class="w-full flex stroke-[var(--darkgray)] items-center gap-[10px] justify-center md:justify-start">
+                    <svg class="fill-gray-700 w-5 h-5" class="size-5" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                        <path d="m1416.013 791.915-30.91 225.617h-371.252v789.66H788.234v-789.66H449.808V791.915h338.426V585.137c0-286.871 176.207-472.329 449.09-472.329 116.87 0 189.744 6.205 231.822 11.845l-3.272 213.66-173.5.338c-4.737-.451-117.771-9.25-199.332 65.655-52.568 48.169-79.191 117.433-79.191 205.65v181.96h402.162Zm-247.276-304.018c44.446-41.401 113.71-36.889 118.787-36.663l289.467-.113 6.204-417.504-43.544-10.717C1511.675 16.02 1426.053 0 1237.324 0 901.268 0 675.425 235.206 675.425 585.137v93.97H337v451.234h338.425V1920h451.234v-789.66h356.7l61.932-451.233H1126.66v-69.152c0-54.937 14.214-96 42.078-122.058Z" fill-rule="evenodd" />
+                    </svg>
+                    <p class="w-fit block truncate font-medium text-[#A1A1AA] text-[12px]">www.facebook.com/brgysanbartolome2014</p>
+                </div>
+                <div class="w-full flex stroke-[var(--darkgray)] items-center gap-[10px] justify-center md:justify-start">
+                    <svg class="fill-gray-700 w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                    </svg>
+                    <p class="w-fit block truncate font-medium text-[#A1A1AA] text-[12px]">birim.sanbartolome@gmail.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="w-full flex flex-col md:flex-row justify-end lg:gap-[70px] md:gap-[30px] gap-[20px] pb-[20px] md:pb-0">
+            <div class="flex flex-col gap-[5px]">
+                <h2 class="font-medium md:text-[18px] text-[16px]">Services</h2>
+                <ul class="flex flex-col gap-[5px]">
+                    <li><a href="{{url('signin')}}" class="footer-nav">Blotter</a></li>
+                    <li><a href="{{url('signin')}}" class="footer-nav">Documents</a></li>
+                    <li><a href="{{url('signin')}}" class="footer-nav">Appointment</a></li>
+                    <li><a href="{{url('signin')}}" class="footer-nav">Announcement</a></li>
+                </ul>
+            </div>
+            <div class="flex flex-col gap-[5px]">
+                <h2 class="font-mediummd:text-[18px] text-[16px]">Navigation</h2>
+                <ul class="flex flex-col gap-[5px]">
+                    <li><a href="{{url('/')}}" class="footer-nav {{request()-> is('/') ? 'active-footer' : ''}}">Home</a></li>
+                    <li><a href="{{url('about')}}" class="footer-nav {{request()-> is('about') ? 'active-footer' : ''}}">About</a></li>
+                    <li><a href="{{url('contact')}}" class="footer-nav {{request()-> is('contact') ? 'active-footer' : ''}}">Contact</a></li>
+                    <li><a href="{{url('signin')}}" class="footer-nav">Sign In</a></li>
+                </ul>
+            </div>
+            <div class="flex flex-col gap-[5px]">
+                <h2 class="font-medium md:text-[18px] text-[16px]">Resources</h2>
+                <ul class="flex flex-col gap-[5px]">
+                    <li><a href="{{url('faq')}}" class="footer-nav {{request()-> is('faq') ? 'active-footer' : ''}}">FAQs</a></li>
+                    <li><a href="{{url('terms')}}" class="footer-nav {{request()-> is('terms') ? 'active-footer' : ''}}">Terms</a></li>
+                    <li><a href="{{url('privacy')}}" class="footer-nav {{request()-> is('privacy') ? 'active-footer' : ''}}">Privacy Policy</a></li>
+                    <li><a href="{{url('signup')}}" class="footer-nav">Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            const closeIcon = document.getElementById('close-icon');
+
+            menuBtn.addEventListener('click', function() {
+                // Toggle menu visibility
+                mobileMenu.classList.toggle('hidden');
+
+                // Toggle icons
+                hamburgerIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const isClickInsideMenu = mobileMenu.contains(event.target);
+                const isClickOnButton = menuBtn.contains(event.target);
+
+                if (!isClickInsideMenu && !isClickOnButton && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    hamburgerIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                }
+            });
+
+            // Close menu when window is resized to desktop size
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    mobileMenu.classList.add('hidden');
+                    hamburgerIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .header-nav {
+            position: relative;
+            color: #4B5563;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .header-nav:hover {
+            color: #EA580C;
+        }
+
+        .header-nav.active {
+            color: #EA580C;
+        }
+
+        .header-nav.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: #EA580C;
+            border-radius: 2px;
+        }
+    </style>
+    <style>
+        .faq-item input[type="radio"] {
+            display: none;
+        }
+
+        .faq-summary {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+            padding: 0 16px;
+        }
+
+        .faq-item input[type="radio"]:checked~.faq-summary {
+            max-height: 500px;
+            opacity: 1;
+            padding: 12px 16px 16px 16px;
+        }
+
+        .faq-content {
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            font-size: 1rem;
+            color: #18181B;
+            transition: color 0.2s ease;
+        }
+
+        .faq-content:hover {
+            color: #3B82F6;
+        }
+
+        .faq-content::after {
+            content: '+';
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: transform 0.3s ease;
+            color: #71717A;
+        }
+
+        .faq-item input[type="radio"]:checked~label::after {
+            content: '−';
+            transform: rotate(180deg);
+        }
+
+        .faq-summary {
+            color: #52525B;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+    </style>
+</body>
+
+</html>
