@@ -136,7 +136,7 @@
                 <p class="font-medium md:text-[16px] text-[14px] text-[#A1A1AA] md:pl-[200px] md:pr-[200px] text-center 
                         ">Easily apply for your barangay documents - no more long lines! Choose the certificate you need and submit your request in minutes.</p>
             </div>
-            <div class="flex w-full flex-col sm:flex-row justify-between sm:gap-[0] items-center justify-between">
+            <div class="flex w-full flex-col sm:flex-row justify-between sm:gap-[0] gap-[50px] items-center justify-between">
                 <div class="flex flex-col shadow-[7px_0_0_#fdba74,0_7px_0_#fdba74] rounded-[5px] overflow-hidden w-full max-w-[308px] gap-[20px] bg-white">
                     <img class="object-center object-cover" src="{{asset('svg/certificates/residency.svg')}}" alt="Barangay Certificate for Business Photo">
                     <div class=" px-[20px] pb-[20px] flex flex-col gap-[15px] mt-4">
@@ -226,39 +226,6 @@
             <div class="w-full lg:max-w-[600px] flex flex-col gap-6 justify-center items-center lg:px-10">
                 <ul class="w-full h-full md:mt-24">
                     <li class="faq-item md:p-4 py-4">
-                        <input type="radio" name="accordion" id="first" checked>
-                        <label for="first" class="faq-details">
-                            How do I request for my barangay documents?
-                        </label>
-                        <div class="content">
-                            <p class="faq-summary">You can request barangay documents by visiting the Barangay Hall or through our online portal. Fill out the request form, provide valid identification, and indicate the document type you need.</p>
-                        </div>
-                    </li>
-                    <hr class="border-[#E4E4E7]">
-
-                    <li class="faq-item md:p-4 py-4">
-                        <input type="radio" name="accordion" id="second">
-                        <label for="second" class="faq-details">
-                            What are the requirements to request for my documents?
-                        </label>
-                        <div class="content">
-                            <p class="faq-summary">You'll need a valid government-issued ID, proof of residency, and in some cases, supporting documents depending on the type of clearance or certificate you're requesting.</p>
-                        </div>
-                    </li>
-                    <hr class="border-[#E4E4E7]">
-
-                    <li class="faq-item md:p-4 py-4">
-                        <input type="radio" name="accordion" id="third">
-                        <label for="third" class="faq-details">
-                            What are the types of documents I can request for?
-                        </label>
-                        <div class="content">
-                            <p class="faq-summary">The types of documents that you can request are: Barangay Clearance, Business Clearance, Cedula, Oath Taking Certificate and Certificate of Residence, Indigency or Good Moral Character.</p>
-                        </div>
-                    </li>
-                    <hr class="border-[#E4E4E7]">
-
-                    <li class="faq-item md:p-4 py-4">
                         <input type="radio" name="accordion" id="fourth">
                         <label for="fourth" class="faq-details">
                             Do I need to pay a fee to deliver my documents?
@@ -287,17 +254,6 @@
                         </label>
                         <div class="content">
                             <p class="faq-summary">Yes, you can authorize another person by providing a signed authorization letter, a copy of your valid ID, and a copy of the representative's valid ID.</p>
-                        </div>
-                    </li>
-                    <hr class="border-[#E4E4E7]">
-
-                    <li class="faq-item md:p-4 py-4">
-                        <input type="radio" name="accordion" id="seventh">
-                        <label for="seventh" class="faq-details">
-                            What should I do if I entered incorrect information in my request form?
-                        </label>
-                        <div class="content">
-                            <p class="faq-summary">Contact the barangay staff immediately through the Contact Us page or visit the barangay office to request correction before the document is processed.</p>
                         </div>
                     </li>
                     <hr class="border-[#E4E4E7]">
