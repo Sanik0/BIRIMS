@@ -3,39 +3,74 @@
 <!-- modal Section -->
 
 <body class="min-h-screen max-w-full bg-[#F4F4F5]">
-    <header class="fixed top-0 left-0 w-full z-[100] flex bg-white items-center px-4 h-16 sm:px-10 md:h-20 justify-between">
+    <header class="fixed top-0 left-0 w-full z-[100] bg-white shadow-sm">
+        <div class="flex items-center justify-between px-4 h-16 sm:px-10 md:h-20">
 
-        <!-- Hamburger Button (shows only on mobile) -->
-        <button id="menu-btn" class="block md:hidden focus:outline-none cursor-pointer">
-            <!-- 3-line hamburger icon -->
-            <svg class="w-10" fill="none" stroke="var(--darkgray)" stroke-width="2" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-        </button>
-
-        <div class="md:flex items-center gap-2.5 bg ">
-            <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" class="md:w-[50px] w-[35px] md:block hidden">
-                <circle cx="25" cy="25" r="25" fill="#EA580C" />
-            </svg>
-            <h1 class="font-medium font text-[30px] md:text-[30px] text-[#EA580C] ">BIRIMS</h1>
-        </div>
-
-        <div class="flex items-center">
-            <!-- Off-canvas left panel on mobile; static/inline on md+ -->
-            <div id="menu" class="fixed md:static left-0 top-16 md:top-auto md:left-auto z-40 md:flex md:justify-end md:items-center md:pr-10 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out w-64 md:w-auto h-[calc(100vh-4rem)] md:h-auto bg-white md:bg-transparent p-4 md:p-0">
-                <!-- Column on mobile, row on md+ -->
-                <ul class="flex flex-col md:flex-row gap-6 lg:gap-[40px]">
-                    <!-- The request()->is() function checks if the current URL matches and adds active automatically.
-            So when you move between pages, the correct menu stays highlighted -->
-                    <li><a href="{{url('/')}}" class="header-nav {{request()-> is('/') ? 'active' : ''}}">Home</a></li>
-                    <li><a href="{{url('about')}}" class="header-nav whitespace-nowrap {{request()-> is('about') ? 'active' : ''}}">About Us</a></li>
-                    <li><a href="{{url('contact')}}" class="header-nav {{request()-> is('contact') ? 'active' : ''}}">Contact</a></li>
-                    <li><a href="{{url('faq')}}" class="header-nav {{request()-> is('faq') ? 'active' : ''}}">FAQs</a></li>
-                </ul>
+            <!-- Logo Section -->
+            <div class="flex items-center gap-2.5">
+                <div class="h-[50px] w-[50px] min-w-[50px] rounded-full flex items-center justify-center bg-orange-500 p-[10px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                        <path fill="#ffffff" d="M15 17a6 6 0 1 0 0-12a6 6 0 0 0 0 12Zm18 0a6 6 0 1 0 0-12a6 6 0 0 0 0 12ZM4 22.446A3.446 3.446 0 0 1 7.446 19h9.624A7.963 7.963 0 0 0 16 23a7.98 7.98 0 0 0 2.708 6h-2.262a5.444 5.444 0 0 0-4.707 2.705c-3.222-.632-5.18-2.203-6.32-3.968C4 25.54 4 23.27 4 22.877v-.43ZM31.554 29a5.444 5.444 0 0 1 4.707 2.705c3.222-.632 5.18-2.203 6.32-3.968C44 25.54 44 23.27 44 22.877v-.43A3.446 3.446 0 0 0 40.554 19H30.93A7.963 7.963 0 0 1 32 23a7.98 7.98 0 0 1-2.708 6h2.262ZM30 23a6 6 0 1 1-12 0a6 6 0 0 1 12 0ZM13 34.446A3.446 3.446 0 0 1 16.446 31h15.108A3.446 3.446 0 0 1 35 34.446v.431c0 .394 0 2.663-1.419 4.86C32.098 42.033 29.233 44 24 44s-8.098-1.967-9.581-4.263C13 37.54 13 35.27 13 34.877v-.43Z" />
+                    </svg>
+                </div>
+                <h1 class="font-medium text-[24px] md:text-[30px] text-[#EA580C]">BIRIMS</h1>
             </div>
-            <a href="{{ url('signin') }}" class="rounded-[5px] w-full py-[8px] px-[15px] hover:text-green-50 hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] flex items-center justify-center text-[16px] text-[#ffffff] font-medium">SIGN-IN</a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8">
+                <ul class="flex items-center gap-6 lg:gap-[40px]">
+                    <li><a href="{{url('/')}}" class="header-nav {{request()->is('/') ? 'active' : ''}}">Home</a></li>
+                    <li><a href="{{url('about')}}" class="header-nav whitespace-nowrap {{request()->is('about') ? 'active' : ''}}">About Us</a></li>
+                    <li><a href="{{url('contact')}}" class="header-nav {{request()->is('contact') ? 'active' : ''}}">Contact</a></li>
+                    <li><a href="{{url('faq')}}" class="header-nav {{request()->is('faq') ? 'active' : ''}}">FAQs</a></li>
+                </ul>
+                <a href="{{ url('signin') }}" class="rounded-[5px] py-[8px] px-[15px] hover:text-white hover:bg-orange-700 transition-all duration-300 bg-[#EA580C] text-[16px] text-white font-medium whitespace-nowrap">SIGN-IN</a>
+            </nav>
+
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden focus:outline-none p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
         </div>
 
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t border-gray-200 shadow-lg">
+            <nav class="px-4 py-4">
+                <ul class="space-y-1">
+                    <li>
+                        <a href="{{url('/')}}" class="block px-4 py-3 rounded-lg hover:bg-orange-50 transition-colors {{request()->is('/') ? 'bg-orange-100 text-orange-600 font-medium' : 'text-gray-700'}}">
+                            Home
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url('about')}}" class="block px-4 py-3 rounded-lg hover:bg-orange-50 transition-colors {{request()->is('about') ? 'bg-orange-100 text-orange-600 font-medium' : 'text-gray-700'}}">
+                            About Us
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url('contact')}}" class="block px-4 py-3 rounded-lg hover:bg-orange-50 transition-colors {{request()->is('contact') ? 'bg-orange-100 text-orange-600 font-medium' : 'text-gray-700'}}">
+                            Contact
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{url('faq')}}" class="block px-4 py-3 rounded-lg hover:bg-orange-50 transition-colors {{request()->is('faq') ? 'bg-orange-100 text-orange-600 font-medium' : 'text-gray-700'}}">
+                            FAQs
+                        </a>
+                    </li>
+                </ul>
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <a href="{{ url('signin') }}" class="block rounded-lg py-3 px-4 bg-[#EA580C] hover:bg-orange-700 transition-all duration-300 text-center text-white font-medium">
+                        SIGN-IN
+                    </a>
+                </div>
+            </nav>
+        </div>
     </header>
 
     <main class="min-h-screen w-full bg-[#F4F4F5] flex-1 flex flex-col">
@@ -101,13 +136,13 @@
                 <p class="font-medium md:text-[16px] text-[14px] text-[#A1A1AA] md:pl-[200px] md:pr-[200px] text-center 
                         ">Easily apply for your barangay documents - no more long lines! Choose the certificate you need and submit your request in minutes.</p>
             </div>
-            <div class="flex w-full flex-col sm:flex-row gap-[50px] sm:gap-[0] items-center max-w-[1128px] justify-between">
+            <div class="flex w-full flex-col sm:flex-row justify-between sm:gap-[0] items-center justify-between">
                 <div class="flex flex-col shadow-[7px_0_0_#fdba74,0_7px_0_#fdba74] rounded-[5px] overflow-hidden w-full max-w-[308px] gap-[20px] bg-white">
                     <img class="object-center object-cover" src="{{asset('svg/certificates/residency.svg')}}" alt="Barangay Certificate for Business Photo">
                     <div class=" px-[20px] pb-[20px] flex flex-col gap-[15px] mt-4">
                         <h1 class="font-semibold md:text-[18px] text-[16px]">Barangay Certificate of Residency</h1>
                         <p class="font-normal md:text-[14px] text-[12px] text-[#52525B]">Issued to certify that a resident officially lives within the Barangay and is recognized by local authorities.</p>
-                        <a href="{{url('signin')}}"  class="rounded-[5px] w-full flex gap-5 py-[10px] px-[15px] hover:text-orange-700 hover:bg-orange-50 transition-all duration-300 bg-white border border-orange-500 flex items-center justify-center text-[18px] text-orange-500 font-medium">Get Certificate</a>
+                        <a href="{{url('signin')}}" class="rounded-[5px] w-full flex gap-5 py-[10px] px-[15px] hover:text-orange-700 hover:bg-orange-50 transition-all duration-300 bg-white border border-orange-500 flex items-center justify-center text-[18px] text-orange-500 font-medium">Get Certificate</a>
                     </div>
                 </div>
                 <div class="flex flex-col shadow-[7px_0_0_#fdba74,0_7px_0_#fdba74] rounded-[5px] overflow-hidden w-full max-w-[308px] gap-[20px] bg-white">
@@ -115,7 +150,7 @@
                     <div class=" px-[20px] pb-[20px] flex flex-col gap-[15px] mt-4">
                         <h1 class="font-semibold md:text-[18px] text-[16px]">Barangay Clearance</h1>
                         <p class="font-normal md:text-[14px] text-[12px] text-[#52525B]">Issued to verify that an individual has no pending cases and maintains good standing within the Barangay community.</p>
-                        <a href="{{url('signin')}}"  class="rounded-[5px] w-full flex gap-5 py-[10px] px-[15px] hover:text-orange-700 hover:bg-orange-50 transition-all duration-300 bg-white border border-orange-500 flex items-center justify-center text-[18px] text-orange-500 font-medium">Get Certificate</a>
+                        <a href="{{url('signin')}}" class="rounded-[5px] w-full flex gap-5 py-[10px] px-[15px] hover:text-orange-700 hover:bg-orange-50 transition-all duration-300 bg-white border border-orange-500 flex items-center justify-center text-[18px] text-orange-500 font-medium">Get Certificate</a>
                     </div>
                 </div>
                 <div class="flex flex-col shadow-[7px_0_0_#fdba74,0_7px_0_#fdba74] rounded-[5px] overflow-hidden w-full max-w-[308px] gap-[20px] bg-white">
@@ -123,7 +158,17 @@
                     <div class=" px-[20px] pb-[20px] flex flex-col gap-[15px] mt-4">
                         <h1 class="font-semibold md:text-[18px] text-[16px]">Barangay Certificate of Indigency</h1>
                         <p class="font-normal md:text-[14px] text-[12px] text-[#52525B]">Issued to certify that an individual has no complaints and meets all Barangay requirements for clearance.</p>
-                        <a href="{{url('signin')}}"  class="rounded-[5px] w-full flex gap-5 py-[10px] px-[15px] hover:text-orange-700 hover:bg-orange-50 transition-all duration-300 bg-white border border-orange-500 flex items-center justify-center text-[18px] text-orange-500 font-medium">Get Certificate</a>
+                        <a href="{{url('signin')}}" class="rounded-[5px] w-full flex gap-5 py-[10px] px-[15px] hover:text-orange-700 hover:bg-orange-50 transition-all duration-300 bg-white border border-orange-500 flex items-center justify-center text-[18px] text-orange-500 font-medium">Get Certificate</a>
+                    </div>
+                </div>
+                <div class="flex flex-col shadow-[7px_0_0_#fdba74,0_7px_0_#fdba74] rounded-[5px] overflow-hidden w-full max-w-[308px] gap-[20px] bg-white">
+                    <img class="object-center w-full h-[180px] object-cover" src="{{asset('svg/certificates/moral.jpg')}}" alt="Barangay Certificate for moral Photo">
+                    <div class=" px-[20px] pb-[20px] flex flex-col gap-[15px] mt-4">
+                        <h1 class="font-semibold md:text-[18px] text-[16px]">Barangay Certificate of Good Moral</h1>
+                        <p class="font-normal md:text-[14px] text-[12px] text-[#52525B]">
+                            Issued to certify that an individual has good moral character and is in good standing within the Barangay.
+                        </p>
+                        <a href="{{url('signin')}}" class="rounded-[5px] w-full flex gap-5 py-[10px] px-[15px] hover:text-orange-700 hover:bg-orange-50 transition-all duration-300 bg-white border border-orange-500 flex items-center justify-center text-[18px] text-orange-500 font-medium">Get Certificate</a>
                     </div>
                 </div>
             </div>
@@ -251,27 +296,29 @@
     <footer class="md:max-h-[230px] h-[200px] w-full flex-col md:flex-row flex justify-between items-center px-[20px] lg:px-20 md:px-[20px] pt-[30px] md:py-0 text-center md:text-left">
         <div class="pb-[10px] md:pb-0 w-full md:block md:truncate">
             <div class="flex items-center gap-2.5 mb-4 justify-center md:justify-start">
-                <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" class="md:h-[50px] h-[40px]">
-                    <circle cx="25" cy="25" r="25" fill="#EA580C" />
-                </svg>
+                <div class="h-[30px] w-[30px] min-w-[30px] rounded-[50%] flex items-center justify-center bg-orange-500 p-[5px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+                        <path fill="#ffffff" d="M15 17a6 6 0 1 0 0-12a6 6 0 0 0 0 12Zm18 0a6 6 0 1 0 0-12a6 6 0 0 0 0 12ZM4 22.446A3.446 3.446 0 0 1 7.446 19h9.624A7.963 7.963 0 0 0 16 23a7.98 7.98 0 0 0 2.708 6h-2.262a5.444 5.444 0 0 0-4.707 2.705c-3.222-.632-5.18-2.203-6.32-3.968C4 25.54 4 23.27 4 22.877v-.43ZM31.554 29a5.444 5.444 0 0 1 4.707 2.705c3.222-.632 5.18-2.203 6.32-3.968C44 25.54 44 23.27 44 22.877v-.43A3.446 3.446 0 0 0 40.554 19H30.93A7.963 7.963 0 0 1 32 23a7.98 7.98 0 0 1-2.708 6h2.262ZM30 23a6 6 0 1 1-12 0a6 6 0 0 1 12 0ZM13 34.446A3.446 3.446 0 0 1 16.446 31h15.108A3.446 3.446 0 0 1 35 34.446v.431c0 .394 0 2.663-1.419 4.86C32.098 42.033 29.233 44 24 44s-8.098-1.967-9.581-4.263C13 37.54 13 35.27 13 34.877v-.43Z" />
+                    </svg>
+                </div>
                 <h1 class="font-medium font md:text-[30px] text-[24px] text-[#EA580C]">BIRIMS</h1>
             </div>
             <div class="w-full flex flex-col gap-[10px]">
                 <div class="w-full flex stroke-[var(--darkgray)] items-center gap-[10px] justify-center md:justify-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="size-8 md:size-6">
+                    <svg class="fill-gray-700 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="size-8 md:size-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
                     </svg>
                     <p class="w-fit block truncate font-medium text-[#A1A1AA] text-[12px]">Quirino Hwy, Novaliches, Quezon City, Metro Manila, Philippines</p>
                 </div>
                 <div class="w-full flex stroke-[var(--darkgray)] items-center gap-[10px] justify-center md:justify-start">
-                    <svg fill="var(--darkgray)" class="size-5" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="fill-gray-700 w-5 h-5" class="size-5" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
                         <path d="m1416.013 791.915-30.91 225.617h-371.252v789.66H788.234v-789.66H449.808V791.915h338.426V585.137c0-286.871 176.207-472.329 449.09-472.329 116.87 0 189.744 6.205 231.822 11.845l-3.272 213.66-173.5.338c-4.737-.451-117.771-9.25-199.332 65.655-52.568 48.169-79.191 117.433-79.191 205.65v181.96h402.162Zm-247.276-304.018c44.446-41.401 113.71-36.889 118.787-36.663l289.467-.113 6.204-417.504-43.544-10.717C1511.675 16.02 1426.053 0 1237.324 0 901.268 0 675.425 235.206 675.425 585.137v93.97H337v451.234h338.425V1920h451.234v-789.66h356.7l61.932-451.233H1126.66v-69.152c0-54.937 14.214-96 42.078-122.058Z" fill-rule="evenodd" />
                     </svg>
                     <p class="w-fit block truncate font-medium text-[#A1A1AA] text-[12px]">www.facebook.com/brgysanbartolome2014</p>
                 </div>
                 <div class="w-full flex stroke-[var(--darkgray)] items-center gap-[10px] justify-center md:justify-start">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="size-5">
+                    <svg class="fill-gray-700 w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
                     </svg>
                     <p class="w-fit block truncate font-medium text-[#A1A1AA] text-[12px]">birim.sanbartolome@gmail.com</p>
@@ -310,6 +357,72 @@
     </footer>
     <!-- Footer Section -->
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerIcon = document.getElementById('hamburger-icon');
+            const closeIcon = document.getElementById('close-icon');
+
+            menuBtn.addEventListener('click', function() {
+                // Toggle menu visibility
+                mobileMenu.classList.toggle('hidden');
+
+                // Toggle icons
+                hamburgerIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                const isClickInsideMenu = mobileMenu.contains(event.target);
+                const isClickOnButton = menuBtn.contains(event.target);
+
+                if (!isClickInsideMenu && !isClickOnButton && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                    hamburgerIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                }
+            });
+
+            // Close menu when window is resized to desktop size
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768) {
+                    mobileMenu.classList.add('hidden');
+                    hamburgerIcon.classList.remove('hidden');
+                    closeIcon.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .header-nav {
+            position: relative;
+            color: #4B5563;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .header-nav:hover {
+            color: #EA580C;
+        }
+
+        .header-nav.active {
+            color: #EA580C;
+        }
+
+        .header-nav.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: #EA580C;
+            border-radius: 2px;
+        }
+    </style>
 </body>
 
 </html>

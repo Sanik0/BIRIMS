@@ -245,16 +245,11 @@
      </form>
  </div>
  <!-- Edit Status Modal -->
- <div id="editStatusModal" class="modal fixed inset-0 z-50 hidden bg-black bg-opacity-50 items-center justify-center">
+ <div id="editStatusModal" class="modal fixed inset-0 z-50 hidden bg-black/50 backdrop-blur-[5px] items-center justify-center">
      <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
          <!-- Modal Header -->
-         <div class="flex items-center justify-between p-6 border-b">
+         <div class="flex items-center justify-between p-6">
              <h3 class="text-xl font-semibold text-gray-900">Update Appointment Status</h3>
-             <button type="button" class="closeModal text-gray-400 hover:text-gray-600 transition-colors">
-                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                 </svg>
-             </button>
          </div>
 
          <!-- Modal Body -->
@@ -273,28 +268,22 @@
                          Status <span class="text-red-500">*</span>
                      </label>
                      <select id="appointmentStatus" name="status" required
-                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all">
                          <option value="pending">Pending</option>
                          <option value="accepted">Accepted</option>
                          <option value="rejected">Rejected</option>
                      </select>
                  </div>
-
-                 <div class="bg-gray-50 p-4 rounded-lg">
-                     <p class="text-sm text-gray-600">
-                         <strong>Note:</strong> Changing the status will update the appointment record immediately.
-                     </p>
-                 </div>
              </div>
 
              <!-- Modal Footer -->
-             <div class="flex items-center justify-end gap-3 p-6 border-t bg-gray-50">
+             <div class="flex items-center justify-end gap-3 p-6 bg-gray-50">
                  <button type="button"
                      class="closeModal px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
                      Cancel
                  </button>
                  <button type="submit"
-                     class="px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors">
+                     class="px-4 py-2 text-sm font-medium text-white bg-orange-600 rounded-lg hover:bg-orange-700 transition-colors">
                      Update Status
                  </button>
              </div>
@@ -477,11 +466,9 @@
                              <span class="px-[12px] py-[4px] rounded-full text-[14px] font-medium
                     @if($appointment->status === 'pending')
                         bg-yellow-100 text-yellow-700
-                    @elseif($appointment->status === 'confirmed')
-                        bg-blue-100 text-blue-700
-                    @elseif($appointment->status === 'completed')
+                    @elseif($appointment->status === 'accepted')
                         bg-green-100 text-green-700
-                    @elseif($appointment->status === 'cancelled')
+                    @elseif($appointment->status === 'rejected')
                         bg-red-100 text-red-700
                     @else
                         bg-gray-100 text-gray-700
@@ -514,11 +501,11 @@
                                  data-appointment-id="{{ $appointment->appointment_id }}"
                                  data-status="{{ $appointment->status ?? 'pending' }}"
                                  data-patient-name="{{ $appointment->user->firstname }} {{ $appointment->user->lastname }}"
-                                 class="editStatusBtn bg-purple-100 text-purple-500 border-purple-500 hover:bg-purple-200 cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
-                                 <svg class="h-[20px] w-[20px] fill-purple-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
-                                     <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
+                                 class="editStatusBtn bg-green-100 text-green-500 border-green-500 hover:bg-green-200 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                 <svg class="h-[20px] w-[20px] fill-green-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
+                                     <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                                  </svg>
-                                 Status
+                                 Edit
                              </div>
                              <!-- Delete Button -->
                              <div data-modal="deleteModal"
