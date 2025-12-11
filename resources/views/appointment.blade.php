@@ -142,15 +142,18 @@
                           </div>
                       </div>
 
+
                       <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] sm:gap-[100px]">
-                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Date: <span class="text-red-500">*</span></label>
-                          <div class="w-full flex px-[8px] py-[10px] rounded-[4px] border-[#A1A1AA] border-solid border-[1px]">
-                              <input type="date" name="date" required value="{{ old('date') }}" min="{{ date('Y-m-d') }}" class="w-full text-[18px] font-normal focus:outline-none" />
+                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Preferred Date: <span class="text-red-500">*</span></label>
+                          <div class="w-full flex px-[8px] py-[10px] border-[#A1A1AA] border-solid border-[1px]">
+                              <input type="date" name="date" id="appointment-date" value="{{ old('date') }}"
+                                  min="{{ date('Y-m-d', strtotime('+1 day')) }}"
+                                  class="text-[18px] font-normal focus:outline-none w-full" required />
                           </div>
                       </div>
 
                       <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] sm:gap-[100px]">
-                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Time: <span class="text-red-500">*</span></label>
+                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap"> Preffered Time: <span class="text-red-500">*</span></label>
                           <div class="w-full flex px-[8px] py-[10px] rounded-[4px] border-[#A1A1AA] border-solid border-[1px]">
                               <select name="time" required class="w-full text-[18px] font-normal focus:outline-none">
                                   <option value="">Select a time</option>
@@ -164,13 +167,6 @@
                                   <option value="03:00 PM" {{ old('time') == '03:00 PM' ? 'selected' : '' }}>03:00 PM</option>
                                   <option value="04:00 PM" {{ old('time') == '04:00 PM' ? 'selected' : '' }}>04:00 PM</option>
                               </select>
-                          </div>
-                      </div>
-
-                      <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] sm:gap-[100px]">
-                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Symptoms: <span class="text-red-500">*</span></label>
-                          <div class="w-full flex px-[8px] py-[10px] border-b-[1px] border-b-[#A1A1AA]">
-                              <input type="text" name="symptoms" required value="{{ old('symptoms') }}" class="text-[18px] font-normal focus:outline-none w-full" placeholder="Describe your symptoms" />
                           </div>
                       </div>
 
@@ -357,6 +353,17 @@
                           modal.classList.remove('flex');
                       }
                   });
+              }
+          });
+
+          document.getElementById('appointment-date').addEventListener('input', function() {
+              const selectedDate = new Date(this.value);
+              const day = selectedDate.getDay();
+
+              // 0 = Sunday, 6 = Saturday
+              if (day === 0 || day === 6) {
+                  alert('Appointments are not available on Saturdays and Sundays. Please select another date.');
+                  this.value = '';
               }
           });
 

@@ -34,7 +34,7 @@ class AppointmentController extends Controller
             'service' => 'required|string|max:255',
             'date' => 'required|date|after_or_equal:today',
             'time' => 'required',
-            'symptoms' => 'required|string',
+            'symptoms' => 'nullable|string',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'middle_name' => 'nullable|string|max:255',

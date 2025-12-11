@@ -27,11 +27,28 @@ class UserAppointmentController extends Controller
             'service' => 'required|string|max:255',
             'date' => 'required|date|after_or_equal:today',
             'time' => 'required',
-            'symptoms' => 'required|string',
+            'symptoms' => 'nullable|string',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'middle_name' => 'nullable|string|max:255',
             'email' => 'required|email|max:255',
+        ]);
+
+        $request->validate([
+            'service' => 'required|string|max:255',
+            'date' => [
+                'required',
+                'date',
+                'after:today',
+                function ($attribute, $value, $fail) {
+                    $dayOfWeek = date('w', strtotime($value));
+                    if ($dayOfWeek == 0 || $dayOfWeek == 6) {
+                        $fail('Appointments are not available on Saturdays and Sundays.');
+                    }
+                },
+            ],
+            'time' => 'required',
+            'symptoms' => 'nullable|string',
         ]);
 
         // Convert 12-hour format (08:00 AM) to 24-hour format (08:00:00)
@@ -48,7 +65,7 @@ class UserAppointmentController extends Controller
 
         return redirect()->route('appointment.create')->with('success', 'Appointment scheduled successfully!');
     }
-    
+
     public function destroy($id)
     {
         $appointment = Appointment::where('appointment_id', $id)
