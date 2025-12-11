@@ -171,6 +171,13 @@
                       </div>
 
                       <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] sm:gap-[100px]">
+                          <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">Symptoms:</label>
+                          <div class="w-full flex px-[8px] py-[10px] border-b-[1px] border-b-[#A1A1AA]">
+                              <input type="text" name="symptoms" value="{{ old('symptoms', $user->symptoms ?? '') }}" class="text-[18px] font-normal focus:outline-none w-full bg-gray-50" placeholder="(Optional)" />
+                          </div>
+                      </div>
+
+                      <div class="flex items-start sm:items-center flex-col sm:flex-row gap-[10px] sm:gap-[100px]">
                           <label class="text-[18px] w-full max-w-[190px] font-medium whitespace-nowrap">First Name: <span class="text-red-500">*</span></label>
                           <div class="w-full flex px-[8px] py-[10px] border-b-[1px] border-b-[#A1A1AA]">
                               <input type="text" name="first_name" required value="{{ old('first_name', $user->firstname ?? '') }}" readonly class="text-[18px] font-normal focus:outline-none w-full bg-gray-50" placeholder="Ex. Juan" />
@@ -214,6 +221,21 @@
                                       {{ \Carbon\Carbon::parse($appointment->date)->format('F d, Y') }} at {{ $appointment->time }} • {{ $appointment->service }}
                                   </p>
                                   <p class="text-[14px] text-gray-600 mt-1">Symptoms: {{ $appointment->symptoms }}</p>
+                                  <div class="mt-2">
+                                      @if($appointment->status === 'pending')
+                                      <span class="inline-flex  mb-1 items-center gap-1 px-3 py-1 rounded-full text-[12px] font-semibold bg-yellow-100 text-yellow-700">
+                                          Pending
+                                      </span>
+                                      @elseif($appointment->status === 'accepted')
+                                      <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[12px] font-semibold bg-green-100 text-green-700">
+                                          Accepted
+                                      </span>
+                                      @elseif($appointment->status === 'rejected')
+                                      <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[12px] font-semibold bg-red-100 text-red-700">
+                                          Rejected
+                                      </span>
+                                      @endif
+                                  </div>
                                   <small class="font-semibold text-[#D4D4D8] text-[12px]">
                                       {{ \Carbon\Carbon::parse($appointment->created_at)->format('d M Y') }}
                                   </small>

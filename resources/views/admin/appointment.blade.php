@@ -244,6 +244,63 @@
          </div>
      </form>
  </div>
+ <!-- Edit Status Modal -->
+ <div id="editStatusModal" class="modal fixed inset-0 z-50 hidden bg-black bg-opacity-50 items-center justify-center">
+     <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+         <!-- Modal Header -->
+         <div class="flex items-center justify-between p-6 border-b">
+             <h3 class="text-xl font-semibold text-gray-900">Update Appointment Status</h3>
+             <button type="button" class="closeModal text-gray-400 hover:text-gray-600 transition-colors">
+                 <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                 </svg>
+             </button>
+         </div>
+
+         <!-- Modal Body -->
+         <form id="editStatusForm" method="POST">
+             @csrf
+             @method('PUT')
+
+             <div class="p-6 space-y-4">
+                 <div>
+                     <label class="block text-sm font-medium text-gray-700 mb-2">Patient Name</label>
+                     <p id="statusPatientName" class="text-base text-gray-900 font-medium"></p>
+                 </div>
+
+                 <div>
+                     <label for="appointmentStatus" class="block text-sm font-medium text-gray-700 mb-2">
+                         Status <span class="text-red-500">*</span>
+                     </label>
+                     <select id="appointmentStatus" name="status" required
+                         class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                         <option value="pending">Pending</option>
+                         <option value="accepted">Accepted</option>
+                         <option value="rejected">Rejected</option>
+                     </select>
+                 </div>
+
+                 <div class="bg-gray-50 p-4 rounded-lg">
+                     <p class="text-sm text-gray-600">
+                         <strong>Note:</strong> Changing the status will update the appointment record immediately.
+                     </p>
+                 </div>
+             </div>
+
+             <!-- Modal Footer -->
+             <div class="flex items-center justify-end gap-3 p-6 border-t bg-gray-50">
+                 <button type="button"
+                     class="closeModal px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                     Cancel
+                 </button>
+                 <button type="submit"
+                     class="px-4 py-2 text-sm font-medium text-white bg-purple-600 rounded-lg hover:bg-purple-700 transition-colors">
+                     Update Status
+                 </button>
+             </div>
+         </form>
+     </div>
+ </div>
  <!-- modal view appointment Section -->
  <div id="viewModal" class="w-full modal fixed inset-0 overflow-y-auto p-[15px] sm:p-[50px] bg-black/50 backdrop-blur-[5px] z-[999] hidden justify-center items-center">
      <div class="rounded-[4px] h-fit bg-white p-[15px] sm:p-[30px] flex flex-col w-full max-w-[540px] gap-[20px]">
@@ -405,6 +462,7 @@
                          <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Patient</th>
                          <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Date Appointed</th>
                          <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Time</th>
+                         <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Status</th>
                          <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Action</th>
                      </tr>
                  </thead>
@@ -415,14 +473,31 @@
                          <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $appointment->user->firstname}} {{ $appointment->user->middlename ? substr($appointment->user->middlename, 0, 1) . '.' : '' }} {{ $appointment->user->lastname}}</td>
                          <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $appointment->date}}</td>
                          <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $appointment->time}}</td>
+                         <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">
+                             <span class="px-[12px] py-[4px] rounded-full text-[14px] font-medium
+                    @if($appointment->status === 'pending')
+                        bg-yellow-100 text-yellow-700
+                    @elseif($appointment->status === 'confirmed')
+                        bg-blue-100 text-blue-700
+                    @elseif($appointment->status === 'completed')
+                        bg-green-100 text-green-700
+                    @elseif($appointment->status === 'cancelled')
+                        bg-red-100 text-red-700
+                    @else
+                        bg-gray-100 text-gray-700
+                    @endif">
+                                 {{ ucfirst($appointment->status ?? 'pending') }}
+                             </span>
+                         </td>
                          <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
-                             <!-- In table (desktop) - add after delete button -->
+                             <!-- View Button -->
                              <div data-modal="viewModal"
                                  data-appointment-id="{{ $appointment->appointment_id }}"
                                  data-service="{{ $appointment->service }}"
                                  data-date="{{ $appointment->date }}"
                                  data-time="{{ $appointment->time }}"
                                  data-symptoms="{{ $appointment->symptoms }}"
+                                 data-status="{{ $appointment->status ?? 'pending' }}"
                                  data-firstname="{{ $appointment->user->firstname }}"
                                  data-lastname="{{ $appointment->user->lastname }}"
                                  data-middlename="{{ $appointment->user->middlename }}"
@@ -433,22 +508,19 @@
                                  </svg>
                                  View
                              </div>
-                             <div data-modal="editModal"
+
+                             <!-- Edit Status Button -->
+                             <div data-modal="editStatusModal"
                                  data-appointment-id="{{ $appointment->appointment_id }}"
-                                 data-service="{{ $appointment->service }}"
-                                 data-date="{{ $appointment->date }}"
-                                 data-time="{{ $appointment->time }}"
-                                 data-symptoms="{{ $appointment->symptoms }}"
-                                 data-firstname="{{ $appointment->user->firstname }}"
-                                 data-lastname="{{ $appointment->user->lastname }}"
-                                 data-middlename="{{ $appointment->user->middlename }}"
-                                 data-email="{{ $appointment->user->email }}"
-                                 class="editBtn bg-green-100 text-green-500 border-green-500 hover:bg-green-200 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
-                                 <svg class="h-[20px] w-[20px] fill-green-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
-                                     <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
+                                 data-status="{{ $appointment->status ?? 'pending' }}"
+                                 data-patient-name="{{ $appointment->user->firstname }} {{ $appointment->user->lastname }}"
+                                 class="editStatusBtn bg-purple-100 text-purple-500 border-purple-500 hover:bg-purple-200 cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                 <svg class="h-[20px] w-[20px] fill-purple-500" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px">
+                                     <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
                                  </svg>
-                                 Edit
+                                 Status
                              </div>
+                             <!-- Delete Button -->
                              <div data-modal="deleteModal"
                                  data-appointment-id="{{ $appointment->appointment_id }}"
                                  data-user-name="{{ $appointment->user->firstname }} {{ $appointment->user->lastname }}"
@@ -542,7 +614,7 @@
          document.addEventListener('DOMContentLoaded', function() {
 
              // 🔹 Open modal
-             document.querySelectorAll('.addBtn, .editBtn, .deleteBtn').forEach(btn => {
+             document.querySelectorAll('.addBtn, .editBtn, .deleteBtn, .editStatusBtn').forEach(btn => {
                  btn.addEventListener('click', function() {
                      const modalId = this.getAttribute('data-modal');
                      const modal = document.getElementById(modalId);
@@ -573,6 +645,22 @@
                          document.getElementById('edit_email').value = this.getAttribute('data-email') || '';
                      }
 
+                     // If it's an edit status button for appointments
+                     if (this.classList.contains('editStatusBtn')) {
+                         const appointmentId = this.getAttribute('data-appointment-id');
+                         const status = this.getAttribute('data-status');
+                         const patientName = this.getAttribute('data-patient-name');
+                         const editStatusForm = document.getElementById('editStatusForm');
+
+                         if (editStatusForm && appointmentId) {
+                             editStatusForm.action = `/admin/appointment/${appointmentId}`;
+                         }
+
+                         // Populate modal
+                         document.getElementById('statusPatientName').textContent = patientName || '';
+                         document.getElementById('appointmentStatus').value = status || 'pending';
+                     }
+
                      // If it's a delete button for appointments
                      if (this.classList.contains('deleteBtn')) {
                          const appointmentId = this.getAttribute('data-appointment-id');
@@ -594,9 +682,9 @@
              });
 
              // 🔹 Close modal (for all)
-             document.querySelectorAll('.cancelBtn').forEach(btn => {
+             document.querySelectorAll('.cancelBtn, .closeModal').forEach(btn => {
                  btn.addEventListener('click', function() {
-                     const modal = this.closest('.modal');
+                     const modal = this.closest('.modal') || this.closest('[id$="Modal"]');
                      if (!modal) return;
                      modal.classList.remove('flex');
                      modal.classList.add('hidden');
@@ -604,7 +692,7 @@
              });
 
              // 🔹 Close modal when clicking outside
-             document.querySelectorAll('.modal').forEach(modal => {
+             document.querySelectorAll('.modal, [id$="Modal"]').forEach(modal => {
                  modal.addEventListener('click', function(e) {
                      if (e.target === this) {
                          this.classList.remove('flex');
@@ -613,26 +701,26 @@
                  });
              });
 
-         });
-         // 🔹 View button
-         document.querySelectorAll('.viewBtn').forEach(btn => {
-             btn.addEventListener('click', function() {
-                 const modal = document.getElementById('viewModal');
+             // 🔹 View button
+             document.querySelectorAll('.viewBtn').forEach(btn => {
+                 btn.addEventListener('click', function() {
+                     const modal = document.getElementById('viewModal');
 
-                 const firstname = this.getAttribute('data-firstname') || '';
-                 const middlename = this.getAttribute('data-middlename') || '';
-                 const lastname = this.getAttribute('data-lastname') || '';
-                 const middleInitial = middlename ? middlename.charAt(0) + '.' : '';
+                     const firstname = this.getAttribute('data-firstname') || '';
+                     const middlename = this.getAttribute('data-middlename') || '';
+                     const lastname = this.getAttribute('data-lastname') || '';
+                     const middleInitial = middlename ? middlename.charAt(0) + '.' : '';
 
-                 document.getElementById('view_patient_name').textContent = `${firstname} ${middleInitial} ${lastname}`.trim();
-                 document.getElementById('view_email').textContent = this.getAttribute('data-email') || '';
-                 document.getElementById('view_service').textContent = this.getAttribute('data-service') || '';
-                 document.getElementById('view_date').textContent = this.getAttribute('data-date') || '';
-                 document.getElementById('view_time').textContent = this.getAttribute('data-time') || '';
-                 document.getElementById('view_symptoms').textContent = this.getAttribute('data-symptoms') || '';
+                     document.getElementById('view_patient_name').textContent = `${firstname} ${middleInitial} ${lastname}`.trim();
+                     document.getElementById('view_email').textContent = this.getAttribute('data-email') || '';
+                     document.getElementById('view_service').textContent = this.getAttribute('data-service') || '';
+                     document.getElementById('view_date').textContent = this.getAttribute('data-date') || '';
+                     document.getElementById('view_time').textContent = this.getAttribute('data-time') || '';
+                     document.getElementById('view_symptoms').textContent = this.getAttribute('data-symptoms') || '';
 
-                 modal.classList.remove('hidden');
-                 modal.classList.add('flex');
+                     modal.classList.remove('hidden');
+                     modal.classList.add('flex');
+                 });
              });
          });
      </script>

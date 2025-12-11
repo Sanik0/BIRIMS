@@ -49,8 +49,9 @@ class AppointmentController extends Controller
             'user_id' => Auth::id(), 
             'service' => $request->service,
             'symptoms' => $request->symptoms,
-            'time' => $time24,  // Use converted time
+            'time' => $time24,
             'date' => $request->date,
+            'status' => 'pending', // Default status
         ]);
 
         return redirect()->route('admin.appointment.index')->with('success', 'Appointment scheduled successfully!');
@@ -68,6 +69,20 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::findOrFail($id);
 
+        // Check if this is a status-only update
+        if ($request->has('status') && !$request->has('service')) {
+            $request->validate([
+                'status' => 'required|in:pending,accepted,rejected',
+            ]);
+
+            $appointment->update([
+                'status' => $request->status,
+            ]);
+
+            return redirect()->route('admin.appointment.index')->with('success', 'Appointment status updated successfully.');
+        }
+
+        // Regular appointment update
         $request->validate([
             'service' => 'required|string|max:255',
             'date' => 'required|date',
@@ -89,5 +104,20 @@ class AppointmentController extends Controller
         ]);
 
         return redirect()->route('admin.appointment.index')->with('success', 'Appointment updated successfully.');
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $appointment = Appointment::findOrFail($id);
+
+        $request->validate([
+            'status' => 'required|in:pending,accepted,rejected',
+        ]);
+
+        $appointment->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('admin.appointment.index')->with('success', 'Appointment status updated successfully.');
     }
 }

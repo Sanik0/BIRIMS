@@ -18,6 +18,7 @@ class Appointment extends Model
         'symptoms',
         'time',
         'date',
+        'status',
     ];
 
     // Relationship to User
