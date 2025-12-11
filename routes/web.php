@@ -23,6 +23,9 @@ Route::post('/signin', [LoginController::class, 'login'])->name('signin.post');
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/about', function () {
+    return view('about');
+});
 
 Route::get('/signup', function () {
     return view('signup');

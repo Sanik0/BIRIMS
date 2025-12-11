@@ -111,7 +111,7 @@
                     </div>
                 </div>
                 <div class="flex flex-col shadow-[7px_0_0_#fdba74,0_7px_0_#fdba74] rounded-[5px] overflow-hidden w-full max-w-[308px] gap-[20px] bg-white">
-                    <img class="object-center object-cover" src="{{asset('svg/certificates/no-objection.svg')}}" alt="Barangay Certificate for Business Photo">
+                    <img class="object-center w-full h-[195px] object-cover" src="{{asset('svg/certificates/clearance.jpg')}}" alt="Barangay Certificate for Business Photo">
                     <div class=" px-[20px] pb-[20px] flex flex-col gap-[15px] mt-4">
                         <h1 class="font-semibold md:text-[18px] text-[16px]">Barangay Clearance</h1>
                         <p class="font-normal md:text-[14px] text-[12px] text-[#52525B]">Issued to verify that an individual has no pending cases and maintains good standing within the Barangay community.</p>
