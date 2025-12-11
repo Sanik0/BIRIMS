@@ -103,26 +103,26 @@
             </div>
             <div class="flex w-full flex-col sm:flex-row gap-[50px] sm:gap-[0] items-center max-w-[1128px] justify-between">
                 <div class="flex flex-col shadow-[7px_0_0_#fdba74,0_7px_0_#fdba74] rounded-[5px] overflow-hidden w-full max-w-[308px] gap-[20px] bg-white">
-                    <img class="object-center object-cover" src="{{asset('svg/certificates/business.svg')}}" alt="Barangay Certificate for Business Photo">
+                    <img class="object-center object-cover" src="{{asset('svg/certificates/residency.svg')}}" alt="Barangay Certificate for Business Photo">
                     <div class=" px-[20px] pb-[20px] flex flex-col gap-[15px] mt-4">
-                        <h1 class="font-semibold md:text-[18px] text-[16px]">Barangay Certificate for Business</h1>
-                        <p class="font-normal md:text-[14px] text-[12px] text-[#52525B]">Issued to confirm that a business is operating within the Barangay and complies with local regulations.</p>
+                        <h1 class="font-semibold md:text-[18px] text-[16px]">Barangay Certificate of Residency</h1>
+                        <p class="font-normal md:text-[14px] text-[12px] text-[#52525B]">Issued to certify that a resident officially lives within the Barangay and is recognized by local authorities.</p>
                         <a href="{{url('signin')}}"  class="rounded-[5px] w-full flex gap-5 py-[10px] px-[15px] hover:text-orange-700 hover:bg-orange-50 transition-all duration-300 bg-white border border-orange-500 flex items-center justify-center text-[18px] text-orange-500 font-medium">Get Certificate</a>
                     </div>
                 </div>
                 <div class="flex flex-col shadow-[7px_0_0_#fdba74,0_7px_0_#fdba74] rounded-[5px] overflow-hidden w-full max-w-[308px] gap-[20px] bg-white">
-                    <img class="object-center object-cover" src="{{asset('svg/certificates/business.svg')}}" alt="Barangay Certificate for Business Photo">
+                    <img class="object-center object-cover" src="{{asset('svg/certificates/no-objection.svg')}}" alt="Barangay Certificate for Business Photo">
                     <div class=" px-[20px] pb-[20px] flex flex-col gap-[15px] mt-4">
-                        <h1 class="font-semibold md:text-[18px] text-[16px]">Barangay Certificate for Business</h1>
-                        <p class="font-normal md:text-[14px] text-[12px] text-[#52525B]">Issued to confirm that a business is operating within the Barangay and complies with local regulations.</p>
+                        <h1 class="font-semibold md:text-[18px] text-[16px]">Barangay Clearance</h1>
+                        <p class="font-normal md:text-[14px] text-[12px] text-[#52525B]">Issued to verify that an individual has no pending cases and maintains good standing within the Barangay community.</p>
                         <a href="{{url('signin')}}"  class="rounded-[5px] w-full flex gap-5 py-[10px] px-[15px] hover:text-orange-700 hover:bg-orange-50 transition-all duration-300 bg-white border border-orange-500 flex items-center justify-center text-[18px] text-orange-500 font-medium">Get Certificate</a>
                     </div>
                 </div>
                 <div class="flex flex-col shadow-[7px_0_0_#fdba74,0_7px_0_#fdba74] rounded-[5px] overflow-hidden w-full max-w-[308px] gap-[20px] bg-white">
-                    <img class="object-center object-cover" src="{{asset('svg/certificates/business.svg')}}" alt="Barangay Certificate for Business Photo">
+                    <img class="object-center object-cover" src="{{asset('svg/certificates/indigency.svg')}}" alt="Barangay Certificate for indigency Photo">
                     <div class=" px-[20px] pb-[20px] flex flex-col gap-[15px] mt-4">
-                        <h1 class="font-semibold md:text-[18px] text-[16px]">Barangay Certificate for Business</h1>
-                        <p class="font-normal md:text-[14px] text-[12px] text-[#52525B]">Issued to confirm that a business is operating within the Barangay and complies with local regulations.</p>
+                        <h1 class="font-semibold md:text-[18px] text-[16px]">Barangay Certificate of Indigency</h1>
+                        <p class="font-normal md:text-[14px] text-[12px] text-[#52525B]">Issued to certify that an individual has no complaints and meets all Barangay requirements for clearance.</p>
                         <a href="{{url('signin')}}"  class="rounded-[5px] w-full flex gap-5 py-[10px] px-[15px] hover:text-orange-700 hover:bg-orange-50 transition-all duration-300 bg-white border border-orange-500 flex items-center justify-center text-[18px] text-orange-500 font-medium">Get Certificate</a>
                     </div>
                 </div>
@@ -234,7 +234,7 @@
             </svg>
             <div class="w-full h-full flex flex-col gap-[10px] justify-center items-center md:px-[150px] text-center">
                 <div class="w-full flex flex-col items-center">
-                    <h1 class="z-10 relative md:text-[54px] text-[40px] font-medium w-full underline decoration-[var(--orange)] decoration-9 underline-offset-[1px]" style="font-family: --font-ibm-plex-serif;">Create Your Account Now</h1>
+                    <h1 class="z-10 relative md:text-[54px] text-[40px] font-medium w-full underline decoration-orange-500 decoration-9 underline-offset-[1px]" style="font-family: --font-ibm-plex-serif;">Create Your Account Now</h1>
                 </div>
                 <p class="md:text-[18px] text-[14px] text-[#A1A1AA] font-medium">So what are you waiting for? Request now your first online barangay document by signing in or creating your account!</p>
                 <div class="flex md:gap-12 gap-6 mt-4 md:flex-row flex-col">
