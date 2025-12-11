@@ -181,65 +181,96 @@
         </section>
     </main>
     <!-- Footer Section -->
-    <footer class="md:max-h-[230px] h-[200px] w-full flex-col md:flex-row flex justify-between items-center px-[20px] lg:px-20 md:px-[20px] pt-[30px] md:py-0 text-center md:text-left">
-        <div class="pb-[10px] md:pb-0 w-full md:block md:truncate">
-            <div class="flex items-center gap-2.5 mb-4 justify-center md:justify-start">
-                <div class="h-[30px] w-[30px] min-w-[30px] rounded-[50%] flex items-center justify-center bg-orange-500 p-[5px]">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
-                        <path fill="#ffffff" d="M15 17a6 6 0 1 0 0-12a6 6 0 0 0 0 12Zm18 0a6 6 0 1 0 0-12a6 6 0 0 0 0 12ZM4 22.446A3.446 3.446 0 0 1 7.446 19h9.624A7.963 7.963 0 0 0 16 23a7.98 7.98 0 0 0 2.708 6h-2.262a5.444 5.444 0 0 0-4.707 2.705c-3.222-.632-5.18-2.203-6.32-3.968C4 25.54 4 23.27 4 22.877v-.43ZM31.554 29a5.444 5.444 0 0 1 4.707 2.705c3.222-.632 5.18-2.203 6.32-3.968C44 25.54 44 23.27 44 22.877v-.43A3.446 3.446 0 0 0 40.554 19H30.93A7.963 7.963 0 0 1 32 23a7.98 7.98 0 0 1-2.708 6h2.262ZM30 23a6 6 0 1 1-12 0a6 6 0 0 1 12 0ZM13 34.446A3.446 3.446 0 0 1 16.446 31h15.108A3.446 3.446 0 0 1 35 34.446v.431c0 .394 0 2.663-1.419 4.86C32.098 42.033 29.233 44 24 44s-8.098-1.967-9.581-4.263C13 37.54 13 35.27 13 34.877v-.43Z" />
-                    </svg>
+    <!-- Footer Section -->
+    <footer class="w-full bg-white border-t border-gray-200">
+        <div class=" mx-auto px-5 lg:px-20 md:px-10 py-5">
+            <div class="flex flex-col md:flex-row justify-between gap-12 md:gap-8">
+                <!-- Brand & Contact Info -->
+                <div class="w-full md:w-auto md:max-w-sm">
+                    <!-- Logo -->
+                    <div class="flex items-center gap-2.5 mb-6 justify-center md:justify-start">
+                        <div class="h-8 w-8 min-w-[32px] rounded-full flex items-center justify-center bg-orange-600 p-1.5">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-full h-full">
+                                <path fill="#ffffff" d="M15 17a6 6 0 1 0 0-12a6 6 0 0 0 0 12Zm18 0a6 6 0 1 0 0-12a6 6 0 0 0 0 12ZM4 22.446A3.446 3.446 0 0 1 7.446 19h9.624A7.963 7.963 0 0 0 16 23a7.98 7.98 0 0 0 2.708 6h-2.262a5.444 5.444 0 0 0-4.707 2.705c-3.222-.632-5.18-2.203-6.32-3.968C4 25.54 4 23.27 4 22.877v-.43ZM31.554 29a5.444 5.444 0 0 1 4.707 2.705c3.222-.632 5.18-2.203 6.32-3.968C44 25.54 44 23.27 44 22.877v-.43A3.446 3.446 0 0 0 40.554 19H30.93A7.963 7.963 0 0 1 32 23a7.98 7.98 0 0 1-2.708 6h2.262ZM30 23a6 6 0 1 1-12 0a6 6 0 0 1 12 0ZM13 34.446A3.446 3.446 0 0 1 16.446 31h15.108A3.446 3.446 0 0 1 35 34.446v.431c0 .394 0 2.663-1.419 4.86C32.098 42.033 29.233 44 24 44s-8.098-1.967-9.581-4.263C13 37.54 13 35.27 13 34.877v-.43Z" />
+                            </svg>
+                        </div>
+                        <h1 class="font-semibold text-2xl md:text-3xl text-orange-600">BIRIMS</h1>
+                    </div>
+
+                    <!-- Contact Details -->
+                    <div class="flex flex-col gap-3">
+                        <a href="https://maps.app.goo.gl/t9oBHUwfVVHSXJFs9" target="_blank" class="flex items-start gap-3 group text-center md:text-left justify-center md:justify-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-5 h-5 mt-0.5 flex-shrink-0 stroke-gray-600 group-hover:stroke-orange-600 transition-colors">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                            </svg>
+                            <p class="text-sm font-medium text-gray-600 group-hover:text-orange-600 transition-colors">
+                                Quirino Hwy, Novaliches, Quezon City, Metro Manila, Philippines
+                            </p>
+                        </a>
+
+                        <a href="https://www.facebook.com/brgysanbartolome2014" target="_blank" class="flex items-center gap-3 group justify-center md:justify-start">
+                            <svg class="w-5 h-5 flex-shrink-0 fill-gray-600 group-hover:fill-orange-600 transition-colors" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                                <path d="m1416.013 791.915-30.91 225.617h-371.252v789.66H788.234v-789.66H449.808V791.915h338.426V585.137c0-286.871 176.207-472.329 449.09-472.329 116.87 0 189.744 6.205 231.822 11.845l-3.272 213.66-173.5.338c-4.737-.451-117.771-9.25-199.332 65.655-52.568 48.169-79.191 117.433-79.191 205.65v181.96h402.162Zm-247.276-304.018c44.446-41.401 113.71-36.889 118.787-36.663l289.467-.113 6.204-417.504-43.544-10.717C1511.675 16.02 1426.053 0 1237.324 0 901.268 0 675.425 235.206 675.425 585.137v93.97H337v451.234h338.425V1920h451.234v-789.66h356.7l61.932-451.233H1126.66v-69.152c0-54.937 14.214-96 42.078-122.058Z" fill-rule="evenodd" />
+                            </svg>
+                            <p class="text-sm font-medium text-gray-600 group-hover:text-orange-600 transition-colors">
+                                www.facebook.com/brgysanbartolome2014
+                            </p>
+                        </a>
+
+                        <a href="mailto:birims.sanbartolome@gmail.com" class="flex items-center gap-3 group justify-center md:justify-start">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-5 h-5 flex-shrink-0 stroke-gray-600 group-hover:stroke-orange-600 transition-colors">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                            </svg>
+                            <p class="text-sm font-medium text-gray-600 group-hover:text-orange-600 transition-colors">
+                                birims.sanbartolome@gmail.com
+                            </p>
+                        </a>
+                    </div>
                 </div>
-                <h1 class="font-medium font md:text-[30px] text-[24px] text-[#EA580C]">BIRIMS</h1>
-            </div>
-            <div class="w-full flex flex-col gap-[10px]">
-                <div class="w-full flex stroke-[var(--darkgray)] items-center gap-[10px] justify-center md:justify-start">
-                    <svg class="fill-gray-700 w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="size-8 md:size-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                    </svg>
-                    <p class="w-fit block truncate font-medium text-[#A1A1AA] text-[12px]">Quirino Hwy, Novaliches, Quezon City, Metro Manila, Philippines</p>
+
+                <!-- Navigation Sections -->
+                <div class="w-full flex flex-col md:flex-row justify-center md:justify-end gap-12 md:gap-16 lg:gap-20 text-center md:text-left">
+                    <!-- Services -->
+                    <div class="flex flex-col gap-4">
+                        <h2 class="font-semibold text-base md:text-lg text-gray-900">Services</h2>
+                        <ul class="flex flex-col gap-2.5">
+                            <li><a href="/signin" class="footer-nav">Blotter</a></li>
+                            <li><a href="/signin" class="footer-nav">Documents</a></li>
+                            <li><a href="/signin" class="footer-nav">Appointment</a></li>
+                            <li><a href="/signin" class="footer-nav">Announcement</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="flex flex-col gap-4">
+                        <h2 class="font-semibold text-base md:text-lg text-gray-900">Navigation</h2>
+                        <ul class="flex flex-col gap-2.5">
+                            <li><a href="/" class="footer-nav active-footer">Home</a></li>
+                            <li><a href="/about" class="footer-nav">About</a></li>
+                            <li><a href="/contact" class="footer-nav">Contact</a></li>
+                            <li><a href="/signin" class="footer-nav">Sign In</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Resources -->
+                    <div class="flex flex-col gap-4">
+                        <h2 class="font-semibold text-base md:text-lg text-gray-900">Resources</h2>
+                        <ul class="flex flex-col gap-2.5">
+                            <li><a href="/faq" class="footer-nav">FAQs</a></li>
+                            <li><a href="/terms" class="footer-nav">Terms</a></li>
+                            <li><a href="/privacy" class="footer-nav">Privacy Policy</a></li>
+                            <li><a href="/signup" class="footer-nav">Sign Up</a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="w-full flex stroke-[var(--darkgray)] items-center gap-[10px] justify-center md:justify-start">
-                    <svg class="fill-gray-700 w-5 h-5" class="size-5" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
-                        <path d="m1416.013 791.915-30.91 225.617h-371.252v789.66H788.234v-789.66H449.808V791.915h338.426V585.137c0-286.871 176.207-472.329 449.09-472.329 116.87 0 189.744 6.205 231.822 11.845l-3.272 213.66-173.5.338c-4.737-.451-117.771-9.25-199.332 65.655-52.568 48.169-79.191 117.433-79.191 205.65v181.96h402.162Zm-247.276-304.018c44.446-41.401 113.71-36.889 118.787-36.663l289.467-.113 6.204-417.504-43.544-10.717C1511.675 16.02 1426.053 0 1237.324 0 901.268 0 675.425 235.206 675.425 585.137v93.97H337v451.234h338.425V1920h451.234v-789.66h356.7l61.932-451.233H1126.66v-69.152c0-54.937 14.214-96 42.078-122.058Z" fill-rule="evenodd" />
-                    </svg>
-                    <p class="w-fit block truncate font-medium text-[#A1A1AA] text-[12px]">www.facebook.com/brgysanbartolome2014</p>
-                </div>
-                <div class="w-full flex stroke-[var(--darkgray)] items-center gap-[10px] justify-center md:justify-start">
-                    <svg class="fill-gray-700 w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-                    </svg>
-                    <p class="w-fit block truncate font-medium text-[#A1A1AA] text-[12px]">birim.sanbartolome@gmail.com</p>
-                </div>
             </div>
-        </div>
-        <div class="w-full flex flex-col md:flex-row justify-end lg:gap-[70px] md:gap-[30px] gap-[20px] pb-[20px] md:pb-0">
-            <div class="flex flex-col gap-[5px]">
-                <h2 class="font-medium md:text-[18px] text-[16px]">Services</h2>
-                <ul class="flex flex-col gap-[5px]">
-                    <li><a href="{{url('signin')}}" class="footer-nav">Blotter</a></li>
-                    <li><a href="{{url('signin')}}" class="footer-nav">Documents</a></li>
-                    <li><a href="{{url('signin')}}" class="footer-nav">Appointment</a></li>
-                    <li><a href="{{url('signin')}}" class="footer-nav">Announcement</a></li>
-                </ul>
-            </div>
-            <div class="flex flex-col gap-[5px]">
-                <h2 class="font-mediummd:text-[18px] text-[16px]">Navigation</h2>
-                <ul class="flex flex-col gap-[5px]">
-                    <li><a href="{{url('/')}}" class="footer-nav {{request()-> is('/') ? 'active-footer' : ''}}">Home</a></li>
-                    <li><a href="{{url('about')}}" class="footer-nav {{request()-> is('about') ? 'active-footer' : ''}}">About</a></li>
-                    <li><a href="{{url('contact')}}" class="footer-nav {{request()-> is('contact') ? 'active-footer' : ''}}">Contact</a></li>
-                    <li><a href="{{url('signin')}}" class="footer-nav">Sign In</a></li>
-                </ul>
-            </div>
-            <div class="flex flex-col gap-[5px]">
-                <h2 class="font-medium md:text-[18px] text-[16px]">Resources</h2>
-                <ul class="flex flex-col gap-[5px]">
-                    <li><a href="{{url('faq')}}" class="footer-nav {{request()-> is('faq') ? 'active-footer' : ''}}">FAQs</a></li>
-                    <li><a href="{{url('terms')}}" class="footer-nav {{request()-> is('terms') ? 'active-footer' : ''}}">Terms</a></li>
-                    <li><a href="{{url('privacy')}}" class="footer-nav {{request()-> is('privacy') ? 'active-footer' : ''}}">Privacy Policy</a></li>
-                    <li><a href="{{url('signup')}}" class="footer-nav">Sign Up</a></li>
-                </ul>
+
+            <!-- Bottom Bar -->
+            <div class="mt-12 pt-8 border-t border-gray-200">
+                <p class="text-center text-sm text-gray-500">
+                    © 2025 BIRIMS. All rights reserved. | Barangay San Bartolome, Quezon City
+                </p>
             </div>
         </div>
     </footer>

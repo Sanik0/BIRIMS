@@ -26,6 +26,9 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about');
 });
+Route::get('/terms', function () {
+    return view('terms');
+});
 Route::get('/contact', function () {
     return view('contact');
 });
