@@ -34,7 +34,12 @@ class OrderController extends Controller
             'name' => 'Business Permit Clearance',
             'amount' => 200,
             'fields' => ['full_name', 'address', 'purpose', 'mode_payment']
-        ]
+        ],
+        'certificate_of_good_moral' => [
+            'name' => 'Certificate of Good Moral',
+            'amount' => 20,
+            'fields' => ['full_name', 'age', 'address', 'purpose', 'mode_payment']
+        ],
     ];
 
     public function index()
@@ -97,7 +102,7 @@ class OrderController extends Controller
 
             // Delivery fee
             if (isset($validated['mode_payment']) && $validated['mode_payment'] === 'Cash on Delivery') {
-                $actualAmount += 50;
+                $actualAmount += 30;
             }
 
             // Insert into order_information

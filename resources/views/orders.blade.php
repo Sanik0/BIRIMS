@@ -80,9 +80,10 @@
                     <div class="flex items-center gap-[10px] max-w-[579px]">
                         <div class="flex flex-col">
                             <h1 class="font-serif font-medium sm:text-[35px] text-[25px]">My Orders</h1>
-                            <p class="sm:text-[16px] text-[14px] font-medium text-[#A1A1AA]">Lorem ipsum dolor sit amet, consectetur adipiscing
-                                elit, sed do eiusmod tempor incididunt ut
-                                 labore et dolore </p>
+                            <p class="sm:text-[16px] text-[14px] font-medium text-[#A1A1AA]">
+                                View all your requested barangay documents, including their status, fees, and other details.
+                                Keep track of your orders easily in one place.
+                            </p>
                         </div>
                     </div>
                     <div class="sm:flex items-center hidden gap-[20px]">

@@ -113,9 +113,9 @@
                                 <img src="{{asset('images/download (6).png')}}" class="w-full h-[full] object-center object-cover" alt="">
                             </div>
                             <div>
-                                <p class="font-medium text-[16px] font-serif text-center">Republic Of the Philippines</p>
+                                <p class="font-medium text-[16px] font-serif text-center">Republic of the Philippines</p>
                                 <p class="font-medium text-[16px] font-serif text-center">National Capital Region</p>
-                                <p class="font-medium text-[16px] font-serif text-center">Municipality OF Lorem Ipsum</p>
+                                <p class="font-medium text-[16px] font-serif text-center">Quezon City</p>
                                 <p class="font-medium text-[16px] font-serif text-center">Barangay San Bartolome</p>
                             </div>
                             <div class="font-bold text-[18px] font-serif text-center">OFFICE OF THE SANGGUNIANG BAYAN</div>
@@ -205,7 +205,7 @@
                                 </div>
                                 <div class="flex items-start flex-col sm:flex-row gap-[10px] w-full max-w-[700px]">
                                     <label class="text-[16px] font-semibold font-serif" for="time">Time of Incident:</label>
-                                    <input required  name="incident_time" id="time" class="border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="time" value="{{ old('incident_time') }}">
+                                    <input required name="incident_time" id="time" class="border-b-[1px] text-[16px] focus:outline-none text-regular font-serif" type="time" value="{{ old('incident_time') }}">
                                 </div>
                             </div>
                             @error('incident_date')

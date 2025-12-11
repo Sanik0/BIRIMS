@@ -193,7 +193,6 @@
                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Document Type</th>
                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Requested By</th>
                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Date Requested</th>
-                                  <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Payment Mode</th>
                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Status</th>
                                   <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Action</th>
                               </tr>
@@ -208,23 +207,14 @@
                                   <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">
                                       {{ \Carbon\Carbon::parse($order->ordered_at)->format('d-m-Y') }}
                                   </td>
-                                  <td class="px-[20px] py-[10px] font-regular text-[15px]">
-                                      <span class="px-3 py-1 rounded-full text-sm font-medium
-                    @if($order->mode_payment == 'Cash on Delivery') bg-orange-100 text-orange-700 border border-orange-200
-                    @elseif($order->mode_payment == 'Pay at Counter (Pick Up)') bg-indigo-100 text-indigo-700 border border-indigo-200
-                    @else bg-gray-100 text-gray-700 border border-gray-200
-                    @endif">
-                                          {{ $order->mode_payment ?? 'N/A' }}
-                                      </span>
-                                  </td>
                                   <td class="px-[20px] py-[10px] font-regular text-[16px]">
-                                      <span class="px-3 py-1 rounded-full text-sm font-medium
-                    @if($order->status == 'Pending') bg-yellow-100 text-yellow-800
-                    @elseif($order->status == 'Processing') bg-blue-100 text-blue-800
-                    @elseif($order->status == 'Ready for Pickup') bg-purple-100 text-purple-800
-                    @elseif($order->status == 'Delivered') bg-green-100 text-green-800
-                    @elseif($order->status == 'Cancelled') bg-red-100 text-red-800
-                    @endif">
+                                                        <span class="px-3 py-1 rounded-full text-sm font-medium
+                                        @if($order->status == 'Pending') bg-yellow-100 text-yellow-800
+                                        @elseif($order->status == 'Processing') bg-blue-100 text-blue-800
+                                        @elseif($order->status == 'Ready for Pickup') bg-purple-100 text-purple-800
+                                        @elseif($order->status == 'Delivered') bg-green-100 text-green-800
+                                        @elseif($order->status == 'Cancelled') bg-red-100 text-red-800
+                                        @endif">
                                           {{ $order->status }}
                                       </span>
                                   </td>
@@ -276,11 +266,11 @@
 
                               <h6 class="text-[14px] text-gray-600 font-semibold">Payment Mode:</h6>
                               <p class="text-[16px] font-medium">
-                                  <span class="px-3 py-1 rounded-full text-sm font-medium
-                @if($order->mode_payment == 'Cash on Delivery') bg-orange-100 text-orange-700 border border-orange-200
-                @elseif($order->mode_payment == 'Pay at Counter (Pick Up)') bg-indigo-100 text-indigo-700 border border-indigo-200
-                @else bg-gray-100 text-gray-700 border border-gray-200
-                @endif">
+                                                    <span class="px-3 py-1 rounded-full text-sm font-medium
+                                    @if($order->mode_payment == 'Cash on Delivery') bg-orange-100 text-orange-700
+                                    @elseif($order->mode_payment == 'Pay at Counter (Pick Up)') bg-indigo-100 text-indigo-700
+                                    @else bg-gray-100 text-gray-700 
+                                    @endif">
                                       {{ $order->mode_payment ?? 'N/A' }}
                                   </span>
                               </p>
@@ -306,13 +296,13 @@
                                       </svg>
                                       View
                                   </button>
-                                  <button data-order-id="{{ $order->order_id }}" class="editBtn bg-green-100 text-green-500 border-green-500 border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
+                                  <button data-order-id="{{ $order->order_id }}" class="editBtn bg-green-100 text-green-500 border-green-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px] font-medium text-[14px]">
                                       <svg class="h-[20px] transition-all duration-300 fill-green-500 w-[20px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                           <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z" />
                                       </svg>
                                       Edit
                                   </button>
-                                  <button data-order-id="{{ $order->order_id }}" class="deleteBtn bg-red-100 text-red-500 border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px font-medium text-[14px">
+                                  <button data-order-id="{{ $order->order_id }}" class="deleteBtn bg-red-100 text-red-500 border-red-500 group cursor-pointer transition-all duration-300 rounded-[4px] px-[10px] py-[3px] flex items-center gap-[8px] border-[1px font-medium text-[14px]">
                                       <svg class="h-[20px] transition-all duration-300 fill-red-500 w-[20px]" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF">
                                           <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                       </svg>

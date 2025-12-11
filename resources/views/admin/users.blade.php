@@ -55,7 +55,7 @@
                  <div class="flex flex-col w-full">
                      <Label class="font-medium text-[18px]">Civil Status:</Label>
                      <Select name="civil" class="py-[10px] border-b-[1px] border-b-gray-700 focus:outline-none font-regular text-gray-600 text-[18px]">
-                         <option value="">Choose Gender</option>
+                         <option value="">Choose Status</option>
                          <option value="single" {{ old('civil') == 'single' ? 'selected' : '' }}>Single</option>
                          <option value="married" {{ old('civil') == 'married' ? 'selected' : '' }}>Married</option>
                      </Select>
@@ -423,9 +423,8 @@
                          <tr class="border-b-[1px] border-gray-300 bg-[#FFF7ED]">
                              <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Name</th>
                              <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Email</th>
-                             <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Verified</th>
-                             <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Role</th>
                              <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Date Created</th>
+                             <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Status</th>
                              <th class="px-[20px] py-[10px] font-medium text-[16px] text-gray-600">Action</th>
                          </tr>
                      </thead>
@@ -434,9 +433,18 @@
                          <tr class="border-b-[1px] border-gray-300 bg-white">
                              <td class="px-[20px] py-[10px] font-regular text-[16px] text-black">{{ $user->firstname}} {{ $user->middlename ? substr($user->middlename, 0, 1) . '.' : '' }} {{ $user->lastname}}</td>
                              <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600 underline">{{ $user->email}}</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">No</td>
-                             <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $user->role == 0 ? 'Resident' : 'Admin'}}</td>
                              <td class="px-[20px] py-[10px] font-regular text-[16px] text-gray-600">{{ $user->created_at}}</td>
+                             <td class="px-[20px] py-[10px] font-regular text-[16px]">
+                                 @if($user->verification && $user->verification->status === 'verified')
+                                 <span class="bg-green-100 text-green-700 px-[12px] py-[4px] rounded-full text-[14px] font-medium inline-flex items-center gap-[6px]">
+                                     Verified
+                                 </span>
+                                 @else
+                                 <span class="bg-gray-100 whitespace-nowrap text-gray-600 px-[12px] py-[4px] rounded-full text-[14px] font-medium inline-flex items-center gap-[6px]">
+                                     Not Verified
+                                 </span>
+                                 @endif
+                             </td>
                              <td class="px-[20px] py-[10px] font-regular text-[16px] w-fit text-gray-600 flex items-center gap-[10px]">
                                  <button data-modal="viewModal"
                                      data-user-id="{{ $user->user_id }}"
@@ -505,10 +513,18 @@
                          <p class="text-[16px] font-medium">{{ $user->firstname}} {{ $user->middlename ? substr($user->middlename, 0, 1) . '.' : '' }} {{ $user->lastname}}</p>
                          <h6 class="text-[14px] text-gray-600 font-semibold">Email:</h6>
                          <p class="text-[16px] font-medium underline">{{ $user->email }}</p>
-                         <h6 class="text-[14px] text-gray-600 font-semibold">Verified:</h6>
-                         <p class="text-[16px] font-medium">No</p>
-                         <h6 class="text-[14px] text-gray-600 font-semibold">Role:</h6>
-                         <p class="text-[16px] font-medium">{{ $user->role == 0 ? 'Resident' : 'Admin'}}</p>
+                         <h6 class="text-[14px] text-gray-600 font-semibold">Contact:</h6>
+                         <p class="text-[16px] font-medium">{{ $user->contact }}</p>
+                         <h6 class="text-[14px] text-gray-600 font-semibold">Status:</h6>
+                         @if($user->verification && $user->verification->status === 'verified')
+                         <span class="bg-green-100 w-fit text-green-700 px-[12px] py-[4px] rounded-full text-[14px] font-medium inline-flex items-center gap-[6px]">
+                             Verified
+                         </span>
+                         @else
+                         <span class="bg-gray-100 w-fit whitespace-nowrap text-gray-600 px-[12px] py-[4px] rounded-full text-[14px] font-medium inline-flex items-center gap-[6px]">
+                             Not Verified
+                         </span>
+                         @endif
                          <h6 class="text-[14px] text-gray-600 font-semibold">Action:</h6>
                          <div class="w-full flex items-center gap-[10px]">
                              <button data-modal="viewModal"

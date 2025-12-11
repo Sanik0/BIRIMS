@@ -557,18 +557,11 @@
                        <div class="flex flex-col gap-[15px] w-full mb-[30px]">
                            <h2 class="font-bold text-[25px]">Account & Privacy</h2>
                            <div class="w-full rounded-[4px] border-solid border-[1px] py-[20px] border-[#D4D4D8]">
-                               <div class="border-b-[1px] px-[20px] py-[15px] border-b-[#D4D4D8] w-fill flex items-center justify-between">
+                               <div class="px-[20px] py-[15px] w-fill flex items-center justify-between">
                                    <div class="flex flex-col">
                                        <div class="font-semibold text-[16px]">Change Password</div>
                                    </div>
                                    <div id="pwdBtn" class="hover:cursor-pointer hover:text-orange-700 transition-text duration-300 font-bold text-[#EA580C] text-[20px]">Edit</div>
-                               </div>
-                               <div class=" px-[20px] py-[15px] w-fill flex items-center justify-between">
-                                   <div class="flex flex-col">
-                                       <div class="font-semibold text-[16px]">Delete My Account</div>
-                                       <p class="font-regular text-[16px] py-[10px] text-[#52525B]">This will Delete all your account's information and cannot be undone</p>
-                                   </div>
-                                   <div id="deleteAccBtn" class="hover:cursor-pointer hover:text-orange-700 transition-text duration-300 font-bold text-[#EA580C] text-[20px]">Delete</div>
                                </div>
                            </div>
                        </div>

@@ -112,6 +112,7 @@
                                  <option value="certificate_of_residency">Certificate of Residency</option>
                                  <option value="barangay_clearance">Barangay Clearance</option>
                                  <option value="certificate_of_indigency">Certificate of Indigency</option>
+                                 <option value="certificate_of_good_moral">Certificate of Good Moral</option>
                              </select>
                          </div>
 
@@ -162,19 +163,24 @@
                  const documentConfigs = {
                      certificate_of_residency: {
                          name: 'Certificate of Residency',
-                         amount: 50,
+                         amount: 20,
                          fields: ['full_name', 'address', 'age', 'years_residency', 'purpose', 'mode_payment']
                      },
                      barangay_clearance: {
                          name: 'Barangay Clearance',
-                         amount: 100,
+                         amount: 20,
                          fields: ['full_name', 'address', 'civil_status', 'purpose', 'valid_until', 'mode_payment']
                      },
                      certificate_of_indigency: {
                          name: 'Certificate of Indigency',
-                         amount: 0,
+                         amount: 20,
                          fields: ['full_name', 'age', 'address', 'occupation', 'monthly_income', 'num_family_members', 'purpose', 'mode_payment']
                      },
+                     certificate_of_good_moral: {
+                        name: 'Certificate of Good Moral',
+                        amount: 20,
+                        fields: ['full_name', 'age', 'address', 'purpose', 'mode_payment']
+                    },
                  };
 
                  const fieldDefinitions = {
@@ -452,7 +458,7 @@
                          baseAmount = 0;
                      }
 
-                     const deliveryFee = paymentMode === 'Cash on Delivery' ? 50 : 0;
+                     const deliveryFee = paymentMode === 'Cash on Delivery' ? 30 : 0;
                      const totalAmount = baseAmount + deliveryFee;
 
                      updateTotalDisplay(totalAmount, deliveryFee, baseAmount, isEducational);

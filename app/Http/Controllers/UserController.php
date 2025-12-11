@@ -8,10 +8,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+
     // Show Users
     public function index(Request $request)
     {
-        $query = User::query();
+        $query = User::with('verification'); // Add eager loading here
 
         // Search by name (firstname, lastname, or middlename)
         if ($request->has('search') && $request->search != '') {
@@ -23,7 +24,7 @@ class UserController extends Controller
             });
         }
 
-        $users = $query->paginate(10);
+        $users = $query->paginate(10); // Keep pagination
 
         return view('admin.users', compact('users'));
     }
@@ -118,7 +119,7 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'User updated successfully.');
     }
-    
+
 
     // Delete User
     public function destroy($id)
